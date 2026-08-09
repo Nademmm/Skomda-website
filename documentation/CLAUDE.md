@@ -4,7 +4,7 @@ Instruksi project-level untuk Claude Code. File ini otomatis dibaca tiap sesi.
 
 ## Ringkasan Proyek
 
-Redesign website sekolah SMK Telkom Sidoarjo. Stack: **Next.js 15 (App Router) + TypeScript + Tailwind CSS + Prisma/Postgres + Cloudinary**. Lihat `01-PRD.md` dan `02-ARCHITECTURE.md` di root repo untuk spek lengkap sebelum mulai kerja apa pun.
+Redesign website sekolah SMK Telkom Sidoarjo. Stack: **Frontend Next.js 15 (App Router) + TypeScript + Tailwind CSS**, **Backend Go/Gin + Postgres (GORM/sqlc)**, media di **Cloudinary**. Frontend dan backend adalah dua service terpisah (lihat `02-ARCHITECTURE.md` untuk struktur `backend/` vs `frontend/`). Lihat `01-PRD.md` dan `02-ARCHITECTURE.md` di root repo untuk spek lengkap sebelum mulai kerja apa pun.
 
 ## Aturan Kerja
 
@@ -28,22 +28,35 @@ Delegasikan task ke agent yang sesuai domainnya. Kalau task lintas domain (mis. 
 
 ## Perintah Umum
 
+**Frontend:**
 ```bash
+cd frontend
 npm run dev          # local dev server
 npm run build         # production build — WAJIB lulus sebelum lapor selesai
 npm run lint          # eslint
 npx tsc --noEmit       # type check
-npx prisma migrate dev # jalanin migration setelah ubah schema
+```
+
+**Backend:**
+```bash
+cd backend
+go run ./src/cmd/server   # local dev server
+go vet ./...
+go test ./...
+golangci-lint run
 ```
 
 ## Struktur Referensi Cepat
 
-- `src/app/(marketing)/**` — halaman publik (Beranda, Jurusan, DTP, Berita, VR Tour, Kontak)
-- `src/app/alumni/**`, `src/app/bkk/**`, `src/app/marketplace/**` — fitur P1
-- `src/app/admin/**` — dashboard staff, protected
-- `src/app/api/**` — semua backend logic
-- `src/content/**` — markdown konten (jurusan, berita)
-- `src/lib/data.ts` — data terstruktur editable (mirip pola di proyek STUDIO_VOID)
+- `frontend/src/app/(marketing)/**` — halaman publik (Beranda, Jurusan, DTP, Berita, VR Tour, Kontak)
+- `frontend/src/app/alumni/**`, `bkk/**`, `marketplace/**` — fitur P1
+- `frontend/src/app/admin/**` — dashboard staff, protected (UI saja — enforcement asli di backend)
+- `frontend/src/services/**` — API client yang manggil backend Go, satu-satunya jalur frontend ke data
+- `frontend/src/content/**` — markdown konten (jurusan, berita), fallback/cache lokal
+- `frontend/src/lib/data.ts` — data terstruktur editable (mirip pola di proyek STUDIO_VOID)
+- `backend/src/api/**` — route handler per domain (chatbot, alumni, lowongan, berita, jurusan, admin)
+- `backend/src/client/**` — service layer/business logic (llm, cloudinary, auth)
+- `backend/src/models/**` — DB models
 
 ## Definition of Done (per fitur)
 
