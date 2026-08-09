@@ -15,69 +15,48 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/a
 
 // Fallback data terformat jika backend offline atau error
 const fallbackDataMap: Record<string, JurusanItem> = {
-  rpl: {
+  sija: {
     id: 1,
-    kode: "RPL",
-    nama: "Rekayasa Perangkat Lunak",
-    slug: "rpl",
+    kode: "SIJA",
+    nama: "Sistem Informasi Jaringan dan Aplikasi",
+    slug: "sija",
     deskripsi:
-      "Membangun aplikasi web & mobile dari nol — dari desain sistem, pengembangan backend & frontend, hingga deployment industri.",
-    skills: ["Pemrograman Web", "Basis Data", "Mobile Development", "DevOps Dasar"],
+      "Program 4 tahun yang mempelajari pemrograman, pengelolaan basis data, dan sistem informasi berbasis teknologi modern.",
+    skills: [
+      "Software Development (Web, Mobile, Desktop)",
+      "Database & Cloud Computing",
+      "Networking & Cybersecurity",
+    ],
     prospek_karier: [
       "Software Engineer",
-      "Fullstack Developer",
+      "Web Developer",
       "Mobile App Developer",
       "Database Administrator",
+      "IT Security Specialist",
+      "System Analyst",
     ],
-    gambar: "/images/jurusan/rpl.jpg",
+    gambar: "/images/jurusan/sija.jpg",
   },
-  tkj: {
+  tjat: {
     id: 2,
-    kode: "TKJ",
-    nama: "Teknik Komputer & Jaringan",
-    slug: "tkj",
+    kode: "TJAT",
+    nama: "Teknik Jaringan Akses Telekomunikasi",
+    slug: "tjat",
     deskripsi:
-      "Merancang, memasang, merawat infrastruktur jaringan enterprise, mengelola server cloud, dan mengamankan sistem komputer.",
-    skills: ["Jaringan Komputer", "Administrasi Server", "Keamanan Siber Dasar", "Cloud Computing"],
+      "Program 3 tahun yang fokus pada teknologi jaringan telekomunikasi, infrastruktur fiber optic, dan sistem komunikasi modern.",
+    skills: [
+      "Telecommunication Networks",
+      "Fiber Optic Technology (Instalasi, Maintenance, Troubleshooting)",
+      "Wireless Communication (Komunikasi Nirkabel & Seluler)",
+    ],
     prospek_karier: [
       "Network Engineer",
-      "System Administrator",
-      "Cloud Specialist",
-      "Cyber Security Analyst",
-    ],
-    gambar: "/images/jurusan/tkj.jpg",
-  },
-  mm: {
-    id: 3,
-    kode: "MM",
-    nama: "Multimedia",
-    slug: "mm",
-    deskripsi:
-      "Produksi konten visual kreatif, motion graphic, animasi 2D/3D, UI/UX design, dan video editing untuk industri digital & broadcast.",
-    skills: ["Desain Grafis", "Videografi & Editing", "Motion Design", "UI/UX Design"],
-    prospek_karier: [
-      "UI/UX Designer",
-      "Motion Graphic Artist",
-      "Video Editor",
-      "Creative Content Creator",
-    ],
-    gambar: "/images/jurusan/mm.jpg",
-  },
-  tt: {
-    id: 4,
-    kode: "TT",
-    nama: "Teknik Telekomunikasi",
-    slug: "tt",
-    deskripsi:
-      "Mempelajari sistem transmisi sinyal digital, teknologi komunikasi nirkabel (5G), jaringan fiber optik, dan infrastruktur telekomunikasi modern.",
-    skills: ["Fiber Optik", "Sistem Transmisi", "Jaringan Seluler", "RF & Nirkabel"],
-    prospek_karier: [
-      "Telecommunication Engineer",
+      "Telecommunication Technician",
       "Fiber Optic Specialist",
-      "Drive Test Engineer",
-      "Network Operation Center (NOC) Specialist",
+      "Wireless Network Administrator",
+      "ISP Technician",
     ],
-    gambar: "/images/jurusan/tt.jpg",
+    gambar: "/images/jurusan/tjat.jpg",
   },
 };
 

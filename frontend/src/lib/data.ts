@@ -23,37 +23,26 @@ export type Jurusan = {
   skills: string[];
 };
 
-// TODO: validasi kode & nama resmi jurusan ke pihak sekolah.
 export const jurusanList: Jurusan[] = [
   {
-    code: "RPL",
-    name: "Rekayasa Perangkat Lunak",
-    summary: "Membangun aplikasi web & mobile dari nol — dari desain sistem sampai deployment.",
-    skills: ["Pemrograman Web", "Basis Data", "Mobile Development"],
+    code: "SIJA",
+    name: "Sistem Informasi Jaringan dan Aplikasi",
+    summary:
+      "Program 4 tahun yang mempelajari pemrograman, pengelolaan basis data, infrastruktur jaringan, dan cloud computing.",
+    skills: ["Software Development", "Database & Cloud Computing", "Networking & Cybersecurity"],
   },
   {
-    code: "TKJ",
-    name: "Teknik Komputer & Jaringan",
-    summary: "Merancang, memasang, dan merawat infrastruktur jaringan dan sistem komputer.",
-    skills: ["Jaringan Komputer", "Administrasi Server", "Keamanan Siber Dasar"],
-  },
-  {
-    code: "MM",
-    name: "Multimedia",
-    summary: "Produksi konten visual, motion graphic, dan editing untuk kebutuhan digital & broadcast.",
-    skills: ["Desain Grafis", "Videografi", "Motion Design"],
-  },
-  {
-    code: "TT",
-    name: "Teknik Telekomunikasi",
-    summary: "Mempelajari sistem transmisi sinyal, jaringan fiber optik, dan infrastruktur telekomunikasi.",
-    skills: ["Fiber Optik", "Sistem Transmisi", "Jaringan Seluler"],
+    code: "TJAT",
+    name: "Teknik Jaringan Akses Telekomunikasi",
+    summary:
+      "Program 3 tahun yang fokus pada teknologi jaringan telekomunikasi, infrastruktur fiber optik, dan komunikasi nirkabel.",
+    skills: ["Telecommunication Networks", "Fiber Optic Technology", "Wireless Communication"],
   },
 ];
 
 export const stats = [
   { value: "9", label: "Spesialisasi Digital Talent Program" },
-  { value: "4", label: "Jurusan Vokasi Utama" },
+  { value: "2", label: "Program Keahlian Utama" },
   { value: "24/7", label: "Asisten Tanya-Jawab AI" },
 ];
 

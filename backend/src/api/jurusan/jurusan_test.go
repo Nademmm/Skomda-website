@@ -49,14 +49,14 @@ func TestGetJurusanList(t *testing.T) {
 	}
 	err := json.Unmarshal(w.Body.Bytes(), &resp)
 	assert.NoError(t, err)
-	assert.GreaterOrEqual(t, len(resp.Data), 4)
+	assert.GreaterOrEqual(t, len(resp.Data), 2)
 }
 
 func TestGetJurusanBySlugSuccess(t *testing.T) {
 	setupTestDB()
 	router := setupTestRouter()
 
-	req, _ := http.NewRequest(http.MethodGet, "/api/jurusan/rpl", nil)
+	req, _ := http.NewRequest(http.MethodGet, "/api/jurusan/sija", nil)
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 
@@ -67,8 +67,8 @@ func TestGetJurusanBySlugSuccess(t *testing.T) {
 	}
 	err := json.Unmarshal(w.Body.Bytes(), &resp)
 	assert.NoError(t, err)
-	assert.Equal(t, "RPL", resp.Data.Kode)
-	assert.Equal(t, "rpl", resp.Data.Slug)
+	assert.Equal(t, "SIJA", resp.Data.Kode)
+	assert.Equal(t, "sija", resp.Data.Slug)
 }
 
 func TestGetJurusanBySlugNotFound(t *testing.T) {

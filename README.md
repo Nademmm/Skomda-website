@@ -1,25 +1,95 @@
-# SMK Telkom Sidoarjo — Website Redesign
+# SMK Telkom Sidoarjo — Official Website Redesign
 
-Starter scaffold sesuai `02-ARCHITECTURE.md` (Opsi A: backend Go/Gin terpisah dari frontend Next.js).
+Redesign website resmi **SMK Telkom Sidoarjo** berbasis **Next.js 15 (App Router) + TypeScript + Tailwind CSS** di sisi frontend dan **Go (Gin) + Supabase PostgreSQL (GORM)** di sisi backend.
+
+---
+
+## 📚 Program Keahlian Utama (Jurusan)
+
+SMK Telkom Sidoarjo memiliki 2 program keahlian vokasi unggulan:
+
+### 1. SIJA — Sistem Informasi Jaringan dan Aplikasi (Program 4 Tahun)
+Program keahlian 4 tahun yang mempelajari secara mendalam pemrograman modern, pengelolaan basis data, infrastruktur jaringan, dan sistem informasi enterprise.
+- **Software Development**: Membangun aplikasi web, mobile, dan desktop yang fungsional dan modern.
+- **Database & Cloud Computing**: Pengelolaan basis data enterprise dan pengoperasian infrastruktur cloud computing.
+- **Networking & Cybersecurity**: Pengamanan sistem jaringan dan pencegahan ancaman kejahatan siber.
+- **Prospek Kerja**: Software Engineer, Web Developer, Mobile App Developer, Database Administrator, IT Security Specialist, System Analyst.
+
+### 2. TJAT — Teknik Jaringan Akses Telekomunikasi (Program 3 Tahun)
+Program keahlian 3 tahun yang berfokus pada teknologi jaringan telekomunikasi, infrastruktur fiber optik, dan sistem komunikasi modern.
+- **Telecommunication Networks**: Mempelajari teknologi jaringan telekomunikasi dan sistem komunikasi modern.
+- **Fiber Optic Technology**: Instalasi, pemeliharaan (maintenance), dan troubleshooting infrastruktur jaringan fiber optik.
+- **Wireless Communication**: Teknologi komunikasi nirkabel (wireless) dan optimalisasi jaringan seluler (4G/5G).
+- **Prospek Kerja**: Network Engineer, Telecommunication Technician, Fiber Optic Specialist, Wireless Network Administrator, ISP Technician.
+
+---
+
+## 🛠️ Stack Teknologi
+
+- **Frontend**: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS, Framer Motion.
+- **Backend**: Go (Golang), Gin Framework, GORM ORM.
+- **Database**: Supabase PostgreSQL (Cloud) dengan fallback otomatis ke SQLite (`smktelkom_dev.db`) untuk pengembangan lokal.
+- **Media & Assets**: Cloudinary (`f_auto,q_auto`).
+- **Architecture**: Monorepo terpisah (`frontend/` & `backend/`).
+
+---
+
+## 📁 Struktur Proyek
 
 ```
 smktelkom-web/
-├── frontend/   # Next.js 15 (App Router), TypeScript, Tailwind — lihat frontend/README.md
-├── backend/    # Go + Gin API — lihat backend/README.md
-└── .gitignore
+├── backend/            # Service API Backend Go/Gin
+│   ├── src/
+│   │   ├── api/        # Endpoint handlers (health, jurusan, berita, alumni, dsb)
+│   │   ├── config/     # Database GORM & environment loader
+│   │   ├── models/     # GORM DB Structs (Jurusan, Berita, dll)
+│   │   └── cmd/server/ # Entrypoint main.go
+│   ├── .env
+│   └── go.mod
+├── frontend/           # Service Application Frontend Next.js 15
+│   ├── src/
+│   │   ├── app/        # App Router Pages ((marketing), jurusan, berita, dll)
+│   │   ├── components/ # UI Primitives, Sections, Layout
+│   │   ├── services/   # Fetch API wrapper ke Backend Go (ISR 60s)
+│   │   └── lib/        # Data statis terstruktur (data.ts)
+│   └── package.json
+├── docs/               # Dokumen PRD, Arsitektur, Workflow, & Subagent Setup
+└── README.md
 ```
 
-## Status saat ini
+---
 
-- ✅ Frontend: scaffold penuh + halaman Beranda sudah jadi dan **lolos `npm run build`**.
-- ⚠️ Backend: skeleton struktur + endpoint `/api/health` sudah ditulis, tapi **belum divalidasi build** (butuh `go mod tidy` di mesin dengan akses ke proxy.golang.org).
-- ❌ Belum ada: halaman Jurusan/DTP/Alumni/Berita/Kontak, koneksi database, integrasi Cloudinary, chatbot, auth.
+## 🚀 Cara Menjalankan Proyek Lokal
 
-## Langkah selanjutnya (urut prioritas, ikuti `04-WORKFLOW.md` Fase 1)
+### 1. Jalankan Backend (Go)
+```bash
+cd backend
+go run ./src/cmd/server
+```
+*Backend akan berjalan di `http://localhost:8080`*.
 
-1. `cd backend && go mod tidy && go build ./...` — pastikan skeleton backend kompilasi bersih.
-2. Setup Postgres (Supabase/Neon) + tulis `src/models` pertama (mulai dari `Jurusan`, paling sederhana).
-3. Bangun halaman `/jurusan` (list + detail) di frontend, connect ke endpoint backend yang baru.
-4. Baru lanjut ke fitur lain sesuai urutan di `04-WORKFLOW.md`.
+### 2. Jalankan Frontend (Next.js)
+```bash
+cd frontend
+npm run dev
+```
+*Frontend akan berjalan di `http://localhost:3000`*.
 
-Dokumen pendukung (PRD, arsitektur lengkap, agents, workflow) ada di percakapan sebelumnya / folder `docs/` kalau sudah dipindah ke repo asli.
+---
+
+## 🧪 Pengujian & Quality Assurance (QA)
+
+**Backend Audit:**
+```bash
+cd backend
+go vet ./...
+go test ./...
+```
+
+**Frontend Audit:**
+```bash
+cd frontend
+npm run typecheck   # Type check TypeScript (0 error)
+npm run lint        # ESLint check (0 warning/error)
+npm run build       # Production SSG/ISR build
+```
