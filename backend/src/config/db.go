@@ -44,22 +44,29 @@ func InitDB(cfg Config) *gorm.DB {
 	return DB
 }
 
-// SeedJurusanIfEmpty memasukkan data dummy jurusan awal dari frontend/src/lib/data.ts jika database masih kosong.
+// SeedJurusanIfEmpty memasukkan data jurusan resmi (SIJA & TJAT) jika database kosong atau masih berisi data draft lama.
 // Pada environment production, seeder ini DILEWATI demi keamanan agar data dummy tidak tayang ke publik.
 func SeedJurusanIfEmpty(db *gorm.DB, env string) {
+	if strings.EqualFold(env, "production") {
+		log.Println("peringatan: database kosong pada environment production. Seeding data dummy DILEWATI demi keamanan.")
+		return
+	}
+
+	// Hapus data draft lama (RPL, TKJ, MM, TT) jika masih ada di DB agar otomatis ter-update ke SIJA & TJAT
+	var countOld int64
+	db.Model(&models.Jurusan{}).Where("LOWER(kode) IN ?", []string{"rpl", "tkj", "mm", "tt"}).Count(&countOld)
+	if countOld > 0 {
+		log.Println("memperbarui data jurusan: menghapus data draft lama (RPL/TKJ/MM/TT) dari database...")
+		db.Exec("DELETE FROM jurusans WHERE LOWER(kode) IN ('rpl', 'tkj', 'mm', 'tt')")
+	}
+
 	var count int64
 	db.Model(&models.Jurusan{}).Count(&count)
 	if count > 0 {
 		return
 	}
 
-	if strings.EqualFold(env, "production") {
-		log.Println("peringatan: database kosong pada environment production. Seeding data dummy DILEWATI demi keamanan.")
-		return
-	}
-
-	log.Println("seeding data awal jurusan...")
-	// TODO: konten asli dari sekolah — data di bawah masih draft
+	log.Println("seeding data awal jurusan resmi (SIJA & TJAT)...")
 	dummyJurusan := []models.Jurusan{
 		{
 			Kode:          "SIJA",
@@ -86,5 +93,5 @@ func SeedJurusanIfEmpty(db *gorm.DB, env string) {
 			log.Printf("peringatan: gagal seed jurusan %s: %v", j.Kode, err)
 		}
 	}
-	log.Println("berhasil seed data awal jurusan.")
+	log.Println("berhasil seed data awal jurusan resmi (SIJA & TJAT).")
 }
