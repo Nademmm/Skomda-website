@@ -108,11 +108,11 @@ Alur singkat: Frontend Next.js murni presentational + client-side interaction, s
 
 **Name:** SMK Telkom Primary DB
 
-**Type:** PostgreSQL (hosting: Supabase atau Neon)
+**Type:** PostgreSQL (hosting: Supabase atau Neon). Untuk pengembangan lokal (local dev) bila `DATABASE_URL` tidak dikonfigurasi, backend secara otomatis fallback ke Pure-Go SQLite (`smktelkom_dev.db`) via driver `github.com/glebarez/sqlite`.
 
 **Purpose:** Menyimpan seluruh data terstruktur situs: profil alumni, lowongan BKK, berita, jurusan, item marketplace, log chatbot.
 
-**Key Schemas/Tables:** `users` (alumni + admin), `lowongan`, `berita`, `jurusan`, `marketplace_items`, `chatbot_logs`.
+**Key Schemas/Tables:** `users` (alumni + admin), `lowongan`, `berita`, `jurusan`, `marketplace_items`, `chatbot_logs`. Field array (seperti `skills` & `prospek_karier`) disimpan menggunakan `serializer:json` GORM agar kompatibel di Postgres maupun SQLite.
 
 ### 4.2. Media Store
 
@@ -178,6 +178,7 @@ Alur singkat: Frontend Next.js murni presentational + client-side interaction, s
 
 ## 9. Future Considerations / Roadmap
 
+- **Strategi Type-Sync (Go <-> TypeScript)**: Saat ini menggunakan **Manual Sync** (disiplin meng-update Go struct dan TS interface pada commit yang sama). Evaluasi migrasi ke automatic codegen (`swaggo/swag` + `openapi-typescript`) jika jumlah model sudah mencapai 5-6+ dengan field kompleks, atau jika backend mulai dikonsumsi aplikasi mobile/platform lain.
 - Pertimbangkan pisah `chatbot` jadi service terpisah kalau volume trafik/embedding search jadi berat (saat ini masih dalam satu Go service).
 - Tambah pgvector di Postgres untuk RAG embedding search yang lebih akurat (v1 masih boleh keyword-based).
 - Evaluasi migrasi rate-limit dari in-memory ke Redis begitu traffic form/chatbot mulai signifikan.

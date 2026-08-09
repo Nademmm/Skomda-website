@@ -1,0 +1,23 @@
+# Environment & Secrets
+.env
+.env*.local
+*.env
+backend/.env
+frontend/.env*.local
+
+# Dependencies & Build Outputs
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+backend/tmp/
+backend/*.exe
+
+# SQLite & Databases
+*.db
+backend/*.db
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
