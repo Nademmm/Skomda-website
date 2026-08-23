@@ -1,31 +1,28 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 
-const display = Space_Grotesk({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700"],
+  variable: "--font-jakarta",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
-const body = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-body",
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "SMK Telkom Sidoarjo — Sekolah Vokasi Telekomunikasi & Digital Talent",
+    default: "SMK Telkom Sidoarjo — Sekolah Tangguh, Berakhlak, & Berwawasan Digital",
     template: "%s — SMK Telkom Sidoarjo",
   },
   description:
-    "SMK Telkom Sidoarjo menyiapkan lulusan siap kerja lewat empat jurusan vokasi dan sembilan spesialisasi Digital Talent Program.",
+    "Selamat datang di SMK Telkom Sidoarjo. Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak di era digital.",
 };
 
 export default function RootLayout({
@@ -34,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
-      <body className={`${display.variable} ${body.variable} ${mono.variable} font-body`}>
+    <html lang="id" className={`${jakarta.variable} ${poppins.variable}`}>
+      <body className="font-jakarta antialiased bg-[#f3f4f6] text-[#101828] overflow-x-hidden">
         {children}
       </body>
     </html>

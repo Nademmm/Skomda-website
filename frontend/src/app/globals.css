@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -13,25 +11,30 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 ::selection {
-  background-color: #ffc53d;
-  color: #121316;
+  background-color: #bc0c11;
+  color: #ffffff;
 }
 
 body {
-  background-color: #121316;
-  color: #ecedef;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  background-color: #f3f4f6;
+  color: #101828;
+  overflow-x: hidden;
+  /* Make sure desktop 1920px design doesn't get clipped on large screens */
+  min-width: 320px;
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #ffc53d;
+  outline: 2px solid #bc0c11;
   outline-offset: 3px;
+}
+
+/* Smooth image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
 }
