@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function SambutanKepsek() {
+export default function PrincipalSection() {
   return (
     <section
       id="sambutan"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function JurusanSection() {
+export default function ProgramsSection() {
   const [activeTab, setActiveTab] = useState<"SIJA" | "TJAT">("SIJA");
 
   return (

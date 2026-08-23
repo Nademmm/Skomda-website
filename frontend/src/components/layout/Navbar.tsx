@@ -4,19 +4,64 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+interface SubMenuItem {
+  label: string;
+  href: string;
+  desc?: string;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  submenu?: SubMenuItem[];
+}
+
+const navItems: NavItem[] = [
+  { label: "Beranda", href: "/" },
+  {
+    label: "Tentang Kami",
+    href: "#sambutan",
+    submenu: [
+      { label: "Profil Sekolah", href: "/tentang-kami/profil-sekolah", desc: "Sejarah, visi misi, dan identitas sekolah" },
+      { label: "Hub Industri", href: "/tentang-kami/hub-industri", desc: "Kerjasama dan jaringan kemitraan industri" },
+      { label: "Prestasi", href: "/tentang-kami/prestasi", desc: "Pencapaian siswa & sekolah tingkat nasional" },
+      { label: "Fasilitas", href: "/tentang-kami/fasilitas", desc: "Laboratorium modern & sarana prasarana" },
+      { label: "Profil Guru", href: "/tentang-kami/profil-guru", desc: "Tenaga pendidik & instruktur bersertifikasi" },
+      { label: "Akomodasi", href: "/tentang-kami/akomodasi", desc: "Asrama dan lingkungan pendukung siswa" },
+    ],
+  },
+  {
+    label: "Program",
+    href: "#program",
+    submenu: [
+      { label: "Profil Jurusan", href: "/program/profil-jurusan", desc: "Program keahlian SIJA & TJAT berstandar industri" },
+      { label: "Ekstrakurikuler", href: "/program/ekstrakurikuler", desc: "Wadah minat, bakat, kepemimpinan & soft skills" },
+      { label: "DTP (Digital Talent Program)", href: "/program/digital-talent", desc: "Akselerasi keahlian teknologi dan startup" },
+      { label: "Program TS21", href: "/program/ts21", desc: "Telkom Schools 21st Century Learning Framework" },
+    ],
+  },
+  {
+    label: "Informasi",
+    href: "#informasi",
+    submenu: [
+      { label: "Berita", href: "/informasi/berita", desc: "Kabar terbaru dan agenda kegiatan sekolah" },
+      { label: "Pengumuman Kelulusan", href: "/informasi/pengumuman-kelulusan", desc: "Informasi resmi status kelulusan peserta didik" },
+      { label: "Penerapan K3", href: "/informasi/penerapan-k3", desc: "Keselamatan & Kesehatan Kerja di lingkungan sekolah" },
+    ],
+  },
+  { label: "Lab Tour", href: "#lab-tour" },
+  { label: "Trial Class", href: "#trial-class" },
+  { label: "PPDB", href: "#ppdb" },
+];
+
 export default function Navbar() {
   const [lang, setLang] = useState<"ID" | "EN">("ID");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
 
-  const navLinks = [
-    { label: "Beranda", href: "/", hasDropdown: false },
-    { label: "Tentang Kami", href: "#sambutan", hasDropdown: true },
-    { label: "Program", href: "#program", hasDropdown: true },
-    { label: "Informasi", href: "#informasi", hasDropdown: true },
-    { label: "Lab Tour", href: "#lab-tour", hasDropdown: false },
-    { label: "Trial Class", href: "#trial-class", hasDropdown: false },
-    { label: "PPDB", href: "#ppdb", hasDropdown: false },
-  ];
+  const toggleMobileSubmenu = (label: string) => {
+    setMobileSubmenu(mobileSubmenu === label ? null : label);
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
@@ -36,27 +81,76 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Nav Links with Glassmorphism Dropdowns */}
           <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="flex items-center gap-1 px-3 py-2 text-[15px] font-semibold text-[#364153] transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6"
-              >
-                <span>{link.label}</span>
-                {link.hasDropdown && (
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="opacity-60 mt-0.5">
-                    <path d="M2 4L6 8L10 4" stroke="#364153" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                )}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              if (item.submenu) {
+                return (
+                  <div key={item.label} className="relative group/nav py-3">
+                    <button
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full"
+                    >
+                      <span>{item.label}</span>
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        className="opacity-60 transition-transform duration-200 group-hover/nav:rotate-180 group-hover/nav:opacity-100 group-hover/nav:text-[#bd0c12]"
+                      >
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+
+                    {/* Floating Dropdown Card */}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-1.5 opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-200 ease-out z-50">
+                      <div className="w-[300px] sm:w-[330px] rounded-2xl bg-white/95 backdrop-blur-md p-2.5 shadow-[0px_20px_35px_-5px_rgba(0,0,0,0.12),0px_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col gap-1">
+                        {item.submenu.map((sub) => (
+                          <Link
+                            key={sub.label}
+                            href={sub.href}
+                            className="group/item flex flex-col p-2.5 rounded-xl transition-all hover:bg-[#ffebed] text-left"
+                          >
+                            <span className="font-jakarta text-sm font-semibold text-[#101828] group-hover/item:text-[#bd0c12] flex items-center justify-between">
+                              <span>{sub.label}</span>
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                className="opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-[#bd0c12]"
+                              >
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </span>
+                            {sub.desc && (
+                              <span className="font-jakarta text-xs text-[#71717a] mt-0.5 group-hover/item:text-[#4a5565] line-clamp-1">
+                                {sub.desc}
+                              </span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6"
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right CTA & Lang */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
-            {/* Language Selector (Consistent pill sizing) */}
+            {/* Language Selector */}
             <div className="flex h-[38px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
               <button
                 onClick={() => setLang("ID")}
@@ -117,20 +211,61 @@ export default function Navbar() {
           </div>
         </header>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown Menu with Expandable Accordions */}
         {mobileOpen && (
-          <div className="pointer-events-auto mt-2 w-full rounded-2xl bg-white p-6 shadow-2xl border border-gray-100 xl:hidden">
-            <nav className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-2 py-1.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12]"
-                >
-                  {link.label}
-                </Link>
-              ))}
+          <div className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl border border-gray-100 xl:hidden">
+            <nav className="flex flex-col gap-2">
+              {navItems.map((item) => {
+                if (item.submenu) {
+                  const isOpen = mobileSubmenu === item.label;
+                  return (
+                    <div key={item.label} className="flex flex-col border-b border-gray-100 pb-2">
+                      <button
+                        onClick={() => toggleMobileSubmenu(item.label)}
+                        className="flex items-center justify-between px-2 py-2 text-base font-semibold text-[#364153] hover:text-[#bd0c12]"
+                      >
+                        <span>{item.label}</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-[#bd0c12]" : "text-gray-400"}`}
+                        >
+                          <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+
+                      {isOpen && (
+                        <div className="mt-1 flex flex-col gap-1 pl-4 border-l-2 border-[#bd0c12]/30 ml-2">
+                          {item.submenu.map((sub) => (
+                            <Link
+                              key={sub.label}
+                              href={sub.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="px-2 py-1.5 text-sm font-medium text-[#4a5565] hover:text-[#bd0c12]"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="px-2 py-2 text-base font-semibold text-[#364153] hover:text-[#bd0c12] border-b border-gray-100 last:border-0"
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+
               <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                 <div className="flex h-[36px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
                   <button

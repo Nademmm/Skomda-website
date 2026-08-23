@@ -35,7 +35,7 @@ const partners = [
   },
 ];
 
-export default function MitraSection() {
+export default function PartnersSection() {
   // Duplicate array for seamless infinite marquee loop
   const marqueeItems = [...partners, ...partners, ...partners];
 

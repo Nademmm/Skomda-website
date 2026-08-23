@@ -65,7 +65,7 @@ const allNews = [
   },
 ];
 
-export default function BeritaSection() {
+export default function NewsSection() {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [currentPage, setCurrentPage] = useState(1);
 

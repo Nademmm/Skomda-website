@@ -1,39 +1,39 @@
 import Navbar from "@/components/layout/Navbar";
-import Hero from "@/components/sections/Hero";
-import SambutanKepsek from "@/components/sections/SambutanKepsek";
-import MengapaMemilih from "@/components/sections/MengapaMemilih";
-import MitraSection from "@/components/sections/MitraSection";
-import JurusanSection from "@/components/sections/JurusanSection";
-import BeritaSection from "@/components/sections/BeritaSection";
+import HeroSection from "@/components/sections/HeroSection";
+import PrincipalSection from "@/components/sections/PrincipalSection";
+import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
+import PartnersSection from "@/components/sections/PartnersSection";
+import ProgramsSection from "@/components/sections/ProgramsSection";
+import NewsSection from "@/components/sections/NewsSection";
 import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#f3f4f6] text-[#101828] overflow-x-hidden">
-      {/* Floating Navbar */}
+      {/* Persistent Floating Navbar on Scroll */}
       <Navbar />
 
       <main>
-        {/* Hero Section with Stats Bar Overlay */}
-        <Hero />
+        {/* Hero Section with Floating Stats Bar */}
+        <HeroSection />
 
-        {/* Sambutan Kepala Sekolah */}
-        <SambutanKepsek />
+        {/* Principal Greeting & School Vision */}
+        <PrincipalSection />
 
-        {/* Mengapa Memilih SMK Telkom Sidoarjo */}
-        <MengapaMemilih />
+        {/* Why Choose Us & Digital Talent Features */}
+        <WhyChooseUsSection />
 
-        {/* Mitra & Partner Logos Strip */}
-        <MitraSection />
+        {/* Industrial Partners Continuous Infinite Marquee */}
+        <PartnersSection />
 
-        {/* Program Keahlian (SIJA & TJAT interactive tabs) */}
-        <JurusanSection />
+        {/* Vocational Programs (SIJA & TJAT Interactive Tab System) */}
+        <ProgramsSection />
 
-        {/* Berita & Informasi Terkini */}
-        <BeritaSection />
+        {/* Latest News & Activities with Category Filter */}
+        <NewsSection />
       </main>
 
-      {/* Authentic 4-Column White Footer */}
+      {/* 4-Column Footer with Live Stats & Maps Embed */}
       <Footer />
     </div>
   );

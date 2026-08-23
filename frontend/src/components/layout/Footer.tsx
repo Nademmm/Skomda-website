@@ -180,7 +180,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <p className="font-jakarta text-xs text-[#4a5565] pt-4">
-              Copyright © 2025 All right reserved | SKOMDA
+              Copyright © 2025 All right reserved | SMK Telkom Sidoarjo
             </p>
           </div>
 
