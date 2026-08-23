@@ -2,7 +2,11 @@ import Image from "next/image";
 
 export default function SambutanKepsek() {
   return (
-    <section id="sambutan" className="relative w-full overflow-hidden bg-white py-16 lg:py-24 shadow-sm">
+    <section
+      id="sambutan"
+      className="relative w-full overflow-hidden bg-white py-16 lg:py-24 shadow-sm"
+      data-node-id="67:2"
+    >
       
       {/* Background Watermark Logo Telkom Schools */}
       <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 h-[450px] w-[550px] md:h-[550px] md:w-[650px] rotate-[12deg] opacity-[0.06] select-none">
@@ -15,40 +19,48 @@ export default function SambutanKepsek() {
       </div>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-14 xl:gap-24">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-14 xl:gap-20">
           
-          {/* Left Column: Kepsek Photo with Signature Styled Frames */}
-          <div className="flex flex-col items-center justify-center shrink-0">
-            <div className="relative flex items-center justify-center">
+          {/* Left Column: Authentic Kepsek Graphic (Figma 96:350 background + 67:118 person) */}
+          <div className="flex flex-col items-center justify-center shrink-0 pt-4 sm:pt-10 lg:pt-12">
+            <div className="relative h-[293px] sm:h-[353px] w-[340px] sm:w-[409px] flex items-center justify-center transition-transform duration-300 hover:scale-105">
               
-              {/* Dashed Border Frame (Shifted to Top-Left) */}
+              {/* 1. Background Art from Figma (Node 96:350 / image 6) */}
               <div
-                className="absolute -left-4 -top-4 sm:-left-5 sm:-top-5 h-[330px] sm:h-[350px] w-[260px] sm:w-[280px] border-2 border-dashed border-gray-400/50 pointer-events-none"
-                style={{ borderRadius: "40px 0 40px 0" }}
-              />
-              
-              {/* Solid Red Curved Frame (Middle) */}
-              <div
-                className="relative h-[330px] sm:h-[350px] w-[260px] sm:w-[280px] overflow-hidden bg-[#bc0c11] shadow-xl"
-                style={{ borderRadius: "140px 0 140px 0" }}
+                className="absolute inset-0 pointer-events-none"
+                data-node-id="96:350"
+                data-name="image 6"
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#990a0e] to-[#e7000b] opacity-85" />
-              </div>
-
-              {/* Kepsek Image Overlaid (Aligned flush to the bottom) */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[340px] sm:h-[365px] w-[290px] sm:w-[320px] transition-transform duration-300 hover:scale-105 pointer-events-none">
                 <Image
-                  src="/figma/kepsek.png"
-                  alt="Abror S.hum M.pd - Kepala Sekolah SMK Telkom Sidoarjo"
+                  src="/figma/image6.png"
+                  alt=""
                   fill
-                  className="object-contain object-bottom drop-shadow-2xl"
+                  className="object-contain"
                   priority
                 />
               </div>
+
+              {/* 2. Kepsek Person Photo shifted higher up and slightly to the left */}
+              <div
+                className="absolute -top-[60px] sm:-top-12 bottom-5 sm:bottom-11 left-[7%] sm:left-[7.5%] w-[80%] pointer-events-none flex items-center justify-center"
+                data-node-id="67:118"
+                data-name="kepsek"
+              >
+                <div className="relative w-full h-full scale-[1.10] origin-bottom">
+                  <Image
+                    src="/figma/kepsek.png"
+                    alt="Abror S.Hum., M.Pd. - Kepala Sekolah SMK Telkom Sidoarjo"
+                    fill
+                    className="object-contain object-bottom drop-shadow-2xl"
+                    priority
+                  />
+                </div>
+              </div>
+
             </div>
 
             {/* Kepsek Name below photo on mobile/tablet */}
-            <div className="mt-5 flex flex-col items-center text-center lg:hidden">
+            <div className="mt-4 flex flex-col items-center text-center lg:hidden">
               <div className="mb-2 h-0.5 w-10 rounded-full bg-black/80" />
               <h3 className="font-poppins text-lg font-semibold text-[#101828]">
                 Abror S.Hum., M.Pd.

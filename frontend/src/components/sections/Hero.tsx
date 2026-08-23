@@ -7,10 +7,10 @@ export default function Hero() {
   return (
     <>
       {/* ══════════════════════════════════════════════
-          DESKTOP LAYOUT (≥1280px) — Clean, Balanced, Uncluttered
+          DESKTOP LAYOUT (≥1280px) — Spacious, Comfortable, No Gap
           ══════════════════════════════════════════════ */}
       <section
-        className="relative w-full bg-[#f3f4f6] overflow-hidden hidden xl:block mb-16"
+        className="relative w-full bg-[#f3f4f6] overflow-hidden hidden xl:block mb-20"
         style={{ height: "730px" }}
       >
         <div className="relative mx-auto w-full max-w-[1280px] h-full">
@@ -18,7 +18,7 @@ export default function Hero() {
           {/* ── Large light-grey circle backdrop behind students ── */}
           <div
             className="pointer-events-none absolute"
-            style={{ left: "558px", top: "140px", width: "568px", height: "568px" }}
+            style={{ left: "558px", top: "130px", width: "568px", height: "568px" }}
           >
             <Image src="/figma/ellipse1.svg" alt="" fill className="object-contain" priority />
           </div>
@@ -28,7 +28,7 @@ export default function Hero() {
             className="pointer-events-none absolute"
             style={{
               left: "774px",
-              top: "250px",
+              top: "240px",
               width: "505px",
               height: "181px",
               transform: "rotate(-38.35deg)",
@@ -38,10 +38,10 @@ export default function Hero() {
             <div className="w-full h-full rounded-full bg-[#bc0c11] opacity-90" />
           </div>
 
-          {/* ── Left Text Block (Cleanly aligned, balanced gap from Navbar) ── */}
+          {/* ── Left Text Block (Spacious top margin from floating navbar) ── */}
           <div
             className="absolute flex flex-col items-start z-10"
-            style={{ left: "32px", top: "185px", width: "400px" }}
+            style={{ left: "32px", top: "190px", width: "420px" }}
           >
             {/* Welcome label */}
             <p className="font-jakarta text-[18px] leading-[28px]">
@@ -59,14 +59,12 @@ export default function Hero() {
               <span className="text-[#e7000b]">&amp; Berwawasan Digital</span>
             </h1>
 
-            {/* Red accent line */}
-            <div className="mt-3.5 relative h-5 w-[45px]">
-              <Image src="/figma/frame15.svg" alt="" fill className="object-contain object-left" />
-            </div>
+            {/* Red accent line (Flush aligned with text) */}
+            <div className="my-3.5 h-[2.5px] w-9 rounded-full bg-[#ee5053]" />
 
             {/* Subtext */}
             <p
-              className="mt-2.5 font-poppins text-[16px] leading-[28px] text-[#787878]"
+              className="font-poppins text-[16px] leading-[28px] text-[#787878]"
               style={{ width: "365px" }}
             >
               Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak
@@ -76,57 +74,39 @@ export default function Hero() {
             <div className="mt-7">
               <Link
                 href="#sambutan"
-                className="group relative inline-flex items-center"
-                style={{ width: "246px", height: "63px" }}
+                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] pl-6 pr-1.5 py-1.5 text-white shadow-[0px_4px_10px_rgba(188,12,17,0.3)] transition-all duration-300 hover:bg-[#990a0e] hover:shadow-[0px_6px_15px_rgba(188,12,17,0.4)] active:scale-[0.98]"
               >
-                {/* Red pill background */}
-                <div
-                  className="absolute bg-[#bc0c11] group-hover:bg-[#990a0e] transition-colors shadow-md"
-                  style={{ left: "0px", top: "10px", width: "219px", height: "43px", borderRadius: "21.5px" }}
-                />
-                {/* Text */}
-                <div
-                  className="absolute flex items-center"
-                  style={{ left: "20px", top: "10px", height: "43px" }}
-                >
-                  <span className="font-poppins font-medium text-white whitespace-nowrap" style={{ fontSize: "15px", lineHeight: "28px" }}>
-                    Jelajahi Lebih Lanjut
-                  </span>
-                </div>
-                {/* White circle with red arrow */}
-                <div
-                  className="absolute z-10 group-hover:translate-x-1 transition-transform"
-                  style={{ left: "168px", top: "2px", width: "59px", height: "59px" }}
-                >
-                  <Image src="/figma/frame20.svg" alt="" fill className="object-contain" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative w-[20px] h-[20px]">
-                      <Image src="/figma/vector-arrow.svg" alt="" fill className="object-contain" />
-                    </div>
-                  </div>
+                <span className="font-poppins font-medium text-[15px] leading-none whitespace-nowrap">
+                  Jelajahi Lebih Lanjut
+                </span>
+                <div className="flex size-[42px] shrink-0 items-center justify-center rounded-full bg-white text-[#bc0c11] shadow-sm transition-transform duration-300 group-hover:translate-x-1">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
                 </div>
               </Link>
             </div>
           </div>
 
-          {/* ── Student 1 (Left) ── */}
+          {/* ── Student 1 (Left) - bottom extends seamlessly into stats bar ── */}
           <div
             className="absolute overflow-hidden z-[5]"
-            style={{ left: "357px", top: "230px", width: "508px", height: "338px" }}
+            style={{ left: "357px", top: "230px", width: "508px", height: "460px" }}
           >
             <Image
               src="/figma/image4.png"
               alt="Siswa SMK Telkom Sidoarjo"
               fill
-              className="object-cover"
+              className="object-cover object-top"
               priority
             />
           </div>
 
-          {/* ── Student 2 (Center Front) ── */}
+          {/* ── Student 2 (Center Front) - bottom extends seamlessly into stats bar ── */}
           <div
             className="absolute overflow-hidden z-[10]"
-            style={{ left: "672px", top: "140px", width: "319px", height: "426px" }}
+            style={{ left: "672px", top: "140px", width: "325px", height: "550px" }}
           >
             <Image
               src="/figma/image1.png"
@@ -137,10 +117,10 @@ export default function Hero() {
             />
           </div>
 
-          {/* ── Student 3 (Right) ── */}
+          {/* ── Student 3 (Right) - bottom extends seamlessly into stats bar ── */}
           <div
             className="absolute overflow-hidden z-[5]"
-            style={{ left: "916px", top: "185px", width: "271px", height: "406px" }}
+            style={{ left: "852px", top: "185px", width: "389px", height: "505px" }}
           >
             <Image
               src="/figma/image5.png"
@@ -151,41 +131,61 @@ export default function Hero() {
             />
           </div>
 
-          {/* ── Red Stats Bar (z-20 cleanly covering lower waist of students) ── */}
+          {/* ══════════════════════════════════════════════
+              FLOATING STATS BAR OVERLAY (Zero gap)
+              ══════════════════════════════════════════════ */}
           <div
-            className="absolute bg-[#bc0c11] rounded-[15px] flex items-center justify-between text-white z-20"
+            className="absolute z-20"
             style={{
-              left: "448px",
-              top: "545px",
-              width: "750px",
-              height: "132px",
-              paddingLeft: "88px",
-              paddingRight: "67px",
-              boxShadow: "0px 10px 25px -5px rgba(188, 12, 17, 0.4), 0px 3px 1px rgba(0,0,0,0.09)",
+              left: "50%",
+              transform: "translateX(-50%)",
+              bottom: "0px",
+              width: "calc(100% - 64px)",
+              maxWidth: "1216px",
             }}
           >
-            {/* Stat 1: Jurusan */}
-            <div className="flex flex-col items-center gap-1 text-center">
-              <span className="font-jakarta font-bold text-[36px] leading-[40px]">2</span>
-              <span className="font-poppins font-medium text-[16px] leading-[20px] text-white/95">Jurusan</span>
-            </div>
+            <div
+              className="relative w-full rounded-[25px] overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #e7000b 0%, #bc0c11 100%)",
+                boxShadow: "0px 10px 30px rgba(188, 12, 17, 0.25)",
+                padding: "24px 40px",
+              }}
+            >
 
-            {/* Divider 1 */}
-            <div className="h-[100px] w-px bg-white/30" />
+              {/* Stats items grid */}
+              <div className="relative z-10 grid grid-cols-3 gap-6 text-white text-center">
+                {/* 1: Jurusan */}
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center gap-1.5 font-jakarta font-bold" style={{ fontSize: "36px", lineHeight: "40px" }}>
+                    <span>2</span>
+                    <span className="text-white/80 text-2xl font-medium">Program</span>
+                  </div>
+                  <p className="mt-1 font-poppins text-sm text-white/80 font-normal">
+                    SIJA (4 Thn) &amp; TJAT (3 Thn)
+                  </p>
+                </div>
 
-            {/* Stat 2: Siswa Aktif */}
-            <div className="flex flex-col items-center gap-1 text-center">
-              <span className="font-jakarta font-bold text-[36px] leading-[40px]">840+</span>
-              <span className="font-poppins font-medium text-[16px] leading-[20px] text-white/95">Siswa Aktif</span>
-            </div>
+                {/* Divider 1 */}
+                <div className="flex flex-col items-center justify-center border-x border-white/20 px-4">
+                  <div className="flex items-center gap-1 font-jakarta font-bold" style={{ fontSize: "36px", lineHeight: "40px" }}>
+                    <span>840+</span>
+                  </div>
+                  <p className="mt-1 font-poppins text-sm text-white/80 font-normal">
+                    Siswa Aktif Berprestasi
+                  </p>
+                </div>
 
-            {/* Divider 2 */}
-            <div className="h-[100px] w-px bg-white/30" />
-
-            {/* Stat 3: Alumni */}
-            <div className="flex flex-col items-center gap-1 text-center">
-              <span className="font-jakarta font-bold text-[36px] leading-[40px]">1372+</span>
-              <span className="font-poppins font-medium text-[16px] leading-[20px] text-white/95">Alumni</span>
+                {/* 3: Alumni */}
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center gap-1 font-jakarta font-bold" style={{ fontSize: "36px", lineHeight: "40px" }}>
+                    <span>1372+</span>
+                  </div>
+                  <p className="mt-1 font-poppins text-sm text-white/80 font-normal">
+                    Alumni Sukses &amp; Berkarier
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -193,9 +193,9 @@ export default function Hero() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          MOBILE / TABLET LAYOUT (< 1280px)
+          MOBILE / TABLET LAYOUT (<1280px)
           ══════════════════════════════════════════════ */}
-      <section className="relative w-full bg-[#f3f4f6] overflow-hidden xl:hidden pt-[100px] pb-14">
+      <section className="relative w-full bg-[#f3f4f6] overflow-hidden xl:hidden pt-[115px] pb-14">
 
         {/* Minimal clean background */}
         <div className="pointer-events-none absolute right-4 top-[100px] w-[200px] h-[200px] opacity-50">
@@ -204,7 +204,7 @@ export default function Hero() {
 
         <div className="px-5 sm:px-8 max-w-lg mx-auto">
           {/* Text block */}
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col items-start">
             <p className="font-jakarta text-[16px] sm:text-[18px] leading-[28px]">
               <span className="font-normal text-[#4a5565]">Selamat Datang di </span>
               <span className="font-semibold text-[#e7000b]">SMK Telkom Sidoarjo!</span>
@@ -215,11 +215,10 @@ export default function Hero() {
               <p className="text-[#e7000b]">&amp; Berwawasan Digital</p>
             </div>
 
-            <div className="mt-3 relative h-5 w-11">
-              <Image src="/figma/frame15.svg" alt="" fill className="object-contain object-left" />
-            </div>
+            {/* Red accent line (Flush aligned) */}
+            <div className="my-3.5 h-[2.5px] w-9 rounded-full bg-[#ee5053]" />
 
-            <p className="mt-2 font-poppins text-[14px] sm:text-[16px] leading-[28px] text-[#787878] max-w-[365px]">
+            <p className="font-poppins text-[14px] sm:text-[16px] leading-[28px] text-[#787878] max-w-[365px]">
               Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak
             </p>
 
@@ -227,28 +226,16 @@ export default function Hero() {
             <div className="mt-6">
               <Link
                 href="#sambutan"
-                className="group relative inline-flex items-center"
-                style={{ width: "246px", height: "63px" }}
+                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] pl-6 pr-1.5 py-1.5 text-white shadow-[0px_4px_10px_rgba(188,12,17,0.3)] transition-all duration-300 hover:bg-[#990a0e] hover:shadow-[0px_6px_15px_rgba(188,12,17,0.4)] active:scale-[0.98]"
               >
-                <div
-                  className="absolute bg-[#bc0c11] group-hover:bg-[#990a0e] transition-colors shadow-md"
-                  style={{ left: "0px", top: "10px", width: "219px", height: "43px", borderRadius: "21.5px" }}
-                />
-                <div className="relative z-10 flex items-center" style={{ paddingLeft: "18px", paddingRight: "10px" }}>
-                  <span className="font-poppins font-medium text-white text-[15px] leading-[28px] whitespace-nowrap">
-                    Jelajahi Lebih Lanjut
-                  </span>
-                </div>
-                <div
-                  className="absolute z-10 group-hover:translate-x-1 transition-transform"
-                  style={{ left: "168px", top: "2px", width: "59px", height: "59px" }}
-                >
-                  <Image src="/figma/frame20.svg" alt="" fill className="object-contain" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative w-[20px] h-[20px]">
-                      <Image src="/figma/vector-arrow.svg" alt="" fill className="object-contain" />
-                    </div>
-                  </div>
+                <span className="font-poppins font-medium text-[15px] leading-none whitespace-nowrap">
+                  Jelajahi Lebih Lanjut
+                </span>
+                <div className="flex size-[42px] shrink-0 items-center justify-center rounded-full bg-white text-[#bc0c11] shadow-sm transition-transform duration-300 group-hover:translate-x-1">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
                 </div>
               </Link>
             </div>
@@ -271,29 +258,22 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Stats bar mobile */}
-          <div
-            className="mt-6 bg-[#bc0c11] rounded-[15px] flex items-center justify-between z-20 relative text-white"
-            style={{
-              padding: "16px 24px",
-              boxShadow: "0px 10px 25px -5px rgba(188, 12, 17, 0.4), 0px 3px 1px rgba(0,0,0,0.09)",
-            }}
-          >
-            {[
-              { v: "2", l: "Jurusan" },
-              { v: "840+", l: "Siswa Aktif" },
-              { v: "1372+", l: "Alumni" },
-            ].map((stat, i, arr) => (
-              <div key={stat.l} className="flex items-center gap-3 sm:gap-5">
-                <div className="flex flex-col gap-1 items-center text-center text-white">
-                  <span className="font-jakarta font-bold text-2xl sm:text-[36px] leading-[40px]">{stat.v}</span>
-                  <span className="font-poppins text-xs sm:text-[16px] leading-[20px]">{stat.l}</span>
-                </div>
-                {i < arr.length - 1 && (
-                  <div className="h-[60px] w-px bg-white/30 mx-2" />
-                )}
+          {/* Mobile stats bar */}
+          <div className="mt-8 rounded-2xl bg-gradient-to-r from-[#e7000b] to-[#bc0c11] p-5 text-white shadow-lg">
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div>
+                <span className="font-jakarta font-bold text-2xl">2</span>
+                <p className="font-poppins text-xs text-white/80 mt-0.5">Jurusan</p>
               </div>
-            ))}
+              <div className="border-x border-white/20">
+                <span className="font-jakarta font-bold text-2xl">840+</span>
+                <p className="font-poppins text-xs text-white/80 mt-0.5">Siswa</p>
+              </div>
+              <div>
+                <span className="font-jakarta font-bold text-2xl">1372+</span>
+                <p className="font-poppins text-xs text-white/80 mt-0.5">Alumni</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

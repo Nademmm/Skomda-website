@@ -19,10 +19,10 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="absolute top-0 left-0 right-0 z-50 w-full pt-6 px-4 sm:px-6 lg:px-8">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
       <div className="mx-auto max-w-[1280px]">
         <header
-          className="relative w-full h-[66px] bg-white rounded-full px-6 sm:px-8 flex items-center justify-between"
+          className="pointer-events-auto relative w-full h-[66px] bg-white/95 backdrop-blur-md rounded-full px-6 sm:px-8 flex items-center justify-between border border-white/50"
           style={{ boxShadow: "0px 20px 25px -5px rgba(0,0,0,0.1), 0px 10px 10px -5px rgba(0,0,0,0.04)" }}
         >
           {/* Logo */}
@@ -56,95 +56,109 @@ export default function Navbar() {
 
           {/* Right CTA & Lang */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
-            {/* Language Selector */}
-            <div className="flex items-center rounded-full border border-[#e5e7eb] bg-white p-[3px]">
+            {/* Language Selector (Consistent pill sizing) */}
+            <div className="flex h-[38px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
               <button
                 onClick={() => setLang("ID")}
-                className={`rounded-full px-3 py-1.5 text-xs font-bold leading-4 transition-all ${
-                  lang === "ID" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#6a7282] hover:text-[#101828]"
+                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                  lang === "ID"
+                    ? "bg-[#bd0c12] text-white shadow-sm"
+                    : "text-[#4b5563] hover:text-[#bd0c12]"
                 }`}
+                aria-label="Bahasa Indonesia"
               >
                 ID
               </button>
               <button
                 onClick={() => setLang("EN")}
-                className={`rounded-full px-3 py-1.5 text-xs font-bold leading-4 transition-all ${
-                  lang === "EN" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#6a7282] hover:text-[#101828]"
+                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                  lang === "EN"
+                    ? "bg-[#bd0c12] text-white shadow-sm"
+                    : "text-[#4b5563] hover:text-[#bd0c12]"
                 }`}
+                aria-label="English"
               >
                 EN
               </button>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Button Unduh Informasi */}
             <Link
               href="#unduh"
-              className="flex items-center gap-2 rounded-full bg-[#bd0c12] px-5 py-2.5 text-[14px] font-bold text-white transition-all hover:bg-[#990a0e] shadow-sm font-jakarta leading-5"
+              className="inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bd0c12] px-5 text-xs font-bold font-jakarta text-[#bd0c12] transition-all hover:bg-[#bd0c12] hover:text-white active:scale-[0.98] shadow-sm"
             >
               <span>Unduh Informasi</span>
-              <span className="relative size-4 shrink-0">
-                <Image src="/figma/download-icon.svg" alt="" fill className="object-contain brightness-0 invert" />
-              </span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1.75V9.25M7 9.25L4.25 6.5M7 9.25L9.75 6.5M2.5 11.25H11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="xl:hidden flex flex-col gap-1.5 p-2 text-[#364153]"
-            aria-label="Toggle menu"
-          >
-            <span className={`block h-0.5 w-6 bg-current transition-transform ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`block h-0.5 w-6 bg-current transition-opacity ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 w-6 bg-current transition-transform ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
-          </button>
+          {/* Mobile Hamburger Button */}
+          <div className="flex items-center gap-2 xl:hidden">
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-[#364153] hover:border-[#bd0c12] hover:text-[#bd0c12]"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              )}
+            </button>
+          </div>
         </header>
 
         {/* Mobile Dropdown Menu */}
         {mobileOpen && (
-          <div className="mt-3 w-full rounded-2xl bg-white p-6 shadow-xl xl:hidden border border-gray-100">
-            <nav className="flex flex-col">
+          <div className="pointer-events-auto mt-2 w-full rounded-2xl bg-white p-6 shadow-2xl border border-gray-100 xl:hidden">
+            <nav className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-between border-b border-gray-100 py-3 text-base font-semibold text-[#364153] hover:text-[#bd0c12] font-jakarta"
+                  className="px-2 py-1.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12]"
                 >
-                  <span>{link.label}</span>
-                  {link.hasDropdown && (
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="opacity-60">
-                      <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
+                  {link.label}
                 </Link>
               ))}
-            </nav>
-            <div className="mt-4 flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">Pilih Bahasa:</span>
-                <div className="flex rounded-full border border-[#e5e7eb] p-1 bg-white">
-                  {["ID", "EN"].map((l) => (
-                    <button
-                      key={l}
-                      onClick={() => setLang(l as "ID" | "EN")}
-                      className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
-                        lang === l ? "bg-[#bd0c12] text-white" : "text-[#6a7282]"
-                      }`}
-                    >
-                      {l}
-                    </button>
-                  ))}
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                <div className="flex h-[36px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
+                  <button
+                    onClick={() => setLang("ID")}
+                    className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                      lang === "ID" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#4b5563]"
+                    }`}
+                  >
+                    ID
+                  </button>
+                  <button
+                    onClick={() => setLang("EN")}
+                    className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                      lang === "EN" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#4b5563]"
+                    }`}
+                  >
+                    EN
+                  </button>
                 </div>
+                <Link
+                  href="#unduh"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex h-[36px] items-center rounded-full bg-[#bd0c12] px-5 text-xs font-bold font-jakarta text-white"
+                >
+                  Unduh Informasi
+                </Link>
               </div>
-              <Link
-                href="#unduh"
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-2 rounded-full bg-[#bd0c12] py-3 text-sm font-bold text-white shadow"
-              >
-                Unduh Informasi
-              </Link>
-            </div>
+            </nav>
           </div>
         )}
       </div>
