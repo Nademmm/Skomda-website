@@ -8,7 +8,7 @@ export default function ProgramsSection() {
   const [activeTab, setActiveTab] = useState<"SIJA" | "TJAT">("SIJA");
 
   return (
-    <section id="program" className="w-full bg-[#f3f4f6] py-20 lg:py-24" data-node-id="100:460">
+    <section id="program" className="w-full bg-[#f3f4f6] pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-14" data-node-id="100:460">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -25,11 +25,10 @@ export default function ProgramsSection() {
           <div className="mt-8 inline-flex h-[52px] w-[340px] items-center rounded-full bg-white p-1 shadow-sm border border-gray-200/60">
             <button
               onClick={() => setActiveTab("SIJA")}
-              className={`flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-all ${
-                activeTab === "SIJA"
+              className={`flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-all ${activeTab === "SIJA"
                   ? "bg-[#bd0c12] text-white shadow-sm font-semibold"
                   : "text-[#364153] hover:text-[#bd0c12]"
-              }`}
+                }`}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="16 18 22 12 16 6" />
@@ -39,11 +38,10 @@ export default function ProgramsSection() {
             </button>
             <button
               onClick={() => setActiveTab("TJAT")}
-              className={`flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-all ${
-                activeTab === "TJAT"
+              className={`flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-all ${activeTab === "TJAT"
                   ? "bg-[#bd0c12] text-white shadow-sm font-semibold"
                   : "text-[#364153] hover:text-[#bd0c12]"
-              }`}
+                }`}
             >
               {/* Exact TJAT vector icon from Figma (node 96:378) */}
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
@@ -64,7 +62,7 @@ export default function ProgramsSection() {
             {/* Left Column: Student Image with Double Frames (Figma 67:112, 104:463, 105:467, 105:468) */}
             <div className="lg:col-span-5 flex items-center justify-center relative">
               <div className="relative flex items-center justify-center" data-node-id="67:112">
-                
+
                 {/* 1. Outer Dashed Border Frame */}
                 <div
                   className="absolute -left-4 -top-4 sm:-left-5 sm:-top-5 h-[370px] sm:h-[400px] lg:h-[430px] w-[290px] sm:w-[320px] lg:w-[340px] border-2 border-dashed border-[#787878]/60 pointer-events-none"
@@ -239,7 +237,7 @@ export default function ProgramsSection() {
             {/* Left Column: Student Image with Double Frames */}
             <div className="lg:col-span-5 flex items-center justify-center relative">
               <div className="relative flex items-center justify-center">
-                
+
                 {/* 1. Outer Dashed Border Frame */}
                 <div
                   className="absolute -left-4 -top-4 sm:-left-5 sm:-top-5 h-[370px] sm:h-[400px] lg:h-[430px] w-[290px] sm:w-[320px] lg:w-[340px] border-2 border-dashed border-[#787878]/60 pointer-events-none"

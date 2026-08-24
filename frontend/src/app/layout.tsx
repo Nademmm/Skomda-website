@@ -34,11 +34,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${jakarta.variable} ${poppins.variable}`}>
-      <head>
-        <link rel="icon" type="image/png" href="/figma/telkom-schools-icon.png" />
-        <link rel="shortcut icon" type="image/png" href="/figma/telkom-schools-icon.png" />
-        <link rel="apple-touch-icon" href="/figma/telkom-schools-icon.png" />
-      </head>
       <body className="font-jakarta antialiased bg-[#f3f4f6] text-[#101828] overflow-x-hidden">
         {children}
       </body>

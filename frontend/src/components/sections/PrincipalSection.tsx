@@ -8,8 +8,8 @@ export default function PrincipalSection() {
       data-node-id="67:2"
     >
       
-      {/* Background Watermark Logo Telkom Schools */}
-      <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 h-[450px] w-[550px] md:h-[550px] md:w-[650px] rotate-[12deg] opacity-[0.06] select-none">
+      {/* Background Watermark Logo Telkom Schools (Desktop only) */}
+      <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 h-[450px] w-[550px] md:h-[550px] md:w-[650px] rotate-[12deg] opacity-[0.06] select-none hidden lg:block">
         <Image
           src="/figma/logo-telkom-schools.png"
           alt=""

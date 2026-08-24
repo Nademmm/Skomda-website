@@ -10,6 +10,7 @@ import (
 
 	"github.com/nademmm/smktelkom-web/backend/src/api/health"
 	"github.com/nademmm/smktelkom-web/backend/src/api/jurusan"
+	"github.com/nademmm/smktelkom-web/backend/src/api/news"
 	"github.com/nademmm/smktelkom-web/backend/src/config"
 )
 
@@ -20,11 +21,13 @@ func main() {
 	config.InitDB(cfg)
 
 	router := gin.Default()
+	_ = router.SetTrustedProxies(nil)
 	router.Use(corsMiddleware(cfg.AllowedOrigin))
 
 	api := router.Group("/api")
 	health.RegisterRoutes(api)
 	jurusan.RegisterRoutes(api)
+	news.RegisterRoutes(api)
 
 	log.Printf("backend jalan di port %s", cfg.Port)
 	if err := router.Run(":" + cfg.Port); err != nil {

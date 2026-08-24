@@ -1,192 +1,476 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import {
+  NewsItem,
+  MOCK_NEWS,
+  NEWS_CATEGORIES,
+  NewsCategory,
+  getNewsList,
+} from "@/services/news";
 
-const categories = [
-  "Semua",
-  "Kegiatan Sekolah",
-  "Prestasi",
-  "Pengumuman",
-  "Kemitraan & Kerja Sama",
-  "Karya & Inovasi Siswa",
-  "Artikel & Edukasi",
-  "Alumni",
-];
+interface NewsSectionProps {
+  showTitle?: boolean;
+}
 
-const allNews = [
-  {
-    id: "1",
-    title: "Lomba Matematika SMP/MTs Terbesar Se-Sidoarjo Sukses Digelar di SKOMDA",
-    category: "Kegiatan Sekolah",
-    date: "27 Nov 2025",
-    slug: "lomba-matematika-smp-mts-terbesar-se-sidoarjo",
-    gradient: "from-[#bc0c11] to-[#990a0e]",
-  },
-  {
-    id: "2",
-    title: "Siswi SKOMDA Sukses Raih Juara 1 INSYS FEST 5.0 dengan Aplikasi Kustomisasi Batik",
-    category: "Prestasi",
-    date: "24 Nov 2025",
-    slug: "siswi-skomda-raih-juara-1-insys-fest",
-    gradient: "from-[#364153] to-[#101828]",
-  },
-  {
-    id: "3",
-    title: "Dies Natalis SKOMDA ke-6: Perayaan Kreativitas, Prestasi, dan Kolaborasi Antar Pelajar",
-    category: "Kegiatan Sekolah",
-    date: "20 Nov 2025",
-    slug: "dies-natalis-skomda-ke-6",
-    gradient: "from-[#1d4ed8] to-[#1e3a8a]",
-  },
-  {
-    id: "4",
-    title: "Siswa XII SIJA 1 Raih Juara 3 FITCOM 3.0 di Universitas Dinamika",
-    category: "Prestasi",
-    date: "17 Nov 2025",
-    slug: "siswa-xii-sija-1-raih-juara-3-fitcom",
-    gradient: "from-[#15803d] to-[#166534]",
-  },
-  {
-    id: "5",
-    title: "SKOMDA KUBIK 2025 Resmi Dibuka: SMK Telkom Sidoarjo Dorong Siswa Jadi Inovator Muda",
-    category: "Kegiatan Sekolah",
-    date: "13 Nov 2025",
-    slug: "skomda-kubik-2025-resmi-dibuka",
-    gradient: "from-[#e7000b] to-[#bc0c11]",
-  },
-  {
-    id: "6",
-    title: "Tidak Sekadar Ziarah: Siswa SMK Telkom Sidoarjo Hidupkan Semangat Kepahlawanan di TMP",
-    category: "Kegiatan Sekolah",
-    date: "10 Nov 2025",
-    slug: "ziarah-tmp-semangat-kepahlawanan",
-    gradient: "from-[#4a5565] to-[#364153]",
-  },
-];
+export default function NewsSection({ showTitle = true }: NewsSectionProps) {
+  const [newsData, setNewsData] = useState<NewsItem[]>(MOCK_NEWS);
+  const [activeCategory, setActiveCategory] = useState<NewsCategory>("Semua");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const itemsPerPage = 6;
 
-export default function NewsSection() {
-  const [activeCategory, setActiveCategory] = useState("Semua");
-  const [currentPage, setCurrentPage] = useState(1);
+  // Fetch live news from API when activeCategory changes
+  useEffect(() => {
+    let isMounted = true;
+    const fetchLiveNews = async () => {
+      setIsLoading(true);
+      try {
+        const liveItems = await getNewsList({
+          category: activeCategory === "Semua" ? undefined : activeCategory,
+        });
+        if (isMounted) {
+          setNewsData(liveItems);
+        }
+      } catch (err) {
+        console.warn("Failed to fetch live news:", err);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
 
-  const filteredNews =
-    activeCategory === "Semua"
-      ? allNews
-      : allNews.filter((item) => item.category === activeCategory);
+    fetchLiveNews();
+    return () => {
+      isMounted = false;
+    };
+  }, [activeCategory]);
+
+  // Filter news based on active category locally (if data contains all)
+  const filteredNews = useMemo(() => {
+    if (activeCategory === "Semua") {
+      return newsData;
+    }
+    return newsData.filter(
+      (item) => item.category.toLowerCase() === activeCategory.toLowerCase()
+    );
+  }, [activeCategory, newsData]);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil((filteredNews.length > 0 ? filteredNews.length : 1) / itemsPerPage)
+  );
+
+  // Current page items
+  const currentNews = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    if (filteredNews.length === 0) return [];
+    if (filteredNews.length <= itemsPerPage) {
+      return filteredNews;
+    }
+    return filteredNews.slice(start, start + itemsPerPage);
+  }, [filteredNews, currentPage, itemsPerPage]);
+
+  const handleCategoryChange = (category: NewsCategory) => {
+    if (category === activeCategory) return;
+    setIsTransitioning(true);
+    setActiveCategory(category);
+    setCurrentPage(1);
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 150);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(1, prev - 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(totalPages, prev + 1));
+  };
 
   return (
-    <section id="informasi" className="w-full bg-[#f3f4f6] py-20 lg:py-28" data-node-id="23:337">
+    <section
+      id="informasi"
+      className="w-full bg-[#f3f4f6] pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-28"
+    >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-
-        {/* Section Header */}
-        <div className="text-center mb-14">
-          <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#101828]">
-            Berita &amp; Informasi Terkini
-          </h2>
-          <p className="mt-2 font-jakarta font-bold text-2xl sm:text-[30px] leading-[36px] text-[#bc0c11]">
-            SMK Telkom Sidoarjo
-          </p>
-        </div>
-
-        {/* Two Columns: Category Sidebar (Left) + News Grid (Right) */}
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
-
-          {/* Left Column: Category Filter (Col span 3) */}
-          <div className="lg:col-span-3 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h3 className="font-jakarta font-bold text-base text-[#101828] mb-4">
-              Kategori Berita
-            </h3>
-            <div className="flex flex-wrap lg:flex-col gap-1.5">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setActiveCategory(cat);
-                    setCurrentPage(1);
-                  }}
-                  className={`text-left rounded-xl px-3.5 py-2 font-jakarta text-sm transition-all ${
-                    activeCategory === cat
-                      ? "bg-[#bd0c12] text-white font-semibold shadow-sm"
-                      : "text-[#364153] hover:bg-gray-100 hover:text-[#bd0c12]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column: 6 News Cards (Col span 9) */}
-          <div className="lg:col-span-9 flex flex-col gap-8">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredNews.map((news) => (
-                <Link
-                  key={news.id}
-                  href={`/berita/${news.slug}`}
-                  className="group flex flex-col rounded-2xl bg-white border border-gray-100 overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-                >
-                  {/* Thumbnail Placeholder */}
-                  <div className={`relative h-44 w-full bg-gradient-to-br ${news.gradient} flex items-center justify-center p-4`}>
-                    <span className="font-jakarta font-bold text-white/20 text-4xl select-none">
-                      SKOMDA
-                    </span>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="flex flex-col flex-1 p-5">
-                    <h4 className="font-jakarta font-bold text-sm leading-snug text-[#101828] group-hover:text-[#bd0c12] transition-colors line-clamp-2 min-h-[40px]">
-                      {news.title}
-                    </h4>
-
-                    <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-[#787878] font-jakarta">
-                      <span className="font-medium text-[#bd0c12]">{news.category}</span>
-                      <span>{news.date}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* Pagination Controls (Figma 23:434) */}
-            <div className="flex items-center justify-center gap-3 pt-4">
-              <button
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                disabled={currentPage === 1}
-                className="flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white text-[#364153] hover:border-[#bd0c12] hover:text-[#bd0c12] disabled:opacity-40 disabled:hover:border-gray-200 disabled:hover:text-[#364153]"
-                aria-label="Previous page"
+        {/* 1. Header (Figma Node 123:277) */}
+        {showTitle && (
+          <div
+            className="flex flex-col items-center text-center gap-[9px] mb-14 sm:mb-20 lg:mb-[96px]"
+            data-node-id="123:277"
+          >
+            <div
+              className="flex flex-col items-center gap-1 sm:gap-2 w-full"
+              data-node-id="123:276"
+            >
+              <h2
+                className="font-jakarta font-bold text-2xl sm:text-[32px] leading-tight sm:leading-[40px] text-[#101828]"
+                data-node-id="123:5"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
+                Berita &amp; Informasi Terkini
+              </h2>
+              <h3
+                className="font-jakarta font-bold text-3xl sm:text-[46px] leading-tight sm:leading-[40px] text-[#e7000b]"
+                data-node-id="123:7"
+              >
+                SMK Telkom Sidoarjo
+              </h3>
+            </div>
+            <p
+              className="font-jakarta font-medium text-sm sm:text-[14px] leading-relaxed sm:leading-[28px] text-[#515151] max-w-[434px]"
+              data-node-id="123:274"
+            >
+              Update terbaru seputar kegiatan, prestasi, dan informasi penting dari
+              SMK Telkom Sidoarjo
+            </p>
+          </div>
+        )}
 
-              {/* Page indicator dots */}
-              <div className="flex items-center gap-2">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`size-2.5 rounded-full transition-all ${
-                      currentPage === page ? "bg-[#bd0c12] scale-125" : "bg-gray-300 hover:bg-gray-400"
-                    }`}
-                    aria-label={`Go to page ${page}`}
-                  />
-                ))}
+        {/* Two-Column Layout: Sidebar (125:457) + News Grid & Pagination (125:468) */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+          {/* 2. Category Filter (Figma Node 125:457) */}
+          <aside
+            className="w-full lg:w-[280px] shrink-0"
+            data-node-id="125:457"
+          >
+            {/* Desktop Vertical Sidebar */}
+            <div className="hidden lg:flex flex-col gap-1 w-full">
+              <div className="px-2.5 py-2 mb-1" data-node-id="125:456">
+                <h3
+                  className="font-jakarta font-bold text-[20px] leading-[28px] text-[#101828]"
+                  data-node-id="123:11"
+                >
+                  Kategori Berita
+                </h3>
               </div>
 
-              <button
-                onClick={() => setCurrentPage((p) => Math.min(p + 1, 10))}
-                disabled={currentPage === 10}
-                className="flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white text-[#364153] hover:border-[#bd0c12] hover:text-[#bd0c12] disabled:opacity-40 disabled:hover:border-gray-200 disabled:hover:text-[#364153]"
-                aria-label="Next page"
+              <div
+                className="flex flex-col gap-[3px] w-full"
+                data-node-id="125:300"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
+                {NEWS_CATEGORIES.map((cat) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => handleCategoryChange(cat)}
+                      className={`group relative w-full h-[38px] px-3.5 rounded-[10px] flex items-center justify-between font-jakarta text-[15px] font-medium transition-colors duration-150 select-none text-left cursor-pointer ${
+                        isActive
+                          ? "bg-[rgba(188,12,17,0.98)] text-white shadow-sm font-semibold"
+                          : "text-[#364153] hover:text-[#bd0c12] hover:bg-white/80 active:bg-gray-100"
+                      }`}
+                    >
+                      <span className="truncate pr-2">{cat}</span>
+                      <span
+                        className={`shrink-0 transition-opacity duration-150 ${
+                          isActive
+                            ? "opacity-100"
+                            : "opacity-0 group-hover:opacity-40"
+                        }`}
+                      >
+                        <svg
+                          width="7"
+                          height="12"
+                          viewBox="0 0 8 14"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={
+                            isActive ? "stroke-white" : "stroke-current"
+                          }
+                        >
+                          <path
+                            d="M1 1L6.657 6.657L1 12.314"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
+            {/* Mobile & Tablet Horizontal Scrollable Pills */}
+            <div className="lg:hidden w-full">
+              <div className="flex items-center justify-between mb-3 px-1">
+                <h3 className="font-jakarta font-bold text-lg text-[#101828]">
+                  Kategori Berita
+                </h3>
+                <span className="text-xs text-[#6a7282] font-medium">
+                  {filteredNews.length} Berita
+                </span>
+              </div>
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+                {NEWS_CATEGORIES.map((cat) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => handleCategoryChange(cat)}
+                      className={`shrink-0 h-[36px] px-4 rounded-full font-jakarta text-sm font-medium transition-all duration-150 select-none whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                        isActive
+                          ? "bg-[rgba(188,12,17,0.98)] text-white shadow-sm font-semibold"
+                          : "bg-white text-[#364153] border border-gray-200/80 hover:border-[#bd0c12] hover:text-[#bd0c12]"
+                      }`}
+                    >
+                      <span>{cat}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </aside>
+
+          {/* 3. News Grid & Pagination (Figma Node 125:468) */}
+          <div
+            className="flex-1 w-full flex flex-col gap-10"
+            data-node-id="125:468"
+          >
+            {/* 3x2 News Cards Grid */}
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-5 gap-y-6 lg:gap-y-7 transition-opacity duration-150 ${
+                isTransitioning || isLoading ? "opacity-40" : "opacity-100"
+              }`}
+              data-node-id="125:467"
+            >
+              {currentNews.length > 0 ? (
+                currentNews.map((item) => (
+                  <article
+                    key={item.id || item.slug}
+                    className="bg-white rounded-[16px] p-[11px] pt-[13px] pb-[14px] flex flex-col gap-[4px] shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100/80 group"
+                    data-node-id="125:321"
+                  >
+                    {/* Thumbnail with Date Badge */}
+                    <div
+                      className="relative h-[192px] w-full rounded-[12px] overflow-hidden bg-gray-100"
+                      data-node-id="123:82"
+                    >
+                      <Image
+                        src={item.image || "/figma/news-thumb-1.png"}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+
+                      {/* Top-Right Red Date Badge */}
+                      <div
+                        className="absolute top-0 right-0 bg-[rgba(188,12,17,0.98)] w-[53px] h-[60px] rounded-bl-[15px] rounded-tr-[10px] flex flex-col items-center justify-center text-white text-center shadow-sm pointer-events-none"
+                        data-node-id="125:318"
+                      >
+                        <span className="font-poppins font-medium text-[16px] leading-[16px]">
+                          {item.day || "24"}
+                        </span>
+                        <span className="font-poppins font-medium text-[16px] leading-[16px] uppercase tracking-wide">
+                          {item.month || "MEI"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="flex flex-col gap-1 pt-1">
+                      {/* Title */}
+                      <div className="p-[10px] pb-0 mb-[-6px]">
+                        <Link href={`/berita/${item.slug}`}>
+                          <h4
+                            className="font-jakarta font-bold text-[14px] leading-[17.5px] text-[#101828] line-clamp-3 min-h-[52px] group-hover:text-[#bd0c12] transition-colors"
+                            data-node-id="123:85"
+                          >
+                            {item.title}
+                          </h4>
+                        </Link>
+                      </div>
+
+                      {/* Category */}
+                      <div className="p-[10px] py-1 mb-[-6px]">
+                        <span
+                          className="font-jakarta font-semibold text-[12px] leading-[16px] text-[#e7000b]"
+                          data-node-id="123:88"
+                        >
+                          {item.category}
+                        </span>
+                      </div>
+
+                      {/* Date & Time */}
+                      <div
+                        className="p-[10px] pt-1 flex items-center gap-[6px] text-[#6a7282]"
+                        data-node-id="125:312"
+                      >
+                        <div className="shrink-0 size-[12px] flex items-center justify-center">
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 13 13"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="stroke-[#6a7282]"
+                          >
+                            <circle
+                              cx="6.375"
+                              cy="6.375"
+                              r="5.625"
+                              strokeWidth="1.25"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M5.75 3.875V7H8.875"
+                              strokeWidth="1.25"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <span
+                          className="font-poppins font-normal text-[12px] leading-[16px]"
+                          data-node-id="123:90"
+                        >
+                          {item.dateFormatted} • {item.time}
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <div className="col-span-full bg-white rounded-2xl p-12 text-center border border-gray-100">
+                  <p className="font-jakarta font-semibold text-[#364153] text-base mb-1">
+                    Belum ada berita untuk kategori ini.
+                  </p>
+                  <p className="text-sm text-[#6a7282]">
+                    Silakan pilih kategori lain atau kembali ke kategori Semua.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Pagination Controls (Figma Node 125:462) */}
+            {totalPages > 1 && (
+              <div
+                className="flex items-center justify-center sm:justify-between w-full pt-4"
+                data-node-id="125:462"
+              >
+                {/* Previous Page Button */}
+                <div className="p-[10px]" data-node-id="125:461">
+                  <button
+                    type="button"
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                    className={`size-[48px] rounded-[8px] bg-white border border-[rgba(188,12,17,0.98)] flex items-center justify-center transition-all ${
+                      currentPage === 1
+                        ? "opacity-40 cursor-not-allowed"
+                        : "hover:bg-red-50 hover:shadow-sm active:scale-95 cursor-pointer"
+                    }`}
+                    aria-label="Previous page"
+                    data-node-id="123:92"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 19L5 12L12 5"
+                        stroke="#BC0C11"
+                        strokeOpacity="0.98"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M19 12H5"
+                        stroke="#BC0C11"
+                        strokeOpacity="0.98"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Page Indicator Dots */}
+                <div
+                  className="flex items-center gap-[4px] sm:gap-[8px] overflow-x-auto py-2"
+                  data-node-id="125:459"
+                >
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (pageNum) => {
+                      const isActive = currentPage === pageNum;
+                      return (
+                        <button
+                          key={pageNum}
+                          type="button"
+                          onClick={() => setCurrentPage(pageNum)}
+                          className="size-[32px] sm:size-[40px] flex items-center justify-center rounded-full hover:bg-gray-200/50 transition-colors cursor-pointer"
+                          aria-label={`Go to page ${pageNum}`}
+                          data-node-id={`123:${97 + (pageNum - 1) * 2}`}
+                        >
+                          <span
+                            className={`rounded-full transition-all duration-200 ${
+                              isActive
+                                ? "size-[12px] bg-[#bd0c12] scale-110 shadow-sm"
+                                : "size-[8px] bg-[#99a1af] hover:bg-[#6a7282]"
+                            }`}
+                          />
+                        </button>
+                      );
+                    }
+                  )}
+                </div>
+
+                {/* Next Page Button */}
+                <div className="p-[10px]" data-node-id="125:460">
+                  <button
+                    type="button"
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                    className={`size-[48px] rounded-[8px] bg-[rgba(188,12,17,0.98)] text-white flex items-center justify-center transition-all shadow-sm ${
+                      currentPage === totalPages
+                        ? "opacity-40 cursor-not-allowed"
+                        : "hover:bg-[#990a0e] hover:shadow-md active:scale-95 cursor-pointer"
+                    }`}
+                    aria-label="Next page"
+                    data-node-id="123:117"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12H19"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M12 5L19 12L12 19"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

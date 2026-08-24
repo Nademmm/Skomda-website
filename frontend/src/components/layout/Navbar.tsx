@@ -60,15 +60,14 @@ export default function Navbar() {
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
 
   const toggleMobileSubmenu = (label: string) => {
-    setMobileSubmenu(mobileSubmenu === label ? null : label);
+    setMobileSubmenu((prev) => (prev === label ? null : label));
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 px-4 sm:px-6 lg:px-8 pointer-events-none">
       <div className="mx-auto max-w-[1280px]">
         <header
-          className="pointer-events-auto relative w-full h-[66px] bg-white/95 backdrop-blur-md rounded-full px-6 sm:px-8 flex items-center justify-between border border-white/50"
-          style={{ boxShadow: "0px 20px 25px -5px rgba(0,0,0,0.1), 0px 10px 10px -5px rgba(0,0,0,0.04)" }}
+          className="pointer-events-auto relative w-full h-[66px] bg-white/95 backdrop-blur-md rounded-full px-5 sm:px-8 flex items-center justify-between border border-white/50 shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_10px_10px_-5px_rgba(0,0,0,0.04)]"
         >
           {/* Logo */}
           <Link href="/" className="relative h-9 w-[122px] shrink-0">
@@ -88,7 +87,8 @@ export default function Navbar() {
                 return (
                   <div key={item.label} className="relative group/nav py-3">
                     <button
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full"
+                      type="button"
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer"
                     >
                       <span>{item.label}</span>
                       <svg
@@ -153,8 +153,9 @@ export default function Navbar() {
             {/* Language Selector */}
             <div className="flex h-[38px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
               <button
+                type="button"
                 onClick={() => setLang("ID")}
-                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
                   lang === "ID"
                     ? "bg-[#bd0c12] text-white shadow-sm"
                     : "text-[#4b5563] hover:text-[#bd0c12]"
@@ -164,8 +165,9 @@ export default function Navbar() {
                 ID
               </button>
               <button
+                type="button"
                 onClick={() => setLang("EN")}
-                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
                   lang === "EN"
                     ? "bg-[#bd0c12] text-white shadow-sm"
                     : "text-[#4b5563] hover:text-[#bd0c12]"
@@ -191,17 +193,20 @@ export default function Navbar() {
           {/* Mobile Hamburger Button */}
           <div className="flex items-center gap-2 xl:hidden">
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-[#364153] hover:border-[#bd0c12] hover:text-[#bd0c12]"
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setMobileOpen((prev) => !prev); }}
+              onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); setMobileOpen((prev) => !prev); }}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#364153] active:border-[#bd0c12] active:text-[#bd0c12] active:bg-gray-50 bg-white"
               aria-label="Toggle menu"
+              style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
             >
               {mobileOpen ? (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="3" y1="12" x2="21" y2="12" />
                   <line x1="3" y1="6" x2="21" y2="6" />
                   <line x1="3" y1="18" x2="21" y2="18" />
@@ -213,16 +218,17 @@ export default function Navbar() {
 
         {/* Mobile Dropdown Menu with Expandable Accordions */}
         {mobileOpen && (
-          <div className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl border border-gray-100 xl:hidden">
-            <nav className="flex flex-col gap-2">
+          <div className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-gray-100 xl:hidden">
+            <nav className="flex flex-col gap-1.5">
               {navItems.map((item) => {
                 if (item.submenu) {
                   const isOpen = mobileSubmenu === item.label;
                   return (
                     <div key={item.label} className="flex flex-col border-b border-gray-100 pb-2">
                       <button
+                        type="button"
                         onClick={() => toggleMobileSubmenu(item.label)}
-                        className="flex items-center justify-between px-2 py-2 text-base font-semibold text-[#364153] hover:text-[#bd0c12]"
+                        className="flex items-center justify-between px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12] w-full text-left cursor-pointer select-none"
                       >
                         <span>{item.label}</span>
                         <svg
@@ -243,7 +249,7 @@ export default function Navbar() {
                               key={sub.label}
                               href={sub.href}
                               onClick={() => setMobileOpen(false)}
-                              className="px-2 py-1.5 text-sm font-medium text-[#4a5565] hover:text-[#bd0c12]"
+                              className="px-2 py-2 text-sm font-medium text-[#4a5565] hover:text-[#bd0c12] active:text-[#bd0c12]"
                             >
                               {sub.label}
                             </Link>
@@ -259,7 +265,7 @@ export default function Navbar() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="px-2 py-2 text-base font-semibold text-[#364153] hover:text-[#bd0c12] border-b border-gray-100 last:border-0"
+                    className="px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12] active:text-[#bd0c12] border-b border-gray-100 last:border-0"
                   >
                     {item.label}
                   </Link>
@@ -269,16 +275,18 @@ export default function Navbar() {
               <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                 <div className="flex h-[36px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
                   <button
+                    type="button"
                     onClick={() => setLang("ID")}
-                    className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                    className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
                       lang === "ID" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#4b5563]"
                     }`}
                   >
                     ID
                   </button>
                   <button
+                    type="button"
                     onClick={() => setLang("EN")}
-                    className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all ${
+                    className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
                       lang === "EN" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#4b5563]"
                     }`}
                   >
@@ -288,7 +296,7 @@ export default function Navbar() {
                 <Link
                   href="#unduh"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex h-[36px] items-center rounded-full bg-[#bd0c12] px-5 text-xs font-bold font-jakarta text-white"
+                  className="inline-flex h-[36px] items-center rounded-full bg-[#bd0c12] px-5 text-xs font-bold font-jakarta text-white shadow-sm"
                 >
                   Unduh Informasi
                 </Link>
