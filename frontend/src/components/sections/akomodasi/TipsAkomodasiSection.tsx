@@ -1,0 +1,145 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+const faqs: FAQItem[] = [
+  {
+    q: "Apakah pihak sekolah menyediakan asrama resmi milik SMK Telkom Sidoarjo?",
+    a: "SMK Telkom Sidoarjo bermitra dengan puluhan pengelola kos dan asrama pelajar terverifikasi di sekitar sekolah (radius 200m - 1km). Seluruh hunian mitra telah dicek aspek keamanan, kenyamanan, serta kedisiplinannya oleh Tim Kesiswaan.",
+  },
+  {
+    q: "Bagaimana cara orang tua luar kota menyurvei dan memilih kos yang aman?",
+    a: "Orang tua dapat menghubungi langsung pengelola melalui kontak yang tertera atau menghubungi Helpdesk Kesiswaan kami untuk mendapatkan pendampingan rekomendasi kos yang sesuai dengan anggaran dan preferensi (khusus putra / khusus putri).",
+  },
+  {
+    q: "Apakah kos di sekitar sekolah sudah mencakup akses internet WiFi?",
+    a: "Mayoritas kos mitra di sekitar SMK Telkom Sidoarjo telah dilengkapi jaringan WiFi berkecepatan tinggi (Fiber Optic) yang memadai untuk mendukung praktikum coding, tugas jaringan, maupun ujian daring siswa.",
+  },
+  {
+    q: "Berapa batas jam malam rata-rata kos di sekitar kampus?",
+    a: "Untuk menjaga keselamatan dan kedisiplinan belajar siswa SMK, sebagian besar kos menerapkan jam malam pukul 21.00 – 22.00 WIB, dengan toleransi khusus jika ada kegiatan tugas kelompok atau ekstrakurikuler resmi dari sekolah yang disertai surat izin.",
+  },
+];
+
+export default function TipsAkomodasiSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleFAQ = (idx: number) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
+  };
+
+  return (
+    <section className="relative w-full py-20 lg:py-28 bg-[#f9fafb] border-t border-gray-200/60 overflow-hidden">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left: Helpdesk Card */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="rounded-[28px] bg-gradient-to-br from-[#101828] to-[#1e293b] text-white p-8 sm:p-9 shadow-xl border-2 border-dashed border-gray-700">
+              <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight mb-3">
+                Butuh Bantuan Memilih Kos yang Tepat?
+              </h3>
+              <p className="font-jakarta text-sm text-gray-300 leading-relaxed mb-6">
+                Tim Bimbingan Konseling dan Kesiswaan SMK Telkom Sidoarjo siap
+                membantu calon siswa dan orang tua dari luar kota untuk survei dan
+                mendapatkan akomodasi terbaik.
+              </p>
+
+              <div className="flex flex-col gap-3">
+                <a
+                  href="https://wa.me/6281234567899?text=Halo%20Admin%20Kesiswaan%20SMK%20Telkom%20Sidoarjo,%20saya%20calon%20wali%20murid/siswa%20ingin%20berkonsultasi%20mengenai%20rekomendasi%20akomodasi%20kos/asrama."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#bc0c11] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#990a0e] shadow-md font-jakarta cursor-pointer"
+                >
+                  <span>Chat WhatsApp Kesiswaan</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12H19M19 12L12 5M19 12L12 19"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: FAQ Accordion */}
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            <div className="mb-4">
+              <h3 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828] leading-tight">
+                Pertanyaan Seputar <span className="text-[#bc0c11]">Akomodasi</span>
+              </h3>
+              <p className="font-jakarta text-sm text-[#4a5565] mt-1">
+                Informasi penting yang sering ditanyakan orang tua dan calon siswa perantau.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {faqs.map((faq, idx) => {
+                const isOpen = openIndex === idx;
+                return (
+                  <div
+                    key={faq.q}
+                    className="rounded-[20px] bg-white border-2 border-dashed border-[#d1d5dc] overflow-hidden transition-colors hover:border-[#bc0c11]"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleFAQ(idx)}
+                      className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-jakarta font-bold text-sm sm:text-base text-[#101828] cursor-pointer"
+                    >
+                      <span>{faq.q}</span>
+                      <div
+                        className={`size-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                          isOpen
+                            ? "bg-[#bc0c11] text-white rotate-180 shadow-xs"
+                            : "bg-gray-100 text-[#4a5565] hover:bg-gray-200"
+                        }`}
+                      >
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#4a5565] font-jakarta leading-relaxed border-t border-gray-100">
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
