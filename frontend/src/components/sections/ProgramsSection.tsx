@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function ProgramsSection() {
   const [activeTab, setActiveTab] = useState<"SIJA" | "TJAT">("SIJA");
@@ -21,15 +22,24 @@ export default function ProgramsSection() {
             di <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
           </p>
 
-          {/* Segmented Pill Tabs */}
-          <div className="mt-8 inline-flex h-[52px] w-[340px] items-center rounded-full bg-white p-1 shadow-sm border border-gray-200/60">
+          {/* Segmented Pill Tabs with Animated Sliding Pill */}
+          <div className="mt-8 relative inline-flex h-[52px] w-[340px] items-center rounded-full bg-white p-1 shadow-sm border border-gray-200/60">
             <button
+              type="button"
               onClick={() => setActiveTab("SIJA")}
-              className={`flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-all ${activeTab === "SIJA"
-                  ? "bg-[#bd0c12] text-white shadow-sm font-semibold"
+              className={`relative z-10 flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-colors duration-200 cursor-pointer select-none ${
+                activeTab === "SIJA"
+                  ? "text-white font-semibold"
                   : "text-[#364153] hover:text-[#bd0c12]"
-                }`}
+              }`}
             >
+              {activeTab === "SIJA" && (
+                <motion.div
+                  layoutId="activeBerandaTabPill"
+                  className="absolute inset-0 rounded-full bg-[#bd0c12] shadow-sm -z-10"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                />
+              )}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="16 18 22 12 16 6" />
                 <polyline points="8 6 2 12 8 18" />
@@ -37,12 +47,21 @@ export default function ProgramsSection() {
               <span>SIJA</span>
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab("TJAT")}
-              className={`flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-all ${activeTab === "TJAT"
-                  ? "bg-[#bd0c12] text-white shadow-sm font-semibold"
+              className={`relative z-10 flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-colors duration-200 cursor-pointer select-none ${
+                activeTab === "TJAT"
+                  ? "text-white font-semibold"
                   : "text-[#364153] hover:text-[#bd0c12]"
-                }`}
+              }`}
             >
+              {activeTab === "TJAT" && (
+                <motion.div
+                  layoutId="activeBerandaTabPill"
+                  className="absolute inset-0 rounded-full bg-[#bd0c12] shadow-sm -z-10"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                />
+              )}
               {/* Exact TJAT vector icon from Figma (node 96:378) */}
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M13.54 6.47a5 5 0 0 1 0 7.06" />
