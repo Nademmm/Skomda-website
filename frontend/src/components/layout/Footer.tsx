@@ -4,10 +4,9 @@ import Link from "next/link";
 export default function Footer() {
   const menuUtama = [
     { label: "Beranda", href: "/" },
-    { label: "Profil Sekolah", href: "#sambutan" },
-    { label: "Profil Jurusan", href: "#program" },
-    { label: "Berita", href: "#informasi" },
-    { label: "Lab Tour", href: "#lab-tour" },
+    { label: "Profil Sekolah", href: "/tentang-kami/profil-sekolah" },
+    { label: "Profil Jurusan", href: "/program/profil-jurusan" },
+    { label: "Berita", href: "/informasi/berita" },
     { label: "Trial Class", href: "#trial-class" },
     { label: "PPDB", href: "#ppdb" },
   ];
@@ -185,12 +184,12 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Menu Utama & Aplikasi Siswa (Col span 3) */}
-          <div className="lg:col-span-3 flex flex-col gap-6">
+          <div className="lg:col-span-3 flex flex-col gap-4">
             <div>
-              <h3 className="font-jakarta font-bold text-lg text-[#101828] mb-3">
+              <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
                 Menu Utama
               </h3>
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-1.5">
                 {menuUtama.map((item) => (
                   <li key={item.label}>
                     <Link
@@ -205,10 +204,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="font-jakarta font-bold text-lg text-[#101828] mb-3">
+              <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
                 Aplikasi Siswa
               </h3>
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-1.5">
                 {aplikasiSiswa.map((item) => (
                   <li key={item.label}>
                     <a
@@ -226,12 +225,12 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Berita Sekolah & Pengunjung (Col span 2) */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
+          <div className="lg:col-span-2 flex flex-col gap-4">
             <div>
-              <h3 className="font-jakarta font-bold text-lg text-[#101828] mb-3">
+              <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
                 Berita Sekolah
               </h3>
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-1.5">
                 {beritaSekolah.map((item) => (
                   <li key={item.label}>
                     <Link
@@ -246,10 +245,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="font-jakarta font-bold text-lg text-[#101828] mb-3">
+              <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
                 Pengunjung Website
               </h3>
-              <div className="flex flex-col gap-1.5 font-jakarta text-xs text-[#364153]">
+              <div className="flex flex-col gap-1 font-jakarta text-xs text-[#364153]">
                 <p>Pengunjung Hari ini : <span className="font-semibold text-[#101828]">30</span></p>
                 <p>Pengunjung Bulan ini : <span className="font-semibold text-[#101828]">1.405</span></p>
                 <p>Pengunjung Tahun ini : <span className="font-semibold text-[#101828]">40.125</span></p>

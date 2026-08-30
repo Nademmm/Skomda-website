@@ -267,7 +267,6 @@ export async function getNewsList(params?: {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 60 },
       cache: "no-store",
     });
 
@@ -297,7 +296,6 @@ export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 60 },
       cache: "no-store",
     });
 

@@ -49,7 +49,6 @@ const navItems: NavItem[] = [
       { label: "Penerapan K3", href: "/informasi/penerapan-k3", desc: "Keselamatan & Kesehatan Kerja di lingkungan sekolah" },
     ],
   },
-  { label: "Lab Tour", href: "#lab-tour" },
   { label: "Trial Class", href: "#trial-class" },
   { label: "PPDB", href: "#ppdb" },
 ];

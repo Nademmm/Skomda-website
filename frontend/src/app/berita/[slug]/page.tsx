@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ShareArticleWidget from "@/components/news/ShareArticleWidget";
 import { getNewsBySlug, getNewsList } from "@/services/news";
 
 type Props = {
@@ -169,34 +170,8 @@ export default async function NewsDetailPage({ params }: Props) {
               )}
             </div>
 
-            {/* Share Section */}
-            <div className="mt-12 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4">
-              <span className="font-jakarta font-semibold text-sm text-[#101828]">
-                Bagikan artikel ini:
-              </span>
-              <div className="flex items-center gap-2">
-                <a
-                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
-                    `${news.title}\nBaca selengkapnya di SMK Telkom Sidoarjo:`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#25D366] text-white text-xs font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1.5"
-                >
-                  WhatsApp
-                </a>
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                    news.title
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#1DA1F2] text-white text-xs font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1.5"
-                >
-                  Twitter
-                </a>
-              </div>
-            </div>
+            {/* Share Widget */}
+            <ShareArticleWidget slug={news.slug} />
           </article>
 
           {/* Berita Terkait / Rekomendasi */}
