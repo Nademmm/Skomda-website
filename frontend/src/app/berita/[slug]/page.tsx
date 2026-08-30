@@ -18,16 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!news) {
     return {
-      title: "Berita Tidak Ditemukan — SMK Telkom Sidoarjo",
+      title: "SMK Telkom Sidoarjo",
       description: "Halaman berita yang Anda cari tidak ditemukan di SMK Telkom Sidoarjo.",
     };
   }
 
   return {
-    title: `${news.title} — SMK Telkom Sidoarjo`,
+    title: "SMK Telkom Sidoarjo",
     description: news.summary || news.title,
     openGraph: {
-      title: news.title,
+      title: "SMK Telkom Sidoarjo",
       description: news.summary,
       images: [news.image || "/figma/news-thumb-1.png"],
     },
@@ -193,7 +193,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 {relatedNews.map((item) => (
                   <article
                     key={item.id || item.slug}
-                    className="bg-white rounded-[16px] p-3 pb-4 flex flex-col shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 group"
+                    className="bg-white rounded-[16px] p-3 pb-4 flex flex-col shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] group"
                   >
                     <div className="relative h-[160px] w-full rounded-[12px] overflow-hidden bg-gray-100 mb-3">
                       <Image

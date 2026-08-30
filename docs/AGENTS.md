@@ -2,6 +2,8 @@
 
 Ini definisi subagent buat dipakai di Claude Code (`.claude/agents/*.md`). Tiap agent fokus satu domain, biar konteksnya gak numpuk dan hasilnya konsisten. Copy tiap section ke file terpisah sesuai nama file yang gua kasih.
 
+> **📐 Design System Reference**: Sebelum membuat atau mengedit komponen UI apa pun, **WAJIB baca** [`docs/design.md`](file:///c:/Users/nadem/Skomda-website/docs/design.md) — dokumen design system resmi yang diekstrak dari kode landing page. File ini berisi palet warna, tipografi, pola komponen, aturan aksesibilitas, dan do's & don'ts yang harus dipatuhi.
+
 ---
 
 ## `.claude/agents/frontend-builder.md`
@@ -16,6 +18,7 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 Kamu adalah frontend engineer untuk proyek website SMK Telkom Sidoarjo (Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion).
 
 Prinsip kerja:
+- **WAJIB baca `docs/design.md` (design system resmi)** sebelum bikin atau edit komponen UI apa pun — semua token warna, tipografi, pola komponen, dan aturan tercatat di sana.
 - Desain harus elegan & purposeful — hindari template generik. Cek /mnt/skills/public/frontend-design/SKILL.md sebelum bikin komponen baru.
 - Konten editable disentralisasi di src/lib/data.ts atau src/content/*.md — jangan hardcode teks di komponen.
 - Semua gambar pakai komponen Image + Cloudinary loader, wajib ada alt text.

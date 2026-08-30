@@ -190,7 +190,7 @@ export default function ProgramsSection() {
               </div>
 
               {/* Prospek Kerja Container */}
-              <div className="rounded-2xl bg-white/70 border border-gray-200/70 p-4 sm:p-5">
+              <div className="rounded-2xl bg-white border-2 border-dashed border-[#d1d5dc] p-4 sm:p-5">
                 <h4 className="font-jakarta font-semibold text-sm sm:text-base text-[#c10007]">
                   Prospek Kerja:
                 </h4>
@@ -356,7 +356,7 @@ export default function ProgramsSection() {
               </div>
 
               {/* Prospek Kerja Container */}
-              <div className="rounded-2xl bg-white/70 border border-gray-200/70 p-4 sm:p-5">
+              <div className="rounded-2xl bg-white border-2 border-dashed border-[#d1d5dc] p-4 sm:p-5">
                 <h4 className="font-jakarta font-semibold text-sm sm:text-base text-[#c10007]">
                   Prospek Kerja:
                 </h4>

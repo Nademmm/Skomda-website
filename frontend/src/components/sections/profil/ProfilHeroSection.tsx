@@ -106,17 +106,30 @@ export default function ProfilHeroSection() {
             {/* CTA Button */}
             <button
               onClick={scrollToVisiMisi}
-              className="group inline-flex items-center gap-3 px-7 py-3 rounded-full bg-[#bd0c12] hover:bg-[#990a0e] text-white font-jakarta font-bold text-base shadow-lg shadow-[#bd0c12]/20 hover:shadow-xl hover:shadow-[#bd0c12]/30 active:scale-98 transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer"
+              style={{
+                boxShadow:
+                  "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
+              }}
             >
-              <span>Jelajahi</span>
-              <div className="size-5 flex items-center justify-center transition-transform group-hover:translate-x-1 duration-200">
-                <Image
-                  src="/figma/icon-arrow-right-white.svg"
-                  alt=""
-                  width={16}
-                  height={16}
+              <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
+                Jelajahi
+              </span>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-              </div>
+              </svg>
             </button>
           </motion.div>
 

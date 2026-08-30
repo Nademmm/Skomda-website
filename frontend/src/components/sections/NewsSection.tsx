@@ -247,7 +247,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                 currentNews.map((item) => (
                   <article
                     key={item.id || item.slug}
-                    className="bg-white rounded-[16px] p-[11px] pt-[13px] pb-[14px] flex flex-col gap-[4px] shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100/80 group"
+                    className="bg-white rounded-[16px] p-[11px] pt-[13px] pb-[14px] flex flex-col gap-[4px] shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] group"
                     data-node-id="125:321"
                   >
                     {/* Thumbnail with Date Badge */}

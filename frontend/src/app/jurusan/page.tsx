@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import { getJurusanList } from "@/services/jurusan";
 
 export const metadata: Metadata = {
-  title: "Jurusan Vokasi — SMK Telkom Sidoarjo",
+  title: "SMK Telkom Sidoarjo",
   description:
     "Pelajari 4 jurusan vokasi utama di SMK Telkom Sidoarjo: Rekayasa Perangkat Lunak (RPL), Teknik Komputer & Jaringan (TKJ), Multimedia (MM), dan Teknik Telekomunikasi (TT).",
 };

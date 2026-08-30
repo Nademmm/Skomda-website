@@ -73,22 +73,6 @@ export default function PrincipalSection() {
 
           {/* Right Column: Sambutan Message (Tightly & Cleanly Spaced) */}
           <div className="z-10 flex flex-col items-start max-w-[540px]">
-            
-            {/* Sambutan Badge with Icon */}
-            <div className="mb-3.5 inline-flex items-center gap-2 rounded-full bg-[#f3f4f6] px-4 py-1.5 border border-gray-200">
-              <span className="relative size-5 shrink-0">
-                <Image
-                  src="/figma/icon-profile.svg"
-                  alt=""
-                  fill
-                  className="object-contain"
-                />
-              </span>
-              <span className="font-poppins text-sm sm:text-base font-medium text-[#515151]">
-                Sambutan
-              </span>
-            </div>
-
             {/* Heading */}
             <h2 className="font-jakarta font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight tracking-tight text-[#101828]">
               <span>Kepala Sekolah </span>

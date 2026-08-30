@@ -16,13 +16,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!jurusan) {
     return {
-      title: "Jurusan Tidak Ditemukan — SMK Telkom Sidoarjo",
+      title: "SMK Telkom Sidoarjo",
       description: "Halaman jurusan yang Anda cari tidak ditemukan di SMK Telkom Sidoarjo.",
     };
   }
 
   return {
-    title: `${jurusan.nama} (${jurusan.kode}) — SMK Telkom Sidoarjo`,
+    title: "SMK Telkom Sidoarjo",
     description: `Program keahlian ${jurusan.nama} (${jurusan.kode}) di SMK Telkom Sidoarjo. ${jurusan.deskripsi}`,
   };
 }
@@ -107,7 +107,7 @@ export default async function JurusanDetailPage({ params }: Props) {
               </div>
 
               {/* Box 2: Prospek Karier */}
-              <div className="rounded-2xl border border-line bg-graphite p-8 md:p-10">
+              <div className="rounded-2xl border-2 border-dashed border-[#d1d5dc] bg-white p-8 md:p-10">
                 <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
                   <h2 className="font-display text-2xl tracking-tight text-ink">
                     Prospek Karier & Industri

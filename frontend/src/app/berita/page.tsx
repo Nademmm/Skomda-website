@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import NewsSection from "@/components/sections/NewsSection";
 
 export const metadata: Metadata = {
-  title: "Berita & Informasi Terkini — SMK Telkom Sidoarjo",
+  title: "SMK Telkom Sidoarjo",
   description:
     "Update terbaru seputar kegiatan, prestasi, kemitraan industri, dan informasi penting dari SMK Telkom Sidoarjo.",
 };

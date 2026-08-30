@@ -74,17 +74,30 @@ export default function HeroSection() {
             <div className="mt-7">
               <Link
                 href="#sambutan"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] pl-6 pr-1.5 py-1.5 text-white shadow-[0px_4px_10px_rgba(188,12,17,0.3)] transition-all duration-300 hover:bg-[#990a0e] hover:shadow-[0px_6px_15px_rgba(188,12,17,0.4)] active:scale-[0.98]"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98]"
+                style={{
+                  boxShadow:
+                    "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
+                }}
               >
-                <span className="font-poppins font-medium text-[15px] leading-none whitespace-nowrap">
+                <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
                   Jelajahi Lebih Lanjut
                 </span>
-                <div className="flex size-[42px] shrink-0 items-center justify-center rounded-full bg-white text-[#bc0c11] shadow-sm transition-transform duration-300 group-hover:translate-x-1">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </div>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </Link>
             </div>
           </div>
@@ -221,17 +234,30 @@ export default function HeroSection() {
             <div className="mt-4 sm:mt-5">
               <Link
                 href="#sambutan"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-[#bc0c11] pl-4 sm:pl-5 pr-1 py-1 text-white shadow-[0px_3px_8px_rgba(188,12,17,0.25)] transition-all duration-200 hover:bg-[#990a0e] active:scale-[0.97]"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-[#bc0c11] px-6 py-2.5 text-white transition-all duration-200 hover:bg-[#990a0e] active:scale-[0.97]"
+                style={{
+                  boxShadow:
+                    "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
+                }}
               >
-                <span className="font-poppins font-medium text-[13px] sm:text-[14px] leading-none whitespace-nowrap">
+                <span className="font-jakarta font-medium text-[14px] leading-none whitespace-nowrap">
                   Jelajahi Lebih Lanjut
                 </span>
-                <div className="flex size-[32px] sm:size-[36px] shrink-0 items-center justify-center rounded-full bg-white text-[#bc0c11] shadow-xs transition-transform duration-200 group-hover:translate-x-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </div>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </Link>
             </div>
           </div>

@@ -33,6 +33,14 @@ const partners = [
     name: "PT Radnet Digital Indonesia",
     src: "/figma/partner-radnet.png",
   },
+  {
+    name: "Weza Group - PT Weza Punya Cerita",
+    src: "/figma/weza-group.png",
+  },
+  {
+    name: "Wowrack Indonesia",
+    src: "/figma/wowrack.png",
+  },
 ];
 
 export default function PartnersSection() {
