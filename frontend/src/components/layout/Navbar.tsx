@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SubMenuItem {
   label: string;
@@ -16,51 +17,51 @@ interface NavItem {
   submenu?: SubMenuItem[];
 }
 
-const navItems: NavItem[] = [
-  { label: "Beranda", href: "/" },
-  {
-    label: "Tentang Kami",
-    href: "#sambutan",
-    submenu: [
-      { label: "Profil Sekolah", href: "/tentang-kami/profil-sekolah", desc: "Sejarah, visi misi, dan identitas sekolah" },
-      { label: "Hub Industri", href: "/tentang-kami/hub-industri", desc: "Kerjasama dan jaringan kemitraan industri" },
-      { label: "Prestasi", href: "/tentang-kami/prestasi", desc: "Pencapaian siswa & sekolah tingkat nasional" },
-      { label: "Fasilitas", href: "/tentang-kami/fasilitas", desc: "Laboratorium modern & sarana prasarana" },
-      { label: "Profil Guru", href: "/tentang-kami/profil-guru", desc: "Tenaga pendidik & instruktur bersertifikasi" },
-      { label: "Akomodasi", href: "/tentang-kami/akomodasi", desc: "Asrama dan lingkungan pendukung siswa" },
-    ],
-  },
-  {
-    label: "Program",
-    href: "#program",
-    submenu: [
-      { label: "Profil Jurusan", href: "/program/profil-jurusan", desc: "Program keahlian SIJA & TJAT berstandar industri" },
-      { label: "Ekstrakurikuler", href: "/program/ekstrakurikuler", desc: "Wadah minat, bakat, kepemimpinan & soft skills" },
-      { label: "DTP (Digital Talent Program)", href: "/program/digital-talent", desc: "Akselerasi keahlian teknologi dan startup" },
-      { label: "Program TS21", href: "/program/ts21", desc: "Telkom Schools 21st Century Learning Framework" },
-    ],
-  },
-  {
-    label: "Informasi",
-    href: "#informasi",
-    submenu: [
-      { label: "Berita", href: "/informasi/berita", desc: "Kabar terbaru dan agenda kegiatan sekolah" },
-      { label: "Pengumuman Kelulusan", href: "/informasi/pengumuman-kelulusan", desc: "Informasi resmi status kelulusan peserta didik" },
-      { label: "Penerapan K3", href: "/informasi/penerapan-k3", desc: "Keselamatan & Kesehatan Kerja di lingkungan sekolah" },
-    ],
-  },
-  { label: "Trial Class", href: "#trial-class" },
-  { label: "PPDB", href: "#ppdb" },
-];
-
 export default function Navbar() {
-  const [lang, setLang] = useState<"ID" | "EN">("ID");
+  const { lang, setLang, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
 
-  const toggleMobileSubmenu = (label: string) => {
-    setMobileSubmenu((prev) => (prev === label ? null : label));
+  const toggleMobileSubmenu = (href: string) => {
+    setMobileSubmenu((prev) => (prev === href ? null : href));
   };
+
+  const navItems: NavItem[] = [
+    { label: t("nav.home"), href: "/" },
+    {
+      label: t("nav.aboutUs"),
+      href: "#sambutan",
+      submenu: [
+        { label: t("nav.schoolProfile"), href: "/tentang-kami/profil-sekolah", desc: t("nav.schoolProfileDesc") },
+        { label: t("nav.industryHub"), href: "/tentang-kami/hub-industri", desc: t("nav.industryHubDesc") },
+        { label: t("nav.achievements"), href: "/tentang-kami/prestasi", desc: t("nav.achievementsDesc") },
+        { label: t("nav.facilities"), href: "/tentang-kami/fasilitas", desc: t("nav.facilitiesDesc") },
+        { label: t("nav.teachers"), href: "/tentang-kami/profil-guru", desc: t("nav.teachersDesc") },
+        { label: t("nav.accommodation"), href: "/tentang-kami/akomodasi", desc: t("nav.accommodationDesc") },
+      ],
+    },
+    {
+      label: t("nav.programs"),
+      href: "#program",
+      submenu: [
+        { label: t("nav.majorProfiles"), href: "/program/profil-jurusan", desc: t("nav.majorProfilesDesc") },
+        { label: t("nav.extracurriculars"), href: "/program/ekstrakurikuler", desc: t("nav.extracurricularsDesc") },
+        { label: t("nav.digitalTalent"), href: "/program/digital-talent", desc: t("nav.digitalTalentDesc") },
+        { label: t("nav.ts21Program"), href: "/program/ts21", desc: t("nav.ts21ProgramDesc") },
+      ],
+    },
+    {
+      label: t("nav.information"),
+      href: "#informasi",
+      submenu: [
+        { label: t("nav.news"), href: "/informasi/berita", desc: t("nav.newsDesc") },
+        { label: t("nav.graduationAnnouncement"), href: "/informasi/pengumuman-kelulusan", desc: t("nav.graduationAnnouncementDesc") },
+        { label: t("nav.k3Implementation"), href: "/informasi/penerapan-k3", desc: t("nav.k3ImplementationDesc") },
+      ],
+    },
+    { label: t("nav.trialClass"), href: "#trial-class" },
+    { label: t("nav.ppdb"), href: "#ppdb" },
+  ];
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 px-4 sm:px-6 lg:px-8 pointer-events-none">
@@ -74,6 +75,7 @@ export default function Navbar() {
               src="/figma/logo-smk-telkom.png"
               alt="SMK Telkom Sidoarjo"
               fill
+              sizes="122px"
               className="object-contain object-left"
               priority
             />
@@ -84,7 +86,7 @@ export default function Navbar() {
             {navItems.map((item) => {
               if (item.submenu) {
                 return (
-                  <div key={item.label} className="relative group/nav py-3">
+                  <div key={item.href} className="relative group/nav py-3">
                     <button
                       type="button"
                       className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer"
@@ -106,7 +108,7 @@ export default function Navbar() {
                       <div className="w-[300px] sm:w-[330px] rounded-2xl bg-white/95 backdrop-blur-md p-2.5 shadow-[0px_20px_35px_-5px_rgba(0,0,0,0.12),0px_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col gap-1">
                         {item.submenu.map((sub) => (
                           <Link
-                            key={sub.label}
+                            key={sub.href}
                             href={sub.href}
                             className="group/item flex flex-col p-2.5 rounded-xl transition-all hover:bg-[#ffebed] text-left"
                           >
@@ -137,7 +139,7 @@ export default function Navbar() {
 
               return (
                 <Link
-                  key={item.label}
+                  key={item.href}
                   href={item.href}
                   className="flex items-center px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6"
                 >
@@ -179,10 +181,10 @@ export default function Navbar() {
 
             {/* CTA Button Unduh Informasi */}
             <Link
-              href="#unduh"
+              href="/unduh-informasi"
               className="inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bd0c12] px-5 text-xs font-bold font-jakarta text-[#bd0c12] transition-all hover:bg-[#bd0c12] hover:text-white active:scale-[0.98] shadow-sm"
             >
-              <span>Unduh Informasi</span>
+              <span>{t("nav.downloadInfo")}</span>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M7 1.75V9.25M7 9.25L4.25 6.5M7 9.25L9.75 6.5M2.5 11.25H11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -221,12 +223,12 @@ export default function Navbar() {
             <nav className="flex flex-col gap-1.5">
               {navItems.map((item) => {
                 if (item.submenu) {
-                  const isOpen = mobileSubmenu === item.label;
+                  const isOpen = mobileSubmenu === item.href;
                   return (
-                    <div key={item.label} className="flex flex-col border-b border-gray-100 pb-2">
+                    <div key={item.href} className="flex flex-col border-b border-gray-100 pb-2">
                       <button
                         type="button"
-                        onClick={() => toggleMobileSubmenu(item.label)}
+                        onClick={() => toggleMobileSubmenu(item.href)}
                         className="flex items-center justify-between px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12] w-full text-left cursor-pointer select-none"
                       >
                         <span>{item.label}</span>
@@ -245,7 +247,7 @@ export default function Navbar() {
                         <div className="mt-1 flex flex-col gap-1 pl-4 border-l-2 border-[#bd0c12]/30 ml-2">
                           {item.submenu.map((sub) => (
                             <Link
-                              key={sub.label}
+                              key={sub.href}
                               href={sub.href}
                               onClick={() => setMobileOpen(false)}
                               className="px-2 py-2 text-sm font-medium text-[#4a5565] hover:text-[#bd0c12] active:text-[#bd0c12]"
@@ -261,7 +263,7 @@ export default function Navbar() {
 
                 return (
                   <Link
-                    key={item.label}
+                    key={item.href}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
                     className="px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12] active:text-[#bd0c12] border-b border-gray-100 last:border-0"
@@ -293,11 +295,11 @@ export default function Navbar() {
                   </button>
                 </div>
                 <Link
-                  href="#unduh"
+                  href="/unduh-informasi"
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex h-[36px] items-center rounded-full bg-[#bd0c12] px-5 text-xs font-bold font-jakarta text-white shadow-sm"
                 >
-                  Unduh Informasi
+                  {t("nav.downloadInfo")}
                 </Link>
               </div>
             </nav>

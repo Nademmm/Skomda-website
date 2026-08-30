@@ -4,8 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProgramsSection() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<"SIJA" | "TJAT">("SIJA");
 
   return (
@@ -15,11 +17,11 @@ export default function ProgramsSection() {
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#101828]">
-            Program Keahlian
+            {t("programs.title1")}
           </h2>
 
           <p className="mt-2 font-jakarta font-bold text-2xl sm:text-[30px] leading-[36px] text-[#101828]">
-            di <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+            {t("programs.title2")} <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
           </p>
 
           {/* Segmented Pill Tabs with Animated Sliding Pill */}

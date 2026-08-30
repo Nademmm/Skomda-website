@@ -1,10 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface WhyCard {
   id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
   iconSrc: string;
   isHighlight: boolean;
   href?: string;
@@ -13,50 +16,52 @@ interface WhyCard {
 const whyCards: WhyCard[] = [
   {
     id: "67:180",
-    title: "School of Digital Era",
-    description: "Fokus pada kurikulum digital dan keterampilan teknologi masa depan.",
+    titleKey: "why.card1Title",
+    descKey: "why.card1Desc",
     iconSrc: "/figma/why-icon-1.svg",
     isHighlight: false,
   },
   {
     id: "67:235",
-    title: "Program Digital Talent",
-    description: "Pembekalan skill digital yang sesuai kebutuhan industri dan startup.",
+    titleKey: "why.card2Title",
+    descKey: "why.card2Desc",
     iconSrc: "/figma/why-icon-2.svg",
     isHighlight: true, // Red card (Figma 67:235 & 23:119)
     href: "/program/digital-talent",
   },
   {
     id: "67:214",
-    title: "Akreditasi A - Unggul",
-    description: "Diakui secara nasional dengan standar kualitas terbaik oleh BAN-S/M.",
+    titleKey: "why.card3Title",
+    descKey: "why.card3Desc",
     iconSrc: "/figma/why-icon-3.svg",
     isHighlight: false,
   },
   {
     id: "67:248",
-    title: "ISO 21001:2018",
-    description: "Telah menerapkan standar manajemen pendidikan internasional.",
+    titleKey: "why.card4Title",
+    descKey: "why.card4Desc",
     iconSrc: "/figma/why-icon-4.svg",
     isHighlight: false,
   },
   {
     id: "67:261",
-    title: "Program OPES",
-    description: "Jalur pendidikan berkelanjutan dari SMK hingga perguruan tinggi Telkom.",
+    titleKey: "why.card5Title",
+    descKey: "why.card5Desc",
     iconSrc: "/figma/why-icon-5.svg",
     isHighlight: false,
   },
   {
     id: "67:274",
-    title: "Yayasan Pendidikan Telkom",
-    description: "Bagian dari grup pendidikan terpercaya di bawah naungan Telkom Indonesia.",
+    titleKey: "why.card6Title",
+    descKey: "why.card6Desc",
     iconSrc: "/figma/why-icon-6.svg",
     isHighlight: false,
   },
 ];
 
 export default function WhyChooseUsSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="w-full bg-[#f3f4f6] py-20 lg:py-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -65,10 +70,10 @@ export default function WhyChooseUsSection() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-12">
           <div className="flex flex-col gap-1">
             <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#101828]">
-              Mengapa memilih
+              {t("why.title1")}
             </h2>
             <span className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#e7000b]">
-              SMK Telkom Sidoarjo?
+              {t("why.title2")}
             </span>
           </div>
 
@@ -82,7 +87,7 @@ export default function WhyChooseUsSection() {
                   "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
               }}
             >
-              <span className="font-jakarta font-medium text-base">Daftar Sekarang</span>
+              <span className="font-jakarta font-medium text-base">{t("why.applyNow")}</span>
               <svg
                 width="20"
                 height="20"
@@ -129,7 +134,7 @@ export default function WhyChooseUsSection() {
                   <div className="flex flex-col items-start min-w-0">
                     <h3 className="font-jakarta font-bold text-base sm:text-[18px] lg:text-[20px] text-white leading-[26px] sm:leading-[28px] relative inline-flex items-center gap-1.5">
                       <span className="relative pb-0.5">
-                        {card.title}
+                        {t(card.titleKey)}
                         <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white rounded-full transition-all duration-300 group-hover:w-full" />
                       </span>
                       <svg
@@ -149,7 +154,7 @@ export default function WhyChooseUsSection() {
                       </svg>
                     </h3>
                     <p className="mt-1 font-jakarta text-xs sm:text-[13px] leading-[18px] sm:leading-[20px] text-white/90">
-                      {card.description}
+                      {t(card.descKey)}
                     </p>
                   </div>
                 </Link>
@@ -177,10 +182,10 @@ export default function WhyChooseUsSection() {
                 {/* Text column (Figma 67:177) */}
                 <div className="flex flex-col items-start min-w-0">
                   <h3 className="font-jakarta font-bold text-base sm:text-[18px] lg:text-[20px] text-[#101828] leading-[26px] sm:leading-[28px]">
-                    {card.title}
+                    {t(card.titleKey)}
                   </h3>
                   <p className="mt-1 font-jakarta text-xs sm:text-[13px] leading-[18px] sm:leading-[20px] text-[#4a5565]">
-                    {card.description}
+                    {t(card.descKey)}
                   </p>
                 </div>
               </div>

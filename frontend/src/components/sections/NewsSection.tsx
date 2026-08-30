@@ -10,12 +10,14 @@ import {
   NewsCategory,
   getNewsList,
 } from "@/services/news";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface NewsSectionProps {
   showTitle?: boolean;
 }
 
 export default function NewsSection({ showTitle = true }: NewsSectionProps) {
+  const { t } = useLanguage();
   const [newsData, setNewsData] = useState<NewsItem[]>(MOCK_NEWS);
   const [activeCategory, setActiveCategory] = useState<NewsCategory>("Semua");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -102,7 +104,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
         {/* 1. Header (Figma Node 123:277) */}
         {showTitle && (
           <div
-            className="flex flex-col items-center text-center gap-[9px] mb-14 sm:mb-20 lg:mb-[96px]"
+            className="flex flex-col items-center text-center gap-[9px] mb-6 sm:mb-8 lg:mb-10"
             data-node-id="123:277"
           >
             <div
@@ -113,21 +115,20 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                 className="font-jakarta font-bold text-2xl sm:text-[32px] leading-tight sm:leading-[40px] text-[#101828]"
                 data-node-id="123:5"
               >
-                Berita &amp; Informasi Terkini
+                {t("news.title1")}
               </h2>
               <h3
                 className="font-jakarta font-bold text-3xl sm:text-[46px] leading-tight sm:leading-[40px] text-[#e7000b]"
                 data-node-id="123:7"
               >
-                SMK Telkom Sidoarjo
+                {t("news.title2")}
               </h3>
             </div>
             <p
               className="font-jakarta font-medium text-sm sm:text-[14px] leading-relaxed sm:leading-[28px] text-[#515151] max-w-[434px]"
               data-node-id="123:274"
             >
-              Update terbaru seputar kegiatan, prestasi, dan informasi penting dari
-              SMK Telkom Sidoarjo
+              {t("news.subtitle")}
             </p>
           </div>
         )}
@@ -146,7 +147,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                   className="font-jakarta font-bold text-[20px] leading-[28px] text-[#101828]"
                   data-node-id="123:11"
                 >
-                  Kategori Berita
+                  {t("news.categoryTitle")}
                 </h3>
               </div>
 

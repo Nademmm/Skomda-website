@@ -1,14 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   const menuUtama = [
-    { label: "Beranda", href: "/" },
-    { label: "Profil Sekolah", href: "/tentang-kami/profil-sekolah" },
-    { label: "Profil Jurusan", href: "/program/profil-jurusan" },
-    { label: "Berita", href: "/informasi/berita" },
-    { label: "Trial Class", href: "#trial-class" },
-    { label: "PPDB", href: "#ppdb" },
+    { label: t("nav.home"), href: "/" },
+    { label: t("nav.schoolProfile"), href: "/tentang-kami/profil-sekolah" },
+    { label: t("nav.majorProfiles"), href: "/program/profil-jurusan" },
+    { label: t("nav.news"), href: "/informasi/berita" },
+    { label: t("nav.trialClass"), href: "#trial-class" },
+    { label: t("nav.ppdb"), href: "#ppdb" },
   ];
 
   const aplikasiSiswa = [
@@ -19,13 +24,13 @@ export default function Footer() {
   ];
 
   const beritaSekolah = [
-    { label: "Kegiatan Sekolah", href: "#informasi" },
-    { label: "Prestasi", href: "#informasi" },
-    { label: "Pengumuman", href: "#informasi" },
-    { label: "Kemitraan & Kerja Sama", href: "#informasi" },
-    { label: "Karya & Inovasi Siswa", href: "#informasi" },
-    { label: "Artikel & Edukasi", href: "#informasi" },
-    { label: "Alumni", href: "#informasi" },
+    { label: t("footer.schoolActivities", "Kegiatan Sekolah"), href: "#informasi" },
+    { label: t("nav.achievements", "Prestasi"), href: "#informasi" },
+    { label: t("footer.announcements", "Pengumuman"), href: "#informasi" },
+    { label: t("footer.partnerships", "Kemitraan & Kerja Sama"), href: "#informasi" },
+    { label: t("footer.innovations", "Karya & Inovasi Siswa"), href: "#informasi" },
+    { label: t("footer.articles", "Artikel & Edukasi"), href: "#informasi" },
+    { label: t("footer.alumni", "Alumni"), href: "#informasi" },
   ];
 
   return (
@@ -41,6 +46,7 @@ export default function Footer() {
                 src="/figma/logo-smk-telkom.png"
                 alt="SMK Telkom Sidoarjo"
                 fill
+                sizes="216px"
                 className="object-contain object-left"
                 priority
               />
@@ -48,7 +54,7 @@ export default function Footer() {
 
             {/* Tagline */}
             <p className="font-jakarta text-sm leading-[23px] text-[#364153] max-w-[320px]">
-              Bersama SMK Telkom Sidoarjo, jadilah generasi tangguh, berakhlak, dan berwawasan digital.
+              {t("footer.tagline")}
             </p>
 
             {/* Contact details */}
@@ -179,7 +185,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <p className="font-jakarta text-xs text-[#4a5565] pt-4">
-              Copyright © 2025 All right reserved | SMK Telkom Sidoarjo
+              {t("footer.rights")}
             </p>
           </div>
 
@@ -187,11 +193,11 @@ export default function Footer() {
           <div className="lg:col-span-3 flex flex-col gap-4">
             <div>
               <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
-                Menu Utama
+                {t("footer.mainMenu")}
               </h3>
               <ul className="flex flex-col gap-1.5">
                 {menuUtama.map((item) => (
-                  <li key={item.label}>
+                  <li key={item.href}>
                     <Link
                       href={item.href}
                       className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
@@ -205,11 +211,11 @@ export default function Footer() {
 
             <div>
               <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
-                Aplikasi Siswa
+                {t("footer.studentPortals")}
               </h3>
               <ul className="flex flex-col gap-1.5">
                 {aplikasiSiswa.map((item) => (
-                  <li key={item.label}>
+                  <li key={item.href}>
                     <a
                       href={item.href}
                       target="_blank"
@@ -228,11 +234,11 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-4">
             <div>
               <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
-                Berita Sekolah
+                {t("footer.schoolNews")}
               </h3>
               <ul className="flex flex-col gap-1.5">
-                {beritaSekolah.map((item) => (
-                  <li key={item.label}>
+                {beritaSekolah.map((item, idx) => (
+                  <li key={`${item.label}-${idx}`}>
                     <Link
                       href={item.href}
                       className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
@@ -246,12 +252,12 @@ export default function Footer() {
 
             <div>
               <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] mb-2">
-                Pengunjung Website
+                {t("footer.visitors")}
               </h3>
               <div className="flex flex-col gap-1 font-jakarta text-xs text-[#364153]">
-                <p>Pengunjung Hari ini : <span className="font-semibold text-[#101828]">30</span></p>
-                <p>Pengunjung Bulan ini : <span className="font-semibold text-[#101828]">1.405</span></p>
-                <p>Pengunjung Tahun ini : <span className="font-semibold text-[#101828]">40.125</span></p>
+                <p>{t("footer.today")} <span className="font-semibold text-[#101828]">30</span></p>
+                <p>{t("footer.thisMonth")} <span className="font-semibold text-[#101828]">1.405</span></p>
+                <p>{t("footer.thisYear")} <span className="font-semibold text-[#101828]">40.125</span></p>
               </div>
             </div>
           </div>
@@ -259,7 +265,7 @@ export default function Footer() {
           {/* Column 4: Lokasi Sekolah (Col span 3) */}
           <div className="lg:col-span-3 flex flex-col gap-3">
             <h3 className="font-jakarta font-bold text-lg text-[#101828]">
-              Lokasi Sekolah
+              {t("footer.location")}
             </h3>
 
             {/* Embedded Google Map */}
@@ -277,7 +283,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 hover:underline"
                 >
-                  <span>Buka di Maps</span>
+                  <span>{t("footer.openMaps")}</span>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>

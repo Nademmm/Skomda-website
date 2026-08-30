@@ -127,6 +127,7 @@ export default function Ts21HeroSection() {
                     src="/figma/ts21-framework.png"
                     alt="Framework Ekosistem Implementasi Kurikulum Merdeka TS 21.40 PLiS"
                     fill
+                    unoptimized
                     className="object-contain group-hover:scale-[1.02] transition-transform duration-300"
                     priority
                   />
@@ -189,6 +190,7 @@ export default function Ts21HeroSection() {
                     src="/figma/ts21-framework.png"
                     alt="Diagram Framework Kurikulum TS21 Lengkap"
                     fill
+                    unoptimized
                     className="object-contain"
                     priority
                   />

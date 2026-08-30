@@ -1,13 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function PrincipalSection() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="sambutan"
       className="relative w-full overflow-hidden bg-white py-16 lg:py-24 shadow-sm"
       data-node-id="67:2"
     >
-      
       {/* Background Watermark Logo Telkom Schools (Desktop only) */}
       <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 h-[450px] w-[550px] md:h-[550px] md:w-[650px] rotate-[12deg] opacity-[0.06] select-none hidden lg:block">
         <Image
@@ -20,11 +24,9 @@ export default function PrincipalSection() {
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-14 xl:gap-20">
-          
-          {/* Left Column: Authentic Kepsek Graphic (Figma 96:350 background + 67:118 person) */}
+          {/* Left Column: Graphic */}
           <div className="flex flex-col items-center justify-center shrink-0 pt-4 sm:pt-10 lg:pt-12">
             <div className="relative h-[293px] sm:h-[353px] w-[340px] sm:w-[409px] flex items-center justify-center transition-transform duration-300 hover:scale-105">
-              
               {/* 1. Background Art from Figma (Node 96:350 / image 6) */}
               <div
                 className="absolute inset-0 pointer-events-none"
@@ -40,7 +42,7 @@ export default function PrincipalSection() {
                 />
               </div>
 
-              {/* 2. Kepsek Person Photo shifted higher up and slightly to the left */}
+              {/* 2. Kepsek Person Photo */}
               <div
                 className="absolute -top-[60px] sm:-top-12 bottom-5 sm:bottom-11 left-[7%] sm:left-[7.5%] w-[80%] pointer-events-none flex items-center justify-center"
                 data-node-id="67:118"
@@ -56,7 +58,6 @@ export default function PrincipalSection() {
                   />
                 </div>
               </div>
-
             </div>
 
             {/* Kepsek Name below photo on mobile/tablet */}
@@ -66,18 +67,18 @@ export default function PrincipalSection() {
                 Abror S.Hum., M.Pd.
               </h3>
               <p className="font-poppins text-sm text-[#787878]">
-                Kepala SMK Telkom Sidoarjo
+                {t("principal.role")}
               </p>
             </div>
           </div>
 
-          {/* Right Column: Sambutan Message (Tightly & Cleanly Spaced) */}
+          {/* Right Column: Sambutan Message */}
           <div className="z-10 flex flex-col items-start max-w-[540px]">
             {/* Heading */}
             <h2 className="font-jakarta font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight tracking-tight text-[#101828]">
-              <span>Kepala Sekolah </span>
+              <span>{t("principal.title1")} </span>
               <br />
-              <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+              <span className="text-[#bc0c11]">{t("principal.title2")}</span>
             </h2>
 
             {/* Accent Line Underline */}
@@ -85,7 +86,7 @@ export default function PrincipalSection() {
 
             {/* Sambutan Paragraph Text */}
             <p className="font-poppins text-sm sm:text-[15px] leading-relaxed text-[#515151]">
-              Selamat datang di website resmi SMK Telkom Sidoarjo. Sebagai institusi pendidikan vokasi yang berfokus pada bidang teknologi dan informatika, kami berkomitmen mencetak generasi yang tidak hanya unggul dalam kompetensi, tetapi juga berkarakter dan siap menghadapi tantangan era digital. Semoga kehadiran website ini menjadi jendela informasi yang bermanfaat bagi seluruh masyarakat.
+              {t("principal.message")}
             </p>
 
             {/* Desktop Signature Name with horizontal bar */}
@@ -95,9 +96,7 @@ export default function PrincipalSection() {
                 Abror S.Hum., M.Pd.
               </span>
             </div>
-
           </div>
-
         </div>
       </div>
     </section>

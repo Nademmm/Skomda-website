@@ -2,50 +2,98 @@ import Image from "next/image";
 
 const partners = [
   {
+    name: "Politeknik Elektronika Negeri Surabaya (PENS)",
+    src: "/figma/pens.webp",
+  },
+  {
     name: "Axelbit",
     src: "/figma/partner-axelbit.png",
   },
   {
-    name: "DigiPrener",
-    src: "/figma/partner-digiprener.png",
+    name: "PT Radnet Digital Indonesia (Radnext)",
+    src: "/figma/partner-radnet.png",
   },
   {
-    name: "Jagoan Hosting",
-    src: "/figma/partner-jagoanhosting.png",
+    name: "Wowrack Indonesia",
+    src: "/figma/wowrack.png",
   },
   {
     name: "Markaz Design",
     src: "/figma/partner-markazdesign.png",
   },
   {
+    name: "DigiPrener",
+    src: "/figma/partner-digiprener.png",
+  },
+  {
     name: "PT Garuda Telekomunikasi Indonesia",
     src: "/figma/partner-garuda.png",
   },
   {
-    name: "PT Global Infra Teknologi",
+    name: "PT TelkoMedika Indonesia",
+    src: "/figma/TelkoMedika-v2.png",
+  },
+  {
+    name: "Jagoan Hosting",
+    src: "/figma/partner-jagoanhosting.png",
+  },
+  {
+    name: "PT Digdaya Olah Teknologi (DOT Indonesia)",
+    src: "/figma/DOT.svg",
+  },
+  {
+    name: "LSP P1 / BNSP",
+    src: "/figma/bnsp.png",
+  },
+  {
+    name: "Jobnation IT Outsource",
+    src: "/figma/jobnation.png",
+  },
+  {
+    name: "PT Indev Solusi Digital (indev)",
+    src: "/figma/indev.png",
+  },
+  {
+    name: "PT Global Infra Teknologi (GIT)",
     src: "/figma/partner-globalinfra.png",
+  },
+  {
+    name: "Weza Group",
+    src: "/figma/weza-group.png",
+  },
+  {
+    name: "PT Woodone Integra Tbk",
+    src: "/figma/woodneintegra.png",
+  },
+  {
+    name: "PT Trijaya Grafika Solutindo (TGS)",
+    src: "/figma/trijaya.png",
+  },
+  {
+    name: "Lasambara Karya Cipta",
+    src: "/figma/lasambora.png",
+  },
+  {
+    name: "RS Islam Surabaya Jemursari",
+    src: "/figma/rsi.jpg",
+  },
+  {
+    name: "UBIG.CO.ID",
+    src: "/figma/ubig.png",
   },
   {
     name: "PT Javacreatiox Network Intermedia",
     src: "/figma/partner-javacreatiox.png",
   },
   {
-    name: "PT Radnet Digital Indonesia",
-    src: "/figma/partner-radnet.png",
-  },
-  {
-    name: "Weza Group - PT Weza Punya Cerita",
-    src: "/figma/weza-group.png",
-  },
-  {
-    name: "Wowrack Indonesia",
-    src: "/figma/wowrack.png",
+    name: "Moksha Indonesia",
+    src: "/figma/moksha.png",
   },
 ];
 
 export default function PartnersSection() {
   // Duplicate array for seamless infinite marquee loop
-  const marqueeItems = [...partners, ...partners, ...partners];
+  const marqueeItems = [...partners, ...partners];
 
   return (
     <section className="relative w-full bg-[#f3f4f6] py-8 overflow-hidden" data-node-id="95:312">

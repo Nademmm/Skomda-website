@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* ══════════════════════════════════════════════
@@ -45,7 +48,7 @@ export default function HeroSection() {
           >
             {/* Welcome label */}
             <p className="font-jakarta text-[18px] leading-[28px]">
-              <span className="font-normal text-[#4a5565]">Selamat Datang di </span>
+              <span className="font-normal text-[#4a5565]">{t("hero.welcome")} </span>
               <span className="font-semibold text-[#e7000b]">SMK Telkom Sidoarjo!</span>
             </p>
 
@@ -54,9 +57,9 @@ export default function HeroSection() {
               className="mt-2.5 font-jakarta font-bold text-[#101828]"
               style={{ fontSize: "36px", lineHeight: "45px" }}
             >
-              Sekolah Tangguh, <br />
-              Berakhlak,<br />
-              <span className="text-[#e7000b]">&amp; Berwawasan Digital</span>
+              {t("hero.title1")} <br />
+              {t("hero.title2")}<br />
+              <span className="text-[#e7000b]">{t("hero.title3")}</span>
             </h1>
 
             {/* Red accent line (Flush aligned with text) */}
@@ -67,7 +70,7 @@ export default function HeroSection() {
               className="font-poppins text-[16px] leading-[28px] text-[#787878]"
               style={{ width: "365px" }}
             >
-              Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak
+              {t("hero.description")}
             </p>
 
             {/* CTA Button "Jelajahi Lebih Lanjut" */}
@@ -81,7 +84,7 @@ export default function HeroSection() {
                 }}
               >
                 <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                  Jelajahi Lebih Lanjut
+                  {t("hero.exploreMore")}
                 </span>
                 <svg
                   width="18"
@@ -111,6 +114,7 @@ export default function HeroSection() {
               src="/figma/image4.png"
               alt="Siswa SMK Telkom Sidoarjo"
               fill
+              sizes="508px"
               className="object-cover object-top"
               priority
             />
@@ -125,6 +129,7 @@ export default function HeroSection() {
               src="/figma/image1.png"
               alt="Siswa SMK Telkom Sidoarjo"
               fill
+              sizes="325px"
               className="object-cover object-top"
               priority
             />
@@ -139,6 +144,7 @@ export default function HeroSection() {
               src="/figma/image5.png"
               alt="Siswi SMK Telkom Sidoarjo"
               fill
+              sizes="389px"
               className="object-cover object-top"
               priority
             />
@@ -172,10 +178,12 @@ export default function HeroSection() {
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center gap-1.5 font-jakarta font-bold" style={{ fontSize: "36px", lineHeight: "40px" }}>
                     <span>2</span>
-                    <span className="text-white/80 text-2xl font-medium">Program</span>
+                    <span className="text-white/80 text-2xl font-medium">
+                      {t("hero.programCount")}
+                    </span>
                   </div>
                   <p className="mt-1 font-poppins text-sm text-white/80 font-normal">
-                    SIJA (4 Thn) &amp; TJAT (3 Thn)
+                    {t("hero.programDesc")}
                   </p>
                 </div>
 
@@ -185,7 +193,7 @@ export default function HeroSection() {
                     <span>840+</span>
                   </div>
                   <p className="mt-1 font-poppins text-sm text-white/80 font-normal">
-                    Siswa Aktif Berprestasi
+                    {t("hero.studentsCount")}
                   </p>
                 </div>
 
@@ -195,7 +203,7 @@ export default function HeroSection() {
                     <span>1372+</span>
                   </div>
                   <p className="mt-1 font-poppins text-sm text-white/80 font-normal">
-                    Alumni Sukses &amp; Berkarier
+                    {t("hero.alumniCount")}
                   </p>
                 </div>
               </div>
@@ -214,20 +222,20 @@ export default function HeroSection() {
           {/* Text block */}
           <div className="relative z-10 flex flex-col items-start">
             <p className="font-jakarta text-[14px] sm:text-[17px] leading-snug">
-              <span className="font-normal text-[#4a5565]">Selamat Datang di </span>
+              <span className="font-normal text-[#4a5565]">{t("hero.welcome")} </span>
               <span className="font-semibold text-[#e7000b]">SMK Telkom Sidoarjo!</span>
             </p>
             <div className="mt-1.5 sm:mt-2 font-jakarta font-bold text-[#101828] text-[24px] sm:text-[32px] leading-tight">
-              <p className="mb-0">Sekolah Tangguh, </p>
-              <p className="mb-0">Berakhlak,</p>
-              <p className="text-[#e7000b]">&amp; Berwawasan Digital</p>
+              <p className="mb-0">{t("hero.title1")}</p>
+              <p className="mb-0">{t("hero.title2")}</p>
+              <p className="text-[#e7000b]">{t("hero.title3")}</p>
             </div>
 
             {/* Red accent line */}
             <div className="my-2.5 sm:my-3.5 h-[2.5px] w-9 rounded-full bg-[#ee5053]" />
 
             <p className="font-poppins text-[13px] sm:text-[15px] leading-relaxed text-[#787878] max-w-[365px]">
-              Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak
+              {t("hero.description")}
             </p>
 
             {/* Compact & Proportional CTA Button on mobile */}
@@ -241,7 +249,7 @@ export default function HeroSection() {
                 }}
               >
                 <span className="font-jakarta font-medium text-[14px] leading-none whitespace-nowrap">
-                  Jelajahi Lebih Lanjut
+                  {t("hero.exploreMore")}
                 </span>
                 <svg
                   width="16"
@@ -283,17 +291,17 @@ export default function HeroSection() {
 
             {/* Student 1 (Left) */}
             <div className="absolute bottom-0 z-[5]" style={{ left: "0%", width: "38%", height: "250px" }}>
-              <Image src="/figma/image4.png" alt="Siswa SMK Telkom" fill className="object-cover" priority />
+              <Image src="/figma/image4.png" alt="Siswa SMK Telkom" fill sizes="38vw" className="object-cover" priority />
             </div>
 
             {/* Student 2 (Center Front) */}
             <div className="absolute bottom-0 z-[10]" style={{ left: "50%", transform: "translateX(-50%)", width: "42%", height: "270px" }}>
-              <Image src="/figma/image1.png" alt="Siswa SMK Telkom" fill className="object-cover object-top" priority />
+              <Image src="/figma/image1.png" alt="Siswa SMK Telkom" fill sizes="42vw" className="object-cover object-top" priority />
             </div>
 
             {/* Student 3 (Right) */}
             <div className="absolute bottom-0 z-[5]" style={{ right: "0%", width: "38%", height: "250px" }}>
-              <Image src="/figma/image5.png" alt="Siswi SMK Telkom" fill className="object-cover object-top" priority />
+              <Image src="/figma/image5.png" alt="Siswi SMK Telkom" fill sizes="38vw" className="object-cover object-top" priority />
             </div>
           </div>
 
@@ -302,15 +310,21 @@ export default function HeroSection() {
             <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
               <div>
                 <span className="font-jakarta font-bold text-xl sm:text-2xl">2</span>
-                <p className="font-poppins text-[11px] sm:text-xs text-white/80 mt-0.5">Jurusan</p>
+                <p className="font-poppins text-[11px] sm:text-xs text-white/80 mt-0.5">
+                  {t("hero.programCount")}
+                </p>
               </div>
               <div className="border-x border-white/20">
                 <span className="font-jakarta font-bold text-xl sm:text-2xl">840+</span>
-                <p className="font-poppins text-[11px] sm:text-xs text-white/80 mt-0.5">Siswa</p>
+                <p className="font-poppins text-[11px] sm:text-xs text-white/80 mt-0.5">
+                  {t("hero.studentsCount")}
+                </p>
               </div>
               <div>
                 <span className="font-jakarta font-bold text-xl sm:text-2xl">1372+</span>
-                <p className="font-poppins text-[11px] sm:text-xs text-white/80 mt-0.5">Alumni</p>
+                <p className="font-poppins text-[11px] sm:text-xs text-white/80 mt-0.5">
+                  {t("hero.alumniCount")}
+                </p>
               </div>
             </div>
           </div>
