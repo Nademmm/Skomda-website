@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import NavbarSearch from "./NavbarSearch";
 
 interface SubMenuItem {
   label: string;
@@ -21,6 +22,7 @@ export default function Navbar() {
   const { lang, setLang, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const toggleMobileSubmenu = (href: string) => {
     setMobileSubmenu((prev) => (prev === href ? null : href));
@@ -67,158 +69,195 @@ export default function Navbar() {
     <div className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 px-4 sm:px-6 lg:px-8 pointer-events-none">
       <div className="mx-auto max-w-[1280px]">
         <header
-          className="pointer-events-auto relative w-full h-[66px] bg-white/95 backdrop-blur-md rounded-full px-5 sm:px-8 flex items-center justify-between border border-white/50 shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_10px_10px_-5px_rgba(0,0,0,0.04)]"
+          className={`pointer-events-auto relative w-full h-[66px] rounded-full px-5 sm:px-8 flex items-center justify-between border transition-all ${
+            searchOpen
+              ? "bg-white border-gray-200 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]"
+              : "bg-white/95 backdrop-blur-md border-white/50 shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_10px_10px_-5px_rgba(0,0,0,0.04)]"
+          }`}
+          style={searchOpen ? { backgroundColor: "#ffffff" } : undefined}
         >
-          {/* Logo */}
-          <Link href="/" className="relative h-9 w-[122px] shrink-0">
-            <Image
-              src="/figma/logo-smk-telkom.png"
-              alt="SMK Telkom Sidoarjo"
-              fill
-              sizes="122px"
-              className="object-contain object-left"
-              priority
-            />
-          </Link>
+          {searchOpen ? (
+            <NavbarSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+          ) : (
+            <>
+              {/* Logo */}
+              <Link href="/" className="relative h-9 w-[122px] shrink-0">
+                <Image
+                  src="/figma/logo-smk-telkom.png"
+                  alt="SMK Telkom Sidoarjo"
+                  fill
+                  sizes="122px"
+                  className="object-contain object-left"
+                  priority
+                />
+              </Link>
 
-          {/* Desktop Nav Links with Glassmorphism Dropdowns */}
-          <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
-            {navItems.map((item) => {
-              if (item.submenu) {
-                return (
-                  <div key={item.href} className="relative group/nav py-3">
-                    <button
-                      type="button"
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer"
-                    >
-                      <span>{item.label}</span>
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        className="opacity-60 transition-transform duration-200 group-hover/nav:rotate-180 group-hover/nav:opacity-100 group-hover/nav:text-[#bd0c12]"
-                      >
-                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </button>
-
-                    {/* Floating Dropdown Card */}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-1.5 opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-200 ease-out z-50">
-                      <div className="w-[300px] sm:w-[330px] rounded-2xl bg-white/95 backdrop-blur-md p-2.5 shadow-[0px_20px_35px_-5px_rgba(0,0,0,0.12),0px_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col gap-1">
-                        {item.submenu.map((sub) => (
-                          <Link
-                            key={sub.href}
-                            href={sub.href}
-                            className="group/item flex flex-col p-2.5 rounded-xl transition-all hover:bg-[#ffebed] text-left"
+              {/* Desktop Nav Links with Glassmorphism Dropdowns */}
+              <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
+                {navItems.map((item) => {
+                  if (item.submenu) {
+                    return (
+                      <div key={item.href} className="relative group/nav py-3">
+                        <button
+                          type="button"
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer"
+                        >
+                          <span>{item.label}</span>
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            className="opacity-60 transition-transform duration-200 group-hover/nav:rotate-180 group-hover/nav:opacity-100 group-hover/nav:text-[#bd0c12]"
                           >
-                            <span className="font-jakarta text-sm font-semibold text-[#101828] group-hover/item:text-[#bd0c12] flex items-center justify-between">
-                              <span>{sub.label}</span>
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                className="opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-[#bd0c12]"
+                            <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+
+                        {/* Floating Dropdown Card */}
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-1.5 opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-200 ease-out z-50">
+                          <div className="w-[300px] sm:w-[330px] rounded-2xl bg-white/95 backdrop-blur-md p-2.5 shadow-[0px_20px_35px_-5px_rgba(0,0,0,0.12),0px_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col gap-1">
+                            {item.submenu.map((sub) => (
+                              <Link
+                                key={sub.href}
+                                href={sub.href}
+                                className="group/item flex flex-col p-2.5 rounded-xl transition-all hover:bg-[#ffebed] text-left"
                               >
-                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                              </svg>
-                            </span>
-                            {sub.desc && (
-                              <span className="font-jakarta text-xs text-[#71717a] mt-0.5 group-hover/item:text-[#4a5565] line-clamp-1">
-                                {sub.desc}
-                              </span>
-                            )}
-                          </Link>
-                        ))}
+                                <span className="font-jakarta text-sm font-semibold text-[#101828] group-hover/item:text-[#bd0c12] flex items-center justify-between">
+                                  <span>{sub.label}</span>
+                                  <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    className="opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-[#bd0c12]"
+                                  >
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                </span>
+                                {sub.desc && (
+                                  <span className="font-jakarta text-xs text-[#71717a] mt-0.5 group-hover/item:text-[#4a5565] line-clamp-1">
+                                    {sub.desc}
+                                  </span>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              }
+                    );
+                  }
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6"
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+
+              {/* Right CTA & Lang */}
+              <div className="hidden sm:flex items-center gap-3 shrink-0">
+                {/* Search Icon */}
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen(true)}
+                  className="flex items-center justify-center text-[#6b7280] transition-colors hover:text-[#bd0c12] cursor-pointer p-1"
+                  aria-label="Search"
                 >
-                  {item.label}
+                  <svg className="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </button>
+                {/* Language Selector */}
+                <div className="flex h-[38px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setLang("ID")}
+                    className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
+                      lang === "ID"
+                        ? "bg-[#bd0c12] text-white shadow-sm"
+                        : "text-[#4b5563] hover:text-[#bd0c12]"
+                    }`}
+                    aria-label="Bahasa Indonesia"
+                  >
+                    ID
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLang("EN")}
+                    className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
+                      lang === "EN"
+                        ? "bg-[#bd0c12] text-white shadow-sm"
+                        : "text-[#4b5563] hover:text-[#bd0c12]"
+                    }`}
+                    aria-label="English"
+                  >
+                    EN
+                  </button>
+                </div>
+
+                {/* CTA Button Unduh Informasi */}
+                <Link
+                  href="/unduh-informasi"
+                  className="inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bd0c12] px-5 text-xs font-bold font-jakarta text-[#bd0c12] transition-all hover:bg-[#bd0c12] hover:text-white active:scale-[0.98] shadow-sm"
+                >
+                  <span>{t("nav.downloadInfo")}</span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M7 1.75V9.25M7 9.25L4.25 6.5M7 9.25L9.75 6.5M2.5 11.25H11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </Link>
-              );
-            })}
-          </nav>
+              </div>
 
-          {/* Right CTA & Lang */}
-          <div className="hidden sm:flex items-center gap-3 shrink-0">
-            {/* Language Selector */}
-            <div className="flex h-[38px] items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb] p-1 gap-1">
-              <button
-                type="button"
-                onClick={() => setLang("ID")}
-                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
-                  lang === "ID"
-                    ? "bg-[#bd0c12] text-white shadow-sm"
-                    : "text-[#4b5563] hover:text-[#bd0c12]"
-                }`}
-                aria-label="Bahasa Indonesia"
-              >
-                ID
-              </button>
-              <button
-                type="button"
-                onClick={() => setLang("EN")}
-                className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
-                  lang === "EN"
-                    ? "bg-[#bd0c12] text-white shadow-sm"
-                    : "text-[#4b5563] hover:text-[#bd0c12]"
-                }`}
-                aria-label="English"
-              >
-                EN
-              </button>
-            </div>
-
-            {/* CTA Button Unduh Informasi */}
-            <Link
-              href="/unduh-informasi"
-              className="inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bd0c12] px-5 text-xs font-bold font-jakarta text-[#bd0c12] transition-all hover:bg-[#bd0c12] hover:text-white active:scale-[0.98] shadow-sm"
-            >
-              <span>{t("nav.downloadInfo")}</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 1.75V9.25M7 9.25L4.25 6.5M7 9.25L9.75 6.5M2.5 11.25H11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-          </div>
-
-          {/* Mobile Hamburger Button */}
-          <div className="flex items-center gap-2 xl:hidden">
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); setMobileOpen((prev) => !prev); }}
-              onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); setMobileOpen((prev) => !prev); }}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#364153] active:border-[#bd0c12] active:text-[#bd0c12] active:bg-gray-50 bg-white"
-              aria-label="Toggle menu"
-              style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
-            >
-              {mobileOpen ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-              )}
-            </button>
-          </div>
+              {/* Mobile Hamburger Button */}
+              <div className="flex items-center gap-2 xl:hidden">
+                {/* Mobile Search Icon */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    setSearchOpen(true);
+                  }}
+                  className="flex items-center justify-center text-[#6b7280] active:text-[#bd0c12] cursor-pointer p-1.5"
+                  aria-label="Search"
+                  style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+                >
+                  <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setMobileOpen((prev) => !prev); }}
+                  onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); setMobileOpen((prev) => !prev); }}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#364153] active:border-[#bd0c12] active:text-[#bd0c12] active:bg-gray-50 bg-white"
+                  aria-label="Toggle menu"
+                  style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+                >
+                  {mobileOpen ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="3" y1="12" x2="21" y2="12" />
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </>
+          )}
         </header>
 
         {/* Mobile Dropdown Menu with Expandable Accordions */}
-        {mobileOpen && (
+        {!searchOpen && mobileOpen && (
           <div className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-gray-100 xl:hidden">
             <nav className="flex flex-col gap-1.5">
               {navItems.map((item) => {

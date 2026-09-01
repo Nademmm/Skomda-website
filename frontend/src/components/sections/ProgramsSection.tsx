@@ -110,6 +110,7 @@ export default function ProgramsSection() {
                     src="/figma/charen.png"
                     alt="Siswa SIJA SMK Telkom Sidoarjo"
                     fill
+                    sizes="(max-width: 768px) 100vw, 668px"
                     className="object-contain object-bottom drop-shadow-2xl"
                     priority
                   />
@@ -125,6 +126,7 @@ export default function ProgramsSection() {
                       src="/figma/ph-code-fill.svg"
                       alt="Code icon"
                       fill
+                      sizes="30px"
                       className="object-contain"
                     />
                   </div>
@@ -140,6 +142,7 @@ export default function ProgramsSection() {
                       src="/figma/ph-code-fill.svg"
                       alt="Code icon"
                       fill
+                      sizes="30px"
                       className="object-contain"
                     />
                   </div>
@@ -223,7 +226,7 @@ export default function ProgramsSection() {
               {/* Consistent Red Pill CTA Button */}
               <div>
                 <Link
-                  href="/jurusan/sija"
+                  href="/program/profil-jurusan?jurusan=SIJA#kompetensi"
                   className="group inline-flex items-center gap-3 rounded-full bg-[#bd0c12] px-7 py-3 text-sm sm:text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
                   style={{
                     boxShadow:
@@ -279,6 +282,7 @@ export default function ProgramsSection() {
                     src="/figma/image5.png"
                     alt="Siswi TJAT SMK Telkom Sidoarjo"
                     fill
+                    sizes="(max-width: 768px) 100vw, 314px"
                     className="object-contain object-bottom drop-shadow-2xl"
                     priority
                   />
@@ -291,6 +295,7 @@ export default function ProgramsSection() {
                       src="/figma/ph-code-fill.svg"
                       alt="Code icon"
                       fill
+                      sizes="30px"
                       className="object-contain"
                     />
                   </div>
@@ -303,6 +308,7 @@ export default function ProgramsSection() {
                       src="/figma/ph-code-fill.svg"
                       alt="Code icon"
                       fill
+                      sizes="30px"
                       className="object-contain"
                     />
                   </div>
@@ -389,7 +395,7 @@ export default function ProgramsSection() {
               {/* Consistent Red Pill CTA Button */}
               <div>
                 <Link
-                  href="/jurusan/tjat"
+                  href="/program/profil-jurusan?jurusan=TJAT#kompetensi"
                   className="group inline-flex items-center gap-3 rounded-full bg-[#bd0c12] px-7 py-3 text-sm sm:text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
                   style={{
                     boxShadow:

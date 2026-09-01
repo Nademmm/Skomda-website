@@ -18,6 +18,7 @@ export default function PrincipalSection() {
           src="/figma/telkom-schools-icon.png"
           alt=""
           fill
+          sizes="(max-width: 1024px) 100vw, 650px"
           className="object-contain"
         />
       </div>
@@ -37,6 +38,7 @@ export default function PrincipalSection() {
                   src="/figma/image6.png"
                   alt=""
                   fill
+                  sizes="(max-width: 640px) 340px, 410px"
                   className="object-contain"
                   priority
                 />
@@ -53,6 +55,7 @@ export default function PrincipalSection() {
                     src="/figma/kepsek.png"
                     alt="Abror S.Hum., M.Pd. - Kepala Sekolah SMK Telkom Sidoarjo"
                     fill
+                    sizes="(max-width: 640px) 300px, 400px"
                     className="object-contain object-bottom drop-shadow-2xl"
                     priority
                   />

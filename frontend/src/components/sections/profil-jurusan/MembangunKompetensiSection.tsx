@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -102,7 +103,41 @@ const jurusanContent: Record<JurusanKey, JurusanData> = {
 };
 
 export default function MembangunKompetensiSection() {
-  const [activeJurusan, setActiveJurusan] = useState<JurusanKey>("SIJA");
+  const searchParams = useSearchParams();
+  const jurusanParam =
+    searchParams.get("jurusan")?.toUpperCase() ||
+    searchParams.get("tab")?.toUpperCase();
+
+  const [activeJurusan, setActiveJurusan] = useState<JurusanKey>(() => {
+    if (jurusanParam === "TJAT" || jurusanParam === "TJA") return "TJAT";
+    return "SIJA";
+  });
+
+  useEffect(() => {
+    if (jurusanParam === "TJAT" || jurusanParam === "TJA") {
+      setActiveJurusan("TJAT");
+    } else if (jurusanParam === "SIJA") {
+      setActiveJurusan("SIJA");
+    } else {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes("tjat") || hash.includes("tja")) {
+        setActiveJurusan("TJAT");
+      } else if (hash.includes("sija")) {
+        setActiveJurusan("SIJA");
+      }
+    }
+
+    if (jurusanParam || window.location.hash.includes("kompetensi")) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById("kompetensi");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [jurusanParam]);
+
   const current = jurusanContent[activeJurusan];
 
   return (

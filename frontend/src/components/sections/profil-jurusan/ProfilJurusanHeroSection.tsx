@@ -101,6 +101,7 @@ export default function ProfilJurusanHeroSection() {
                   src="/figma/image6.png"
                   alt=""
                   fill
+                  sizes="420px"
                   className="object-contain opacity-90 scale-95"
                 />
                 <Image

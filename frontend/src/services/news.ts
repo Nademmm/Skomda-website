@@ -248,7 +248,7 @@ function filterMockNews(category?: string, search?: string): NewsItem[] {
 
 /**
  * Mengambil daftar berita dari Go backend API (dengan filter opsional category & search).
- * Otomatis fallback ke mock data jika backend offline.
+ * Otomatis retry 1x jika gagal, lalu fallback ke mock data jika backend offline.
  */
 export async function getNewsList(params?: {
   category?: string;
@@ -265,24 +265,37 @@ export async function getNewsList(params?: {
   const queryString = queryParams.toString();
   const url = `${API_BASE_URL}/news${queryString ? `?${queryString}` : ""}`;
 
+  // Retry helper: coba fetch, jika gagal tunggu lalu retry 1x
+  const attemptFetch = async (retries = 1): Promise<Response | null> => {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (res.ok) return res;
+    } catch {
+      // fetch failed (network error / backend belum siap)
+    }
+    if (retries > 0) {
+      await new Promise((r) => setTimeout(r, 1500));
+      return attemptFetch(retries - 1);
+    }
+    return null;
+  };
+
   try {
-    const res = await fetch(url, {
-      cache: "no-store",
-    });
+    const res = await attemptFetch(1);
 
-    if (!res.ok) {
-      console.warn(`[getNewsList] API response not ok (${res.status}), using fallback.`);
-      return filterMockNews(params?.category, params?.search);
+    if (res) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) {
+        return json.data;
+      }
     }
 
-    const json = await res.json();
-    if (Array.isArray(json.data) && json.data.length > 0) {
-      return json.data;
+    // Backend tidak merespons atau data kosong → fallback
+    if (typeof window !== "undefined") {
+      console.log("[News] Menggunakan data lokal (backend belum tersedia)");
     }
-
     return filterMockNews(params?.category, params?.search);
-  } catch (error) {
-    console.warn("[getNewsList] Gagal fetch ke backend, menggunakan fallback data:", error);
+  } catch {
     return filterMockNews(params?.category, params?.search);
   }
 }
@@ -294,19 +307,28 @@ export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   const cleanSlug = slug.toLowerCase().trim();
   const url = `${API_BASE_URL}/news/${encodeURIComponent(cleanSlug)}`;
 
-  try {
-    const res = await fetch(url, {
-      cache: "no-store",
-    });
-
-    if (res.ok) {
-      const json = await res.json();
-      if (json.data) {
-        return json.data;
-      }
+  const attemptFetch = async (retries = 1): Promise<Response | null> => {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (res.ok) return res;
+    } catch {
+      // network error
     }
-  } catch (error) {
-    console.warn(`[getNewsBySlug] Gagal fetch dari backend untuk slug "${slug}":`, error);
+    if (retries > 0) {
+      await new Promise((r) => setTimeout(r, 1500));
+      return attemptFetch(retries - 1);
+    }
+    return null;
+  };
+
+  try {
+    const res = await attemptFetch(1);
+    if (res) {
+      const json = await res.json();
+      if (json.data) return json.data;
+    }
+  } catch {
+    // silent fallback
   }
 
   // Fallback ke mock data

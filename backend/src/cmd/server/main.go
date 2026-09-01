@@ -5,6 +5,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -35,13 +36,26 @@ func main() {
 	}
 }
 
-// corsMiddleware mengizinkan request dari origin frontend Next.js saja.
+// corsMiddleware mengizinkan request dari origin frontend Next.js dan local dev ports.
 func corsMiddleware(allowedOrigin string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", allowedOrigin)
+		origin := c.GetHeader("Origin")
+		if origin != "" {
+			if allowedOrigin == "*" || allowedOrigin == "" || origin == allowedOrigin || strings.HasPrefix(origin, "http://localhost:") || strings.HasPrefix(origin, "http://127.0.0.1:") {
+				c.Header("Access-Control-Allow-Origin", origin)
+			} else {
+				c.Header("Access-Control-Allow-Origin", allowedOrigin)
+			}
+		} else if allowedOrigin != "" {
+			c.Header("Access-Control-Allow-Origin", allowedOrigin)
+		} else {
+			c.Header("Access-Control-Allow-Origin", "*")
+		}
+
 		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With")
 		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Max-Age", "86400")
 
 		if c.Request.Method == http.MethodOptions {
 			c.AbortWithStatus(http.StatusNoContent)
