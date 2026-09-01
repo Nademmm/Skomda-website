@@ -149,8 +149,11 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                 key={item.id || item.slug}
                 className="bg-white rounded-[16px] p-[11px] pt-[13px] pb-[14px] flex flex-col gap-[4px] shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] group"
               >
-                {/* Thumbnail with Date Badge */}
-                <div className="relative h-[192px] w-full rounded-[12px] overflow-hidden bg-gray-100">
+                {/* Thumbnail with Date Badge (Clickable Link) */}
+                <Link
+                  href={`/berita/${item.slug}`}
+                  className="block relative h-[192px] w-full rounded-[12px] overflow-hidden bg-gray-100 cursor-pointer"
+                >
                   <Image
                     src={item.image || "/figma/news-thumb-1.png"}
                     alt={item.title}
@@ -168,24 +171,17 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                       {item.month || "MEI"}
                     </span>
                   </div>
-                </div>
+                </Link>
 
                 {/* Card Body */}
                 <div className="flex flex-col gap-1 pt-1">
                   {/* Title */}
-                  <div className="p-[10px] pb-0 mb-[-6px]">
+                  <div className="p-[10px] pb-0">
                     <Link href={`/berita/${item.slug}`}>
                       <h4 className="font-jakarta font-bold text-[14px] leading-[17.5px] text-[#101828] line-clamp-3 min-h-[52px] group-hover:text-[#bd0c12] transition-colors">
                         {item.title}
                       </h4>
                     </Link>
-                  </div>
-
-                  {/* Category */}
-                  <div className="p-[10px] py-1 mb-[-6px]">
-                    <span className="font-jakarta font-semibold text-[12px] leading-[16px] text-[#e7000b]">
-                      {item.category}
-                    </span>
                   </div>
 
                   {/* Date & Time */}

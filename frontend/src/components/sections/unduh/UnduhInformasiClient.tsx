@@ -419,35 +419,42 @@ export default function UnduhInformasiClient() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md"
             onClick={() => setPreviewDoc(null)}
           >
             <motion.div
-              initial={{ scale: 0.92, opacity: 0 }}
+              initial={{ scale: 0.94, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
+              exit={{ scale: 0.94, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-5xl w-full max-h-[92vh] bg-white rounded-2xl p-4 sm:p-6 overflow-hidden shadow-2xl flex flex-col"
+              className="relative max-w-6xl w-full h-[94vh] max-h-[94vh] bg-white rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col border border-gray-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-gray-200">
-                <div className="pr-4">
-                  <span className="text-[11px] font-bold text-[#bc0c11] uppercase tracking-wider font-jakarta">
-                    {previewDoc.group}
-                  </span>
-                  <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828] leading-tight mt-0.5">
-                    {previewDoc.title}
-                  </h3>
-                </div>
+              <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-gray-200 gap-4">
+                <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828] leading-snug truncate min-w-0 flex-1">
+                  {previewDoc.title}
+                </h3>
 
+                {/* Header Action Buttons */}
                 <div className="flex items-center gap-2 shrink-0">
                   <a
                     href={previewDoc.fileUrl}
-                    download
-                    className="inline-flex items-center gap-1.5 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white px-4 py-1.5 text-xs sm:text-sm font-semibold font-jakarta shadow-xs transition-colors cursor-pointer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-[#101828] px-3.5 py-2 text-xs sm:text-sm font-semibold font-jakarta transition-colors cursor-pointer"
+                    title="Buka di tab baru"
                   >
-                    <Download className="size-3.5" />
+                    <ExternalLink className="size-4" />
+                    <span className="hidden sm:inline">Buka Tab Baru</span>
+                  </a>
+
+                  <a
+                    href={previewDoc.fileUrl}
+                    download
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white px-4 py-2 text-xs sm:text-sm font-semibold font-jakarta shadow-xs transition-colors cursor-pointer"
+                  >
+                    <Download className="size-4" />
                     <span className="hidden sm:inline">Unduh PDF</span>
                   </a>
 
@@ -461,32 +468,29 @@ export default function UnduhInformasiClient() {
                 </div>
               </div>
 
-              {/* Modal Document Area (Image Preview + PDF Iframe option) */}
-              <div className="relative flex-1 min-h-[380px] sm:min-h-[580px] w-full mt-4 overflow-auto rounded-xl bg-gray-100 flex items-center justify-center p-3">
-                <div className="relative w-full h-full min-h-[480px]">
-                  <Image
-                    src={previewDoc.thumbnailUrl}
-                    alt={previewDoc.title}
-                    fill
-                    unoptimized
-                    className="object-contain"
-                    priority
-                  />
-                </div>
+              {/* Modal Document Area (Interactive Multi-page PDF Viewer with Native Zoom & Scroll) */}
+              <div className="relative flex-1 w-full mt-3 overflow-hidden rounded-xl bg-gray-100 border border-gray-200/90 shadow-inner">
+                <iframe
+                  src={`${previewDoc.fileUrl}#view=FitH&toolbar=1&navpanes=1`}
+                  className="w-full h-full border-0 rounded-xl bg-white"
+                  title={previewDoc.title}
+                />
               </div>
 
               {/* Modal Footer Info */}
-              <div className="mt-3.5 pt-3 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-xs font-jakarta text-[#6a7282] gap-2">
-                <span>
-                  Ukuran Berkas: <strong className="text-[#101828]">{previewDoc.fileSize}</strong> ({previewDoc.pageCount} Halaman)
-                </span>
+              <div className="mt-3 pt-2.5 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-xs font-jakarta text-[#6a7282] gap-2">
+                <div className="flex items-center gap-2">
+                  <span>Ukuran: <strong className="text-[#101828]">{previewDoc.fileSize}</strong></span>
+                  <span className="text-gray-300">•</span>
+                  <span>Jumlah: <strong className="text-[#101828]">{previewDoc.pageCount} Halaman</strong></span>
+                </div>
                 <a
                   href={previewDoc.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[#bc0c11] font-bold hover:underline"
+                  className="inline-flex items-center gap-1 text-[#bc0c11] font-bold hover:underline shrink-0"
                 >
-                  <span>Buka Dokumen PDF di Tab Baru</span>
+                  <span>Buka Layar Penuh</span>
                   <ExternalLink className="size-3.5" />
                 </a>
               </div>

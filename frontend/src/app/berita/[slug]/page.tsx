@@ -195,7 +195,10 @@ export default async function NewsDetailPage({ params }: Props) {
                     key={item.id || item.slug}
                     className="bg-white rounded-[16px] p-3 pb-4 flex flex-col shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] group"
                   >
-                    <div className="relative h-[160px] w-full rounded-[12px] overflow-hidden bg-gray-100 mb-3">
+                    <Link
+                      href={`/berita/${item.slug}`}
+                      className="block relative h-[160px] w-full rounded-[12px] overflow-hidden bg-gray-100 mb-3 cursor-pointer"
+                    >
                       <Image
                         src={item.image || "/figma/news-thumb-1.png"}
                         alt={item.title}
@@ -203,10 +206,7 @@ export default async function NewsDetailPage({ params }: Props) {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                    </div>
-                    <span className="font-jakarta font-semibold text-xs text-[#e7000b] mb-1">
-                      {item.category}
-                    </span>
+                    </Link>
                     <Link href={`/berita/${item.slug}`}>
                       <h4 className="font-jakarta font-bold text-sm text-[#101828] line-clamp-2 group-hover:text-[#bd0c12] transition-colors mb-2">
                         {item.title}
