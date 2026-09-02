@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import NavbarSearch from "./NavbarSearch";
 
@@ -20,9 +22,20 @@ interface NavItem {
 
 export default function Navbar() {
   const { lang, setLang, t } = useLanguage();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+
+  // Check if a nav item (or any of its submenu children) matches the current path
+  const isActive = (item: NavItem): boolean => {
+    if (item.href === "/" && pathname === "/") return true;
+    if (item.href !== "/" && item.href !== "#" && !item.href.startsWith("#") && pathname.startsWith(item.href)) return true;
+    if (item.submenu) {
+      return item.submenu.some((sub) => pathname === sub.href || pathname.startsWith(sub.href + "/"));
+    }
+    return false;
+  };
 
   const toggleMobileSubmenu = (href: string) => {
     setMobileSubmenu((prev) => (prev === href ? null : href));
@@ -100,7 +113,9 @@ export default function Navbar() {
                       <div key={item.href} className="relative group/nav py-3">
                         <button
                           type="button"
-                          className="flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer"
+                          className={`flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer ${
+                            isActive(item) ? "text-[#bd0c12]" : "text-[#364153]"
+                          }`}
                         >
                           <span>{item.label}</span>
                           <svg
@@ -152,7 +167,9 @@ export default function Navbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="flex items-center px-3 py-1.5 text-[15px] font-semibold text-[#364153] transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6"
+                      className={`flex items-center px-3 py-1.5 text-[15px] font-semibold transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 ${
+                        isActive(item) ? "text-[#bd0c12]" : "text-[#364153]"
+                      }`}
                     >
                       {item.label}
                     </Link>
@@ -257,8 +274,14 @@ export default function Navbar() {
         </header>
 
         {/* Mobile Dropdown Menu with Expandable Accordions */}
+        <AnimatePresence>
         {!searchOpen && mobileOpen && (
-          <div className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-gray-100 xl:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-gray-100 xl:hidden">
             <nav className="flex flex-col gap-1.5">
               {navItems.map((item) => {
                 if (item.submenu) {
@@ -342,8 +365,9 @@ export default function Navbar() {
                 </Link>
               </div>
             </nav>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </div>
   );

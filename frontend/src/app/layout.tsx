@@ -37,7 +37,9 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${jakarta.variable} ${poppins.variable}`}>
       <body className="font-jakarta antialiased bg-[#f3f4f6] text-[#101828] overflow-x-hidden">
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

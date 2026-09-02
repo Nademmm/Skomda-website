@@ -116,7 +116,7 @@ export default function WhyChooseUsSection() {
                   key={card.id}
                   href={card.href || "#"}
                   data-node-id={card.id}
-                  className="group relative rounded-[25px] bg-[#bd0c12] px-6 sm:px-7 py-6 text-white shadow-[0px_4px_9px_0px_rgba(0,0,0,0.1)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer border-2 border-dashed border-white/50 hover:border-white"
+                  className="group relative rounded-[25px] bg-[#bd0c12] px-6 sm:px-7 py-6 text-white shadow-[0px_4px_9px_0px_rgba(0,0,0,0.1)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer border-2 border-dashed border-white/50 hover:border-white min-h-[120px]"
                 >
                   {/* White circle icon (Figma 23:120 / 67:237) */}
                   <div className="flex size-[64px] sm:size-[70px] shrink-0 items-center justify-center rounded-full bg-white shadow-sm p-3 transition-transform duration-300 group-hover:scale-105">
@@ -165,7 +165,7 @@ export default function WhyChooseUsSection() {
               <div
                 key={card.id}
                 data-node-id={card.id}
-                className="group relative rounded-[25px] bg-white px-6 sm:px-7 py-6 shadow-[0px_4px_4.5px_rgba(0,0,0,0.08)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11]"
+                className="group relative rounded-[25px] bg-white px-6 sm:px-7 py-6 shadow-[0px_4px_4.5px_rgba(0,0,0,0.08)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] min-h-[120px]"
               >
                 {/* Light pink/red circle icon (Figma 67:145) */}
                 <div className="flex size-[64px] sm:size-[70px] shrink-0 items-center justify-center rounded-full bg-[#ffebed] p-3 transition-transform duration-300 group-hover:scale-105">
