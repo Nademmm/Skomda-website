@@ -23,7 +23,7 @@ export default function StrukturOrganisasiSection() {
   }, [isOpen]);
 
   return (
-    <section id="struktur-organisasi" className="relative w-full py-20 lg:py-28 bg-[#f3f4f6] overflow-hidden">
+    <section id="struktur-organisasi" className="relative w-full py-20 lg:py-28 bg-[#f3f4f6] overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           

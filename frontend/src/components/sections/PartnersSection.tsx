@@ -96,7 +96,7 @@ export default function PartnersSection() {
   const marqueeItems = [...partners, ...partners];
 
   return (
-    <section className="relative w-full bg-[#f3f4f6] py-8 overflow-hidden" data-node-id="95:312">
+    <section id="mitra" className="relative w-full bg-[#f3f4f6] py-8 overflow-hidden scroll-mt-24" data-node-id="95:312">
       {/* Infinite scrolling marquee track */}
       <div className="flex w-full overflow-hidden">
         <div className="animate-marquee items-center py-2">

@@ -63,7 +63,7 @@ export default function WhyChooseUsSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="w-full bg-[#f3f4f6] py-20 lg:py-24">
+    <section id="keunggulan" className="w-full bg-[#f3f4f6] py-20 lg:py-24 scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         {/* Header Row (Figma 67:126 & 67:140) */}

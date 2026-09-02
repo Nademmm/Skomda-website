@@ -9,7 +9,7 @@ export default function PrincipalSection() {
   return (
     <section
       id="sambutan"
-      className="relative w-full overflow-hidden bg-white py-16 lg:py-24 shadow-sm"
+      className="relative w-full overflow-hidden bg-white py-16 lg:py-24 shadow-sm scroll-mt-24"
       data-node-id="67:2"
     >
       {/* Background Watermark Logo Telkom Schools (Desktop only) */}

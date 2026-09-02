@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function AkreditasiSection() {
   return (
-    <section className="relative w-full py-20 lg:py-28 bg-white border-y border-[#e5e7eb]/60 overflow-hidden">
+    <section id="akreditasi" className="relative w-full py-20 lg:py-28 bg-white border-y border-[#e5e7eb]/60 overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

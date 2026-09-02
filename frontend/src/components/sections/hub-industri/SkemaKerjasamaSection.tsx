@@ -52,7 +52,7 @@ export default function SkemaKerjasamaSection() {
   return (
     <section
       id="skema-kerjasama"
-      className="relative w-full py-20 lg:py-28 bg-[#f3f4f6] overflow-hidden"
+      className="relative w-full py-20 lg:py-28 bg-[#f3f4f6] overflow-hidden scroll-mt-24"
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

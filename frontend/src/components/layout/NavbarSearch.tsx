@@ -13,9 +13,11 @@ export interface SearchItem {
   title: string;
   description: string;
   href: string;
-  category: "Jurusan" | "Halaman" | "Berita" | "Dokumen" | "Info";
+  category: "Jurusan" | "Halaman" | "Section" | "Berita" | "Dokumen" | "Info";
   badge?: string;
-  iconType: "major" | "page" | "news" | "doc" | "info" | "star" | "hub" | "facility";
+  parentPage?: string;
+  iconType: "major" | "page" | "section" | "news" | "doc" | "info" | "star" | "hub" | "facility";
+  keywords?: string;
 }
 
 interface NavbarSearchProps {
@@ -51,6 +53,7 @@ const JURUSAN_ITEMS: SearchItem[] = [
     category: "Jurusan",
     badge: "Program 4 Tahun",
     iconType: "major",
+    keywords: "sija software web fullstack cloud aws iot coding 4 tahun",
   },
   {
     id: "j-tjat",
@@ -60,6 +63,252 @@ const JURUSAN_ITEMS: SearchItem[] = [
     category: "Jurusan",
     badge: "Program 3 Tahun",
     iconType: "major",
+    keywords: "tjat fiber optic ftth wireless bts seluler jaringan telekomunikasi 3 tahun",
+  },
+];
+
+/* ─── Page Section Headings & Subsections ─── */
+const PAGE_SECTIONS: SearchItem[] = [
+  // ── Beranda ──
+  {
+    id: "sec-sambutan",
+    title: "Sambutan Kepala Sekolah",
+    description: "Pesan dan visi dari Kepala SMK Telkom Sidoarjo, Abror S.Hum., M.Pd.",
+    href: "/#sambutan",
+    category: "Section",
+    parentPage: "Beranda",
+    iconType: "section",
+    keywords: "sambutan kepala sekolah kepsek abror pidato pimpinan pesan direktif greeting",
+  },
+  {
+    id: "sec-keunggulan",
+    title: "Keunggulan SMK Telkom Sidoarjo",
+    description: "6 alasan memilih Skomda: kurikulum industri, sertifikasi internasional & fasilitas modern",
+    href: "/#keunggulan",
+    category: "Section",
+    parentPage: "Beranda",
+    iconType: "section",
+    keywords: "keunggulan mengapa memilih skomda fasilitas kurikulum prestasi alasan benefit why choose us",
+  },
+  {
+    id: "sec-mitra-home",
+    title: "Mitra Industri & Perusahaan Rekanan",
+    description: "Jejaring kemitraan Telkom Group, Wowrack, Weza, dan korporasi teknologi",
+    href: "/#mitra",
+    category: "Section",
+    parentPage: "Beranda",
+    iconType: "section",
+    keywords: "mitra rekanan kerja sama industri telkom wowrack weza dudi marquee partners",
+  },
+  {
+    id: "sec-program-home",
+    title: "Program Keahlian Vokasi (SIJA & TJAT)",
+    description: "Ringkasan kurikulum program keahlian SIJA (4 tahun) dan TJAT (3 tahun)",
+    href: "/#program",
+    category: "Section",
+    parentPage: "Beranda",
+    iconType: "section",
+    keywords: "program keahlian jurusan vokasi sija tjat sistem informasi telekomunikasi",
+  },
+  {
+    id: "sec-berita-home",
+    title: "Kabar & Berita Terkini",
+    description: "Liputan agenda, prestasi siswa, dan pengumuman kegiatan terbaru sekolah",
+    href: "/#informasi",
+    category: "Section",
+    parentPage: "Beranda",
+    iconType: "section",
+    keywords: "berita informasi kabar terkini agenda artikel pengumuman latest news",
+  },
+
+  // ── Profil Sekolah ──
+  {
+    id: "sec-visi-misi",
+    title: "Visi & Misi Sekolah",
+    description: "Visi sekolah vokasi terdepan dan 6 misi pembinaan karakter serta lulusan BMW",
+    href: "/tentang-kami/profil-sekolah#visi-misi",
+    category: "Section",
+    parentPage: "Profil Sekolah",
+    iconType: "section",
+    keywords: "visi misi tujuan sasaran bmw bekerja melanjutkan wirausaha integritas nilai sekolah",
+  },
+  {
+    id: "sec-akreditasi-profil",
+    title: "Akreditasi A UNGGUL (BAN-SM)",
+    description: "Peringkat Akreditasi A (Nilai 93) BAN-SM & standar manajemen mutu ISO 21001:2018",
+    href: "/tentang-kami/profil-sekolah#akreditasi",
+    category: "Section",
+    parentPage: "Profil Sekolah",
+    iconType: "section",
+    keywords: "akreditasi unggul ban-sm nilai 93 mutu iso 21001 sertifikat status kelayakan badan akreditasi",
+  },
+  {
+    id: "sec-struktur-organisasi",
+    title: "Struktur Organisasi & Pimpinan",
+    description: "Bagan susunan pimpinan sekolah, wakil kepala sekolah, kaprog, dan tata kelola",
+    href: "/tentang-kami/profil-sekolah#struktur-organisasi",
+    category: "Section",
+    parentPage: "Profil Sekolah",
+    iconType: "section",
+    keywords: "struktur organisasi manajemen pimpinan susunan pengurus waka kaprodi kepsek bagan dewan guru",
+  },
+
+  // ── Hub Industri ──
+  {
+    id: "sec-mitra-industri",
+    title: "Daftar Mitra Industri & Kerjasama",
+    description: "Direktori kemitraan perusahaan PKL/magang, rekrutmen kerja, dan sertifikasi",
+    href: "/tentang-kami/hub-industri#mitra-industri",
+    category: "Section",
+    parentPage: "Hub Industri",
+    iconType: "section",
+    keywords: "mitra industri daftar mou pkl magang bumn swasta telkom vendor rekrutmen dudi corporate",
+  },
+  {
+    id: "sec-skema-kerjasama",
+    title: "Skema Kerjasama Industri",
+    description: "Bentuk kemitraan: Prakerin/PKL, Guru Tamu Praktisi, Teaching Factory & Rekrutmen",
+    href: "/tentang-kami/hub-industri#skema-kerjasama",
+    category: "Section",
+    parentPage: "Hub Industri",
+    iconType: "section",
+    keywords: "skema bentuk program kerjasama guru tamu magang tefa teaching factory kurikulum industri sinkronisasi",
+  },
+  {
+    id: "sec-alur-kerjasama",
+    title: "Alur Prosedur Kerjasama Industri",
+    description: "Tahapan pengajuan kemitraan, penjajakan MoU, implementasi hingga evaluasi program",
+    href: "/tentang-kami/hub-industri#alur-kerjasama",
+    category: "Section",
+    parentPage: "Hub Industri",
+    iconType: "section",
+    keywords: "alur prosedur langkah proses pendaftaran kerjasama pengajuan mou dudi kemitraan mou signing",
+  },
+  {
+    id: "sec-kontak-kerjasama",
+    title: "Hubungi Hub Industri & Kemitraan",
+    description: "Kanal penghubung resmi konsultasi kemitraan dan tim Hubungan Industri (Hubin)",
+    href: "/tentang-kami/hub-industri#kontak-kerjasama",
+    category: "Section",
+    parentPage: "Hub Industri",
+    iconType: "section",
+    keywords: "kontak hubin kemitraan call center bkk bursa kerja khusus form pengajuan konsultasi email",
+  },
+
+  // ── Akomodasi ──
+  {
+    id: "sec-rekomendasi-kos",
+    title: "Rekomendasi Kos & Tempat Tinggal",
+    description: "Daftar kos putra, kos putri, dan hunian nyaman di sekitar lingkungan sekolah",
+    href: "/tentang-kami/akomodasi#rekomendasi-hunian",
+    category: "Section",
+    parentPage: "Akomodasi",
+    iconType: "section",
+    keywords: "kos kost asrama hunian kontrakan putra putri kamar sewa tempat tinggal penginapan boarding",
+  },
+  {
+    id: "sec-biaya-hidup",
+    title: "Estimasi Biaya Hidup Sidoarjo",
+    description: "Rincian perkiraan pengeluaran makan, sewa tempat tinggal, transport, dan uang saku",
+    href: "/tentang-kami/akomodasi#biaya-hidup",
+    category: "Section",
+    parentPage: "Akomodasi",
+    iconType: "section",
+    keywords: "biaya hidup pengeluaran estimasi makan kos transport laundry uang saku bulanan tarif living cost",
+  },
+  {
+    id: "sec-lingkungan-fasilitas",
+    title: "Fasilitas Sekitar & Kemudahan Akses",
+    description: "Akses fasilitas umum, halte transportasi, minimarket, ATM, dan pusat kesehatan",
+    href: "/tentang-kami/akomodasi#lingkungan-fasilitas",
+    category: "Section",
+    parentPage: "Akomodasi",
+    iconType: "section",
+    keywords: "lingkungan fasilitas sekitar transportasi angkutan akses atm puskesmas jalan halte warung",
+  },
+  {
+    id: "sec-tips-akomodasi",
+    title: "Tips Memilih Kos & Helpdesk",
+    description: "Panduan praktis mencari kos yang aman, nyaman, dan layanan konsultasi akomodasi",
+    href: "/tentang-kami/akomodasi#tips-faq",
+    category: "Section",
+    parentPage: "Akomodasi",
+    iconType: "section",
+    keywords: "tips faq bantuan konsultasi survei memilih kos aman panduan orang tua helpdesk survey",
+  },
+
+  // ── Profil Jurusan ──
+  {
+    id: "sec-kompetensi-sija",
+    title: "Kompetensi Keahlian SIJA (4 Tahun)",
+    description: "Fokus keahlian Software Development, Cloud AWS, Cyber Security, dan IoT Terapan",
+    href: "/program/profil-jurusan?jurusan=SIJA#kompetensi",
+    category: "Section",
+    parentPage: "Profil Jurusan",
+    iconType: "section",
+    keywords: "kompetensi sija kurikulum software web fullstack cloud aws iot keamanan siber 4 tahun",
+  },
+  {
+    id: "sec-kompetensi-tjat",
+    title: "Kompetensi Keahlian TJAT (3 Tahun)",
+    description: "Fokus keahlian Fiber Optic FTTH, Jaringan Nirkabel Microwave, Transmisi 4G/5G, dan VSAT",
+    href: "/program/profil-jurusan?jurusan=TJAT#kompetensi",
+    category: "Section",
+    parentPage: "Profil Jurusan",
+    iconType: "section",
+    keywords: "kompetensi tjat kurikulum fiber optic ftth wireless bts seluler jaringan akses mikrotik",
+  },
+  {
+    id: "sec-sertifikasi-industri",
+    title: "Sertifikasi Industri SIJA & TJAT",
+    description: "Uji kompetensi global: Cisco CCNA, AWS Academy, Oracle Java, MikroTik MTCNA & BNSP",
+    href: "/program/profil-jurusan#keunggulan-sertifikasi",
+    category: "Section",
+    parentPage: "Profil Jurusan",
+    iconType: "section",
+    keywords: "sertifikasi cisco ccna aws cloud oracle mikrotik mtcna bnsp uji kompetensi keunggulan lisensi",
+  },
+  {
+    id: "sec-prospek-karir",
+    title: "Prospek Karir & Profesi Lulusan",
+    description: "Peluang kerja: Cloud Engineer, Network Specialist, Fiber Optic Tech, Full-Stack Dev",
+    href: "/program/profil-jurusan#prospek-karir",
+    category: "Section",
+    parentPage: "Profil Jurusan",
+    iconType: "section",
+    keywords: "prospek karir pekerjaan profesi gaji lulusan kerja bumn startup industri dudi peluang career",
+  },
+
+  // ── Program TS21 ──
+  {
+    id: "sec-ts21-framework",
+    title: "Framework Pembelajaran TS21",
+    description: "Model pembelajaran abad 21 Telkom Schools: Character, Competence & Collaboration",
+    href: "/program/ts21#framework",
+    category: "Section",
+    parentPage: "Program TS21",
+    iconType: "section",
+    keywords: "framework ts21 telkom schools kurikulum abad 21 karakter kompetensi kolaborasi 4c",
+  },
+  {
+    id: "sec-ts21-metode",
+    title: "Metode Pembelajaran TS21",
+    description: "Project-Based Learning, Teaching Factory (TeFa), Magang Industri Bersertifikat & Dual System",
+    href: "/program/ts21#metode",
+    category: "Section",
+    parentPage: "Program TS21",
+    iconType: "section",
+    keywords: "metode pembelajaran project based learning pjbl teaching factory tefa dual system magang",
+  },
+  {
+    id: "sec-ts21-enabler",
+    title: "Digital Enabler TS21",
+    description: "Infrastruktur digital, smart classroom, Cloud LMS & ekosistem teknologi pendidikan",
+    href: "/program/ts21#enabler",
+    category: "Section",
+    parentPage: "Program TS21",
+    iconType: "section",
+    keywords: "digital enabler lms smart class teknologi ekosistem edutech google workspace laboratorium",
   },
 ];
 
@@ -92,43 +341,45 @@ const QUICK_FEATURED_ITEMS: SearchItem[] = [
     iconType: "doc",
   },
   {
-    id: "q-prestasi",
-    title: "Prestasi Siswa & Penghargaan",
-    description: "Juara kompetisi IT, IoT, inovasi aplikasi dan olimpiade nasional",
-    href: "/tentang-kami/prestasi",
-    category: "Halaman",
-    badge: "Prestasi",
-    iconType: "star",
+    id: "q-visi-misi",
+    title: "Visi & Misi Sekolah",
+    description: "Visi keunggulan vokasi dan 6 misi pembinaan karakter serta lulusan BMW",
+    href: "/tentang-kami/profil-sekolah#visi-misi",
+    category: "Section",
+    parentPage: "Profil Sekolah",
+    iconType: "section",
   },
   {
-    id: "q-fasilitas",
-    title: "Fasilitas & Laboratorium Modern",
-    description: "Lab cloud computing, fiber optic simulator, sport hall & studio",
-    href: "/tentang-kami/fasilitas",
-    category: "Halaman",
-    badge: "Fasilitas",
-    iconType: "facility",
-  },
-  {
-    id: "q-hub",
+    id: "q-mitra",
     title: "Hub Industri & Kerjasama Perusahaan",
     description: "Kemitraan Telkom Group, Jagoan Hosting, Wowrack & magang industri",
-    href: "/tentang-kami/hub-industri",
-    category: "Halaman",
-    badge: "Industri",
+    href: "/tentang-kami/hub-industri#mitra-industri",
+    category: "Section",
+    parentPage: "Hub Industri",
     iconType: "hub",
+  },
+  {
+    id: "q-biaya-hidup",
+    title: "Estimasi Biaya Hidup Sidoarjo",
+    description: "Perkiraan biaya makan, sewa kos, transport, dan kebutuhan siswa",
+    href: "/tentang-kami/akomodasi#biaya-hidup",
+    category: "Section",
+    parentPage: "Akomodasi",
+    iconType: "section",
   },
 ];
 
 const POPULAR_TAGS = [
   "SIJA",
   "TJAT",
+  "Visi Misi",
+  "Sambutan Kepsek",
+  "Mitra Industri",
+  "Biaya Hidup",
+  "Sertifikasi",
   "PPDB 2026",
   "Brosur",
-  "Prestasi",
   "Fasilitas",
-  "Berita",
-  "Mitra Industri",
 ];
 
 /* ──────────────────── Clean Minimalist Icons ──────────────────── */
@@ -140,6 +391,15 @@ function ItemIcon({ type }: { type: SearchItem["iconType"] }) {
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
           <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
           <path d="M6 12v5c3 3 9 3 12 0v-5" />
+        </svg>
+      );
+    case "section":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="4" y1="9" x2="20" y2="9" />
+          <line x1="4" y1="15" x2="20" y2="15" />
+          <line x1="10" y1="3" x2="8" y2="21" />
+          <line x1="16" y1="3" x2="14" y2="21" />
         </svg>
       );
     case "news":
@@ -240,12 +500,12 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
     }));
 
     const quickInfo: SearchItem[] = [
-      { id: "i-ppdb", title: "Brosur PPDB 2026/2027", description: "Alur pendaftaran, biaya, beasiswa dan persyaratan siswa baru", href: "/unduh-informasi", category: "Info", badge: "PPDB", iconType: "info" },
-      { id: "i-akreditasi", title: "Akreditasi A Unggul", description: "Sertifikasi BAN-SM nilai tertinggi sekolah vokasi", href: "/unduh-informasi", category: "Info", badge: "Akreditasi", iconType: "info" },
-      { id: "i-sertifikasi", title: "Sertifikasi Industri (Cisco, BNSP, AWS, MikroTik)", description: "Uji kompetensi internasional siap kerja di industri global", href: "/program/profil-jurusan#keunggulan-sertifikasi", category: "Info", badge: "Sertifikasi", iconType: "info" },
+      { id: "i-ppdb", title: "Brosur PPDB 2026/2027", description: "Alur pendaftaran, biaya, beasiswa dan persyaratan siswa baru", href: "/unduh-informasi", category: "Info", badge: "PPDB", iconType: "info", keywords: "daftar masuk pendaftaran sekolah biaya" },
+      { id: "i-akreditasi", title: "Akreditasi A Unggul", description: "Sertifikasi BAN-SM nilai tertinggi sekolah vokasi (93)", href: "/unduh-informasi", category: "Info", badge: "Akreditasi", iconType: "info", keywords: "status sertifikat nilai unggul" },
+      { id: "i-sertifikasi", title: "Sertifikasi Industri (Cisco, BNSP, AWS, MikroTik)", description: "Uji kompetensi internasional siap kerja di industri global", href: "/program/profil-jurusan#keunggulan-sertifikasi", category: "Info", badge: "Sertifikasi", iconType: "info", keywords: "lisensi keahlian sertifikasi dudi" },
     ];
 
-    return [...JURUSAN_ITEMS, ...STATIC_PAGES, ...newsItems, ...docItems, ...quickInfo];
+    return [...JURUSAN_ITEMS, ...PAGE_SECTIONS, ...STATIC_PAGES, ...newsItems, ...docItems, ...quickInfo];
   }, []);
 
   // Filter with scoring
@@ -262,12 +522,18 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
         const titleLower = item.title.toLowerCase();
         const descLower = item.description.toLowerCase();
         const catLower = item.category.toLowerCase();
+        const parentLower = (item.parentPage || "").toLowerCase();
+        const kwLower = (item.keywords || "").toLowerCase();
         let score = 0;
 
         for (const t of terms) {
           if (titleLower.includes(t)) {
-            score += 4;
-            if (titleLower.startsWith(t)) score += 2;
+            score += 5;
+            if (titleLower.startsWith(t)) score += 3;
+          } else if (parentLower.includes(t)) {
+            score += 3;
+          } else if (kwLower.includes(t)) {
+            score += 3;
           } else if (descLower.includes(t)) {
             score += 2;
           } else if (catLower.includes(t)) {
@@ -281,16 +547,19 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score)
       .map((r) => r.item)
-      .slice(0, 10);
+      .slice(0, 12);
   }, [query, dataset]);
 
-  // Group filtered results
+  // Group filtered results: Section, Jurusan, Halaman, Berita, Dokumen, Info
   const groupedResults = useMemo(() => {
+    const order = ["Jurusan", "Section", "Halaman", "Berita", "Dokumen", "Info"];
     const map = new Map<string, SearchItem[]>();
-    for (const item of filteredResults) {
-      const arr = map.get(item.category) || [];
-      arr.push(item);
-      map.set(item.category, arr);
+    
+    for (const cat of order) {
+      const matched = filteredResults.filter((r) => r.category === cat);
+      if (matched.length > 0) {
+        map.set(cat === "Section" ? "Bagian Halaman (Section)" : cat, matched);
+      }
     }
     return map;
   }, [filteredResults]);
@@ -319,6 +588,25 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
   const handleSelect = useCallback(
     (href: string) => {
       onClose();
+
+      if (typeof window !== "undefined" && href.includes("#")) {
+        const [targetPath, hash] = href.split("#");
+        const currentPath = window.location.pathname;
+        const isCurrentPage =
+          targetPath === "" ||
+          targetPath === currentPath ||
+          (targetPath === "/" && currentPath === "/");
+
+        if (isCurrentPage && hash) {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            window.history.pushState(null, "", href);
+            return;
+          }
+        }
+      }
+
       router.push(href);
     },
     [onClose, router]
@@ -382,7 +670,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
             setSelectedIndex(0);
           }}
           onKeyDown={handleKeyDown}
-          placeholder="Cari jurusan, berita, PPDB, dokumen, fasilitas..."
+          placeholder="Cari section, halaman, jurusan, berita, dokumen..."
           className="flex-1 bg-transparent font-jakarta text-[15px] font-semibold text-slate-900 placeholder-slate-400 outline-none min-w-0"
           autoComplete="off"
           spellCheck={false}
@@ -460,7 +748,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                   {/* Clean List Quick Access Links */}
                   <div>
                     <p className="font-jakarta text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-                      Akses Cepat Halaman & Menu
+                      Akses Cepat Halaman & Section
                     </p>
                     <div className="flex flex-col gap-1">
                       {QUICK_FEATURED_ITEMS.map((item, idx) => {
@@ -486,12 +774,24 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                             </div>
 
                             <div className="flex-1 min-w-0">
-                              <span
-                                className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
-                                  }`}
-                              >
-                                {item.title}
-                              </span>
+                              <div className="flex items-center gap-2">
+                                <span
+                                  className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
+                                    }`}
+                                >
+                                  {item.title}
+                                </span>
+                                {item.parentPage && (
+                                  <span className="shrink-0 font-jakarta text-[10px] font-semibold text-slate-500 bg-slate-100 border border-slate-200/70 px-1.5 py-0.5 rounded-md">
+                                    {item.parentPage}
+                                  </span>
+                                )}
+                                {item.badge && !item.parentPage && (
+                                  <span className="shrink-0 font-jakarta text-[10px] font-semibold text-[#bd0c12] bg-[#ffebed] px-1.5 py-0.5 rounded-md">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </div>
                               <p className="font-jakarta text-xs text-slate-500 truncate mt-0.5">
                                 {item.description}
                               </p>
@@ -520,9 +820,12 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                 <div className="flex flex-col gap-3.5">
                   {Array.from(groupedResults.entries()).map(([category, items]) => (
                     <div key={category} className="flex flex-col">
-                      <div className="px-2 pt-1 pb-1.5">
+                      <div className="px-2 pt-1 pb-1.5 flex items-center justify-between">
                         <span className="font-jakarta text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                          {category} ({items.length})
+                          {category}
+                        </span>
+                        <span className="font-jakarta text-[11px] font-medium text-slate-400">
+                          {items.length} hasil
                         </span>
                       </div>
 
@@ -545,7 +848,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                             >
                               <div
                                 className={`size-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected
-                                    ? "bg-white text-slate-900 shadow-xs border border-slate-200"
+                                    ? "bg-white text-[#bd0c12] shadow-xs border border-slate-200"
                                     : "bg-slate-100/80 border border-slate-200/50 text-slate-600"
                                   }`}
                               >
@@ -553,19 +856,31 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                               </div>
 
                               <div className="flex-1 min-w-0">
-                                <span
-                                  className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
-                                    }`}
-                                >
-                                  {item.title}
-                                </span>
+                                <div className="flex items-center gap-2">
+                                  <span
+                                    className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
+                                      }`}
+                                  >
+                                    {item.title}
+                                  </span>
+                                  {item.parentPage && (
+                                    <span className="shrink-0 font-jakarta text-[10px] font-semibold text-slate-500 bg-slate-100 border border-slate-200/70 px-1.5 py-0.5 rounded-md">
+                                      {item.parentPage}
+                                    </span>
+                                  )}
+                                  {item.badge && !item.parentPage && (
+                                    <span className="shrink-0 font-jakarta text-[10px] font-semibold text-[#bd0c12] bg-[#ffebed] px-1.5 py-0.5 rounded-md">
+                                      {item.badge}
+                                    </span>
+                                  )}
+                                </div>
                                 <p className="font-jakarta text-xs text-slate-500 truncate mt-0.5">
                                   {item.description}
                                 </p>
                               </div>
 
                               <svg
-                                className={`size-4 shrink-0 transition-transform ${isSelected ? "text-slate-700 translate-x-1" : "text-slate-300 opacity-0"
+                                className={`size-4 shrink-0 transition-transform ${isSelected ? "text-[#bd0c12] translate-x-1" : "text-slate-300 opacity-0"
                                   }`}
                                 viewBox="0 0 24 24"
                                 fill="none"
@@ -595,7 +910,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                     Tidak ada hasil untuk &ldquo;{query}&rdquo;
                   </p>
                   <p className="font-jakarta text-xs text-slate-500 mt-1">
-                    Coba kata kunci lain seperti &lsquo;SIJA&rsquo;, &lsquo;PPDB&rsquo;, &lsquo;Beasiswa&rsquo;, atau &lsquo;Prestasi&rsquo;
+                    Coba kata kunci seperti &lsquo;Visi Misi&rsquo;, &lsquo;Biaya Hidup&rsquo;, &lsquo;SIJA&rsquo;, &lsquo;Mitra&rsquo;, atau &lsquo;Sertifikasi&rsquo;
                   </p>
                 </div>
               )}

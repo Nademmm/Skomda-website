@@ -11,7 +11,7 @@ export default function ProgramsSection() {
   const [activeTab, setActiveTab] = useState<"SIJA" | "TJAT">("SIJA");
 
   return (
-    <section id="program" className="w-full bg-[#f3f4f6] pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-14" data-node-id="100:460">
+    <section id="program" className="w-full bg-[#f3f4f6] pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-14 scroll-mt-24" data-node-id="100:460">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}

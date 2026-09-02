@@ -98,7 +98,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
   return (
     <section
       id="informasi"
-      className="w-full bg-[#f3f4f6] pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-28"
+      className="w-full bg-[#f3f4f6] pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-28 scroll-mt-24"
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* 1. Header (Figma Node 123:277) */}
