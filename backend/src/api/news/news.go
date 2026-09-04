@@ -159,7 +159,7 @@ func createNews(c *gin.Context) {
 	}
 	image := input.Image
 	if image == "" {
-		image = "/figma/news-thumb-1.png"
+		image = "/images/berita/news-thumb-1.png"
 	}
 	author := input.Author
 	if author == "" {

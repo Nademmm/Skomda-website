@@ -3,91 +3,91 @@ import Image from "next/image";
 const partners = [
   {
     name: "Politeknik Elektronika Negeri Surabaya (PENS)",
-    src: "/figma/pens.webp",
+    src: "/images/partners/pens.webp",
   },
   {
     name: "Axelbit",
-    src: "/figma/partner-axelbit.png",
+    src: "/images/partners/partner-axelbit.png",
   },
   {
     name: "PT Radnet Digital Indonesia (Radnext)",
-    src: "/figma/partner-radnet.png",
+    src: "/images/partners/partner-radnet.png",
   },
   {
     name: "Wowrack Indonesia",
-    src: "/figma/wowrack.png",
+    src: "/images/partners/wowrack.png",
   },
   {
     name: "Markaz Design",
-    src: "/figma/partner-markazdesign.png",
+    src: "/images/partners/partner-markazdesign.png",
   },
   {
     name: "DigiPrener",
-    src: "/figma/partner-digiprener.png",
+    src: "/images/partners/partner-digiprener.png",
   },
   {
     name: "PT Garuda Telekomunikasi Indonesia",
-    src: "/figma/partner-garuda.png",
+    src: "/images/partners/partner-garuda.png",
   },
   {
     name: "PT TelkoMedika Indonesia",
-    src: "/figma/TelkoMedika-v2.png",
+    src: "/images/partners/TelkoMedika-v2.png",
   },
   {
     name: "Jagoan Hosting",
-    src: "/figma/partner-jagoanhosting.png",
+    src: "/images/partners/partner-jagoanhosting.png",
   },
   {
     name: "PT Digdaya Olah Teknologi (DOT Indonesia)",
-    src: "/figma/DOT.svg",
+    src: "/images/common/icons/DOT.svg",
   },
   {
     name: "LSP P1 / BNSP",
-    src: "/figma/bnsp.png",
+    src: "/images/partners/bnsp.png",
   },
   {
     name: "Jobnation IT Outsource",
-    src: "/figma/jobnation.png",
+    src: "/images/partners/jobnation.png",
   },
   {
     name: "PT Indev Solusi Digital (indev)",
-    src: "/figma/indev.png",
+    src: "/images/partners/indev.png",
   },
   {
     name: "PT Global Infra Teknologi (GIT)",
-    src: "/figma/partner-globalinfra.png",
+    src: "/images/partners/partner-globalinfra.png",
   },
   {
     name: "Weza Group",
-    src: "/figma/weza-group.png",
+    src: "/images/partners/weza-group.png",
   },
   {
     name: "PT Woodone Integra Tbk",
-    src: "/figma/woodneintegra.png",
+    src: "/images/partners/woodneintegra.png",
   },
   {
     name: "PT Trijaya Grafika Solutindo (TGS)",
-    src: "/figma/trijaya.png",
+    src: "/images/partners/trijaya.png",
   },
   {
     name: "Lasambara Karya Cipta",
-    src: "/figma/lasambora.png",
+    src: "/images/partners/lasambora.png",
   },
   {
     name: "RS Islam Surabaya Jemursari",
-    src: "/figma/rsi.jpg",
+    src: "/images/partners/rsi.jpg",
   },
   {
     name: "UBIG.CO.ID",
-    src: "/figma/ubig.png",
+    src: "/images/partners/ubig.png",
   },
   {
     name: "PT Javacreatiox Network Intermedia",
-    src: "/figma/partner-javacreatiox.png",
+    src: "/images/partners/partner-javacreatiox.png",
   },
   {
     name: "Moksha Indonesia",
-    src: "/figma/moksha.png",
+    src: "/images/partners/moksha.png",
   },
 ];
 

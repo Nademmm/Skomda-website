@@ -15,7 +15,7 @@ export default function PrincipalSection() {
       {/* Background Watermark Logo Telkom Schools (Desktop only) */}
       <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 h-[450px] w-[550px] md:h-[550px] md:w-[650px] rotate-[12deg] opacity-[0.06] select-none hidden lg:block">
         <Image
-          src="/figma/telkom-schools-icon.png"
+          src="/images/common/telkom-schools-icon.png"
           alt=""
           fill
           sizes="(max-width: 1024px) 100vw, 650px"
@@ -35,7 +35,7 @@ export default function PrincipalSection() {
                 data-name="image 6"
               >
                 <Image
-                  src="/figma/image6.png"
+                  src="/images/home/hero/image6.png"
                   alt=""
                   fill
                   sizes="(max-width: 640px) 340px, 410px"
@@ -52,7 +52,7 @@ export default function PrincipalSection() {
               >
                 <div className="relative w-full h-full scale-[1.10] origin-bottom">
                   <Image
-                    src="/figma/kepsek.png"
+                    src="/images/home/kepsek.png"
                     alt="Abror S.Hum., M.Pd. - Kepala Sekolah SMK Telkom Sidoarjo"
                     fill
                     sizes="(max-width: 640px) 300px, 400px"

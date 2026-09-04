@@ -155,7 +155,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                   className="block relative h-[192px] w-full rounded-[12px] overflow-hidden bg-gray-100 cursor-pointer"
                 >
                   <Image
-                    src={item.image || "/figma/news-thumb-1.png"}
+                    src={item.image || "/images/berita/news-thumb-1.png"}
                     alt={item.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

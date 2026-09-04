@@ -43,7 +43,7 @@ export default function Footer() {
             {/* Logo */}
             <Link href="/" className="relative block h-14 w-[216px]">
               <Image
-                src="/figma/logo-smk-telkom.png"
+                src="/images/common/logo-smk-telkom.png"
                 alt="SMK Telkom Sidoarjo"
                 fill
                 sizes="216px"

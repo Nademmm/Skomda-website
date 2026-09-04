@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       "Informasi akomodasi dan estimasi biaya hidup siswa SMK Telkom Sidoarjo secara transparan.",
     images: [
       {
-        url: "/figma/akomodasi-hero.jpg",
+        url: "/images/tentang-kami/akomodasi/akomodasi-hero.jpg",
         width: 1200,
         height: 675,
         alt: "Akomodasi dan Biaya Hidup Siswa SMK Telkom Sidoarjo",

@@ -98,14 +98,14 @@ export default function ProfilJurusanHeroSection() {
             <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-[24px] overflow-hidden shadow-lg border-2 border-white bg-gradient-to-br from-red-50 to-gray-100 flex items-center justify-center p-6">
               <div className="relative w-full h-full">
                 <Image
-                  src="/figma/image6.png"
+                  src="/images/home/hero/image6.png"
                   alt=""
                   fill
                   sizes="420px"
                   className="object-contain opacity-90 scale-95"
                 />
                 <Image
-                  src="/figma/charen.png"
+                  src="/images/program/profil-jurusan/charen.png"
                   alt="Siswa SMK Telkom Sidoarjo"
                   fill
                   className="object-contain object-bottom"

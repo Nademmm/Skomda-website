@@ -23,7 +23,7 @@ export default function HeroSection() {
             className="pointer-events-none absolute"
             style={{ left: "558px", top: "130px", width: "568px", height: "568px" }}
           >
-            <Image src="/figma/ellipse1.svg" alt="" fill className="object-contain" priority />
+            <Image src="/images/home/hero/ellipse1.svg" alt="" fill className="object-contain" priority />
           </div>
 
           {/* ── Red rotated capsule accent behind right student ── */}
@@ -111,7 +111,7 @@ export default function HeroSection() {
             style={{ left: "357px", top: "230px", width: "508px", height: "460px" }}
           >
             <Image
-              src="/figma/image4.png"
+              src="/images/home/hero/image4.png"
               alt="Siswa SMK Telkom Sidoarjo"
               fill
               sizes="508px"
@@ -126,7 +126,7 @@ export default function HeroSection() {
             style={{ left: "672px", top: "140px", width: "325px", height: "550px" }}
           >
             <Image
-              src="/figma/image1.png"
+              src="/images/home/hero/image1.png"
               alt="Siswa SMK Telkom Sidoarjo"
               fill
               sizes="325px"
@@ -141,7 +141,7 @@ export default function HeroSection() {
             style={{ left: "852px", top: "185px", width: "389px", height: "505px" }}
           >
             <Image
-              src="/figma/image5.png"
+              src="/images/home/hero/image5.png"
               alt="Siswi SMK Telkom Sidoarjo"
               fill
               sizes="389px"
@@ -274,7 +274,7 @@ export default function HeroSection() {
           <div className="relative mt-6 sm:mt-8" style={{ height: "270px" }}>
             {/* Light-grey circle backdrop directly behind students */}
             <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[-10px] w-[260px] h-[260px]">
-              <Image src="/figma/ellipse1.svg" alt="" fill className="object-contain opacity-80" />
+              <Image src="/images/home/hero/ellipse1.svg" alt="" fill className="object-contain opacity-80" />
             </div>
 
             {/* Red rotated capsule accent behind right student */}
@@ -291,17 +291,17 @@ export default function HeroSection() {
 
             {/* Student 1 (Left) */}
             <div className="absolute bottom-0 z-[5]" style={{ left: "0%", width: "38%", height: "250px" }}>
-              <Image src="/figma/image4.png" alt="Siswa SMK Telkom" fill sizes="38vw" className="object-cover" priority />
+              <Image src="/images/home/hero/image4.png" alt="Siswa SMK Telkom" fill sizes="38vw" className="object-cover" priority />
             </div>
 
             {/* Student 2 (Center Front) */}
             <div className="absolute bottom-0 z-[10]" style={{ left: "50%", transform: "translateX(-50%)", width: "42%", height: "270px" }}>
-              <Image src="/figma/image1.png" alt="Siswa SMK Telkom" fill sizes="42vw" className="object-cover object-top" priority />
+              <Image src="/images/home/hero/image1.png" alt="Siswa SMK Telkom" fill sizes="42vw" className="object-cover object-top" priority />
             </div>
 
             {/* Student 3 (Right) */}
             <div className="absolute bottom-0 z-[5]" style={{ right: "0%", width: "38%", height: "250px" }}>
-              <Image src="/figma/image5.png" alt="Siswi SMK Telkom" fill sizes="38vw" className="object-cover object-top" priority />
+              <Image src="/images/home/hero/image5.png" alt="Siswi SMK Telkom" fill sizes="38vw" className="object-cover object-top" priority />
             </div>
           </div>
 

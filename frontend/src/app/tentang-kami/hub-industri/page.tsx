@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "Kemitraan strategis SMK Telkom Sidoarjo dengan 10+ perusahaan teknologi dan telekomunikasi terkemuka.",
     images: [
       {
-        url: "/figma/hub-industri-hero.jpg",
+        url: "/images/tentang-kami/hub-industri/hub-industri-hero.jpg",
         width: 1200,
         height: 750,
         alt: "Hub Industri SMK Telkom Sidoarjo — Siswa berkolaborasi dengan profesional industri",

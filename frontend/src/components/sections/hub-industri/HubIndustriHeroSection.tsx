@@ -120,7 +120,7 @@ export default function HubIndustriHeroSection() {
           >
             <div className="relative w-full max-w-[580px] aspect-[16/10] rounded-[25px] overflow-hidden shadow-xl">
               <Image
-                src="/figma/hub-industri-hero.jpg"
+                src="/images/tentang-kami/hub-industri/hub-industri-hero.jpg"
                 alt="Siswa SMK Telkom Sidoarjo berkolaborasi dengan profesional industri di laboratorium teknologi"
                 fill
                 className="object-cover"

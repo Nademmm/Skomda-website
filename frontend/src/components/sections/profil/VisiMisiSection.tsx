@@ -34,7 +34,7 @@ export default function VisiMisiSection() {
               <div className="shrink-0 size-12 sm:size-14 rounded-full bg-[#e7000b] flex items-center justify-center shadow-md shadow-[#e7000b]/20 group-hover:scale-105 transition-transform duration-300">
                 <div className="relative size-6 sm:size-7">
                   <Image
-                    src="/figma/icon-target-dart.svg"
+                    src="/images/tentang-kami/profil-sekolah/icons/icon-target-dart.svg"
                     alt=""
                     fill
                     className="object-contain"
@@ -59,7 +59,7 @@ export default function VisiMisiSection() {
               <div className="shrink-0 size-12 sm:size-14 rounded-full bg-[#e7000b] flex items-center justify-center shadow-md shadow-[#e7000b]/20 group-hover:scale-105 transition-transform duration-300">
                 <div className="relative size-6 sm:size-7">
                   <Image
-                    src="/figma/icon-misi.svg"
+                    src="/images/tentang-kami/profil-sekolah/icons/icon-misi.svg"
                     alt=""
                     fill
                     className="object-contain"
@@ -104,7 +104,7 @@ export default function VisiMisiSection() {
               {/* Large Red Circle (Ellipse 22): left 1.25%, top 17.9%, w 77.75%, h 72.3% */}
               <div className="absolute left-[1.25%] top-[17.9%] w-[77.75%] h-[72.3%] pointer-events-none z-0">
                 <Image
-                  src="/figma/visimisi-circle-large.svg"
+                  src="/images/tentang-kami/profil-sekolah/visimisi-circle-large.svg"
                   alt=""
                   fill
                   className="object-contain"
@@ -114,7 +114,7 @@ export default function VisiMisiSection() {
               {/* Small Red Circle (Ellipse 23): left 47.75%, top 26.28%, w 52%, h 48.37% */}
               <div className="absolute left-[47.75%] top-[26.28%] w-[52%] h-[48.37%] pointer-events-none z-0">
                 <Image
-                  src="/figma/visimisi-circle-small.svg"
+                  src="/images/tentang-kami/profil-sekolah/visimisi-circle-small.svg"
                   alt=""
                   fill
                   className="object-contain"
@@ -124,7 +124,7 @@ export default function VisiMisiSection() {
               {/* Dark Grey Circle (Ellipse 24): left 0%, top 72.09%, w 27%, h 25.12% */}
               <div className="absolute left-0 top-[72.09%] w-[27%] h-[25.12%] pointer-events-none z-0">
                 <Image
-                  src="/figma/visimisi-ellipse-decor.svg"
+                  src="/images/tentang-kami/profil-sekolah/visimisi-ellipse-decor.svg"
                   alt=""
                   fill
                   className="object-contain"
@@ -134,7 +134,7 @@ export default function VisiMisiSection() {
               {/* Student Photo (image 11): left 10%, top 2.33%, w 69%, h 96.28% */}
               <div className="absolute left-[10%] top-[2.33%] w-[69%] h-[96.28%] z-10">
                 <Image
-                  src="/figma/visimisi-student.png"
+                  src="/images/tentang-kami/profil-sekolah/visimisi-student.png"
                   alt="Siswi SMK Telkom Sidoarjo dengan tablet"
                   fill
                   className="object-contain object-bottom drop-shadow-md"

@@ -107,7 +107,7 @@ export default function ProgramsSection() {
                   data-name="charen"
                 >
                   <Image
-                    src="/figma/charen.png"
+                    src="/images/program/profil-jurusan/charen.png"
                     alt="Siswa SIJA SMK Telkom Sidoarjo"
                     fill
                     sizes="(max-width: 768px) 100vw, 668px"
@@ -123,7 +123,7 @@ export default function ProgramsSection() {
                 >
                   <div className="relative size-[30px]" data-node-id="105:465" data-name="ph:code-fill">
                     <Image
-                      src="/figma/ph-code-fill.svg"
+                      src="/images/common/icons/ph-code-fill.svg"
                       alt="Code icon"
                       fill
                       sizes="30px"
@@ -139,7 +139,7 @@ export default function ProgramsSection() {
                 >
                   <div className="relative size-[30px]" data-name="ph:code-fill">
                     <Image
-                      src="/figma/ph-code-fill.svg"
+                      src="/images/common/icons/ph-code-fill.svg"
                       alt="Code icon"
                       fill
                       sizes="30px"
@@ -279,7 +279,7 @@ export default function ProgramsSection() {
                 {/* 3. Student Photo - TJAT */}
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[470px] w-[314px] pointer-events-none flex items-end justify-center overflow-visible">
                   <Image
-                    src="/figma/image5.png"
+                    src="/images/home/hero/image5.png"
                     alt="Siswi TJAT SMK Telkom Sidoarjo"
                     fill
                     sizes="(max-width: 768px) 100vw, 314px"
@@ -292,7 +292,7 @@ export default function ProgramsSection() {
                 <div className="absolute top-8 -right-3 sm:-right-4 z-20 flex size-[52px] items-center justify-center rounded-[12px] bg-white/95 shadow-[0px_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform hover:scale-110">
                   <div className="relative size-[30px]">
                     <Image
-                      src="/figma/ph-code-fill.svg"
+                      src="/images/common/icons/ph-code-fill.svg"
                       alt="Code icon"
                       fill
                       sizes="30px"
@@ -305,7 +305,7 @@ export default function ProgramsSection() {
                 <div className="absolute bottom-20 -left-3 sm:-left-4 z-20 flex size-[52px] items-center justify-center rounded-[12px] bg-white/95 shadow-[0px_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform hover:scale-110">
                   <div className="relative size-[30px]">
                     <Image
-                      src="/figma/ph-code-fill.svg"
+                      src="/images/common/icons/ph-code-fill.svg"
                       alt="Code icon"
                       fill
                       sizes="30px"

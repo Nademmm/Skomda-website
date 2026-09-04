@@ -28,7 +28,7 @@ export default function NotFound() {
         {/* Logo */}
         <Link href="/" className="relative h-10 w-[140px] mb-10">
           <Image
-            src="/figma/logo-smk-telkom.png"
+            src="/images/common/logo-smk-telkom.png"
             alt="SMK Telkom Sidoarjo"
             fill
             sizes="140px"

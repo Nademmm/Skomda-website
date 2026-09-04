@@ -56,9 +56,9 @@ const jurusanContent: Record<JurusanKey, JurusanData> = {
     description:
       "Merupakan kompetensi keahlian baru berbasis Teknologi Informasi dan Komunikasi pada program keahlian Teknik Komputer dan Informatika yang mulai dibuka pada Tahun Pelajaran 2017/2018 untuk program pendidikan SMK dengan pembelajaran Empat (4) Tahun. Sesuai dengan Keputusan Dirjen Dikdasmen Kemendikbud Nomor: 4678/D/KEP/MK/2016.",
     duration: "— Masa pendidikan 4 tahun",
-    studentImage: "/figma/charen.png",
+    studentImage: "/images/program/profil-jurusan/charen.png",
     studentAlt: "Siswi SIJA SMK Telkom Sidoarjo",
-    badgeIcon: "/figma/ph-code-fill.svg",
+    badgeIcon: "/images/common/icons/ph-code-fill.svg",
     subjects: [
       { name: "Kelompok Mata Pelajaran Nasional", icon: BookOpen },
       { name: "Kelompok Mata Pelajaran Kewilayahan", icon: Globe2 },
@@ -85,9 +85,9 @@ const jurusanContent: Record<JurusanKey, JurusanData> = {
     description:
       "Merupakan program keahlian unggulan SMK Telkom Sidoarjo yang berfokus pada teknologi transmisi gelombang, instalasi dan penyambungan serat optik (Fiber Optic), konfigurasi jaringan nirkabel (Wireless & Seluler), serta pemeliharaan infrastruktur telekomunikasi terintegrasi standar industri Telkom.",
     duration: "— Masa pendidikan 3 tahun",
-    studentImage: "/figma/image5.png",
+    studentImage: "/images/home/hero/image5.png",
     studentAlt: "Siswi TJAT SMK Telkom Sidoarjo",
-    badgeIcon: "/figma/icon-tjat.svg",
+    badgeIcon: "/images/program/profil-jurusan/icon-tjat.svg",
     subjects: [
       { name: "Jaringan Fiber Optic", icon: Cable },
       { name: "Jaringan Komputer", icon: Network },

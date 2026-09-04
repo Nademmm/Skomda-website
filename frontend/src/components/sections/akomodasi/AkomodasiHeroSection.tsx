@@ -95,7 +95,7 @@ export default function AkomodasiHeroSection() {
           >
             <div className="relative w-full max-w-[580px] aspect-[16/10] rounded-[25px] overflow-hidden shadow-xl border-2 border-white">
               <Image
-                src="/figma/akomodasi-hero.jpg"
+                src="/images/tentang-kami/akomodasi/akomodasi-hero.jpg"
                 alt="Suasana kamar kos dan akomodasi siswa SMK Telkom Sidoarjo yang nyaman dan modern"
                 fill
                 className="object-cover"

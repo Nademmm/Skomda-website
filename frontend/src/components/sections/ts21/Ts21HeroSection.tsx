@@ -124,7 +124,7 @@ export default function Ts21HeroSection() {
               >
                 <div className="relative w-full h-full rounded-[14px] overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/figma/ts21-framework.png"
+                    src="/images/program/ts21/ts21-framework.png"
                     alt="Framework Ekosistem Implementasi Kurikulum Merdeka TS 21.40 PLiS"
                     fill
                     unoptimized
@@ -187,7 +187,7 @@ export default function Ts21HeroSection() {
               <div className="relative flex-1 min-h-[360px] sm:min-h-[560px] w-full mt-4 overflow-auto rounded-xl bg-gray-50 flex items-center justify-center p-2">
                 <div className="relative w-full h-full min-h-[460px]">
                   <Image
-                    src="/figma/ts21-framework.png"
+                    src="/images/program/ts21/ts21-framework.png"
                     alt="Diagram Framework Kurikulum TS21 Lengkap"
                     fill
                     unoptimized

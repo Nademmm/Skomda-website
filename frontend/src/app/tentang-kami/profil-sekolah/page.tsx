@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       "SMK Telkom Sidoarjo adalah SMK Teknologi dan Informatika di bawah Yayasan Pendidikan Telkom berakreditasi A (Unggul) dan ISO 21001:2018.",
     images: [
       {
-        url: "/figma/profil-hero-student.png",
+        url: "/images/tentang-kami/profil-sekolah/profil-hero-student.png",
         width: 800,
         height: 600,
         alt: "Profil SMK Telkom Sidoarjo",

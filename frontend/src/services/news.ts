@@ -41,7 +41,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "27 Mei 2025",
     time: "12.30",
-    image: "/figma/news-thumb-1.png",
+    image: "/images/berita/news-thumb-1.png",
     summary:
       "Dalam rangka memperingati hari bersejarah, siswa SMK Telkom Sidoarjo melaksanakan ziarah dan kegiatan edukatif di Taman Makam Pahlawan Kusuma Bangsa.",
     content:
@@ -57,7 +57,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "24 Mei 2025",
     time: "10.15",
-    image: "/figma/image1.png",
+    image: "/images/home/hero/image1.png",
     summary:
       "Karya inovatif digitalisasi budaya lokal mengantarkan siswi SIJA meraih penghargaan tingkat nasional pada ajang INSYS FEST 5.0.",
     content:
@@ -73,7 +73,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "20 Mei 2025",
     time: "09.00",
-    image: "/figma/image4.png",
+    image: "/images/home/hero/image4.png",
     summary:
       "Ratusan peserta dari puluhan sekolah antusias mengikuti kompetisi logika matematika dan sains yang diselenggarakan oleh OSIS SKOMDA.",
     content:
@@ -89,7 +89,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "17 Mei 2025",
     time: "14.20",
-    image: "/figma/image5.png",
+    image: "/images/home/hero/image5.png",
     summary:
       "Prestasi membanggakan kembali diraih siswa kejuruan dalam kompetisi networking & cloud computing tingkat perguruan tinggi.",
     content:
@@ -105,7 +105,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "13 Mei 2025",
     time: "08.45",
-    image: "/figma/image6.png",
+    image: "/images/home/hero/image6.png",
     summary:
       "Ajang tahunan inkubasi ide bisnis dan karya teknologi digital siswa dibuka secara meriah bersama praktisi industri teknologi.",
     content:
@@ -121,7 +121,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "10 Mei 2025",
     time: "11.00",
-    image: "/figma/news-thumb-1.png",
+    image: "/images/berita/news-thumb-1.png",
     summary:
       "Penandatanganan nota kesepahaman (MoU) kurikulum industri dan program magang bersertifikat untuk siswa SIJA dan TJAT.",
     content:
@@ -137,7 +137,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "05 Mei 2025",
     time: "08.00",
-    image: "/figma/image1.png",
+    image: "/images/home/hero/image1.png",
     summary:
       "Informasi teknis dan tata tertib pelaksanaan asesmen digital berbasis Computer-Based Test (CBT) bagi seluruh siswa kelas X, XI, dan XII.",
     content:
@@ -153,7 +153,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "MEI",
     dateFormatted: "02 Mei 2025",
     time: "13.30",
-    image: "/figma/image4.png",
+    image: "/images/home/hero/image4.png",
     summary:
       "Sistem pemantauan iklim mikro tanaman otomatis karya siswa kelas XI yang terintegrasi dengan dashboard monitoring realtime.",
     content:
@@ -169,7 +169,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "APR",
     dateFormatted: "28 Apr 2025",
     time: "15.00",
-    image: "/figma/image5.png",
+    image: "/images/home/hero/image5.png",
     summary:
       "Panduan praktis dan strategi belajar efektif untuk menembus ujian sertifikasi internasional di bidang telekomunikasi dan jaringan.",
     content:
@@ -185,7 +185,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "APR",
     dateFormatted: "25 Apr 2025",
     time: "16.30",
-    image: "/figma/charen.png",
+    image: "/images/program/profil-jurusan/charen.png",
     summary:
       "Cerita inspiratif alumni angkatan 2022 tentang perjalanan karir dari bangku SMK hingga dipercaya memimpin tim pengembang aplikasi.",
     content:
@@ -201,7 +201,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "APR",
     dateFormatted: "21 Apr 2025",
     time: "10.00",
-    image: "/figma/news-thumb-1.png",
+    image: "/images/berita/news-thumb-1.png",
     summary:
       "Pelatihan praktis pertahanan siber dan pengujian penetrasi sistem jaringan komputer dipandu langsung oleh dosen Tel-U.",
     content:
@@ -217,7 +217,7 @@ export const MOCK_NEWS: NewsItem[] = [
     month: "APR",
     dateFormatted: "18 Apr 2025",
     time: "09.30",
-    image: "/figma/image6.png",
+    image: "/images/home/hero/image6.png",
     summary:
       "Kepala Sekolah melepas 180 siswa untuk mengikuti program Praktik Kerja Industri selama 6 bulan di berbagai kota metropolitan.",
     content:

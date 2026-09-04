@@ -30,7 +30,7 @@ export default function AdminBeritaPage() {
     category: "Kegiatan Sekolah",
     summary: "",
     content: "",
-    image: "/figma/news-thumb-1.png",
+    image: "/images/berita/news-thumb-1.png",
     author: "Humas SKOMDA",
   });
 
@@ -64,7 +64,7 @@ export default function AdminBeritaPage() {
       category: "Kegiatan Sekolah",
       summary: "",
       content: "",
-      image: "/figma/news-thumb-1.png",
+      image: "/images/berita/news-thumb-1.png",
       author: "Humas SKOMDA",
     });
     setIsModalOpen(true);
@@ -77,7 +77,7 @@ export default function AdminBeritaPage() {
       category: item.category,
       summary: item.summary || "",
       content: item.content || "",
-      image: item.image || "/figma/news-thumb-1.png",
+      image: item.image || "/images/berita/news-thumb-1.png",
       author: item.author || "Humas SKOMDA",
     });
     setIsModalOpen(true);
@@ -299,7 +299,7 @@ export default function AdminBeritaPage() {
                       <td className="py-4 px-4">
                         <div className="relative size-12 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
                           <Image
-                            src={item.image || "/figma/news-thumb-1.png"}
+                            src={item.image || "/images/berita/news-thumb-1.png"}
                             alt={item.title}
                             fill
                             className="object-cover"
@@ -432,7 +432,7 @@ export default function AdminBeritaPage() {
                 </label>
                 <input
                   type="text"
-                  placeholder="/figma/news-thumb-1.png atau URL eksternal"
+                  placeholder="/images/berita/news-thumb-1.png atau URL eksternal"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12]"

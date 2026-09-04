@@ -67,7 +67,7 @@ export default function StrukturOrganisasiSection() {
               {/* Image Container with Hover Zoom Overlay */}
               <div className="relative w-full aspect-[593/511] rounded-xl overflow-hidden bg-gray-50/50 flex items-center justify-center">
                 <Image
-                  src="/figma/struktur-organisasi.png"
+                  src="/images/tentang-kami/profil-sekolah/struktur-organisasi.png"
                   alt="Struktur Organisasi SMK Telkom Sidoarjo"
                   fill
                   className="object-contain group-hover:scale-102 transition-transform duration-300"
@@ -174,7 +174,7 @@ export default function StrukturOrganisasiSection() {
               <div className="relative flex-1 min-h-[400px] sm:min-h-[560px] w-full mt-4 overflow-auto rounded-xl bg-gray-50 flex items-center justify-center p-2">
                 <div className="relative w-full h-full min-h-[460px]">
                   <Image
-                    src="/figma/struktur-organisasi.png"
+                    src="/images/tentang-kami/profil-sekolah/struktur-organisasi.png"
                     alt="Diagram Bagan Struktur Organisasi Lengkap"
                     fill
                     className="object-contain"

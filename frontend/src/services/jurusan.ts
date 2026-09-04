@@ -35,7 +35,7 @@ const fallbackDataMap: Record<string, JurusanItem> = {
       "IT Security Specialist",
       "System Analyst",
     ],
-    gambar: "/images/jurusan/sija.jpg",
+    gambar: "/images/program/profil-jurusan/charen.png",
   },
   tjat: {
     id: 2,
@@ -56,7 +56,7 @@ const fallbackDataMap: Record<string, JurusanItem> = {
       "Wireless Network Administrator",
       "ISP Technician",
     ],
-    gambar: "/images/jurusan/tjat.jpg",
+    gambar: "/images/home/hero/image5.png",
   },
 };
 

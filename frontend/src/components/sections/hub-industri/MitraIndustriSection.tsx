@@ -16,7 +16,7 @@ const mitraList: MitraPartner[] = [
   // ─── Row 1 ───
   {
     name: "Politeknik Elektronika Negeri Surabaya (PENS)",
-    logo: "/figma/pens.webp",
+    logo: "/images/partners/pens.webp",
     focus: "Pendidikan Vokasi & Rekayasa Teknologi",
     description:
       "Kerjasama strategis program lanjutan studi terapan, sinkronisasi kurikulum rekayasa informatika, dan riset terapan bersama.",
@@ -24,7 +24,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Axelbit (Accelerate You BIT-by-BIT)",
-    logo: "/figma/partner-axelbit.png",
+    logo: "/images/partners/partner-axelbit.png",
     focus: "Networking & Sertifikasi MikroTik",
     description:
       "Program pelatihan dan sertifikasi profesional MikroTik, Ubiquiti, serta transfer teknologi jaringan nirkabel enterprise.",
@@ -32,7 +32,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. RADNET DIGITAL INDONESIA (Radnext)",
-    logo: "/figma/partner-radnet.png",
+    logo: "/images/partners/partner-radnet.png",
     focus: "Internet Service & Data Center",
     description:
       "Kemitraan penyelenggaraan kelas industri ISP, pembekalan manajemen bandwidth & server, serta sertifikasi komunikasi data.",
@@ -40,7 +40,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Wowrack Indonesia",
-    logo: "/figma/wowrack.png",
+    logo: "/images/partners/wowrack.png",
     focus: "Cloud Computing & Data Center",
     description:
       "Pendampingan pembelajaran teknologi cloud computing, virtualisasi server, dan pengelolaan infrastruktur data center modern.",
@@ -48,7 +48,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Markaz Design",
-    logo: "/figma/partner-markazdesign.png",
+    logo: "/images/partners/partner-markazdesign.png",
     focus: "UI/UX Design & Kreativitas Digital",
     description:
       "Peningkatan kompetensi perancangan antarmuka pengguna (UI/UX), riset produk digital, dan branding kreatif inovasi siswa.",
@@ -56,7 +56,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "DigiPrener",
-    logo: "/figma/partner-digiprener.png",
+    logo: "/images/partners/partner-digiprener.png",
     focus: "Sistem Informasi & Solusi Digital",
     description:
       "Fasilitasi mentoring teknis pengembangan sistem informasi, rancang bangun database enterprise, dan adaptasi alur kerja software industri.",
@@ -66,7 +66,7 @@ const mitraList: MitraPartner[] = [
   // ─── Row 2 ───
   {
     name: "PT. Garuda Telekomunikasi Indonesia",
-    logo: "/figma/partner-garuda.png",
+    logo: "/images/partners/partner-garuda.png",
     focus: "Telekomunikasi & Fiber Optic",
     description:
       "Kolaborasi strategis dalam pengembangan kompetensi jaringan fiber optik, transmisi broadband, dan penempatan program PKL siswa TJAT.",
@@ -74,7 +74,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Slash (/. SLASH)",
-    logo: "/figma/partner-slash-v2.png",
+    logo: "/images/partners/partner-slash-v2.png",
     focus: "Digital Product Agency & Software Engineering",
     description:
       "Inkubasi proyek web application, mentoring agile development, dan implementasi teknologi front-end/back-end modern industri.",
@@ -82,7 +82,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. TelkoMedika Indonesia (TBA)",
-    logo: "/figma/TelkoMedika-v2.png",
+    logo: "/images/partners/TelkoMedika-v2.png",
     focus: "Healthcare IT & Telemedicine Services",
     description:
       "Integrasi sistem informasi manajemen layanan kesehatan digital, pengelolaan database medis secure, dan implementasi IoT kesehatan.",
@@ -90,7 +90,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Jagoan Hosting",
-    logo: "/figma/partner-jagoanhosting.png",
+    logo: "/images/partners/partner-jagoanhosting.png",
     focus: "Web Cloud & DevOps Architecture",
     description:
       "Pembekalan keterampilan deployment web, manajemen server cloud, dan konsep modern DevOps melalui kelas tamu praktisi serta magang intensif.",
@@ -98,7 +98,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Sans Souci Creative Studio",
-    logo: "/figma/partner-sanssouci-v2.png",
+    logo: "/images/partners/partner-sanssouci-v2.png",
     focus: "Creative Media Production & Multimedia",
     description:
       "Pelatihan produksi multimedia digital, motion graphics, video komersial kreatif, dan perancangan strategi visual marketing modern.",
@@ -106,7 +106,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT Digdaya Olah Teknologi (DOT Indonesia)",
-    logo: "/figma/DOT.svg",
+    logo: "/images/common/icons/DOT.svg",
     focus: "Custom Software & Mobile App Solutions",
     description:
       "Kolaborasi rekayasa perangkat lunak skala enterprise, pembangunan aplikasi mobile multiplatform, dan program magang intensif siswa SIJA.",
@@ -116,7 +116,7 @@ const mitraList: MitraPartner[] = [
   // ─── Row 3 ───
   {
     name: "LSP P1 / Jejaring Vokasi Sidoarjo",
-    logo: "/figma/bnsp.png",
+    logo: "/images/partners/bnsp.png",
     focus: "Sertifikasi Profesi & Standarisasi Vokasi",
     description:
       "Kemitraan pengujian kompetensi keahlian terstandar BNSP, sinkronisasi skema sertifikasi industri, dan uji kelayakan sertifikasi profesi.",
@@ -124,7 +124,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Saha Global Perkasa (SGP)",
-    logo: "/figma/partner-sgp-v2.png",
+    logo: "/images/partners/partner-sgp-v2.png",
     focus: "Engineering & IT Infrastructure",
     description:
       "Dukungan pengadaan perangkat pendukung laboratorium kejuruan, instalasi jaringan pabrik, dan pengenalan rantai pasok industri modern.",
@@ -132,7 +132,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Jobnation IT Outsource",
-    logo: "/figma/jobnation.png",
+    logo: "/images/partners/jobnation.png",
     focus: "IT Talent Sourcing & Outsource",
     description:
       "Penyaluran lulusan ke dunia kerja teknologi (BMW - Bekerja), pembekalan rekrutmen profesional, serta talent mapping lulusan terbaik.",
@@ -140,7 +140,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Indev Solusi Digital (indev)",
-    logo: "/figma/indev.png",
+    logo: "/images/partners/indev.png",
     focus: "Web System & Enterprise Solutions",
     description:
       "Pengembangan sistem informasi Enterprise Resource Planning (ERP), integrasi gateway pembayaran, dan arsitektur database skala besar.",
@@ -148,7 +148,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Global Infra Teknologi (GIT)",
-    logo: "/figma/partner-globalinfra.png",
+    logo: "/images/partners/partner-globalinfra.png",
     focus: "Infrastruktur IT & Enterprise Network",
     description:
       "Penyediaan akses ke proyek nyata pembangunan infrastruktur jaringan berskala enterprise, mentoring teknisi muda, dan sertifikasi keahlian.",
@@ -156,7 +156,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Weza Group",
-    logo: "/figma/weza-group.png",
+    logo: "/images/partners/weza-group.png",
     focus: "Software House & B2B Solutions",
     description:
       "Kerjasama pengembangan aplikasi digital dan sistem B2B berbasis proyek nyata (Teaching Factory), serta inkubasi talenta software engineer siswa SIJA.",
@@ -164,7 +164,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Infratra Telekomunikasi (INFRATRA)",
-    logo: "/figma/partner-infratra-v2.png",
+    logo: "/images/partners/partner-infratra-v2.png",
     focus: "Infrastruktur Jaringan & Pemeliharaan Fiber",
     description:
       "Pemeliharaan jaringan kabel fiber optik udara dan tanah, pengukuran redaman sinyal optik, serta pengawasan keselamatan kerja K3 telekomunikasi.",
@@ -174,7 +174,7 @@ const mitraList: MitraPartner[] = [
   // ─── Row 4 ───
   {
     name: "PT. Woodone Integra Tbk",
-    logo: "/figma/woodneintegra.png",
+    logo: "/images/partners/woodneintegra.png",
     focus: "Smart Manufacturing & Automated Production",
     description:
       "Penerapan digitalisasi pabrik manufaktur ekspor, otomatisasi sistem industri, dan program pemagangan operasional sistem cerdas.",
@@ -182,7 +182,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Trijaya Grafika Solutindo (TGS)",
-    logo: "/figma/trijaya.png",
+    logo: "/images/partners/trijaya.png",
     focus: "Digital Printing & Creative Packaging",
     description:
       "Penerapan teknologi grafika digital presisi tinggi, reproduksi warna komersial, dan perancangan desain packaging produk kreatif inovasi siswa.",
@@ -190,7 +190,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Lasambara Karya Cipta",
-    logo: "/figma/lasambora.png",
+    logo: "/images/partners/lasambora.png",
     focus: "Creative Craft & Digital Merchandising",
     description:
       "Pengembangan kewirausahaan produk kreatif (Teaching Factory), branding merchandise sekolah, dan inkubasi bisnis rintisan siswa.",
@@ -198,7 +198,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Purnama Hotel Batu",
-    logo: "/figma/partner-purnamahotel-v2.png",
+    logo: "/images/partners/partner-purnamahotel-v2.png",
     focus: "Hospitality IT & Smart Hotel Systems",
     description:
       "Pengelolaan infrastruktur jaringan Wi-Fi perhotelan skala luas, implementasi sistem reservasi digital, dan integrasi IoT fasilitas kamar.",
@@ -206,7 +206,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "RS Islam Surabaya Jemursari (KODI)",
-    logo: "/figma/rsi.jpg",
+    logo: "/images/partners/rsi.jpg",
     focus: "SIMRS & Healthcare Technology",
     description:
       "Pengelolaan server infrastruktur rumah sakit, keamanan data rekam medis digital (cyber security), dan pemeliharaan intranet kesehatan.",
@@ -214,7 +214,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Efortech (Technology for Solver)",
-    logo: "/figma/partner-efortech-v2.png",
+    logo: "/images/partners/partner-efortech-v2.png",
     focus: "Industrial IoT & Embedded Systems",
     description:
       "Riset terapan Internet of Things (IoT), integrasi mikrokontroler sensor industri, dan sistem kendali otomatisasi telemetri cerdas.",
@@ -224,7 +224,7 @@ const mitraList: MitraPartner[] = [
   // ─── Row 5 ───
   {
     name: "Alfath Corp",
-    logo: "/figma/partner-alfath-v2.png",
+    logo: "/images/partners/partner-alfath-v2.png",
     focus: "Corporate Business & Digital Services",
     description:
       "Penyelenggaraan event teknologi korporasi, manajemen kemitraan strategis, dan pembekalan kewirausahaan digital modern bagi siswa.",
@@ -232,7 +232,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "UBIG.CO.ID",
-    logo: "/figma/ubig.png",
+    logo: "/images/partners/ubig.png",
     focus: "Software Development & SaaS Platform",
     description:
       "Inkubasi produk Software as a Service (SaaS), arsitektur cloud microservices, dan pembinaan startup digital siswa berprestasi.",
@@ -240,7 +240,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT Javacreatiox Network Intermedia",
-    logo: "/figma/partner-javacreatiox.png",
+    logo: "/images/partners/partner-javacreatiox.png",
     focus: "Software Development & Teaching Factory",
     description:
       "Kolaborasi pengembangan produk perangkat lunak komersial, mentoring code review standar industri, dan penyaluran kerja lulusan berprestasi.",
@@ -248,7 +248,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Moksha Indonesia (Event Producer)",
-    logo: "/figma/moksha.png",
+    logo: "/images/partners/moksha.png",
     focus: "Creative Production & Event Technology",
     description:
       "Pengoperasian teknologi audio-visual digital skala konser/event nasional, live streaming broadcast multi-kamera, dan stage lighting digital.",
@@ -256,7 +256,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "HAI (Himpunan Ahli Informatika)",
-    logo: "/figma/partner-hai-v2.png",
+    logo: "/images/partners/partner-hai-v2.png",
     focus: "Asosiasi Profesi & Standardisasi IT",
     description:
       "Standardisasi kurikulum kompetensi lulusan IT nasional, seminar keilmuan teknologi terkini, dan pengakuan sertifikasi keahlian profesional.",

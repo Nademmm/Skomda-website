@@ -17,7 +17,7 @@ export default function AkreditasiSection() {
           {/* Official Accreditation Badge */}
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 mb-8 sm:mb-10 drop-shadow-md hover:scale-102 transition-transform duration-300">
             <Image
-              src="/figma/akreditasi-a-badge.png"
+              src="/images/common/akreditasi-a-badge.png"
               alt="Akreditasi A Unggul - SMK Telkom Sidoarjo"
               fill
               className="object-contain"

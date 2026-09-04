@@ -96,7 +96,7 @@ export default function Navbar() {
               {/* Logo */}
               <Link href="/" className="relative h-9 w-[122px] shrink-0">
                 <Image
-                  src="/figma/logo-smk-telkom.png"
+                  src="/images/common/logo-smk-telkom.png"
                   alt="SMK Telkom Sidoarjo"
                   fill
                   sizes="122px"

@@ -29,7 +29,7 @@ export default function ProfilHeroSection() {
               {/* Background Geometric Arches: left 0%, top 17.23%, w 99.6%, h 83% */}
               <div className="absolute left-0 top-[17.23%] w-[99.6%] h-[83%] pointer-events-none z-0">
                 <Image
-                  src="/figma/hero-bg-shapes.svg"
+                  src="/images/tentang-kami/profil-sekolah/hero-bg-shapes.svg"
                   alt=""
                   fill
                   className="object-contain"
@@ -40,7 +40,7 @@ export default function ProfilHeroSection() {
               {/* Student Portrait: left 26.6%, top 0%, w 62.4%, h 99.57% */}
               <div className="absolute left-[26.6%] top-0 w-[62.4%] h-[99.57%] z-10">
                 <Image
-                  src="/figma/profil-hero-student.png"
+                  src="/images/tentang-kami/profil-sekolah/profil-hero-student.png"
                   alt="Siswi SMK Telkom Sidoarjo"
                   fill
                   className="object-contain object-bottom drop-shadow-md"

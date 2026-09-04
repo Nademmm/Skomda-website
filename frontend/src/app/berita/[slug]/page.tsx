@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: "SMK Telkom Sidoarjo",
       description: news.summary,
-      images: [news.image || "/figma/news-thumb-1.png"],
+      images: [news.image || "/images/berita/news-thumb-1.png"],
     },
   };
 }
@@ -141,7 +141,7 @@ export default async function NewsDetailPage({ params }: Props) {
           {/* Featured Image */}
           <div className="relative w-full h-[280px] sm:h-[420px] md:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-md mb-10 bg-gray-200">
             <Image
-              src={news.image || "/figma/news-thumb-1.png"}
+              src={news.image || "/images/berita/news-thumb-1.png"}
               alt={news.title}
               fill
               priority
@@ -200,7 +200,7 @@ export default async function NewsDetailPage({ params }: Props) {
                       className="block relative h-[160px] w-full rounded-[12px] overflow-hidden bg-gray-100 mb-3 cursor-pointer"
                     >
                       <Image
-                        src={item.image || "/figma/news-thumb-1.png"}
+                        src={item.image || "/images/berita/news-thumb-1.png"}
                         alt={item.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"

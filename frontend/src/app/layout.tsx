@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   description:
     "Selamat datang di SMK Telkom Sidoarjo. Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak di era digital.",
   icons: {
-    icon: "/figma/telkom-schools-icon.png",
-    shortcut: "/figma/telkom-schools-icon.png",
-    apple: "/figma/telkom-schools-icon.png",
+    icon: "/images/common/telkom-schools-icon.png",
+    shortcut: "/images/common/telkom-schools-icon.png",
+    apple: "/images/common/telkom-schools-icon.png",
   },
 };
 
