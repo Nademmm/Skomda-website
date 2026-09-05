@@ -216,7 +216,7 @@ export default function RekomendasiKosSection() {
                   )}.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#101828] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#bc0c11] font-jakarta shrink-0"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] px-4 py-2 text-xs font-semibold text-white transition-all duration-200 shadow-xs hover:shadow-sm font-jakarta shrink-0 active:scale-95"
                 >
                   <span>Hubungi</span>
                   <svg

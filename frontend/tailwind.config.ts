@@ -14,13 +14,6 @@ const config: Config = {
         "brand-muted": "#787878",
         "brand-subtle": "#515151",
         "brand-bg": "#f3f4f6",
-        graphite: "#121316",
-        raised: "#1A1B1F",
-        ink: "#ECEDEF",
-        "ink-muted": "#9A9CA3",
-        signal: "#FFC53D",
-        "signal-deep": "#E0A82E",
-        line: "rgba(236,237,239,0.12)",
       },
       fontFamily: {
         jakarta: ["var(--font-jakarta)", "sans-serif"],

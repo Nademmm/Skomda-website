@@ -1,0 +1,179 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { TeacherItem } from "@/data/teachers";
+
+interface TeacherCarouselSectionProps {
+  title: string;
+  subtitle?: string;
+  items: TeacherItem[];
+  itemsPerPage?: number;
+  bgWhite?: boolean;
+}
+
+export default function TeacherCarouselSection({
+  title,
+  subtitle = "SMK Telkom Sidoarjo",
+  items,
+  itemsPerPage = 4,
+  bgWhite = true,
+}: TeacherCarouselSectionProps) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  const currentItems = useMemo(() => {
+    const start = currentPage * itemsPerPage;
+    return items.slice(start, start + itemsPerPage);
+  }, [items, currentPage, itemsPerPage]);
+
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setDirection(-1);
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages - 1) {
+      setDirection(1);
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handleDotClick = (index: number) => {
+    setDirection(index > currentPage ? 1 : -1);
+    setCurrentPage(index);
+  };
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? 60 : -60,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -60 : 60,
+      opacity: 0,
+    }),
+  };
+
+  return (
+    <section
+      className={`relative w-full py-20 lg:py-28 overflow-hidden ${
+        bgWhite ? "bg-white border-y border-gray-200/60" : "bg-[#f3f4f6]"
+      }`}
+    >
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Heading */}
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="font-jakarta font-bold text-3xl sm:text-4xl text-[#101828] tracking-tight">
+            {title}
+          </h2>
+          <div className="mt-3 h-[3px] w-14 bg-[#bc0c11] rounded-full mx-auto mb-2" />
+          {subtitle && (
+            <p className="font-jakarta text-sm sm:text-base font-semibold text-[#bc0c11] tracking-wide mt-1">
+              {subtitle}
+            </p>
+          )}
+        </div>
+
+        {/* Carousel Content */}
+        <div className="relative min-h-[380px]">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentPage}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 justify-center"
+            >
+              {currentItems.map((teacher, idx) => (
+                <div
+                  key={`${teacher.name}-${idx}`}
+                  className="relative h-[360px] rounded-[20px] bg-white p-3 border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-lg group flex flex-col justify-between overflow-hidden shadow-xs"
+                >
+                  {/* Photo Canvas */}
+                  <div className="relative w-full h-full rounded-[14px] overflow-hidden bg-gradient-to-b from-[#f3f4f6] to-[#e5e7eb]">
+                    <Image
+                      src={teacher.image}
+                      alt={teacher.name}
+                      fill
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+
+                  {/* Floating Info Box */}
+                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-[12px] p-3.5 shadow-[0px_4px_12px_rgba(0,0,0,0.08)] border border-gray-100/90 z-10 transition-transform duration-300 group-hover:-translate-y-1">
+                    <h3 className="font-jakarta font-bold text-[14px] sm:text-[15px] text-[#101828] leading-snug line-clamp-1 group-hover:text-[#bc0c11] transition-colors">
+                      {teacher.name}
+                    </h3>
+                    <p className="font-jakarta text-[12px] text-[#4a5565] leading-relaxed line-clamp-2 mt-0.5 font-normal">
+                      {teacher.role}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Carousel Controls (Prev, Dots, Next) */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between mt-12 pt-4 max-w-4xl mx-auto">
+            
+            {/* Prev Button */}
+            <button
+              onClick={handlePrev}
+              disabled={currentPage === 0}
+              aria-label="Profil sebelumnya"
+              className="size-12 rounded-full bg-[#bc0c11] text-white flex items-center justify-center transition-all duration-300 hover:bg-[#990a0e] active:scale-95 disabled:opacity-30 disabled:pointer-events-none shadow-md shadow-[#bc0c11]/20 cursor-pointer"
+            >
+              <ChevronLeft className="size-6" />
+            </button>
+
+            {/* Pagination Dots */}
+            <div className="flex items-center justify-center gap-2 flex-wrap px-4">
+              {Array.from({ length: totalPages }).map((_, dotIdx) => (
+                <button
+                  key={dotIdx}
+                  onClick={() => handleDotClick(dotIdx)}
+                  aria-label={`Ke halaman ${dotIdx + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    dotIdx === currentPage
+                      ? "w-8 bg-[#bc0c11]"
+                      : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={handleNext}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Profil berikutnya"
+              className="size-12 rounded-full bg-[#bc0c11] text-white flex items-center justify-center transition-all duration-300 hover:bg-[#990a0e] active:scale-95 disabled:opacity-30 disabled:pointer-events-none shadow-md shadow-[#bc0c11]/20 cursor-pointer"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+
+          </div>
+        )}
+
+      </div>
+    </section>
+  );
+}

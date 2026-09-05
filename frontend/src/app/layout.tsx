@@ -17,7 +17,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "SMK Telkom Sidoarjo",
+  title: {
+    default: "SMK Telkom Sidoarjo",
+    template: "SMK Telkom Sidoarjo",
+  },
   description:
     "Selamat datang di SMK Telkom Sidoarjo. Membentuk generasi unggul yang siap berkarya, berinovasi, dan berdampak di era digital.",
   icons: {

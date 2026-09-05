@@ -40,11 +40,11 @@ export default function TipsAkomodasiSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left: Helpdesk Card */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="rounded-[28px] bg-gradient-to-br from-[#101828] to-[#1e293b] text-white p-8 sm:p-9 shadow-xl border-2 border-dashed border-gray-700">
-              <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight mb-3">
+            <div className="rounded-[28px] bg-white p-8 sm:p-9 border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md">
+              <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight text-[#101828] mb-3">
                 Butuh Bantuan Memilih Kos yang Tepat?
               </h3>
-              <p className="font-jakarta text-sm text-gray-300 leading-relaxed mb-6">
+              <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed mb-6">
                 Tim Bimbingan Konseling dan Kesiswaan SMK Telkom Sidoarjo siap
                 membantu calon siswa dan orang tua dari luar kota untuk survei dan
                 mendapatkan akomodasi terbaik.
@@ -55,7 +55,7 @@ export default function TipsAkomodasiSection() {
                   href="https://wa.me/6281234567899?text=Halo%20Admin%20Kesiswaan%20SMK%20Telkom%20Sidoarjo,%20saya%20calon%20wali%20murid/siswa%20ingin%20berkonsultasi%20mengenai%20rekomendasi%20akomodasi%20kos/asrama."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#bc0c11] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#990a0e] shadow-md font-jakarta cursor-pointer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#bc0c11] px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-[#990a0e] shadow-card-cta font-jakarta cursor-pointer active:scale-[0.98]"
                 >
                   <span>Chat WhatsApp Kesiswaan</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">

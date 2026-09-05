@@ -31,6 +31,25 @@ export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api";
 
+export function normalizeNewsImage(img?: string): string {
+  if (!img) return "/images/berita/news-thumb-1.png";
+  if (img.startsWith("/figma/")) {
+    const filename = img.replace("/figma/", "");
+    if (filename === "news-thumb-1.png") return "/images/berita/news-thumb-1.png";
+    if (filename === "charen.png") return "/images/program/profil-jurusan/charen.png";
+    if (filename.startsWith("image")) return `/images/home/hero/${filename}`;
+    return `/images/berita/${filename}`;
+  }
+  return img;
+}
+
+export function normalizeNewsItem(item: NewsItem): NewsItem {
+  return {
+    ...item,
+    image: normalizeNewsImage(item.image),
+  };
+}
+
 export const MOCK_NEWS: NewsItem[] = [
   {
     id: 1,
@@ -286,7 +305,7 @@ export async function getNewsList(params?: {
     if (res) {
       const json = await res.json();
       if (Array.isArray(json.data) && json.data.length > 0) {
-        return json.data;
+        return json.data.map(normalizeNewsItem);
       }
     }
 
@@ -294,9 +313,9 @@ export async function getNewsList(params?: {
     if (typeof window !== "undefined") {
       console.log("[News] Menggunakan data lokal (backend belum tersedia)");
     }
-    return filterMockNews(params?.category, params?.search);
+    return filterMockNews(params?.category, params?.search).map(normalizeNewsItem);
   } catch {
-    return filterMockNews(params?.category, params?.search);
+    return filterMockNews(params?.category, params?.search).map(normalizeNewsItem);
   }
 }
 
@@ -325,7 +344,7 @@ export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
     const res = await attemptFetch(1);
     if (res) {
       const json = await res.json();
-      if (json.data) return json.data;
+      if (json.data) return normalizeNewsItem(json.data);
     }
   } catch {
     // silent fallback
@@ -335,7 +354,7 @@ export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   const fallbackItem = MOCK_NEWS.find(
     (item) => item.slug.toLowerCase() === cleanSlug
   );
-  return fallbackItem || null;
+  return fallbackItem ? normalizeNewsItem(fallbackItem) : null;
 }
 
 /**

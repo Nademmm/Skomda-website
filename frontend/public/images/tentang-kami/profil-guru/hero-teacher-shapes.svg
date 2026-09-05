@@ -1,0 +1,33 @@
+<svg width="580" height="440" viewBox="0 0 580 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="teacher_grad_main" x1="290" y1="20" x2="290" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EC292F" />
+      <stop offset="100%" stop-color="#9E070C" />
+    </linearGradient>
+    <linearGradient id="teacher_grad_secondary" x1="120" y1="120" x2="120" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#F3F4F6" stop-opacity="0.4" />
+    </linearGradient>
+    <pattern id="dot_grid_teachers" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#C4C7C7" fill-opacity="0.45" />
+    </pattern>
+  </defs>
+
+  <!-- Left Accent Circle -->
+  <circle cx="110" cy="250" r="95" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5" />
+  
+  <!-- Right Accent Circle -->
+  <circle cx="480" cy="270" r="75" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5" />
+
+  <!-- Dot Grid Pattern Accent on Top Left -->
+  <rect x="50" y="40" width="80" height="80" fill="url(#dot_grid_teachers)" />
+
+  <!-- Main Wide Telkom Rounded Arch / Stage Dome -->
+  <path d="M120 220 C120 98.497 200.589 0 300 0 C399.411 0 480 98.497 480 220 V420 H120 V220 Z" fill="url(#teacher_grad_main)" />
+
+  <!-- Inner Subtle White Contour Accent -->
+  <path d="M136 226 C136 112 208 20 300 20 C392 20 464 112 464 226 V420 H136 V226 Z" stroke="white" stroke-width="1.5" stroke-opacity="0.5" stroke-dasharray="6 6" />
+
+  <!-- Bottom Horizontal Foundation Bar -->
+  <rect x="90" y="416" width="410" height="6" rx="3" fill="#9E070C" fill-opacity="0.8" />
+</svg>

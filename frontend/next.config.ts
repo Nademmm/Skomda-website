@@ -15,6 +15,30 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/akomodasi",
+        destination: "/tentang-kami/akomodasi",
+        permanent: true,
+      },
+      {
+        source: "/informasi/unduh",
+        destination: "/unduh-informasi",
+        permanent: true,
+      },
+      {
+        source: "/jurusan",
+        destination: "/program/profil-jurusan",
+        permanent: true,
+      },
+      {
+        source: "/jurusan/:slug*",
+        destination: "/program/profil-jurusan",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

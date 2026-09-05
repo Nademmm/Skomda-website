@@ -319,7 +319,6 @@ const QUICK_FEATURED_ITEMS: SearchItem[] = [
     description: "Software engineering, cloud architecture, cybersecurity & IoT",
     href: "/program/profil-jurusan?jurusan=SIJA#kompetensi",
     category: "Jurusan",
-    badge: "SIJA",
     iconType: "major",
   },
   {
@@ -328,7 +327,6 @@ const QUICK_FEATURED_ITEMS: SearchItem[] = [
     description: "Teknik jaringan fiber optic, wireless communication & seluler",
     href: "/program/profil-jurusan?jurusan=TJAT#kompetensi",
     category: "Jurusan",
-    badge: "TJAT",
     iconType: "major",
   },
   {
@@ -337,7 +335,6 @@ const QUICK_FEATURED_ITEMS: SearchItem[] = [
     description: "Alur pendaftaran peserta didik baru, rincian biaya & beasiswa",
     href: "/unduh-informasi",
     category: "Info",
-    badge: "PPDB",
     iconType: "doc",
   },
   {
@@ -774,24 +771,12 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                             </div>
 
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2">
-                                <span
-                                  className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
-                                    }`}
-                                >
-                                  {item.title}
-                                </span>
-                                {item.parentPage && (
-                                  <span className="shrink-0 font-jakarta text-[10px] font-semibold text-slate-500 bg-slate-100 border border-slate-200/70 px-1.5 py-0.5 rounded-md">
-                                    {item.parentPage}
-                                  </span>
-                                )}
-                                {item.badge && !item.parentPage && (
-                                  <span className="shrink-0 font-jakarta text-[10px] font-semibold text-[#bd0c12] bg-[#ffebed] px-1.5 py-0.5 rounded-md">
-                                    {item.badge}
-                                  </span>
-                                )}
-                              </div>
+                              <span
+                                className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
+                                  }`}
+                              >
+                                {item.title}
+                              </span>
                               <p className="font-jakarta text-xs text-slate-500 truncate mt-0.5">
                                 {item.description}
                               </p>
@@ -856,24 +841,12 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                               </div>
 
                               <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2">
-                                  <span
-                                    className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
-                                      }`}
-                                  >
-                                    {item.title}
-                                  </span>
-                                  {item.parentPage && (
-                                    <span className="shrink-0 font-jakarta text-[10px] font-semibold text-slate-500 bg-slate-100 border border-slate-200/70 px-1.5 py-0.5 rounded-md">
-                                      {item.parentPage}
-                                    </span>
-                                  )}
-                                  {item.badge && !item.parentPage && (
-                                    <span className="shrink-0 font-jakarta text-[10px] font-semibold text-[#bd0c12] bg-[#ffebed] px-1.5 py-0.5 rounded-md">
-                                      {item.badge}
-                                    </span>
-                                  )}
-                                </div>
+                                <span
+                                  className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
+                                    }`}
+                                >
+                                  {item.title}
+                                </span>
                                 <p className="font-jakarta text-xs text-slate-500 truncate mt-0.5">
                                   {item.description}
                                 </p>

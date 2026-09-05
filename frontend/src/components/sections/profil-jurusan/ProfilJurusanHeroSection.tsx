@@ -88,29 +88,33 @@ export default function ProfilJurusanHeroSection() {
             </button>
           </motion.div>
 
-          {/* Right: Floating Collage / Hero Image */}
+          {/* Right: Signature Visual Artwork with Telkom Background Arch Shape */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
             className="lg:col-span-5 flex justify-center lg:justify-end"
           >
-            <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-[24px] overflow-hidden shadow-lg border-2 border-white bg-gradient-to-br from-red-50 to-gray-100 flex items-center justify-center p-6">
-              <div className="relative w-full h-full">
+            <div className="relative w-full max-w-[460px] aspect-[500/470] select-none">
+              {/* Background Geometric Arches */}
+              <div className="absolute left-0 top-[17.23%] w-[99.6%] h-[83%] pointer-events-none z-0">
                 <Image
-                  src="/images/home/hero/image6.png"
+                  src="/images/common/hero-bg-shapes.svg"
                   alt=""
                   fill
-                  sizes="420px"
-                  className="object-contain opacity-90 scale-95"
+                  className="object-contain"
+                  priority
                 />
+              </div>
+
+              {/* Student Portrait */}
+              <div className="absolute left-[22%] top-0 w-[68%] h-[99.57%] z-10">
                 <Image
                   src="/images/program/profil-jurusan/charen.png"
                   alt="Siswa SMK Telkom Sidoarjo"
                   fill
-                  className="object-contain object-bottom"
+                  className="object-contain object-bottom drop-shadow-xl"
                   priority
-                  sizes="420px"
                 />
               </div>
             </div>
