@@ -26,11 +26,12 @@ Program keahlian 3 tahun yang berfokus pada teknologi jaringan telekomunikasi, i
 
 ## 🛠️ Stack Teknologi
 
-- **Frontend**: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS, Framer Motion.
-- **Backend**: Go (Golang), Gin Framework, GORM ORM.
+- **Frontend Utama (Next.js)**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS, Framer Motion.
+- **Frontend Portal Cepat (Astro & Islands)**: Astro 5, Vite, Vue 3 (Interactive Islands), Svelte 5 (Assistant Island), Tailwind CSS.
+- **Backend API (Go Dual-Engine)**: Go (Golang), Gin Framework & Fiber Framework v2 (dapat dijalankan switchable via `SERVER_ENGINE=fiber|gin`), GORM ORM.
 - **Database**: Supabase PostgreSQL (Cloud) dengan fallback otomatis ke SQLite (`smktelkom_dev.db`) untuk pengembangan lokal.
-- **Media & Assets**: Cloudinary (`f_auto,q_auto`).
-- **Architecture**: Monorepo terpisah (`frontend/` & `backend/`).
+- **Media & Assets**: Cloudinary (`f_auto,q_auto`) dengan Strategi Hibrida (Aset foto dialihkan ke Cloudinary CDN, format SVG/vektor tetap disajikan lokal).
+- **Architecture**: Monorepo terpisah (`frontend/`, `portal-astro/`, & `backend/`).
 
 ---
 
@@ -38,22 +39,32 @@ Program keahlian 3 tahun yang berfokus pada teknologi jaringan telekomunikasi, i
 
 ```
 smktelkom-web/
-├── backend/            # Service API Backend Go/Gin
+├── backend/            # Service API Backend Go (Gin & Fiber)
 │   ├── src/
-│   │   ├── api/        # Endpoint handlers (health, jurusan, berita, alumni, dsb)
-│   │   ├── config/     # Database GORM & environment loader
-│   │   ├── models/     # GORM DB Structs (Jurusan, Berita, dll)
-│   │   └── cmd/server/ # Entrypoint main.go
+│   │   ├── api/        # Endpoint handlers (health, jurusan, news, chatbot, cloudinary)
+│   │   ├── client/     # Cloudinary helper & signed upload service
+│   │   ├── config/     # Database GORM & environment loader (engine switcher)
+│   │   ├── models/     # GORM DB Structs (Jurusan, News, dll)
+│   │   ├── cmd/server/ # Entrypoint Gin (atau Fiber via SERVER_ENGINE=fiber)
+│   │   └── cmd/fiber/  # Entrypoint khusus Fiber
 │   ├── .env
 │   └── go.mod
-├── frontend/           # Service Application Frontend Next.js 15
+├── frontend/           # Aplikasi Client Next.js 16
 │   ├── src/
-│   │   ├── app/        # App Router Pages ((marketing), jurusan, berita, dll)
+│   │   ├── app/        # App Router Pages
 │   │   ├── components/ # UI Primitives, Sections, Layout
-│   │   ├── services/   # Fetch API wrapper ke Backend Go (ISR 60s)
-│   │   └── lib/        # Data statis terstruktur (data.ts)
+│   │   ├── lib/        # Cloudinary helper URL builder (cloudinary.ts)
+│   │   └── services/   # Fetch API wrapper ke Backend Go
 │   └── package.json
-├── docs/               # Dokumen PRD, Arsitektur, Workflow, & Subagent Setup
+├── portal-astro/       # Aplikasi Portal Sekolah Astro + Vite + Vue 3 + Svelte 5
+│   ├── src/
+│   │   ├── components/ # Astro Navbar/Footer, Vue 3 Island, Svelte 5 Island
+│   │   ├── pages/      # Static / SSR Pages (index, jurusan, berita)
+│   │   └── lib/        # API client & Cloudinary helper
+│   ├── astro.config.mjs
+│   └── package.json
+├── scripts/            # Script utilitas (sync-cloudinary.mjs)
+├── docs/               # Dokumen PRD, Arsitektur, Workflow
 └── README.md
 ```
 
@@ -62,18 +73,40 @@ smktelkom-web/
 ## 🚀 Cara Menjalankan Proyek Lokal
 
 ### 1. Jalankan Backend (Go)
+**Pilihan A: Jalankan dengan Gin Engine (Default)**
 ```bash
 cd backend
 go run ./src/cmd/server
 ```
+
+**Pilihan B: Jalankan dengan Fiber Engine (High Performance)**
+```bash
+cd backend
+go run ./src/cmd/fiber
+# atau:
+# $env:SERVER_ENGINE="fiber"; go run ./src/cmd/server
+```
 *Backend akan berjalan di `http://localhost:8080`*.
 
-### 2. Jalankan Frontend (Next.js)
+### 2. Jalankan Frontend Pilihan
+**Opsi A: Portal Astro + Vite + Vue + Svelte (0kb JS default & Island Hydration)**
+```bash
+cd portal-astro
+npm run dev
+```
+*Aplikasi berjalan di `http://localhost:4321`*.
+
+**Opsi B: Aplikasi Next.js 16**
 ```bash
 cd frontend
 npm run dev
 ```
-*Frontend akan berjalan di `http://localhost:3000`*.
+*Aplikasi berjalan di `http://localhost:3001`*.
+
+### 3. Audit & Sinkronisasi Gambar ke Cloudinary
+```bash
+node scripts/sync-cloudinary.mjs
+```
 
 ---
 

@@ -1,0 +1,257 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import JurusanExplorer from "../components/vue/JurusanExplorer.vue";
+import QuickChatbot from "../components/svelte/QuickChatbot.svelte";
+import { fetchNewsList } from "../lib/api";
+import { getImageUrl } from "../lib/cloudinary";
+
+const newsList = await fetchNewsList("", "");
+const latestNews = newsList.slice(0, 3);
+---
+
+<Layout
+  title="SMK Telkom Sidoarjo: Pendidikan Vokasi Berbasis Teknologi dan Industri"
+  description="Website resmi SMK Telkom Sidoarjo. Eksplorasi program keahlian SIJA 4 Tahun dan TJAT 3 Tahun dengan standar industri telekomunikasi dan komputasi awan."
+>
+  <Navbar slot="navbar" />
+
+  <!-- Hero Section: Apple Keynote Style -->
+  <section class="relative bg-black pt-16 pb-24 sm:pt-24 sm:pb-32 overflow-hidden apple-radial-glow border-b border-white/10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <!-- Eyebrow Tagline -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#86868b] tracking-wider uppercase mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#E1251B]"></span>
+        Penerimaan Siswa Baru (PPDB) 2026/2027 Dibuka
+      </div>
+
+      <!-- Giant Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-[#f5f5f7] leading-tight max-w-4xl mx-auto">
+        Vokasi Masa Depan.<br class="hidden sm:inline" />
+        Sekarang Lebih Jauh Melangkah.
+      </h1>
+
+      <!-- Elegant Subtitle -->
+      <p class="mt-6 text-lg sm:text-xl text-[#86868b] font-normal max-w-2xl mx-auto leading-relaxed">
+        Pendidikan kejuruan teknologi informasi dan telekomunikasi berstandar industri. Didesain untuk mencetak profesional tangguh siap kerja.
+      </p>
+
+      <!-- Apple-style CTA buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/jurusan"
+          class="px-6 py-3 rounded-full bg-[#E1251B] hover:bg-[#ff3b30] text-white text-sm font-medium tracking-tight transition duration-200 shadow-md min-h-[44px] flex items-center"
+        >
+          Lihat Program Keahlian
+        </a>
+        <a
+          href="https://ppdb.smktelkom-sda.sch.id"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-[#f5f5f7] text-sm font-medium tracking-tight transition duration-200 border border-white/15 min-h-[44px] flex items-center"
+        >
+          Pendaftaran PPDB &rarr;
+        </a>
+      </div>
+
+      <!-- Hero Visual Asset Showcase (Apple Product Reveal framing) -->
+      <div class="mt-14 max-w-4xl mx-auto rounded-3xl bg-[#161617] border border-white/10 p-2 sm:p-4 shadow-2xl overflow-hidden group">
+        <div class="rounded-2xl overflow-hidden aspect-16/9 bg-[#000000] relative flex items-center justify-center border border-white/5">
+          <img
+            src={getImageUrl("students/student-batik-welcome.png", { width: 1280, height: 720, crop: "fill", quality: "auto" })}
+            alt="Siswa Unggulan SMK Telkom Sidoarjo"
+            class="w-full h-full object-cover object-top opacity-95 group-hover:scale-[1.02] transition-transform duration-700 ease-apple"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-black/20"></div>
+          <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-left">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-widest text-[#E1251B]">Keunggulan Civitas</span>
+              <p class="text-sm sm:text-base font-semibold text-[#f5f5f7]">Generasi Cerdas Berkarakter dan Berdaya Saing</p>
+            </div>
+            <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-black/60 border border-white/10 text-[11px] font-mono text-[#86868b]">
+              CDN: Cloudinary Edge
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Apple Two-Up Feature Bento (SIJA & TJAT) -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-20 apple-deferred-section">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-xs uppercase tracking-widest text-[#86868b] font-medium">Program Keahlian Unggulan</span>
+      <h2 class="text-3xl sm:text-5xl font-semibold text-[#f5f5f7] tracking-tight mt-2">
+        Dua Jurusan. Tanpa Kompromi.
+      </h2>
+      <p class="text-sm sm:text-base text-[#86868b] mt-3 leading-relaxed">
+        Dirancang langsung dengan masukan industri digital agar materi pembelajaran selalu relevan dengan kebutuhan dunia kerja.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Card SIJA -->
+      <div class="bg-[#161617] rounded-3xl border border-white/10 p-8 sm:p-10 flex flex-col justify-between hover:border-white/20 transition-all duration-500 ease-apple relative overflow-hidden group">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#E1251B] text-white">
+              SIJA &bull; 4 TAHUN
+            </span>
+            <span class="text-xs font-mono text-[#86868b]">Program Unggulan</span>
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-semibold text-[#f5f5f7] tracking-tight">
+            Sistem Informasi Jaringan & Aplikasi
+          </h3>
+          <p class="text-sm text-[#86868b] leading-relaxed">
+            Mempelajari rekayasa perangkat lunak berskala besar, manajemen basis data, arsitektur komputasi awan (cloud), dan pertahanan sistem keamanan siber.
+          </p>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-xs font-medium text-[#f5f5f7]">4 Tahun Masa Studi Vokasi</span>
+          <a href="/jurusan#sija" class="text-xs font-semibold text-[#E1251B] hover:text-[#ff3b30] transition flex items-center gap-1">
+            Pelajari SIJA &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card TJAT -->
+      <div class="bg-[#161617] rounded-3xl border border-white/10 p-8 sm:p-10 flex flex-col justify-between hover:border-white/20 transition-all duration-500 ease-apple relative overflow-hidden group">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-[#f5f5f7] border border-white/15">
+              TJAT &bull; 3 TAHUN
+            </span>
+            <span class="text-xs font-mono text-[#86868b]">Standar Telekomunikasi</span>
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-semibold text-[#f5f5f7] tracking-tight">
+            Teknik Jaringan Akses Telekomunikasi
+          </h3>
+          <p class="text-sm text-[#86868b] leading-relaxed">
+            Spesialisasi infrastruktur jaringan serat optik (fiber optic), instalasi transmisi telekomunikasi, dan optimalisasi konektivitas nirkabel seluler.
+          </p>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-xs font-medium text-[#f5f5f7]">3 Tahun Kurikulum Industri</span>
+          <a href="/jurusan#tjat" class="text-xs font-semibold text-[#E1251B] hover:text-[#ff3b30] transition flex items-center gap-1">
+            Pelajari TJAT &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Interactive Vue 3 Island Component (Apple Product Spec Sheet) -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-12 apple-deferred-section">
+    <!-- Progressive Island Hydration (Vue 3 hydrates only when scrolled into view) -->
+    <JurusanExplorer client:visible />
+  </section>
+
+  <!-- Section 4: Apple Innovation Bento Grid (Real verifiable stats) -->
+  <section id="kurikulum" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-white/10 apple-deferred-section">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-xs uppercase tracking-widest text-[#86868b] font-medium">Standar Keunggulan</span>
+      <h2 class="text-3xl sm:text-4xl font-semibold text-[#f5f5f7] tracking-tight mt-2">
+        Dibangun Atas Fondasi Kualitas.
+      </h2>
+      <p class="text-sm text-[#86868b] mt-3">
+        Pengakuan akreditasi resmi dan kemitraan strategis dengan ekosistem industri digital nasional.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-8 rounded-3xl bg-[#161617] border border-white/10 space-y-3">
+        <span class="block text-4xl sm:text-5xl font-semibold text-[#E1251B] tracking-tight">A</span>
+        <h4 class="text-base font-semibold text-[#f5f5f7]">Akreditasi Unggul</h4>
+        <p class="text-xs text-[#86868b] leading-relaxed">
+          Penilaian tertinggi dari Badan Akreditasi Nasional Sekolah/Madrasah (BAN-SM).
+        </p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-[#161617] border border-white/10 space-y-3">
+        <span class="block text-4xl sm:text-5xl font-semibold text-[#f5f5f7] tracking-tight">ISO</span>
+        <h4 class="text-base font-semibold text-[#f5f5f7]">ISO 9001:2015</h4>
+        <p class="text-xs text-[#86868b] leading-relaxed">
+          Sertifikasi sistem manajemen mutu pendidikan berstandar internasional.
+        </p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-[#161617] border border-white/10 space-y-3">
+        <span class="block text-4xl sm:text-5xl font-semibold text-[#E1251B] tracking-tight">YPT</span>
+        <h4 class="text-base font-semibold text-[#f5f5f7]">Telkom Group</h4>
+        <p class="text-xs text-[#86868b] leading-relaxed">
+          Di bawah naungan Yayasan Pendidikan Telkom dengan akses jaringan kemitraan industri luas.
+        </p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-[#161617] border border-white/10 space-y-3">
+        <span class="block text-4xl sm:text-5xl font-semibold text-[#f5f5f7] tracking-tight">BNSP</span>
+        <h4 class="text-base font-semibold text-[#f5f5f7]">Uji Kompetensi</h4>
+        <p class="text-xs text-[#86868b] leading-relaxed">
+          Sertifikasi profesi resmi yang diakui secara nasional bagi lulusan kejuruan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Apple Newsroom Style (Kabar & Prestasi) -->
+  <section id="berita" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-white/10 apple-deferred-section">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+      <div>
+        <span class="text-xs uppercase tracking-widest text-[#86868b] font-medium">Newsroom SKOMDA</span>
+        <h2 class="text-3xl sm:text-4xl font-semibold text-[#f5f5f7] tracking-tight mt-1">
+          Kabar & Prestasi Terkini.
+        </h2>
+      </div>
+      <a href="/berita" class="text-xs font-semibold text-[#E1251B] hover:text-[#ff3b30] transition">
+        Lihat Semua Berita &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {latestNews.map((news) => (
+        <article class="bg-[#161617] rounded-3xl border border-white/10 overflow-hidden flex flex-col hover:border-white/20 transition-colors duration-300 group">
+          <div class="aspect-16/9 bg-black overflow-hidden relative">
+            <img
+              src={getImageUrl(news.image, { width: 640, height: 360, crop: "fill", quality: "auto" })}
+              alt={news.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-apple"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/70 backdrop-blur-md text-[#f5f5f7] border border-white/10">
+              {news.category}
+            </span>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-mono text-[#86868b]">{news.dateFormatted}</span>
+              <h3 class="text-base font-semibold text-[#f5f5f7] mt-1.5 leading-snug line-clamp-2">
+                {news.title}
+              </h3>
+              <p class="text-xs text-[#86868b] mt-2.5 line-clamp-3 leading-relaxed">
+                {news.summary}
+              </p>
+            </div>
+
+            <div class="pt-4 mt-6 border-t border-white/5 flex items-center justify-between text-xs">
+              <span class="text-[#86868b] text-[11px]">{news.author}</span>
+              <a href={`/berita#${news.slug}`} class="font-semibold text-[#E1251B] hover:text-[#ff3b30] transition">
+                Baca Selengkapnya
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+
+  <!-- Svelte 5 Island Mount (Apple-style minimal assistant, hydrated when browser is idle) -->
+  <QuickChatbot client:idle slot="widgets" />
+</Layout>

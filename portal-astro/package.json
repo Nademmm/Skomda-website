@@ -1,0 +1,24 @@
+{
+  "name": "skomda-portal-astro",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "start": "astro dev --port 4321",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^7.0.4",
+    "@astrojs/tailwind": "^6.0.0",
+    "@astrojs/vue": "^5.0.7",
+    "astro": "^5.4.1",
+    "svelte": "^5.22.4",
+    "tailwindcss": "^3.4.17",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.3"
+  }
+}

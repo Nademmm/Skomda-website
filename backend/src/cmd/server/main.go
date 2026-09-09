@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/nademmm/smktelkom-web/backend/src/api"
 	"github.com/nademmm/smktelkom-web/backend/src/api/chatbot"
 	"github.com/nademmm/smktelkom-web/backend/src/api/health"
 	"github.com/nademmm/smktelkom-web/backend/src/api/jurusan"
@@ -22,17 +23,29 @@ func main() {
 	// Inisialisasi Database & Seeder
 	config.InitDB(cfg)
 
+	// Jika SERVER_ENGINE diset ke fiber, jalankan engine Fiber
+	if cfg.ServerEngine == "fiber" {
+		log.Printf("🚀 Memulai backend dengan engine: FIBER (port %s)", cfg.Port)
+		fiberApp := api.NewFiberApp(cfg)
+		if err := fiberApp.Listen(":" + cfg.Port); err != nil {
+			log.Fatalf("gagal menjalankan server Fiber: %v", err)
+		}
+		return
+	}
+
+	// Default: Gunakan engine GIN
+	log.Printf("🚀 Memulai backend dengan engine: GIN (port %s)", cfg.Port)
 	router := gin.Default()
 	_ = router.SetTrustedProxies(nil)
 	router.Use(corsMiddleware(cfg.AllowedOrigin))
 
-	api := router.Group("/api")
-	health.RegisterRoutes(api)
-	jurusan.RegisterRoutes(api)
-	news.RegisterRoutes(api)
-	chatbot.RegisterRoutes(api, cfg)
+	apiGroup := router.Group("/api")
+	health.RegisterRoutes(apiGroup)
+	jurusan.RegisterRoutes(apiGroup)
+	news.RegisterRoutes(apiGroup)
+	chatbot.RegisterRoutes(apiGroup, cfg)
 
-	log.Printf("backend jalan di port %s", cfg.Port)
+	log.Printf("backend Gin jalan di port %s", cfg.Port)
 	if err := router.Run(":" + cfg.Port); err != nil {
 		log.Fatalf("gagal menjalankan server: %v", err)
 	}

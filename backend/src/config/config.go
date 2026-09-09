@@ -6,6 +6,7 @@ package config
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -19,6 +20,7 @@ type Config struct {
 	JWTSecret       string
 	AllowedOrigin   string // origin frontend Next.js, untuk CORS
 	NexusRouterURL  string // URL NexusRouter AI gateway (default: http://localhost:3000)
+	ServerEngine    string // gin | fiber (default: gin)
 }
 
 // Load membaca .env (kalau ada, biasanya cuma di local dev) lalu env var asli.
@@ -36,6 +38,7 @@ func Load() Config {
 		JWTSecret:      getEnv("JWT_SECRET", ""),
 		AllowedOrigin:  getEnv("ALLOWED_ORIGIN", "http://localhost:3000"),
 		NexusRouterURL: getEnv("NEXUS_ROUTER_URL", "http://127.0.0.1:3000"),
+		ServerEngine:   strings.ToLower(getEnv("SERVER_ENGINE", "fiber")),
 	}
 }
 

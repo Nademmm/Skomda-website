@@ -1,0 +1,758 @@
+{
+  "berita/news-thumb-1.png": {
+    "public_id": "skomda/berita/news-thumb-1",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959405/skomda/berita/news-thumb-1.png",
+    "format": "png",
+    "bytes": 86142
+  },
+  "common/akreditasi-a-badge.png": {
+    "public_id": "skomda/common/akreditasi-a-badge",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959406/skomda/common/akreditasi-a-badge.png",
+    "format": "png",
+    "bytes": 144211
+  },
+  "common/logo-smk-telkom.png": {
+    "public_id": "skomda/common/logo-smk-telkom",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959407/skomda/common/logo-smk-telkom.png",
+    "format": "png",
+    "bytes": 30501
+  },
+  "common/telkom-schools-icon.png": {
+    "public_id": "skomda/common/telkom-schools-icon",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959408/skomda/common/telkom-schools-icon.png",
+    "format": "png",
+    "bytes": 17940
+  },
+  "home/hero/image1.png": {
+    "public_id": "skomda/home/hero/image1",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959413/skomda/home/hero/image1.png",
+    "format": "png",
+    "bytes": 2120864
+  },
+  "home/hero/image4.png": {
+    "public_id": "skomda/home/hero/image4",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959417/skomda/home/hero/image4.png",
+    "format": "png",
+    "bytes": 1621327
+  },
+  "home/hero/image5.png": {
+    "public_id": "skomda/home/hero/image5",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959423/skomda/home/hero/image5.png",
+    "format": "png",
+    "bytes": 2090771
+  },
+  "home/hero/image6.png": {
+    "public_id": "skomda/home/hero/image6",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959429/skomda/home/hero/image6.png",
+    "format": "png",
+    "bytes": 1404827
+  },
+  "home/kepsek.png": {
+    "public_id": "skomda/home/kepsek",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959431/skomda/home/kepsek.png",
+    "format": "png",
+    "bytes": 250327
+  },
+  "informasi/pengumuman-kelulusan/hero-student-megaphone.png": {
+    "public_id": "skomda/informasi/pengumuman-kelulusan/hero-student-megaphone",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959777/skomda/informasi/pengumuman-kelulusan/hero-student-megaphone.png",
+    "format": "png",
+    "bytes": 2110521
+  },
+  "partners/bnsp.png": {
+    "public_id": "skomda/partners/bnsp",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959778/skomda/partners/bnsp.png",
+    "format": "png",
+    "bytes": 5563
+  },
+  "partners/indev.png": {
+    "public_id": "skomda/partners/indev",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959780/skomda/partners/indev.png",
+    "format": "png",
+    "bytes": 7557
+  },
+  "partners/jobnation.png": {
+    "public_id": "skomda/partners/jobnation",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959799/skomda/partners/jobnation.png",
+    "format": "png",
+    "bytes": 152904
+  },
+  "partners/lasambora.png": {
+    "public_id": "skomda/partners/lasambora",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959801/skomda/partners/lasambora.png",
+    "format": "png",
+    "bytes": 6030
+  },
+  "partners/moksha.png": {
+    "public_id": "skomda/partners/moksha",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959817/skomda/partners/moksha.png",
+    "format": "png",
+    "bytes": 305296
+  },
+  "partners/partner-alfath-v2.png": {
+    "public_id": "skomda/partners/partner-alfath-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959818/skomda/partners/partner-alfath-v2.png",
+    "format": "png",
+    "bytes": 23750
+  },
+  "partners/partner-axelbit.png": {
+    "public_id": "skomda/partners/partner-axelbit",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959820/skomda/partners/partner-axelbit.jpg",
+    "format": "jpg",
+    "bytes": 45294
+  },
+  "partners/partner-digiprener.png": {
+    "public_id": "skomda/partners/partner-digiprener",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959821/skomda/partners/partner-digiprener.jpg",
+    "format": "jpg",
+    "bytes": 25767
+  },
+  "partners/partner-efortech-v2.png": {
+    "public_id": "skomda/partners/partner-efortech-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959822/skomda/partners/partner-efortech-v2.png",
+    "format": "png",
+    "bytes": 53089
+  },
+  "partners/partner-garuda.png": {
+    "public_id": "skomda/partners/partner-garuda",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959823/skomda/partners/partner-garuda.jpg",
+    "format": "jpg",
+    "bytes": 52211
+  },
+  "partners/partner-globalinfra.png": {
+    "public_id": "skomda/partners/partner-globalinfra",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959824/skomda/partners/partner-globalinfra.jpg",
+    "format": "jpg",
+    "bytes": 35913
+  },
+  "partners/partner-hai-v2.png": {
+    "public_id": "skomda/partners/partner-hai-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959826/skomda/partners/partner-hai-v2.png",
+    "format": "png",
+    "bytes": 41020
+  },
+  "partners/partner-infratra-v2.png": {
+    "public_id": "skomda/partners/partner-infratra-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959827/skomda/partners/partner-infratra-v2.png",
+    "format": "png",
+    "bytes": 37621
+  },
+  "partners/partner-jagoanhosting.png": {
+    "public_id": "skomda/partners/partner-jagoanhosting",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959828/skomda/partners/partner-jagoanhosting.png",
+    "format": "png",
+    "bytes": 79934
+  },
+  "partners/partner-javacreatiox.png": {
+    "public_id": "skomda/partners/partner-javacreatiox",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959829/skomda/partners/partner-javacreatiox.jpg",
+    "format": "jpg",
+    "bytes": 45575
+  },
+  "partners/partner-markazdesign.png": {
+    "public_id": "skomda/partners/partner-markazdesign",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959830/skomda/partners/partner-markazdesign.jpg",
+    "format": "jpg",
+    "bytes": 37011
+  },
+  "partners/partner-purnamahotel-v2.png": {
+    "public_id": "skomda/partners/partner-purnamahotel-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959832/skomda/partners/partner-purnamahotel-v2.png",
+    "format": "png",
+    "bytes": 38626
+  },
+  "partners/partner-radnet.png": {
+    "public_id": "skomda/partners/partner-radnet",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959833/skomda/partners/partner-radnet.jpg",
+    "format": "jpg",
+    "bytes": 42420
+  },
+  "partners/partner-sanssouci-v2.png": {
+    "public_id": "skomda/partners/partner-sanssouci-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959834/skomda/partners/partner-sanssouci-v2.png",
+    "format": "png",
+    "bytes": 25345
+  },
+  "partners/partner-sgp-v2.png": {
+    "public_id": "skomda/partners/partner-sgp-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959835/skomda/partners/partner-sgp-v2.png",
+    "format": "png",
+    "bytes": 42892
+  },
+  "partners/partner-slash-v2.png": {
+    "public_id": "skomda/partners/partner-slash-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959836/skomda/partners/partner-slash-v2.png",
+    "format": "png",
+    "bytes": 20497
+  },
+  "partners/pens.webp": {
+    "public_id": "skomda/partners/pens",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959837/skomda/partners/pens.webp",
+    "format": "webp",
+    "bytes": 15454
+  },
+  "partners/rsi.jpg": {
+    "public_id": "skomda/partners/rsi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959838/skomda/partners/rsi.jpg",
+    "format": "jpg",
+    "bytes": 20405
+  },
+  "partners/TelkoMedika-v2.png": {
+    "public_id": "skomda/partners/TelkoMedika-v2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959839/skomda/partners/TelkoMedika-v2.png",
+    "format": "png",
+    "bytes": 30586
+  },
+  "partners/trijaya.png": {
+    "public_id": "skomda/partners/trijaya",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959840/skomda/partners/trijaya.png",
+    "format": "png",
+    "bytes": 67812
+  },
+  "partners/ubig.png": {
+    "public_id": "skomda/partners/ubig",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959888/skomda/partners/ubig.png",
+    "format": "png",
+    "bytes": 23017
+  },
+  "partners/weza-group.png": {
+    "public_id": "skomda/partners/weza-group",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959890/skomda/partners/weza-group.png",
+    "format": "png",
+    "bytes": 45088
+  },
+  "partners/woodneintegra.png": {
+    "public_id": "skomda/partners/woodneintegra",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960082/skomda/partners/woodneintegra.png",
+    "format": "png",
+    "bytes": 2759048
+  },
+  "partners/wowrack.png": {
+    "public_id": "skomda/partners/wowrack",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960086/skomda/partners/wowrack.png",
+    "format": "png",
+    "bytes": 23126
+  },
+  "program/digital-talent/hero-student-talent.png": {
+    "public_id": "skomda/program/digital-talent/hero-student-talent",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960126/skomda/program/digital-talent/hero-student-talent.png",
+    "format": "png",
+    "bytes": 8412530
+  },
+  "program/profil-jurusan/charen.png": {
+    "public_id": "skomda/program/profil-jurusan/charen",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960250/skomda/program/profil-jurusan/charen.png",
+    "format": "png",
+    "bytes": 1074829
+  },
+  "program/profil-jurusan/hero-student-jurusan.png": {
+    "public_id": "skomda/program/profil-jurusan/hero-student-jurusan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960263/skomda/program/profil-jurusan/hero-student-jurusan.png",
+    "format": "png",
+    "bytes": 1420021
+  },
+  "program/ts21/ts21-framework.png": {
+    "public_id": "skomda/program/ts21/ts21-framework",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960265/skomda/program/ts21/ts21-framework.png",
+    "format": "png",
+    "bytes": 241523
+  },
+  "students/student-batik-confident.png": {
+    "public_id": "skomda/students/student-batik-confident",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960293/skomda/students/student-batik-confident.png",
+    "format": "png",
+    "bytes": 8412530
+  },
+  "students/student-batik-greeting.png": {
+    "public_id": "skomda/students/student-batik-greeting",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960532/skomda/students/student-batik-greeting.png",
+    "format": "png",
+    "bytes": 7823696
+  },
+  "students/student-batik-point-side.png": {
+    "public_id": "skomda/students/student-batik-point-side",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960927/skomda/students/student-batik-point-side.png",
+    "format": "png",
+    "bytes": 8534908
+  },
+  "students/student-batik-presenting.png": {
+    "public_id": "skomda/students/student-batik-presenting",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961359/skomda/students/student-batik-presenting.png",
+    "format": "png",
+    "bytes": 10423434
+  },
+  "students/student-blazer-smile.png": {
+    "public_id": "skomda/students/student-blazer-smile",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961461/skomda/students/student-blazer-smile.png",
+    "format": "png",
+    "bytes": 1670708
+  },
+  "students/student-blazer-standing.png": {
+    "public_id": "skomda/students/student-blazer-standing",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961466/skomda/students/student-blazer-standing.png",
+    "format": "png",
+    "bytes": 993436
+  },
+  "students/student-megaphone.png": {
+    "public_id": "skomda/students/student-megaphone",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961529/skomda/students/student-megaphone.png",
+    "format": "png",
+    "bytes": 2110521
+  },
+  "students/student-red-arms-crossed.png": {
+    "public_id": "skomda/students/student-red-arms-crossed",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961535/skomda/students/student-red-arms-crossed.png",
+    "format": "png",
+    "bytes": 1420021
+  },
+  "students/student-red-waving.png": {
+    "public_id": "skomda/students/student-red-waving",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961539/skomda/students/student-red-waving.png",
+    "format": "png",
+    "bytes": 1172234
+  },
+  "students/student-vest-point-up.png": {
+    "public_id": "skomda/students/student-vest-point-up",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961541/skomda/students/student-vest-point-up.png",
+    "format": "png",
+    "bytes": 938244
+  },
+  "students/student-vest-thinking.png": {
+    "public_id": "skomda/students/student-vest-thinking",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961544/skomda/students/student-vest-thinking.png",
+    "format": "png",
+    "bytes": 1971184
+  },
+  "students/student-vest-three.png": {
+    "public_id": "skomda/students/student-vest-three",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961582/skomda/students/student-vest-three.png",
+    "format": "png",
+    "bytes": 1767341
+  },
+  "tentang-kami/akomodasi/akomodasi-hero.jpg": {
+    "public_id": "skomda/tentang-kami/akomodasi/akomodasi-hero",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961586/skomda/tentang-kami/akomodasi/akomodasi-hero.jpg",
+    "format": "jpg",
+    "bytes": 802744
+  },
+  "tentang-kami/fasilitas/hero-student-fasilitas.png": {
+    "public_id": "skomda/tentang-kami/fasilitas/hero-student-fasilitas",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961606/skomda/tentang-kami/fasilitas/hero-student-fasilitas.png",
+    "format": "png",
+    "bytes": 10423434
+  },
+  "tentang-kami/hub-industri/hub-industri-hero.jpg": {
+    "public_id": "skomda/tentang-kami/hub-industri/hub-industri-hero",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961612/skomda/tentang-kami/hub-industri/hub-industri-hero.jpg",
+    "format": "jpg",
+    "bytes": 937297
+  },
+  "tentang-kami/prestasi/hero-student-prestasi.png": {
+    "public_id": "skomda/tentang-kami/prestasi/hero-student-prestasi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961618/skomda/tentang-kami/prestasi/hero-student-prestasi.png",
+    "format": "png",
+    "bytes": 993436
+  },
+  "tentang-kami/profil-guru/abid.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/abid",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961632/skomda/tentang-kami/profil-guru/abid.png",
+    "format": "png",
+    "bytes": 4228244
+  },
+  "tentang-kami/profil-guru/abror.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/abror",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961663/skomda/tentang-kami/profil-guru/abror.png",
+    "format": "png",
+    "bytes": 4716209
+  },
+  "tentang-kami/profil-guru/adam.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/adam",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962026/skomda/tentang-kami/profil-guru/adam.png",
+    "format": "png",
+    "bytes": 4405511
+  },
+  "tentang-kami/profil-guru/adi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/adi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962029/skomda/tentang-kami/profil-guru/adi.png",
+    "format": "png",
+    "bytes": 4322396
+  },
+  "tentang-kami/profil-guru/arga.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/arga",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962033/skomda/tentang-kami/profil-guru/arga.png",
+    "format": "png",
+    "bytes": 4250617
+  },
+  "tentang-kami/profil-guru/arifin.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/arifin",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962037/skomda/tentang-kami/profil-guru/arifin.png",
+    "format": "png",
+    "bytes": 5782359
+  },
+  "tentang-kami/profil-guru/barnabas.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/barnabas",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962044/skomda/tentang-kami/profil-guru/barnabas.png",
+    "format": "png",
+    "bytes": 5708443
+  },
+  "tentang-kami/profil-guru/chintia.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/chintia",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962058/skomda/tentang-kami/profil-guru/chintia.png",
+    "format": "png",
+    "bytes": 5170093
+  },
+  "tentang-kami/profil-guru/david.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/david",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962065/skomda/tentang-kami/profil-guru/david.png",
+    "format": "png",
+    "bytes": 4333768
+  },
+  "tentang-kami/profil-guru/dean.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/dean",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962070/skomda/tentang-kami/profil-guru/dean.png",
+    "format": "png",
+    "bytes": 3974630
+  },
+  "tentang-kami/profil-guru/efendi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/efendi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962075/skomda/tentang-kami/profil-guru/efendi.png",
+    "format": "png",
+    "bytes": 5453762
+  },
+  "tentang-kami/profil-guru/eka.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/eka",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962080/skomda/tentang-kami/profil-guru/eka.png",
+    "format": "png",
+    "bytes": 4940705
+  },
+  "tentang-kami/profil-guru/eliza.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/eliza",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962162/skomda/tentang-kami/profil-guru/eliza.png",
+    "format": "png",
+    "bytes": 4797013
+  },
+  "tentang-kami/profil-guru/ellsa.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/ellsa",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962306/skomda/tentang-kami/profil-guru/ellsa.png",
+    "format": "png",
+    "bytes": 4370131
+  },
+  "tentang-kami/profil-guru/fajar.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/fajar",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962315/skomda/tentang-kami/profil-guru/fajar.png",
+    "format": "png",
+    "bytes": 5449244
+  },
+  "tentang-kami/profil-guru/fanny.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/fanny",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962331/skomda/tentang-kami/profil-guru/fanny.png",
+    "format": "png",
+    "bytes": 5598079
+  },
+  "tentang-kami/profil-guru/faun.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/faun",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962343/skomda/tentang-kami/profil-guru/faun.png",
+    "format": "png",
+    "bytes": 4541306
+  },
+  "tentang-kami/profil-guru/ferina.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/ferina",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962351/skomda/tentang-kami/profil-guru/ferina.png",
+    "format": "png",
+    "bytes": 5323592
+  },
+  "tentang-kami/profil-guru/firman.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/firman",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962373/skomda/tentang-kami/profil-guru/firman.png",
+    "format": "png",
+    "bytes": 5410354
+  },
+  "tentang-kami/profil-guru/galih.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/galih",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962380/skomda/tentang-kami/profil-guru/galih.png",
+    "format": "png",
+    "bytes": 4249260
+  },
+  "tentang-kami/profil-guru/galuh.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/galuh",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962392/skomda/tentang-kami/profil-guru/galuh.png",
+    "format": "png",
+    "bytes": 5145730
+  },
+  "tentang-kami/profil-guru/grisa.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/grisa",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962399/skomda/tentang-kami/profil-guru/grisa.png",
+    "format": "png",
+    "bytes": 4498342
+  },
+  "tentang-kami/profil-guru/habibi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/habibi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962422/skomda/tentang-kami/profil-guru/habibi.png",
+    "format": "png",
+    "bytes": 7417776
+  },
+  "tentang-kami/profil-guru/hadi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/hadi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962440/skomda/tentang-kami/profil-guru/hadi.png",
+    "format": "png",
+    "bytes": 4286511
+  },
+  "tentang-kami/profil-guru/hamka.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/hamka",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962446/skomda/tentang-kami/profil-guru/hamka.png",
+    "format": "png",
+    "bytes": 4594560
+  },
+  "tentang-kami/profil-guru/hana.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/hana",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962458/skomda/tentang-kami/profil-guru/hana.png",
+    "format": "png",
+    "bytes": 7328758
+  },
+  "tentang-kami/profil-guru/haqi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/haqi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962485/skomda/tentang-kami/profil-guru/haqi.png",
+    "format": "png",
+    "bytes": 4490427
+  },
+  "tentang-kami/profil-guru/ike.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/ike",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962525/skomda/tentang-kami/profil-guru/ike.png",
+    "format": "png",
+    "bytes": 5176551
+  },
+  "tentang-kami/profil-guru/ilham.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/ilham",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962531/skomda/tentang-kami/profil-guru/ilham.png",
+    "format": "png",
+    "bytes": 4238535
+  },
+  "tentang-kami/profil-guru/indra hadi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/indra hadi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962535/skomda/tentang-kami/profil-guru/indra%20hadi.png",
+    "format": "png",
+    "bytes": 4572349
+  },
+  "tentang-kami/profil-guru/indra kurniawan.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/indra kurniawan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962544/skomda/tentang-kami/profil-guru/indra%20kurniawan.png",
+    "format": "png",
+    "bytes": 6372915
+  },
+  "tentang-kami/profil-guru/kazu.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/kazu",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962551/skomda/tentang-kami/profil-guru/kazu.png",
+    "format": "png",
+    "bytes": 5204937
+  },
+  "tentang-kami/profil-guru/laila.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/laila",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962591/skomda/tentang-kami/profil-guru/laila.png",
+    "format": "png",
+    "bytes": 5195023
+  },
+  "tentang-kami/profil-guru/lia.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/lia",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962599/skomda/tentang-kami/profil-guru/lia.png",
+    "format": "png",
+    "bytes": 5615013
+  },
+  "tentang-kami/profil-guru/manda.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/manda",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962617/skomda/tentang-kami/profil-guru/manda.png",
+    "format": "png",
+    "bytes": 7081566
+  },
+  "tentang-kami/profil-guru/maulana.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/maulana",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962626/skomda/tentang-kami/profil-guru/maulana.png",
+    "format": "png",
+    "bytes": 4292893
+  },
+  "tentang-kami/profil-guru/mayonk.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/mayonk",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962633/skomda/tentang-kami/profil-guru/mayonk.png",
+    "format": "png",
+    "bytes": 4260685
+  },
+  "tentang-kami/profil-guru/nafita.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/nafita",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962646/skomda/tentang-kami/profil-guru/nafita.png",
+    "format": "png",
+    "bytes": 4840252
+  },
+  "tentang-kami/profil-guru/novra.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/novra",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962654/skomda/tentang-kami/profil-guru/novra.png",
+    "format": "png",
+    "bytes": 4718477
+  },
+  "tentang-kami/profil-guru/okky.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/okky",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962668/skomda/tentang-kami/profil-guru/okky.png",
+    "format": "png",
+    "bytes": 4660982
+  },
+  "tentang-kami/profil-guru/profil-guru-hero.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/profil-guru-hero",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962674/skomda/tentang-kami/profil-guru/profil-guru-hero.png",
+    "format": "png",
+    "bytes": 2401050
+  },
+  "tentang-kami/profil-guru/putri.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/putri",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962687/skomda/tentang-kami/profil-guru/putri.png",
+    "format": "png",
+    "bytes": 5184709
+  },
+  "tentang-kami/profil-guru/rachel.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/rachel",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962735/skomda/tentang-kami/profil-guru/rachel.png",
+    "format": "png",
+    "bytes": 4578961
+  },
+  "tentang-kami/profil-guru/rifai.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/rifai",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962741/skomda/tentang-kami/profil-guru/rifai.png",
+    "format": "png",
+    "bytes": 4463628
+  },
+  "tentang-kami/profil-guru/rina.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/rina",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962746/skomda/tentang-kami/profil-guru/rina.png",
+    "format": "png",
+    "bytes": 5666567
+  },
+  "tentang-kami/profil-guru/rio.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/rio",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962751/skomda/tentang-kami/profil-guru/rio.png",
+    "format": "png",
+    "bytes": 5089281
+  },
+  "tentang-kami/profil-guru/risma.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/risma",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962757/skomda/tentang-kami/profil-guru/risma.png",
+    "format": "png",
+    "bytes": 7204403
+  },
+  "tentang-kami/profil-guru/rizka.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/rizka",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962762/skomda/tentang-kami/profil-guru/rizka.png",
+    "format": "png",
+    "bytes": 4985135
+  },
+  "tentang-kami/profil-guru/sarah.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/sarah",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962777/skomda/tentang-kami/profil-guru/sarah.png",
+    "format": "png",
+    "bytes": 4893442
+  },
+  "tentang-kami/profil-guru/shandi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/shandi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962818/skomda/tentang-kami/profil-guru/shandi.png",
+    "format": "png",
+    "bytes": 4504433
+  },
+  "tentang-kami/profil-guru/sigit.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/sigit",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962853/skomda/tentang-kami/profil-guru/sigit.png",
+    "format": "png",
+    "bytes": 7086140
+  },
+  "tentang-kami/profil-guru/sinta.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/sinta",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962866/skomda/tentang-kami/profil-guru/sinta.png",
+    "format": "png",
+    "bytes": 5404020
+  },
+  "tentang-kami/profil-guru/suhud.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/suhud",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962873/skomda/tentang-kami/profil-guru/suhud.png",
+    "format": "png",
+    "bytes": 4451711
+  },
+  "tentang-kami/profil-guru/ulum.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/ulum",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962880/skomda/tentang-kami/profil-guru/ulum.png",
+    "format": "png",
+    "bytes": 4754536
+  },
+  "tentang-kami/profil-guru/vina.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/vina",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962889/skomda/tentang-kami/profil-guru/vina.png",
+    "format": "png",
+    "bytes": 7538433
+  },
+  "tentang-kami/profil-guru/yunia.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/yunia",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962902/skomda/tentang-kami/profil-guru/yunia.png",
+    "format": "png",
+    "bytes": 7309529
+  },
+  "tentang-kami/profil-sekolah/profil-hero-student.png": {
+    "public_id": "skomda/tentang-kami/profil-sekolah/profil-hero-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962906/skomda/tentang-kami/profil-sekolah/profil-hero-student.png",
+    "format": "png",
+    "bytes": 2166996
+  },
+  "tentang-kami/profil-sekolah/struktur-organisasi.png": {
+    "public_id": "skomda/tentang-kami/profil-sekolah/struktur-organisasi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962908/skomda/tentang-kami/profil-sekolah/struktur-organisasi.png",
+    "format": "png",
+    "bytes": 1126724
+  },
+  "tentang-kami/profil-sekolah/visimisi-student.png": {
+    "public_id": "skomda/tentang-kami/profil-sekolah/visimisi-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962912/skomda/tentang-kami/profil-sekolah/visimisi-student.png",
+    "format": "png",
+    "bytes": 2277088
+  },
+  "informasi/penerapan-k3/hero-student-k3.png": {
+    "public_id": "skomda/informasi/penerapan-k3/hero-student-k3",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962945/skomda/informasi/penerapan-k3/hero-student-k3.png",
+    "format": "png",
+    "bytes": 449535
+  },
+  "program/ekstrakurikuler/hero-student-guitar.png": {
+    "public_id": "skomda/program/ekstrakurikuler/hero-student-guitar",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962949/skomda/program/ekstrakurikuler/hero-student-guitar.png",
+    "format": "png",
+    "bytes": 467816
+  },
+  "students/student-batik-cross-hands.png": {
+    "public_id": "skomda/students/student-batik-cross-hands",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962953/skomda/students/student-batik-cross-hands.png",
+    "format": "png",
+    "bytes": 449535
+  },
+  "students/student-batik-point-both.png": {
+    "public_id": "skomda/students/student-batik-point-both",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962955/skomda/students/student-batik-point-both.png",
+    "format": "png",
+    "bytes": 595242
+  },
+  "students/student-batik-point-up.png": {
+    "public_id": "skomda/students/student-batik-point-up",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788963042/skomda/students/student-batik-point-up.png",
+    "format": "png",
+    "bytes": 459129
+  },
+  "students/student-batik-pointing-down.png": {
+    "public_id": "skomda/students/student-batik-pointing-down",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788963053/skomda/students/student-batik-pointing-down.png",
+    "format": "png",
+    "bytes": 705716
+  },
+  "students/student-batik-welcome.png": {
+    "public_id": "skomda/students/student-batik-welcome",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788963057/skomda/students/student-batik-welcome.png",
+    "format": "png",
+    "bytes": 537957
+  },
+  "students/student-guitar.png": {
+    "public_id": "skomda/students/student-guitar",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788963061/skomda/students/student-guitar.png",
+    "format": "png",
+    "bytes": 467816
+  }
+}
