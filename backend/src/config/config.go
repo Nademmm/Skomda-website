@@ -18,6 +18,7 @@ type Config struct {
 	LLMAPIKey       string
 	JWTSecret       string
 	AllowedOrigin   string // origin frontend Next.js, untuk CORS
+	NexusRouterURL  string // URL NexusRouter AI gateway (default: http://localhost:3000)
 }
 
 // Load membaca .env (kalau ada, biasanya cuma di local dev) lalu env var asli.
@@ -27,13 +28,14 @@ func Load() Config {
 	}
 
 	return Config{
-		Env:           getEnv("ENV", getEnv("APP_ENV", "development")),
-		Port:          getEnv("PORT", "8080"),
-		DatabaseURL:   getEnv("DATABASE_URL", ""),
-		CloudinaryURL: getEnv("CLOUDINARY_URL", ""),
-		LLMAPIKey:     getEnv("LLM_API_KEY", ""),
-		JWTSecret:     getEnv("JWT_SECRET", ""),
-		AllowedOrigin: getEnv("ALLOWED_ORIGIN", "http://localhost:3000"),
+		Env:            getEnv("ENV", getEnv("APP_ENV", "development")),
+		Port:           getEnv("PORT", "8080"),
+		DatabaseURL:    getEnv("DATABASE_URL", ""),
+		CloudinaryURL:  getEnv("CLOUDINARY_URL", ""),
+		LLMAPIKey:      getEnv("LLM_API_KEY", ""),
+		JWTSecret:      getEnv("JWT_SECRET", ""),
+		AllowedOrigin:  getEnv("ALLOWED_ORIGIN", "http://localhost:3000"),
+		NexusRouterURL: getEnv("NEXUS_ROUTER_URL", "http://127.0.0.1:3000"),
 	}
 }
 

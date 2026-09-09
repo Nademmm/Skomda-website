@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/nademmm/smktelkom-web/backend/src/api/chatbot"
 	"github.com/nademmm/smktelkom-web/backend/src/api/health"
 	"github.com/nademmm/smktelkom-web/backend/src/api/jurusan"
 	"github.com/nademmm/smktelkom-web/backend/src/api/news"
@@ -29,6 +30,7 @@ func main() {
 	health.RegisterRoutes(api)
 	jurusan.RegisterRoutes(api)
 	news.RegisterRoutes(api)
+	chatbot.RegisterRoutes(api, cfg)
 
 	log.Printf("backend jalan di port %s", cfg.Port)
 	if err := router.Run(":" + cfg.Port); err != nil {

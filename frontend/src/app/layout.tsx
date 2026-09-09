@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 import { LanguageProvider } from "@/context/LanguageContext";
+import SkomdaChatWidget from "@/components/chatbot/SkomdaChatWidget";
 
 export default function RootLayout({
   children,
@@ -42,6 +43,8 @@ export default function RootLayout({
       <body className="font-jakarta antialiased bg-[#f3f4f6] text-[#101828] overflow-x-hidden">
         <LanguageProvider>
           {children}
+          {/* Floating AI Chatbot Widget (Skomda Intelligence via NexusRouter) */}
+          <SkomdaChatWidget />
         </LanguageProvider>
       </body>
     </html>
