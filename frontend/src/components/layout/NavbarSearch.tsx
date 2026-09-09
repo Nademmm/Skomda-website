@@ -629,87 +629,100 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
 
   return (
     <>
-      {/* ─── Solid Dark Backdrop Dimmer ─── */}
+      {/* ─── Solid Dark Backdrop Dimmer with Smooth Entrance & Exit ─── */}
       {mounted &&
         createPortal(
           <AnimatePresence>
             {isOpen && (
               <motion.div
+                key="search-backdrop"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 onClick={onClose}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[45] pointer-events-auto cursor-pointer"
+                className="fixed inset-0 bg-black/50 backdrop-blur-xs z-[45] pointer-events-auto cursor-pointer"
               />
             )}
           </AnimatePresence>,
           document.body
         )}
 
-      {/* ─── Inline Expanded Search Header Bar ─── */}
-      <div className="flex items-center w-full h-full gap-3 bg-white">
-        {/* Search Icon */}
-        <div className="flex items-center justify-center shrink-0 text-slate-500 pl-1">
-          <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-        </div>
-
-        {/* Input */}
-        <input
-          ref={inputRef}
-          type="text"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setSelectedIndex(0);
-          }}
-          onKeyDown={handleKeyDown}
-          placeholder="Cari section, halaman, jurusan, berita, dokumen..."
-          className="flex-1 bg-transparent font-jakarta text-[15px] font-semibold text-slate-900 placeholder-slate-400 outline-none min-w-0"
-          autoComplete="off"
-          spellCheck={false}
-        />
-
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 shrink-0">
-          {query && (
-            <button
-              type="button"
-              onClick={() => {
-                setQuery("");
-                inputRef.current?.focus();
-              }}
-              className="size-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors cursor-pointer"
-              aria-label="Hapus teks"
-            >
-              <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          )}
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex items-center justify-center h-[34px] px-4 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-bold font-jakarta text-slate-700 transition-all cursor-pointer shadow-xs active:scale-95"
-          >
-            Tutup
-          </button>
-        </div>
-      </div>
-
-      {/* ─── Results & Quick Access Dropdown ─── */}
+      {/* ─── Inline Expanded Search Header Bar with Smooth Entrance & Exit ─── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.99 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-0 right-0 top-[calc(100%+10px)] w-full bg-white rounded-3xl p-2 shadow-[0px_25px_60px_-15px_rgba(0,0,0,0.25)] border border-slate-200/90 z-[55] pointer-events-auto overflow-hidden"
+            key="search-bar-header"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -3, transition: { duration: 0.15, ease: "easeIn" } }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 px-4 sm:px-7 flex items-center w-full h-full gap-3 bg-white rounded-full z-20"
+          >
+            {/* Search Icon */}
+            <div className="flex items-center justify-center shrink-0 text-slate-400 pl-0.5">
+              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+
+            {/* Input */}
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setSelectedIndex(0);
+              }}
+              onKeyDown={handleKeyDown}
+              placeholder="Cari section, halaman, jurusan, berita, dokumen..."
+              className="flex-1 bg-transparent font-jakarta text-[14px] sm:text-[15px] font-semibold text-slate-900 placeholder-slate-400 outline-none min-w-0"
+              autoComplete="off"
+              spellCheck={false}
+            />
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 shrink-0">
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    inputRef.current?.focus();
+                  }}
+                  className="size-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Hapus teks"
+                >
+                  <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex items-center justify-center h-[34px] px-3.5 sm:px-4 rounded-full bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-xs font-bold font-jakarta text-slate-700 transition-all cursor-pointer shadow-xs active:scale-95"
+              >
+                Tutup
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── Results & Quick Access Dropdown with Smooth Entrance & Exit ─── */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="search-dropdown-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6, transition: { duration: 0.15, ease: "easeIn" } }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-0 right-0 top-[calc(100%+10px)] w-full bg-white rounded-3xl p-2 shadow-[0px_20px_50px_-12px_rgba(0,0,0,0.18)] border border-slate-200/90 z-[55] pointer-events-auto overflow-hidden"
             style={{ backgroundColor: "#ffffff" }}
           >
             {/* Inner Scroll Container */}

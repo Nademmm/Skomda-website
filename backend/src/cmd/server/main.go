@@ -41,7 +41,12 @@ func corsMiddleware(allowedOrigin string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		origin := c.GetHeader("Origin")
 		if origin != "" {
-			if allowedOrigin == "*" || allowedOrigin == "" || origin == allowedOrigin || strings.HasPrefix(origin, "http://localhost:") || strings.HasPrefix(origin, "http://127.0.0.1:") {
+			if allowedOrigin == "*" || allowedOrigin == "" || origin == allowedOrigin ||
+				strings.HasPrefix(origin, "http://localhost:") ||
+				strings.HasPrefix(origin, "http://127.0.0.1:") ||
+				strings.HasPrefix(origin, "http://10.") ||
+				strings.HasPrefix(origin, "http://192.168.") ||
+				strings.HasPrefix(origin, "http://172.") {
 				c.Header("Access-Control-Allow-Origin", origin)
 			} else {
 				c.Header("Access-Control-Allow-Origin", allowedOrigin)

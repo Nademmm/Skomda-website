@@ -89,12 +89,15 @@ export default function Navbar() {
           }`}
           style={searchOpen ? { backgroundColor: "#ffffff" } : undefined}
         >
-          {searchOpen ? (
-            <NavbarSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-          ) : (
-            <>
-              {/* Logo */}
-              <Link href="/" className="relative h-9 w-[122px] shrink-0">
+          {/* Main Navbar Elements */}
+          <div
+            className={`w-full h-full flex items-center justify-between transition-opacity duration-200 ${
+              searchOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
+            aria-hidden={searchOpen}
+          >
+            {/* Logo */}
+            <Link href="/" className="relative h-9 w-[122px] shrink-0">
                 <Image
                   src="/images/common/logo-smk-telkom.png"
                   alt="SMK Telkom Sidoarjo"
@@ -221,7 +224,7 @@ export default function Navbar() {
                 {/* CTA Button Unduh Informasi */}
                 <Link
                   href="/unduh-informasi"
-                  className="inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bd0c12] px-5 text-xs font-bold font-jakarta text-[#bd0c12] transition-all hover:bg-[#bd0c12] hover:text-white active:scale-[0.98] shadow-sm"
+                  className="inline-flex h-[38px] items-center gap-2 rounded-full bg-[#bd0c12] hover:bg-[#9e0a0f] px-5 text-xs font-bold font-jakarta text-white transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
                 >
                   <span>{t("nav.downloadInfo")}</span>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -269,8 +272,10 @@ export default function Navbar() {
                   )}
                 </button>
               </div>
-            </>
-          )}
+          </div>
+
+          {/* Search Bar & Dropdown (handles animated entrance and exit) */}
+          <NavbarSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
         </header>
 
         {/* Mobile Dropdown Menu with Expandable Accordions */}
