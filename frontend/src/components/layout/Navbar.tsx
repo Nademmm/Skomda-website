@@ -74,6 +74,7 @@ export default function Navbar() {
         { label: t("nav.k3Implementation"), href: "/informasi/penerapan-k3", desc: t("nav.k3ImplementationDesc") },
       ],
     },
+    { label: t("nav.tefa"), href: "/tefa" },
     { label: t("nav.trialClass"), href: "#trial-class" },
     { label: t("nav.ppdb"), href: "#ppdb" },
   ];

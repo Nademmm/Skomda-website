@@ -754,5 +754,17 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788963061/skomda/students/student-guitar.png",
     "format": "png",
     "bytes": 467816
+  },
+  "partners/partner-play.png": {
+    "public_id": "skomda/partners/partner-play",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789021468/skomda/partners/partner-play.png",
+    "format": "png",
+    "bytes": 879316
+  },
+  "tefa/tefa-building.png": {
+    "public_id": "skomda/tefa/tefa-building",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789021470/skomda/tefa/tefa-building.png",
+    "format": "png",
+    "bytes": 1146437
   }
 }

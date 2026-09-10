@@ -41,6 +41,7 @@ const STATIC_PAGES: SearchItem[] = [
   { id: "p-berita", title: "Berita & Agenda", description: "Kabar terbaru, prestasi dan kegiatan civitas akademika", href: "/informasi/berita", category: "Halaman", iconType: "news" },
   { id: "p-kelulusan", title: "Pengumuman Kelulusan", description: "Informasi resmi status kelulusan peserta didik", href: "/informasi/pengumuman-kelulusan", category: "Halaman", iconType: "doc" },
   { id: "p-k3", title: "Penerapan K3", description: "Keselamatan & Kesehatan Kerja di lingkungan sekolah", href: "/informasi/penerapan-k3", category: "Halaman", iconType: "info" },
+  { id: "p-tefa", title: "Teaching Factory (TeFa)", description: "Konsep pembelajaran berbasis produksi nyata & kolaborasi industri", href: "/tefa", category: "Halaman", iconType: "page", keywords: "tefa teaching factory produk jasa karya siswa industri kolaborasi produksi" },
   { id: "p-unduh", title: "Unduh Informasi & Dokumen", description: "Download brosur PPDB, sertifikat, dan file resmi", href: "/unduh-informasi", category: "Halaman", iconType: "doc" },
 ];
 
