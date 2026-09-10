@@ -1,22 +1,32 @@
-# Frontend — SMK Telkom Sidoarjo (Next.js)
+# Frontend: SMK Telkom Sidoarjo (Next.js 16)
 
-## Setup lokal
+Aplikasi client modern resmi untuk **SMK Telkom Sidoarjo**, dibangun menggunakan **Next.js 16 (App Router)**, **React 19**, **TypeScript**, dan **Tailwind CSS**.
+
+## Setup & Menjalankan Lokal
 
 ```bash
+cd frontend
 npm install
-npm run dev       # buka http://localhost:3000
+npm run dev         # Mode development di http://localhost:3001
 ```
 
-## Yang sudah ada
+## Mode Produksi & Evaluasi Performa
 
-- Halaman Beranda (`src/app/page.tsx`) dengan section: Navbar, Hero (dengan signature animasi "signal grid" — SVG node jaringan yang merepresentasikan identitas telekomunikasi sekolah), Stats, Preview Jurusan, Preview Berita, CTA, Footer.
-- Design token di `tailwind.config.ts`: warna graphite/signal-amber, font Space Grotesk (display) + Inter (body) + IBM Plex Mono (label/eyebrow).
-- Semua konten (nama jurusan, statistik, berita preview) dipusatkan di `src/lib/data.ts` — edit di sana, bukan di komponen.
-- Build sudah divalidasi lolos (`npm run build`) di lingkungan dengan akses ke Google Fonts.
+Untuk hasil performa dan Core Web Vitals (Lighthouse) yang optimal:
 
-## Catatan penting
+```bash
+npm run build       # Optimal Turbopack production build
+npm run start       # Menjalankan server produksi
+```
 
-- `next/font/google` butuh akses internet ke `fonts.googleapis.com` saat build. Kalau build di lingkungan dengan firewall/proxy ketat, itu akan gagal — solusinya self-host font via `next/font/local`, atau pastikan domain itu di-allowlist.
-- Halaman yang direferensikan di navbar (`/jurusan`, `/dtp`, `/alumni`, `/berita`, `/kontak`) **belum dibuat** — itu langkah berikutnya. Klik link tersebut sekarang akan 404.
-- Belum ada koneksi ke backend Go — `src/services/**` (API client) belum dibuat, masih perlu ditambahkan begitu endpoint backend siap.
-- Gambar masih placeholder/belum ada — integrasi Cloudinary (`src/lib/cloudinary.ts`) belum diimplementasi.
+## Perintah Verifikasi Kualitas
+
+- `npm run typecheck`: Menjalankan verifikasi tipe TypeScript (0 error).
+- `npm run lint`: Menjalankan linter ESLint (0 warning/error).
+- `npm run build`: Memvalidasi SSG dan kompilasi Next.js untuk semua rute.
+
+## Fitur & Arsitektur
+
+- **App Router Pages**: Beranda, Profil Jurusan (SIJA & TJAT), Berita & Artikel, Ekstrakurikuler, Prestasi, Profil Guru & Tendik, Hub Industri, Pengumuman Kelulusan, Penerapan K3, dan Unduh Informasi.
+- **Optimasi Gambar**: Mendukung auto format (AVIF/WebP), responsive sizing, dan integrasi Cloudinary CDN via `src/lib/cloudinary.ts`.
+- **Integrasi API**: Terhubung ke backend Go (`backend/src/api`) melalui `src/services/`.

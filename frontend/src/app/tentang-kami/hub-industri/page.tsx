@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/images/tentang-kami/hub-industri/hub-industri-hero.jpg",
         width: 1200,
         height: 750,
-        alt: "Hub Industri SMK Telkom Sidoarjo — Siswa berkolaborasi dengan profesional industri",
+        alt: "Hub Industri SMK Telkom Sidoarjo: Siswa berkolaborasi dengan profesional industri",
       },
     ],
   },

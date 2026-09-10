@@ -17,6 +17,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://smktelkom-sda.sch.id"),
   title: {
     default: "SMK Telkom Sidoarjo",
     template: "SMK Telkom Sidoarjo",

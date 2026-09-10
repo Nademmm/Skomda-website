@@ -85,5 +85,55 @@ img {
   background-color: #94a3b8;
 }
 
+/* Chatbot LLM Thinking State & Streaming Animations */
+@keyframes soundwave {
+  0%, 100% {
+    height: 5px;
+    opacity: 0.5;
+  }
+  50% {
+    height: 16px;
+    opacity: 1;
+  }
+}
 
+.animate-soundwave-1 {
+  animation: soundwave 0.9s ease-in-out infinite;
+}
+.animate-soundwave-2 {
+  animation: soundwave 0.9s ease-in-out infinite 0.18s;
+}
+.animate-soundwave-3 {
+  animation: soundwave 0.9s ease-in-out infinite 0.36s;
+}
+.animate-soundwave-4 {
+  animation: soundwave 0.9s ease-in-out infinite 0.54s;
+}
 
+@keyframes typingBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-typing-cursor {
+  animation: typingBlink 0.75s step-end infinite;
+}
+
+@keyframes shimmerWave {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer-wave {
+  background: linear-gradient(90deg, rgba(188, 12, 17, 0.03) 0%, rgba(188, 12, 17, 0.12) 50%, rgba(188, 12, 17, 0.03) 100%);
+  background-size: 200% 100%;
+  animation: shimmerWave 2.2s linear infinite;
+}

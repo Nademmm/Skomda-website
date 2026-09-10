@@ -37,7 +37,7 @@ func Load() Config {
 		LLMAPIKey:      getEnv("LLM_API_KEY", ""),
 		JWTSecret:      getEnv("JWT_SECRET", ""),
 		AllowedOrigin:  getEnv("ALLOWED_ORIGIN", "http://localhost:3000"),
-		NexusRouterURL: getEnv("NEXUS_ROUTER_URL", "http://127.0.0.1:3000"),
+		NexusRouterURL: getEnv("NEXUS_ROUTER_URL", "https://fahlyce.vercel.app"),
 		ServerEngine:   strings.ToLower(getEnv("SERVER_ENGINE", "fiber")),
 	}
 }

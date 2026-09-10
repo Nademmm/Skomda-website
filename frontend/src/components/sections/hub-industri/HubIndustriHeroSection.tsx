@@ -77,7 +77,7 @@ export default function HubIndustriHeroSection() {
             {/* Description */}
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-xl mb-8">
               Kemitraan strategis SMK Telkom Sidoarjo dengan berbagai perusahaan
-              teknologi dan telekomunikasi terkemuka — memastikan kurikulum
+              teknologi dan telekomunikasi terkemuka, memastikan kurikulum
               tetap relevan, siswa mendapat pengalaman nyata, dan lulusan
               langsung terserap di dunia industri.
             </p>

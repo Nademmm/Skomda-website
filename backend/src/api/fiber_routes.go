@@ -3,7 +3,12 @@
 package api
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 	"regexp"
 	"strconv"
 	"strings"
@@ -234,6 +239,97 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 			"engine": "fiber",
 			"target": cfg.NexusRouterURL,
 		})
+	})
+	cbGroup.Post("/message", func(c *fiber.Ctx) error {
+		var req struct {
+			Message string        `json:"message"`
+			History []interface{} `json:"history"`
+			Stream  bool          `json:"stream"`
+			Model   string        `json:"model"`
+		}
+		if err := c.BodyParser(&req); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Permintaan tidak valid: format data JSON salah.",
+			})
+		}
+		trimmed := strings.TrimSpace(req.Message)
+		if trimmed == "" {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Pesan tidak boleh kosong.",
+			})
+		}
+
+		if req.Model == "" {
+			req.Model = "Emberock"
+		}
+
+		targetURL := strings.TrimRight(cfg.NexusRouterURL, "/") + "/api/v1/skomda/chat"
+		forwardPayload, err := json.Marshal(map[string]interface{}{
+			"message": req.Message,
+			"history": req.History,
+			"stream":  req.Stream,
+			"model":   req.Model,
+		})
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal memproses data pesan.",
+			})
+		}
+
+		httpReq, err := http.NewRequestWithContext(c.Context(), http.MethodPost, targetURL, bytes.NewBuffer(forwardPayload))
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal menghubungkan ke gateway AI.",
+			})
+		}
+
+		httpReq.Header.Set("Content-Type", "application/json")
+		httpReq.Header.Set("X-Agent-Name", "Skomda-Website-Bot")
+		httpReq.Header.Set("X-Internal-Client", "skomda")
+		httpReq.Header.Set("X-Virtual-Key", "vk-skomda")
+		if req.Stream {
+			httpReq.Header.Set("Accept", "text/event-stream")
+		}
+
+		client := &http.Client{
+			Timeout: 45 * time.Second,
+		}
+
+		resp, err := client.Do(httpReq)
+		if err != nil {
+			log.Printf("[Fiber Chatbot] Gagal menghubungi NexusRouter di %s: %v", targetURL, err)
+			return c.Status(fiber.StatusOK).JSON(fiber.Map{
+				"response": "Mohon maaf, layanan asisten virtual sedang dalam pemeliharaan berkala.\n\nUntuk pertanyaan seputar PPDB 2026/2027 atau konsultasi jurusan SIJA & TJAT, silakan hubungi WhatsApp Humas resmi SMK Telkom Sidoarjo di 0811-3021-919 atau unduh brosur resmi di menu [Unduh Informasi](/unduh-informasi).",
+				"sources": []fiber.Map{
+					{
+						"title":    "Unduh Brosur PPDB & Informasi",
+						"url":      "/unduh-informasi",
+						"category": "PPDB & Regulasi",
+					},
+				},
+				"fallback": true,
+			})
+		}
+
+		if req.Stream && strings.Contains(resp.Header.Get("Content-Type"), "text/event-stream") {
+			c.Set("Content-Type", "text/event-stream")
+			c.Set("Cache-Control", "no-cache")
+			c.Set("Connection", "keep-alive")
+			c.Context().SetBodyStream(resp.Body, -1)
+			return nil
+		}
+
+		defer resp.Body.Close()
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal membaca respons dari gateway AI.",
+			})
+		}
+
+		c.Status(resp.StatusCode)
+		c.Set("Content-Type", resp.Header.Get("Content-Type"))
+		return c.Send(body)
 	})
 
 	// 5. Cloudinary Signed Upload

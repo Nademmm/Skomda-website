@@ -54,8 +54,8 @@ export default function ProfilJurusanHeroSection() {
               SMK Telkom Sidoarjo memiliki dua jurusan unggulan: Teknik Jaringan
               Akses Telekomunikasi (TJAT) dan Sistem Informasi Jaringan dan
               Aplikasi (SIJA). Kurikulum Nasional Plus kami relevan dengan
-              industri, melatih Anda menguasai teknologi terkini—mulai dari
-              jaringan hingga pengembangan aplikasi—untuk membangun karir
+              industri, melatih Anda menguasai teknologi terkini, mulai dari
+              jaringan hingga pengembangan aplikasi, untuk membangun karir
               digital yang cemerlang. Jelajahi detail jurusan sekarang.
             </p>
 

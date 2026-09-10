@@ -122,8 +122,7 @@ for (let i = 0; i < heavyPhotos.length; i++) {
   // Jika file lebih dari 10MB (batas free tier Cloudinary), optimasi dimensi ke max 2400px
   if (fileData.length > 10 * 1024 * 1024) {
     try {
-      const sharpPath = path.resolve(__dirname, "../portal-astro/node_modules/sharp/lib/index.js");
-      const { default: sharp } = await import(`file://${sharpPath.replace(/\\/g, "/")}`);
+      const { default: sharp } = await import("sharp");
       const optimized = await sharp(fileData)
         .resize({ width: 2400, height: 2400, fit: "inside", withoutEnlargement: true })
         .png({ compressionLevel: 9, quality: 90 })

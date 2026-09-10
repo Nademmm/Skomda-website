@@ -17,6 +17,8 @@ import {
   AlertCircle,
   Copy,
   Check,
+  ArrowDown,
+  Trash2,
 } from "lucide-react";
 
 interface ChatSource {
@@ -49,6 +51,51 @@ const INITIAL_WELCOME: Message = {
   timestamp: "Baru saja",
 };
 
+// High-Fidelity LLM Thinking State with soundwave equalizer and progressive reasoning phases
+function ThinkingState() {
+  const [phaseIdx, setPhaseIdx] = useState(0);
+  const phases = [
+    "Menganalisis pertanyaan...",
+    "Membaca arsip resmi SKOMDA...",
+    "Merangkai jawaban terbaik...",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPhaseIdx((prev) => (prev + 1) % phases.length);
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [phases.length]);
+
+  return (
+    <div className="flex flex-col gap-2.5 py-1 px-0.5 min-w-[210px]">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <div className="flex size-6 items-center justify-center rounded-lg bg-red-100/90 text-[#bc0c11]">
+            <Sparkles className="size-3.5 animate-pulse" />
+          </div>
+          <span className="text-xs font-semibold text-slate-700 tracking-tight">
+            {phases[phaseIdx]}
+          </span>
+        </div>
+
+        {/* Soundwave Equalizer Bars */}
+        <div className="flex items-center gap-0.5 h-4 px-1.5 py-0.5 rounded-md bg-slate-100 border border-slate-200/80">
+          <span className="w-1 bg-[#bc0c11] rounded-full animate-soundwave-1" />
+          <span className="w-1 bg-[#bc0c11] rounded-full animate-soundwave-2" />
+          <span className="w-1 bg-[#bc0c11] rounded-full animate-soundwave-3" />
+          <span className="w-1 bg-[#bc0c11] rounded-full animate-soundwave-4" />
+        </div>
+      </div>
+
+      {/* Dynamic shimmer line */}
+      <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden border border-slate-200/60">
+        <div className="h-full rounded-full animate-shimmer-wave w-full" />
+      </div>
+    </div>
+  );
+}
+
 export default function SkomdaChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState("");
@@ -56,6 +103,7 @@ export default function SkomdaChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorStatus, setErrorStatus] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -104,6 +152,9 @@ export default function SkomdaChatWidget() {
     } catch {}
   }, [isOpen, isMounted]);
 
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const isAutoScrollActiveRef = useRef(true);
+
   // Auto scroll down smoothly or instantly
   const scrollToBottom = useCallback((smooth = true) => {
     if (scrollContainerRef.current) {
@@ -115,8 +166,19 @@ export default function SkomdaChatWidget() {
       } else {
         scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
       }
+      isAutoScrollActiveRef.current = true;
+      setShowScrollToBottom(false);
     }
   }, []);
+
+  // Track scroll position: if user scrolls up away from bottom, pause auto-scroll
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+    const isNearBottom = scrollHeight - scrollTop - clientHeight <= 60;
+    isAutoScrollActiveRef.current = isNearBottom;
+    setShowScrollToBottom(!isNearBottom);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -125,16 +187,20 @@ export default function SkomdaChatWidget() {
     }
   }, [isOpen, scrollToBottom]);
 
-  // Keyboard shortcut: ESC to close
+  // Keyboard shortcut: ESC to close dialog or cancel reset
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        setIsOpen(false);
+      if (e.key === "Escape") {
+        if (showResetConfirm) {
+          setShowResetConfirm(false);
+        } else if (isOpen) {
+          setIsOpen(false);
+        }
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, showResetConfirm]);
 
   const handleCopyText = (id: string, text: string) => {
     const cleanText = text.replace(/<think>[\s\S]*?(<\/think>|$)/gi, "").trim();
@@ -189,21 +255,54 @@ export default function SkomdaChatWidget() {
           ? `http://${window.location.hostname}:8080/api`
           : "http://localhost:8080/api");
 
-      const response = await fetch(`${apiBase}/chatbot/message`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "text/event-stream, application/json",
-        },
-        body: JSON.stringify({
-          message: query,
-          history: historyPayload,
-          stream: true,
-        }),
-      });
+      const liveGatewayUrl =
+        process.env.NEXT_PUBLIC_NEXUS_ROUTER_URL || "https://fahlyce.vercel.app";
 
-      if (!response.ok) {
-        throw new Error(`Server status: ${response.status}`);
+      let response: Response | null = null;
+
+      // 1. Coba hubungi proxy backend lokal terlebih dahulu
+      try {
+        response = await fetch(`${apiBase}/chatbot/message`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "text/event-stream, application/json",
+          },
+          body: JSON.stringify({
+            message: query,
+            history: historyPayload,
+            stream: true,
+            model: "Emberock",
+          }),
+        });
+      } catch (localErr) {
+        console.warn("[SkomdaChatWidget] Backend lokal tidak merespons, beralih langsung ke cloud gateway:", localErr);
+      }
+
+      // 2. Jika backend lokal tidak aktif atau mengembalikan status error, hubungi langsung gateway cloud Fahlyce
+      if (!response || !response.ok) {
+        try {
+          response = await fetch(`${liveGatewayUrl.replace(/\/+$/, "")}/api/v1/skomda/chat`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Internal-Client": "skomda",
+              Accept: "text/event-stream, application/json",
+            },
+            body: JSON.stringify({
+              message: query,
+              history: historyPayload,
+              stream: true,
+              model: "Emberock",
+            }),
+          });
+        } catch (cloudErr) {
+          console.error("[SkomdaChatWidget] Cloud gateway error:", cloudErr);
+        }
+      }
+
+      if (!response || !response.ok) {
+        throw new Error(`Server status: ${response ? response.status : "unreachable"}`);
       }
 
       const contentType = response.headers.get("Content-Type") || "";
@@ -212,21 +311,24 @@ export default function SkomdaChatWidget() {
         const decoder = new TextDecoder();
         let accumulatedText = "";
         let collectedSources: ChatSource[] = [];
+        let streamBuffer = "";
 
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
 
-          const textChunk = decoder.decode(value, { stream: true });
-          const lines = textChunk.split("\n");
+          streamBuffer += decoder.decode(value, { stream: true });
+          const lines = streamBuffer.split("\n");
+          // Simpan baris terakhir yang mungkin belum selesai terkirim di dalam buffer
+          streamBuffer = lines.pop() || "";
 
           for (const line of lines) {
             const trimmed = line.trim();
-            if (trimmed.startsWith("event: metadata")) {
+            if (!trimmed || trimmed.startsWith("event: metadata")) {
               continue;
             }
             if (trimmed.startsWith("data:")) {
-              const dataStr = trimmed.replace("data:", "").trim();
+              const dataStr = trimmed.replace(/^data:\s*/, "").trim();
               if (dataStr === "[DONE]") {
                 break;
               }
@@ -255,8 +357,8 @@ export default function SkomdaChatWidget() {
                   )
                 );
 
-                // Fluid scroll tracking without animation collision
-                if (scrollContainerRef.current) {
+                // Fluid scroll tracking without fighting user manual scroll
+                if (scrollContainerRef.current && isAutoScrollActiveRef.current) {
                   scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
                 }
               } catch {
@@ -267,7 +369,7 @@ export default function SkomdaChatWidget() {
                       msg.id === botMsgId ? { ...msg, content: accumulatedText } : msg
                     )
                   );
-                  if (scrollContainerRef.current) {
+                  if (scrollContainerRef.current && isAutoScrollActiveRef.current) {
                     scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
                   }
                 }
@@ -288,7 +390,9 @@ export default function SkomdaChatWidget() {
               : msg
           )
         );
-        scrollToBottom(true);
+        if (isAutoScrollActiveRef.current) {
+          scrollToBottom(true);
+        }
       } else {
         // Fallback response JSON non-streaming
         const data = await response.json();
@@ -334,10 +438,18 @@ export default function SkomdaChatWidget() {
     }
   };
 
-  const handleResetChat = () => {
+  const handleTriggerReset = () => {
+    if (messages.length <= 1) {
+      return;
+    }
+    setShowResetConfirm(true);
+  };
+
+  const handleConfirmReset = () => {
     setMessages([INITIAL_WELCOME]);
     setErrorStatus(null);
     setInputMessage("");
+    setShowResetConfirm(false);
     try {
       localStorage.removeItem("skomda_chat_messages");
     } catch {}
@@ -394,7 +506,7 @@ export default function SkomdaChatWidget() {
             {/* Header Control Buttons */}
             <div className="flex items-center gap-1">
               <button
-                onClick={handleResetChat}
+                onClick={handleTriggerReset}
                 title="Bersihkan percakapan"
                 aria-label="Bersihkan riwayat percakapan"
                 className="flex size-8 items-center justify-center rounded-lg text-red-100 hover:bg-white/15 hover:text-white transition-colors"
@@ -412,10 +524,50 @@ export default function SkomdaChatWidget() {
             </div>
           </header>
 
+          {/* Confirmation Warning Modal before Resetting Chat */}
+          {showResetConfirm && (
+            <div
+              className="absolute inset-0 bg-slate-900/50 backdrop-blur-xs z-30 flex items-center justify-center p-4 animate-in fade-in duration-150"
+              onClick={() => setShowResetConfirm(false)}
+            >
+              <div
+                className="bg-white rounded-2xl p-5 shadow-2xl border border-slate-200/90 max-w-[310px] w-full flex flex-col items-center text-center animate-in zoom-in-95 duration-150"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex size-11 items-center justify-center rounded-xl bg-red-50 text-[#bc0c11] mb-3 border border-red-100/80 shadow-2xs">
+                  <Trash2 className="size-5" />
+                </div>
+                <h3 className="font-jakarta font-bold text-sm text-slate-900 tracking-tight">
+                  Bersihkan Percakapan?
+                </h3>
+                <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                  Seluruh riwayat obrolan dan rekomendasi yang tampil akan dihapus dan kembali ke percakapan awal.
+                </p>
+                <div className="flex items-center gap-2 w-full mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowResetConfirm(false)}
+                    className="flex-1 py-2 px-3 rounded-xl border border-slate-200/90 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors cursor-pointer"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleConfirmReset}
+                    className="flex-1 py-2 px-3 rounded-xl bg-[#bc0c11] text-white text-xs font-semibold hover:bg-[#990a0e] transition-colors shadow-xs active:scale-95 cursor-pointer"
+                  >
+                    Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Messages Scroll Area */}
           <div
             ref={scrollContainerRef}
-            className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/70 custom-scrollbar text-sm"
+            onScroll={handleScroll}
+            className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/70 custom-scrollbar text-sm relative"
           >
             {messages.map((msg) => (
               <div
@@ -434,7 +586,7 @@ export default function SkomdaChatWidget() {
                   }`}
                 >
                   <div
-                    className={`group relative rounded-2xl px-4 py-3 leading-relaxed break-words text-[13.5px] ${
+                    className={`rounded-2xl px-4 py-3 leading-relaxed break-words text-[13.5px] ${
                       msg.role === "user"
                         ? "bg-[#bc0c11] text-white rounded-br-xs shadow-xs"
                         : "bg-white text-[#101828] rounded-bl-xs border border-slate-200/80 shadow-xs"
@@ -448,15 +600,7 @@ export default function SkomdaChatWidget() {
                         <MarkdownRenderer content={msg.content} isStreaming={msg.isStreaming} />
                       </div>
                     ) : msg.isStreaming ? (
-                      <div className="flex items-center gap-2.5 py-1 px-0.5 text-slate-500 text-xs">
-                        <span className="relative flex size-2.5">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-                          <span className="relative inline-flex size-2.5 rounded-full bg-[#bc0c11]" />
-                        </span>
-                        <span className="font-medium animate-pulse text-slate-600">
-                          Menyiapkan jawaban resmi SKOMDA...
-                        </span>
-                      </div>
+                      <ThinkingState />
                     ) : null}
 
                     {/* Sources Badge List */}
@@ -481,27 +625,41 @@ export default function SkomdaChatWidget() {
                         </div>
                       </div>
                     )}
+                  </div>
 
-                    {/* Copy Button (Only for assistant messages with content) */}
+                  {/* Assistant Message Footer with Timestamp & Dedicated Copy Button (No Overlap) */}
+                  <div className="flex items-center justify-between w-full text-[11px] text-slate-400 mt-1 px-1">
+                    <div className="flex items-center gap-1.5">
+                      <span>{msg.timestamp}</span>
+                      {msg.role === "assistant" && !msg.isStreaming && (
+                        <>
+                          <span className="text-slate-300">·</span>
+                          <span className="text-[10px] text-slate-500 font-medium">SKOMDA AI</span>
+                        </>
+                      )}
+                    </div>
+
                     {msg.role === "assistant" && msg.content && !msg.isStreaming && (
                       <button
                         onClick={() => handleCopyText(msg.id, msg.content)}
                         title="Salin isi pesan"
                         aria-label="Salin teks jawaban"
-                        className="absolute bottom-2 right-2 p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 hover:text-[#bc0c11] py-0.5 px-1.5 rounded-md hover:bg-slate-200/70 active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[#bc0c11]"
                       >
                         {copiedId === msg.id ? (
-                          <Check className="size-3.5 text-emerald-600" />
+                          <>
+                            <Check className="size-3 text-emerald-600" />
+                            <span className="text-emerald-600 font-semibold">Tersalin</span>
+                          </>
                         ) : (
-                          <Copy className="size-3.5" />
+                          <>
+                            <Copy className="size-3 text-slate-400" />
+                            <span>Salin</span>
+                          </>
                         )}
                       </button>
                     )}
                   </div>
-
-                  <span className="text-[10px] text-slate-400 mt-1 px-1">
-                    {msg.timestamp}
-                  </span>
                 </div>
 
                 {msg.role === "user" && (
@@ -534,6 +692,20 @@ export default function SkomdaChatWidget() {
             )}
 
             <div ref={messagesEndRef} />
+
+            {/* Floating Jump-to-Bottom Pill when user scrolls up during typing or reading */}
+            {showScrollToBottom && (
+              <div className="sticky bottom-2 flex justify-center z-10 pointer-events-none">
+                <button
+                  type="button"
+                  onClick={() => scrollToBottom(true)}
+                  className="pointer-events-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-700 text-xs font-semibold shadow-md border border-slate-200/90 hover:bg-red-50 hover:text-[#bc0c11] hover:border-red-200 transition-all active:scale-95 cursor-pointer"
+                >
+                  <ArrowDown className="size-3.5 text-[#bc0c11]" />
+                  <span>Ke pesan terbaru</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Error Notice Bar (if any) */}
@@ -696,7 +868,7 @@ function MarkdownRenderer({ content, isStreaming }: MarkdownRendererProps) {
 
       {/* Typing Blinking Cursor */}
       {isStreaming && (
-        <span className="inline-block w-1.5 h-3.5 ml-1 bg-[#bc0c11] rounded-full animate-pulse align-middle" />
+        <span className="inline-block w-0.5 h-4 ml-1 bg-[#bc0c11] rounded-full animate-typing-cursor align-text-bottom shadow-xs" />
       )}
     </div>
   );
