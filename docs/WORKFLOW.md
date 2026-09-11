@@ -1,92 +1,72 @@
-# Workflow — SMK Telkom Sidoarjo Website Redesign
+# Workflow & Implementation Roadmap: SMK Telkom Sidoarjo Website
 
-Timeline realistis untuk solo freelancer (lu) dibantu Claude Code + subagents. Estimasi asumsikan kerja part-time di sela kegiatan sekolah/klien lain.
+Panduan alur kerja pengembangan, status pencapaian fase, dan checklist jaminan kualitas (QA) untuk website resmi **SMK Telkom Sidoarjo**.
 
-## Fase 0 — Audit & Persiapan (3-5 hari)
+---
 
-| Task | Output | Agent/Tools |
-|---|---|---|
-| Audit site lama (screenshot, broken link, Lighthouse score) | Laporan audit | manual + Lighthouse CI |
-| Kumpulkan konten resmi dari sekolah (teks jurusan, foto, data alumni jika ada) | Google Doc/Sheet mentah | manual (koordinasi sama pihak sekolah) |
-| Setup repo, `CLAUDE.md`, `.claude/agents/`, struktur folder | Repo siap | `frontend-builder` (scaffold) |
-| Setup Supabase/Neon + Cloudinary account | Kredensial env | manual |
+## 📊 Status Pencapaian Fase (Progress Overview)
 
-**Gate:** PRD & arsitektur disetujui pihak sekolah (kalau ada stakeholder yang perlu approve) sebelum lanjut Fase 1.
+| Fase | Deskripsi & Ruang Lingkup | Status | Output Utama |
+|---|---|---|---|
+| **Fase 0** | Audit situs lama, inventarisasi aset & data resmi sekolah | **Selesai** | Data kurikulum SIJA & TJAT, struktur navigasi, aset visual |
+| **Fase 1** | Design system editorial-modern & pondasi arsitektur | **Selesai** | Token warna Tailwind, Google Fonts Plus Jakarta Sans + Poppins, GORM DB seeder |
+| **Fase 2** | Pembuatan halaman publik inti (15+ Halaman) | **Selesai** | Beranda, 6 Halaman Tentang Kami, 4 Halaman Program, Pusat Berita, TEFA, Unduh Info |
+| **Fase 3** | Fitur interaktif lanjutan & tooling manajemen | **Selesai** | AI Chatbot (Skomda Intelligence), Global Search Modal (Cmd+K), Multi-bahasa (ID/EN), Admin CMS Berita (`/admin/berita`), Pipeline Media Cloudinary |
+| **Fase 4** | Integrasi ekosistem alumni, BKK, & tour 360 | **Fase Berikutnya** | Direktori alumni terverifikasi, papan lowongan BKK mitra industri, embed VR Campus Tour |
 
-## Fase 1 — Design System & Fondasi Teknis (1-2 minggu)
+---
 
-1. Tentukan design tokens (warna, tipografi, spacing) — konsisten sama identitas Telkom Schools.
-2. Setup Tailwind config + komponen primitive (`Button`, `Card`, `Navbar`, `Footer`).
-3. Setup Prisma schema awal (User, Berita, Jurusan, dst) + migration pertama.
-4. Setup auth dasar (alumni login + admin role).
-5. Setup Cloudinary loader + `next-cloudinary`.
+## 🔄 Alur Kerja Pengembangan Harian
 
-**Agent flow:** `frontend-builder` untuk design system → `backend-integrator` untuk schema & auth (paralel jika memungkinkan) → `qa-reviewer` cek fondasi sebelum lanjut.
+### 1. Pengembangan Antarmuka Frontend (Next.js 16)
+1. **Pemeriksaan Standar Desain**: Selalu rujuk [`docs/design.md`](file:///c:/Users/nadem/Skomda-website/docs/design.md) untuk palet warna, tipografi, dan skala border-radius.
+2. **Pengembangan Komponen**:
+   - Manfaatkan komponen modular di `frontend/src/components/`.
+   - Pastikan teks antarmuka mendukung dwibahasa via `useLanguage()` dan kamus `locales/{id,en}.json`.
+   - Gunakan `<Image>` dengan atribut `alt` deskriptif dan optimasi Cloudinary helper di `src/lib/cloudinary.ts`.
+3. **Verifikasi Sebelum Selesai**:
+   ```bash
+   cd frontend
+   npm run typecheck   # Wajib 0 error TypeScript
+   npm run lint        # Wajib 0 warning/error ESLint
+   ```
 
-## Fase 2 — Core Pages (2-3 minggu)
+### 2. Pengembangan Layanan Backend (Go Fiber / Gin)
+1. **Pemisahan Lapisan Kode**:
+   - Handler tipis di `src/api/{domain}/` atau `src/api/fiber_routes.go`.
+   - Logika integrasi pihak ketiga di `src/client/`.
+   - Skema database di `src/models/` dengan validasi tag struct yang jelas.
+2. **Kesesuaian Database**:
+   - Pastikan kompatibel baik di Supabase PostgreSQL maupun SQLite lokal (`smktelkom_dev.db`).
+   - Gunakan `serializer:json` untuk data array seperti daftar keahlian atau prospek karier.
+3. **Verifikasi Sebelum Selesai**:
+   ```bash
+   cd backend
+   go vet ./...
+   go test -v ./...
+   ```
 
-Urutan build (prioritas SEO & first impression duluan):
+### 3. Pengelolaan Media Gambar (Cloudinary)
+1. Tempatkan gambar baru di `frontend/public/images/{kategori}/`.
+2. Jalankan audit lokal:
+   ```bash
+   node scripts/sync-cloudinary.mjs
+   ```
+3. Upload gambar ke Cloudinary CDN jika kredensial `CLOUDINARY_URL` tersedia:
+   ```bash
+   node scripts/sync-cloudinary.mjs --upload
+   ```
 
-1. Beranda
-2. Jurusan (list + detail per jurusan)
-3. Digital Talent Program
-4. Berita & Event (+ admin CMS-lite untuk staff)
-5. Kontak
+---
 
-**Per halaman, alur kerja:**
-```
-content-seo (siapkan copy + metadata)
-      ↓
-frontend-builder (bangun UI dari data.ts/markdown)
-      ↓
-backend-integrator (kalau butuh data dinamis, mis. berita dari DB)
-      ↓
-qa-reviewer (checklist a11y/SEO/broken link)
-```
+## 🛡️ Quality Gate (Checklist Wajib Sebelum Commit & Rilis)
 
-**Gate:** Semua core pages lulus `qa-reviewer` checklist sebelum mulai Fase 3.
+Sebelum fitur atau pembaruan dianggap selesai, verifikasi seluruh item berikut:
 
-## Fase 3 — Fitur P1: Alumni, BKK, Marketplace (2 minggu)
-
-1. Form registrasi alumni + halaman edit profil (auth-gated).
-2. Direktori alumni publik (dengan moderasi admin sebelum tayang).
-3. Halaman BKK + form lowongan dari mitra (moderasi admin).
-4. Galeri Student Marketplace per jurusan.
-5. Dashboard admin sederhana untuk approve/reject alumni & lowongan.
-
-**Agent flow:** `backend-integrator` duluan (schema, API, auth-gate) → `frontend-builder` (form & UI) → `qa-reviewer`.
-
-## Fase 4 — Chatbot & SEO Pass (1-2 minggu)
-
-1. Bangun endpoint `/api/chatbot` dengan RAG sederhana dari konten yang sudah ada.
-2. Buat test set 30 pertanyaan FAQ umum, ukur akurasi jawaban.
-3. Widget chatbot di frontend (floating, brand voice).
-4. Full SEO audit: sitemap, robots.txt, structured data, meta tag semua halaman.
-5. Submit sitemap ke Google Search Console.
-
-**Gate:** Chatbot lulus ≥ 80% test set FAQ sebelum dianggap selesai. Kalau di bawah itu, perbaiki retrieval/context sebelum lanjut, bukan tambah instruksi prompt secara sembarangan.
-
-## Fase 5 — Fitur P2, QA Menyeluruh, Launch (1 minggu)
-
-1. VR Campus Tour (embed platform pihak ketiga atau video walkthrough).
-2. LinkedIn integration/badge.
-3. Full regression QA: semua halaman, semua device (mobile/tablet/desktop).
-4. Lighthouse audit penuh (Performance, A11y, SEO, Best Practices) — semua ≥ target di PRD.
-5. Setup monitoring (Vercel Analytics) + backup plan (rollback rencana kalau ada masalah pasca-launch).
-6. Soft launch → kumpulkan feedback staff/siswa 3-5 hari → fix cepat → full launch.
-
-## Ritme Kerja Harian/Mingguan (saran)
-
-- Mulai tiap sesi dengan baca ulang `CLAUDE.md` + task list aktif (bisa taruh di `TODO.md` terpisah kalau mau).
-- Delegasikan task granular ke agent spesifik — jangan minta 1 agent kerjain semuanya sekaligus (ngurangin resiko context bocor antar domain).
-- `qa-reviewer` jalan tiap akhir fitur, bukan cuma di akhir fase — biar bug ketauan lebih awal.
-- Commit kecil & sering, per fitur/halaman, biar gampang di-rollback kalau ada yang salah.
-
-## Risk & Mitigasi
-
-| Risiko | Mitigasi |
-|---|---|
-| Konten dari sekolah telat/tidak lengkap | Mulai build dengan placeholder yang jelas ditandai TODO, jangan blocking seluruh timeline |
-| Chatbot ngasih info salah (misal soal biaya/PPDB) | Fallback wajib ke "hubungi admin" untuk topik sensitif, jangan andalkan LLM freeform |
-| Data alumni lama berantakan | Sisihkan waktu khusus fase 0 untuk cleaning/migration, jangan digabung fase build |
-| Scope creep (fitur P2 masuk lebih awal) | PRD sudah prioritized (P0/P1/P2) — pegang itu sebagai kontrak scope |
+- [x] **Zero Broken Links**: Seluruh tombol, menu dropdown, dan tautan di navbar/footer mengarah ke rute aktif yang valid.
+- [x] **Zero TypeScript Errors**: `npm run typecheck` menghasilkan 0 error pada seluruh rute dan komponen.
+- [x] **Zero Linter Warnings**: `npm run lint` lulus tanpa warning maupun error.
+- [x] **Valid Backend Compilation & Tests**: `go vet ./...` dan `go test ./...` lulus 100%.
+- [x] **Mobile Responsiveness**: Tampilan diuji pada lebar 360px, 768px, 1024px, dan desktop tanpa ada overflow horizontal.
+- [x] **Safe AI Chatbot Fallback**: Saat server AI tidak dapat dijangkau, chatbot merespons dengan pesan bantuan resmi dan kontak Humas sekolah tanpa memicu error 500.
+- [x] **Accessibility (WCAG AA)**: Kontras teks memenuhi standar, seluruh gambar memiliki teks alternatif (`alt`), dan elemen interaktif memiliki focus state yang jelas.

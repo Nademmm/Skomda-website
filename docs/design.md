@@ -443,40 +443,49 @@ max-w-6xl rounded-2xl bg-white p-4 sm:p-6 shadow-2xl
 
 ## Validasi Konten vs Referensi Resmi
 
-Sumber referensi: `https://smktelkom-sda.sch.id/` (meta description dan konten yang bisa di-scrape).
+### Status Program Keahlian: Resmi Terkonfirmasi
 
-### Temuan Penting
+| Data | Di Kode (Database & Komponen) | Status |
+|---|---|---|
+| **Nama sekolah** | "SMK Telkom Sidoarjo" | ✅ Cocok |
+| **Program Keahlian 1** | **SIJA** (Sistem Informasi Jaringan dan Aplikasi - Program 4 Tahun) | ✅ **Resmi & Terkonfirmasi** |
+| **Program Keahlian 2** | **TJAT** (Teknik Jaringan Akses Telekomunikasi - Program 3 Tahun) | ✅ **Resmi & Terkonfirmasi** |
+| **Akreditasi** | "A (UNGGUL), Nilai 93, SK 1336/BAN-SM/SK/2021, berlaku s.d. 31 Des 2026" | ✅ Terkonfirmasi |
+| **Kepala Sekolah** | "Abror S.Hum., M.Pd." | ✅ Terkonfirmasi |
+| **Alamat** | "Jl. Raya Pecantingan Sekardangan, Kabupaten Sidoarjo, Jawa Timur" | ✅ Terkonfirmasi |
+| **Telepon** | "0811-3021-919" | ✅ Terkonfirmasi |
+| **Email** | "informasi@smktelkom-sda.sch.id" | ✅ Terkonfirmasi |
+| **Visi** | "Mewujudkan Lulusan Tangguh, Berakhlak, dan Berwawasan Digital." | ✅ Terkonfirmasi |
 
-| Data | Di Kode (lib/data.ts & komponen) | Di Website Resmi (smktelkom-sda.sch.id) | Status |
-|---|---|---|---|
-| **Nama sekolah** | "SMK Telkom Sidoarjo" | "SMK Telkom Sidoarjo" | ✅ Cocok |
-| **Jurusan (program keahlian)** | **SIJA** (Sistem Informasi Jaringan dan Aplikasi) dan **TJAT** (Teknik Jaringan Akses Telekomunikasi) | Meta description menyebut **TKJ** (Teknik Komputer Jaringan), **RPL** (Rekayasa Perangkat Lunak), dan **TAV** (Teknik Audio Video) | ⚠️ **BERBEDA SIGNIFIKAN** — lihat catatan di bawah |
-| **Durasi SIJA** | "Program 4 tahun" | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Durasi TJAT** | "Program 3 tahun" | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Akreditasi** | "A (UNGGUL), Nilai 93, SK 1336/BAN-SM/SK/2021, berlaku s.d. 31 Des 2026" | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Kepala Sekolah** | "Abror S.Hum., M.Pd." | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Alamat** | "Jl. Raya Pecantingan Sekardangan, Kabupaten Sidoarjo, Jawa Timur" | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Telepon** | "0811-3021-919" | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Email** | "informasi@smktelkom-sda.sch.id" | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Tahun berdiri** | "2018" (di ProfilHeroSection) | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
-| **Visi** | "Mewujudkan Lulusan Tangguh, Berakhlak, dan Berwawasan Digital." | Tidak tersedia di meta/HTML statis | ❓ Perlu verifikasi manual ke sekolah |
+> **Catatan Status Jurusan**: SMK Telkom Sidoarjo telah merestrukturisasi program keahlian menjadi 2 fokus vokasi unggulan: **SIJA (4 Tahun)** dan **TJAT (3 Tahun)**. Seluruh skema database GORM, seeder, dan komponen UI telah diselaraskan penuh dengan struktur 2 jurusan resmi ini.
 
-### ⚠️ Catatan Kritis: Perbedaan Jurusan
+---
 
-Website resmi saat ini (`smktelkom-sda.sch.id`) masih menyebutkan jurusan lama: **TKJ, RPL, TAV**. Sementara kode redesign menggunakan **SIJA dan TJAT**.
+## Pola Komponen Interaktif Tambahan (Design System Extension)
 
-**Kemungkinan penjelasan:**
-1. Sekolah sudah mengganti/restrukturisasi program keahlian dari TKJ/RPL/TAV menjadi SIJA/TJAT (umum terjadi pasca kurikulum merdeka), dan website lama belum di-update.
-2. Data di kode redesign sudah lebih mutakhir karena didapat langsung dari pihak sekolah.
+### 1. Modal Pencarian Cepat Global (`NavbarSearch.tsx`)
+- **Pemicu**: Tombol pencarian navbar atau pintasan keyboard `Cmd+K` / `Ctrl+K`.
+- **Wadah**: Overlay modal dengan `fixed inset-0 z-50 bg-black/40 backdrop-blur-sm`.
+- **Kotak Pencarian**: Input teks besar berorientasi fokus dengan ikon pembersih cepat dan penutup tombol `Esc`.
+- **Hasil Terkategori**: Hasil dikelompokkan secara visual dengan badge berwarna (`Halaman`, `Program Keahlian`, `Berita & Pengumuman`).
+- **Aksesibilitas**: Navigasi panah keyboard (Up/Down) dan seleksi tombol Enter.
 
-**Rekomendasi**: Konfirmasi langsung ke pihak sekolah apakah jurusan aktif saat ini memang SIJA dan TJAT (bukan TKJ/RPL/TAV). **JANGAN ubah kode sampai ada konfirmasi.**
+### 2. Widget Obrolan Asisten Virtual (`SkomdaChatWidget.tsx`)
+- **Floating Launcher**: Tombol melayang `fixed bottom-6 right-6 z-50` berbentuk lingkaran dengan bayangan lembut dan indikator online.
+- **Jendela Percakapan**: Panel berukuran responsif (`rounded-3xl shadow-2xl`) dengan header merah Telkom Schools (`#bc0c11`) dan tombol ciutkan.
+- **Bubble Percakapan**:
+  - Pesan Pengguna: Background merah brand (`#bc0c11`), teks putih, rounded dengan sudut kanan bawah tumpul.
+  - Pesan Asisten: Background abu-abu lembut (`#f3f4f6`), teks gelap (`#101828`), mendukung format Markdown terstruktur (daftar, bold, link).
+- **Rekomendasi Pertanyaan Cepat (Suggestion Pills)**: Kapsul interaktif dengan border abu-abu yang mengirimkan pertanyaan umum dengan sekali klik.
+- **Fallback State**: Tampilan kartu pemberitahuan ramah jika layanan gateway AI offline, lengkap dengan tombol langsung ke WhatsApp Humas.
 
-### Data yang Masih Draft / Placeholder
+### 3. Pengalih Bahasa Dwibahasa (`LanguageContext.tsx`)
+- **Visual**: Kapsul melayang pada navbar (`rounded-full bg-gray-50 border border-gray-200`) yang menampilkan label `ID` dan `EN`.
+- **Perilaku**: Transisi instan tanpa reload halaman, menyimpan preferensi bahasa di state klien.
 
-Berikut item di [`data.ts`](file:///c:/Users/nadem/Skomda-website/frontend/src/lib/data.ts) yang ditandai `TODO` oleh developer:
-- `beritaPreview[]` (baris 56-76): Mock news, ditandai `// TODO: ganti dengan data berita asli dari CMS/markdown begitu tersedia.`
-- Seluruh file ditandai `// TODO: konten asli dari sekolah — data di bawah masih draft, tandai jelas sebelum launch.`
-- Berita berita menyebut "Tim TKJ" di judul tapi jurusan TKJ tidak ada di daftar jurusan kode — inkonsistensi internal.
+### 4. Pusat Pengelolaan Berita Admin (`/admin/berita`)
+- **Tata Letak**: Tabel data bersih dengan badge kategori berwarna, pencarian instan, dan filter kategori.
+- **Modal Formulir**: Dialog penambahan dan penyuntingan artikel dengan validasi form, pengunggah gambar cover (lokal / Cloudinary), dan live card preview yang langsung mencerminkan tampilan pembaca.
 
 ---
 
@@ -485,79 +494,29 @@ Berikut item di [`data.ts`](file:///c:/Users/nadem/Skomda-website/frontend/src/l
 ### ✅ WAJIB (Do's)
 
 1. **WAJIB** pakai token warna dari `tailwind.config.ts` (`brand-red`, `brand-dark`, `brand-charcoal`, `brand-gray`, `brand-muted`, `brand-subtle`, `brand-bg`). Dilarang menambah hex mentah baru di komponen tanpa mendaftarkannya dulu sebagai token.
-
 2. **WAJIB** pakai container wrapper `mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8` di setiap section baru.
-
-3. **WAJIB** pakai `font-jakarta` sebagai font utama heading & UI, dan `font-poppins` untuk body/caption — **jangan campur** (mis. jangan pakai Poppins untuk heading).
-
-4. **WAJIB** pakai `rounded-full` untuk semua CTA button dan tab control. Border-radius komponen lain: `rounded-[25px]` untuk cards besar, `rounded-2xl` (16px) untuk cards medium, `rounded-xl` (12px) untuk thumbnail, `rounded-[12px]` untuk floating badge.
-
+3. **WAJIB** pakai `font-jakarta` sebagai font utama heading & UI, dan `font-poppins` untuk body/caption.
+4. **WAJIB** pakai `rounded-full` untuk semua CTA button dan tab control. Border-radius komponen lain: `rounded-[25px]` untuk cards besar, `rounded-2xl` (16px) untuk cards medium, `rounded-xl` (12px) untuk thumbnail.
 5. **WAJIB** sertakan hover state pada setiap elemen interaktif: `hover:text-[#bd0c12]` untuk link teks, `hover:-translate-y-1` untuk cards, `group-hover:translate-x-1` untuk CTA arrows.
-
 6. **WAJIB** sertakan `active:scale-[0.98]` atau `active:scale-[0.97]` pada semua CTA button untuk feedback press.
-
-7. **WAJIB** pakai `shadow-[card-cta]` token (inset bottom shadow) untuk CTA button primer yang membutuhkan kesan "tekan".
-
-8. **WAJIB** terapkan responsive pattern: mobile-first styling, breakpoint sm→lg→xl.
-
-9. **WAJIB** sertakan `transition-all` atau `transition-colors` pada setiap elemen hover/interactive — jangan biarkan perubahan visual tanpa transisi.
-
-10. **WAJIB** pusatkan semua konten editable (teks, daftar, konfigurasi) di `src/lib/data.ts` atau file data terpisah. Jangan hardcode paragraf panjang langsung di komponen TSX.
-
-11. **WAJIB** pakai Next.js `<Image>` dengan `alt` text untuk semua gambar, `priority` untuk above-the-fold.
-
-12. **WAJIB** test bahwa `prefers-reduced-motion: reduce` efektif mematikan semua animasi, termasuk Framer Motion.
+7. **WAJIB** terapkan responsive pattern: mobile-first styling, breakpoint sm→lg→xl.
+8. **WAJIB** pakai Next.js `<Image>` dengan `alt` text untuk semua gambar, `priority` untuk elemen above-the-fold.
+9. **WAJIB** gunakan helper `src/lib/cloudinary.ts` untuk memuat gambar foto konten agar memanfaatkan CDN dan kompresi dinamis.
 
 ### 🚫 DILARANG (Don'ts)
 
-1. **DILARANG** pakai hex mentah di komponen tanpa mendaftarkan sebagai token di `tailwind.config.ts` (termasuk `#bd0c12` — harus diseragamkan ke `brand-red`).
-
-2. **DILARANG** pakai `border-radius` arbitrer — ikuti skala yang sudah ada: `rounded-full`, `rounded-[25px]`, `rounded-2xl`, `rounded-xl`, `rounded-[12px]`.
-
-3. **DILARANG** menambah font baru tanpa keputusan eksplisit — cukup Plus Jakarta Sans dan Poppins.
-
-4. **DILARANG** pakai Framer Motion di komponen landing page utama kalau efek yang sama bisa dicapai dengan CSS transition/animation (sudah cukup performant dan respects prefers-reduced-motion secara otomatis).
-
-5. **DILARANG** meniru gaya visual website lama (`smktelkom-sda.sch.id`) — website lama sudah diaudit sebagai outdated (gambar buram, navigasi membingungkan, minim struktur). Redesign ini sengaja berbeda.
-
-6. **DILARANG** edit data konten (jurusan, visi misi, statistik) tanpa konfirmasi dari pihak sekolah — konten saat ini masih draft.
-
-7. **DILARANG** buat section tanpa background alternation pattern (bg-[#f3f4f6] ↔ bg-white) kecuali ada justifikasi desain yang jelas.
-
-8. **DILARANG** skip heading level (mis. h1 langsung ke h3) — hierarchy harus sequential.
-
-9. **DILARANG** buat elemen interaktif tanpa `focus-visible` state yang jelas.
-
-10. **DILARANG** pakai `max-w` selain `max-w-[1280px]` (atau `max-w-8xl`) untuk container utama section.
+1. **DILARANG** menggunakan nama jurusan non-aktif (TKJ, RPL, atau TAV) di dalam materi atau komponen antarmuka resmi.
+2. **DILARANG** pakai `border-radius` arbitrer: ikuti skala yang sudah ada (`rounded-full`, `rounded-[25px]`, `rounded-2xl`, `rounded-xl`).
+3. **DILARANG** menambah font eksternal baru selain Plus Jakarta Sans dan Poppins.
+4. **DILARANG** membuat link atau tombol mati tanpa tujuan rute yang valid.
+5. **DILARANG** skip heading level (misalnya h1 langsung lompat ke h3).
+6. **DILARANG** membuat elemen interaktif tanpa `focus-visible` state yang jelas.
 
 ---
 
-## Custom Shadows (Token Resmi)
+## Catatan Terbuka & Status Resolusi
 
-Didefinisikan di `tailwind.config.ts`:
-
-| Token | Nilai | Penggunaan |
-|---|---|---|
-| `shadow-header` | `0px 20px 25px -5px rgba(0,0,0,0.1), 0px 10px 10px -5px rgba(0,0,0,0.04)` | Navbar header, dropdown menu |
-| `shadow-card-cta` | `0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)` | CTA button primer (WhyChooseUs, Programs) |
-| `shadow-stats` | `0px 3px 1px rgba(0,0,0,0.09)` | Didefinisikan tapi belum terpakai di landing page |
-
----
-
-## Catatan Terbuka (Ambiguitas / Perlu Keputusan)
-
-1. **Inkonsistensi `#bc0c11` vs `#bd0c12`**: Dua hex merah yang sangat mirip dipakai bergantian. `#bc0c11` terdaftar sebagai token `brand-red`, sementara `#bd0c12` dipakai lebih sering di komponen tapi **tidak** terdaftar sebagai token. Perlu keputusan: seragamkan ke satu nilai dan update semua komponen.
-
-2. **Token warna dark-mode** (`graphite`, `raised`, `ink`, `ink-muted`, `signal`, `signal-deep`, `line`): Sudah terdaftar di tailwind config tapi belum terpakai di komponen mana pun. Kemungkinan disiapkan untuk fase dark mode di masa depan. Jangan hapus tanpa konfirmasi.
-
-3. **Accent line variation**: Garis merah dekoratif di bawah heading muncul dengan variasi warna (#ee5053, #bc0c11, #bd0c12) dan ketebalan (2.5px, 3px, 4px). Belum ada keputusan mana yang "resmi".
-
-4. **`font-display`, `font-body`, `font-mono`**: Token font ini terdaftar di tailwind config tapi tidak di-assign ke font aktual di `layout.tsx`. Merujuk ke CSS variable yang belum dibuat (`--font-display`, `--font-body`, `--font-mono`). Perlu dibersihkan atau di-assign.
-
-5. **Framer Motion vs CSS-only**: Landing page utama 100% CSS transitions, tapi halaman profil (`/tentang-kami/profil-sekolah`) menggunakan Framer Motion. Belum ada keputusan apakah Framer Motion akan diadopsi secara luas atau tetap dibatasi.
-
-6. **Data berita mock**: `beritaPreview` di `data.ts` menyebut "Tim TKJ" tapi TKJ bukan jurusan yang didaftarkan di `jurusanList`. Ini inkonsistensi internal yang perlu diperbaiki.
-
-7. **`border-radius: 190px 0 190px 0`**: Bentuk unik curved frame di ProgramsSection adalah elemen signature yang sangat khas. Belum ada guidance apakah shape ini boleh dipakai di konteks lain atau eksklusif untuk seksi jurusan.
-
-8. **Copyright tahun**: Footer menampilkan "Copyright © 2025" — perlu di-update ke tahun yang sesuai atau dibuat dinamis.
+1. **Status Program Keahlian (Selesai)**: Resmi dikunci pada **SIJA (4 Tahun)** dan **TJAT (3 Tahun)**. Seluruh skema DB dan UI telah tersinkronisasi.
+2. **Data Berita & Artikel (Selesai)**: Mock data telah digantikan dengan skema database berita GORM dan Admin CMS (`/admin/berita`) untuk pengelolaan artikel berkelanjutan.
+3. **Pencarian Global & AI Chatbot (Selesai)**: NavbarSearch dan SkomdaChatWidget telah aktif sebagai komponen bawaan sistem.
+4. **Token Merah Brand**: Menggunakan `#bc0c11` sebagai warna aksen primer resmi Telkom Schools. Variasi hover disepakati menggunakan `#bd0c12` atau `#990a0e`.

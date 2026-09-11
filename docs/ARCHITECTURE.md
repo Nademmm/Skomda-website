@@ -1,207 +1,197 @@
-# Architecture Overview
-This document serves as a critical, living template designed to equip agents with a rapid and comprehensive understanding of the codebase's architecture, enabling efficient navigation and effective contribution from day one. Update this document as the codebase evolves.
+# Architecture Overview: SMK Telkom Sidoarjo Website
 
-## 1. Project Structure
+Dokumen arsitektur ini menyajikan gambaran komprehensif mengenai struktur teknis, alur data, integrasi eksternal, dan standar rekayasa sistem website resmi **SMK Telkom Sidoarjo**.
+
+---
+
+## 1. Struktur Proyek (Project Structure)
 
 ```
-smktelkom-web/
-├── backend/                      # Server-side Go/Gin API
+Skomda-website/
+├── backend/                      # Service API Backend Go (High-Performance Dual Engine)
 │   ├── src/
-│   │   ├── api/                  # Route handlers (chatbot, alumni, lowongan, berita, jurusan, admin)
-│   │   │   ├── chatbot/
-│   │   │   ├── alumni/
-│   │   │   ├── lowongan/
-│   │   │   ├── berita/
-│   │   │   ├── jurusan/
-│   │   │   └── admin/
-│   │   ├── client/               # Business logic & service layer
-│   │   │   ├── llm/               # LLM proxy + RAG context builder (chatbot)
-│   │   │   ├── cloudinary/        # Signed upload, transformation helpers
-│   │   │   └── auth/              # JWT issuing/verification, role checks
-│   │   ├── models/                # DB models (User, Alumni, Lowongan, Berita, Jurusan, MarketplaceItem, ChatbotLog)
-│   │   └── utils/                 # Validation, rate limiting, logging helpers
-│   ├── config/                    # Env config loader, per-environment settings
-│   ├── tests/                     # Go unit & integration tests
-│   └── Dockerfile
-├── frontend/                     # Next.js 15 (App Router) client app
+│   │   ├── api/                  # Route handlers & controller layer
+│   │   │   ├── chatbot/          # AI Chatbot proxy ke NexusRouter (Gin)
+│   │   │   ├── health/           # Health check endpoint (Gin)
+│   │   │   ├── jurusan/          # REST API program keahlian SIJA & TJAT (Gin)
+│   │   │   ├── news/             # REST API CRUD berita & artikel sekolah (Gin)
+│   │   │   └── fiber_routes.go   # Router & handler komprehensif untuk engine Fiber v2
+│   │   ├── client/               # Service layer integrasi eksternal
+│   │   │   └── cloudinary/       # Client Cloudinary: signature generator & direct upload
+│   │   ├── cmd/                  # Application entrypoints
+│   │   │   ├── fiber/            # Dedicated runner untuk Go Fiber v2
+│   │   │   └── server/           # Unified runner (mendukung switch Fiber & Gin via SERVER_ENGINE)
+│   │   ├── config/               # Konfigurasi sistem & database
+│   │   │   ├── config.go         # Environment loader (godotenv) & parameter runtime
+│   │   │   └── db.go             # Inisialisasi GORM, koneksi Postgres/SQLite, & auto-seeder
+│   │   └── models/               # Definisi skema database GORM
+│   │       ├── jurusan.go        # Model program keahlian (SIJA & TJAT)
+│   │       └── news.go           # Model berita, kategori, & metadata tanggal
+│   ├── smktelkom_dev.db          # Database SQLite lokal otomatis untuk local development
+│   ├── Dockerfile                # Konfigurasi container backend
+│   ├── go.mod                    # Dependensi Go
+│   └── go.sum
+├── frontend/                     # Aplikasi Client Web Next.js 16 (App Router)
+│   ├── public/                   # Aset statis, ikon, dan gambar lokal
+│   │   ├── figma/                # Aset ilustrasi & elemen desain
+│   │   └── images/               # Direktori gambar terstruktur
 │   ├── src/
-│   │   ├── app/
-│   │   │   ├── (marketing)/       # Beranda, Jurusan, DTP, Berita, VR Tour, Kontak
-│   │   │   ├── alumni/            # Direktori, form daftar, edit profil
-│   │   │   ├── bkk/
-│   │   │   ├── marketplace/
-│   │   │   └── admin/             # Dashboard staff (protected)
-│   │   ├── components/
-│   │   │   ├── ui/                # Primitives (button, card, dsb)
-│   │   │   ├── layout/             # Navbar, footer
-│   │   │   ├── chatbot/            # Widget chatbot (calls backend API)
-│   │   │   └── sections/
-│   │   ├── services/               # Frontend API clients (fetch wrapper ke backend Go)
-│   │   ├── lib/
-│   │   │   ├── data.ts             # Konten editable terstruktur
-│   │   │   ├── cloudinary.ts       # Client-side loader/transform URL builder
-│   │   │   └── seo.ts              # Metadata helper per halaman
-│   │   └── content/                # Markdown untuk jurusan, berita (fallback/cache lokal)
-│   ├── public/
-│   ├── tests/
-│   └── package.json
-├── common/                       # Shared types & utils lintas frontend/backend
-│   ├── types/                     # Kontrak TypeScript (dijaga sinkron manual dgn Go structs, atau digenerate)
-│   └── utils/
-├── docs/                          # PRD, arsitektur, workflow, agents (dokumen ini + 01/03/04)
-├── scripts/                       # Deployment, seed data, migration helper scripts
-├── .github/                       # CI/CD (lint, test, build, deploy)
-├── .claude/
-│   └── agents/                    # Subagent definitions (lihat 03-AGENTS.md)
-├── .gitignore
-├── README.md
-└── ARCHITECTURE.md                # Dokumen ini
+│   │   ├── app/                  # Rute halaman Next.js App Router
+│   │   │   ├── admin/            # CMS internal (/admin/berita)
+│   │   │   ├── berita/[slug]/    # Halaman detail artikel dinamis
+│   │   │   ├── informasi/        # Sub-rute: berita, pengumuman-kelulusan, penerapan-k3
+│   │   │   ├── program/          # Sub-rute: profil-jurusan, ekstrakurikuler, digital-talent, ts21
+│   │   │   ├── tefa/             # Halaman Teaching Factory
+│   │   │   ├── tentang-kami/     # Sub-rute: profil-sekolah, hub-industri, prestasi, fasilitas, guru, akomodasi
+│   │   │   ├── unduh-informasi/  # Halaman unduh dokumen resmi & brosur PPDB
+│   │   │   ├── globals.css       # Tailwind directives & style global
+│   │   │   ├── layout.tsx        # Root layout (Google Fonts, LanguageProvider, SkomdaChatWidget)
+│   │   │   └── page.tsx          # Halaman Beranda utama
+│   │   ├── components/           # Komponen UI modular
+│   │   │   ├── chatbot/          # SkomdaChatWidget.tsx (Widget obrolan AI)
+│   │   │   ├── layout/           # Navbar.tsx, Footer.tsx, NavbarSearch.tsx
+│   │   │   ├── news/             # ShareArticleWidget.tsx & komponen pendukung berita
+│   │   │   └── sections/         # Seksi tampilan modular per halaman
+│   │   ├── context/              # State management global (LanguageContext.tsx)
+│   │   ├── data/                 # Data statis terstruktur (teachers.ts)
+│   │   ├── lib/                  # Helper utilitas (cloudinary.ts, cloudinary-manifest.json)
+│   │   ├── locales/              # Kamus multi-bahasa (id.json, en.json)
+│   │   └── services/             # Client fetch API ke backend Go (news.ts)
+│   ├── package.json
+│   ├── tailwind.config.ts        # Design tokens: warna, font, bayangan, container
+│   └── tsconfig.json
+├── docs/                         # Dokumentasi teknis & arsitektur proyek
+│   ├── AGENTS.md
+│   ├── ARCHITECTURE.md           # Dokumen ini
+│   ├── PRD.md
+│   ├── WORKFLOW.md
+│   └── design.md
+├── scripts/
+│   └── sync-cloudinary.mjs       # Script utilitas audit dan sinkronisasi media Cloudinary
+└── README.md
 ```
 
-## 2. High-Level System Diagram
+---
+
+## 2. Diagram Alur Sistem (High-Level System Diagram)
 
 ```
-[User (siswa/ortu/alumni/staff)]
-        │
-        ▼
-[Frontend: Next.js App (Vercel)]
-        │  REST/JSON (HTTPS)
-        ▼
-[Backend: Go/Gin API] ──────────────▶ [Postgres: data alumni, lowongan, berita, jurusan]
-        │            │
-        │            └────────────▶ [Cloudinary: media/gambar]
-        │
-        └──────────────────────────▶ [LLM API (Anthropic/OpenAI) — proxy chatbot, RAG context dari Postgres/markdown]
-
-Admin/staff akses [Frontend admin routes] → auth role check → [Backend Go API, endpoint /admin/*]
+[ Pengunjung Web / Siswa / Orang Tua / Staff ]
+                     │
+                     ▼
+       [ Frontend: Next.js 16 (App Router) ]
+         │ (Port 3000 / 3001)
+         │
+         ├── REST API (Fetch / CORS)
+         │   ▼
+         │ [ Backend: Go API (Fiber v2 / Gin) ] (Port 8080)
+         │   │
+         │   ├── GORM ORM ──▶ [ PostgreSQL (Supabase / Neon) ]
+         │   │                └─▶ (Fallback: Pure-Go SQLite: smktelkom_dev.db)
+         │   │
+         │   ├── Signature / Upload ──▶ [ Cloudinary Media CDN ]
+         │   │
+         │   └── AI Proxy ──▶ [ NexusRouter AI Gateway (fahlyce.vercel.app) ]
+         │                     └─▶ (Fallback Otomatis: Kontak Humas & Info PPDB)
+         │
+         └── Media Delivery ──▶ [ Cloudinary CDN (f_auto, q_auto, g_face) ]
+                                [ Vektor / Ikon Lokal (public/) ]
 ```
 
-Alur singkat: Frontend Next.js murni presentational + client-side interaction, semua logic bisnis & akses data lewat Backend Go/Gin. Backend jadi satu-satunya pintu ke Postgres, Cloudinary (signed upload), dan LLM API — frontend tidak pernah pegang secret apa pun.
+### Prinsip Alur Data:
+1. **Pemisahan Peran**: Frontend Next.js menangani antarmuka pengguna, rendering server (SSR/SSG), multi-bahasa, dan interaktivitas klien. Seluruh manipulasi data persisten dan komunikasi pihak ketiga dilakukan melalui Backend Go.
+2. **Keamanan Kredensial**: Kunci API Cloudinary Secret, JWT Secret, dan URL database hanya berada di backend `.env` dan tidak pernah diekspos ke bundel browser.
+3. **Ketahanan Layanan (Resilience)**: Apabila database cloud PostgreSQL tidak tersedia, backend secara transparan beralih ke SQLite lokal. Begitu pula jika gateway AI eksternal mengalami kendala, chatbot memberikan jawaban ramah pengguna berisi kontak resmi sekolah tanpa menimbulkan error sistem.
 
-## 3. Core Components
+---
 
-### 3.1. Frontend
+## 3. Komponen Inti (Core Components)
 
-**Name:** SMK Telkom Sidoarjo Web App
+### 3.1. Frontend Web Client
+- **Framework**: Next.js 16.3.0 dengan App Router dan React 19.2.8.
+- **Styling**: Tailwind CSS 3.4.17 dengan palet warna resmi Telkom Schools (`brand-red: #bc0c11`, `brand-dark: #101828`, `brand-bg: #f3f4f6`).
+- **Tipografi**: Dimuat langsung dari Google Fonts melalui `next/font/google`:
+  - `font-jakarta` (**Plus Jakarta Sans**): Heading, navigasi, dan elemen UI primer.
+  - `font-poppins` (**Poppins**): Body text, deskripsi, tanggal, dan metadata.
+- **Fitur Interaktif Khusus**:
+  - **Pencarian Cepat Global (`NavbarSearch.tsx`)**: Modal pencarian langsung dengan pintasan `Cmd+K` atau `Ctrl+K`.
+  - **Widget AI Chatbot (`SkomdaChatWidget.tsx`)**: Obrolan melayang dengan parser Markdown, tombol pertanyaan cepat, dan riwayat pesan.
+  - **Internationalization (`LanguageContext.tsx`)**: Pengalih bahasa instan (Bahasa Indonesia & English) yang tersinkronisasi di seluruh komponen.
+  - **Pusat Manajemen Berita (`/admin/berita`)**: Antarmuka bagi pengelola sekolah untuk mengelola publikasi artikel berita.
 
-**Description:** UI publik sekolah (Beranda, Jurusan, DTP, Berita, Alumni & BKK, Marketplace, VR Tour, Kontak) plus dashboard admin terbatas untuk staff moderasi konten. Konsumsi data dari Backend Go via REST API, render SSR/ISR untuk SEO.
+### 3.2. Backend API Service
+- **Bahasa**: Go (Golang) 1.25.0.
+- **Arsitektur Dual-Engine**:
+  - **Fiber v2 (Default)**: Diimplementasikan di `src/api/fiber_routes.go` untuk throughput tinggi dan latensi rendah.
+  - **Gin**: Diimplementasikan di `src/api/{health,jurusan,news,chatbot}` sebagai opsi engine alternatif.
+  - Pemilihan engine dikendalikan secara dinamis melalui environment variable `SERVER_ENGINE` (`fiber` atau `gin`).
+- **Data Access Layer**: GORM v1.31 dengan driver PostgreSQL dan Pure-Go SQLite.
 
-**Technologies:** Next.js 15 (App Router), TypeScript, Tailwind CSS, Framer Motion.
+---
 
-**Deployment:** Vercel (frontend only — bukan host backend).
-
-### 3.2. Backend Services
-
-#### 3.2.1. Core API Service
-
-**Name:** SMK Telkom Sidoarjo API (`backend/`)
-
-**Description:** Satu service Go/Gin yang menangani seluruh domain: autentikasi alumni & admin, CRUD berita/jurusan/lowongan/marketplace, moderasi alumni, dan proxy chatbot ke LLM API dengan RAG context. Dipisah secara modular di dalam `src/api/*` per domain, tapi dideploy sebagai satu binary/service (belum perlu microservices di skala sekolah ini).
-
-**Technologies:** Go, Gin, Prisma-equivalent di Go (GORM atau sqlc), JWT untuk auth.
-
-**Deployment:** Vercel Go serverless runtime (opsi ringan) atau container terpisah di Fly.io/Railway kalau butuh koneksi persisten (mis. untuk rate-limit state lokal) — pilih salah satu saat kickoff, dicatat di `docs/`.
-
-## 4. Data Stores
+## 4. Penyimpanan Data (Data Stores)
 
 ### 4.1. Primary Database
+- **Produksi & Staging**: PostgreSQL di Supabase atau Neon via connection string `DATABASE_URL`.
+- **Pengembangan Lokal**: Pure-Go SQLite (`file:smktelkom_dev.db?cache=shared`) via driver `github.com/glebarez/sqlite`. Driver ini tidak membutuhkan CGO/GCC sehingga dapat berjalan di sistem operasi mana pun tanpa instalasi toolchain tambahan.
+- **Model & Skema**:
+  - `models.Jurusan`: Menyimpan kode, nama, slug, deskripsi, array `skills` (disimpan via `serializer:json`), array `prospek_karier`, dan path gambar cover.
+  - `models.News`: Menyimpan title, slug, category, day, month, dateFormatted, time, image, summary, content, dan author.
+- **Auto-Seeder**: Inisialisasi awal menyisipkan data resmi 2 program keahlian (**SIJA 4 Tahun** dan **TJAT 3 Tahun**) serta artikel berita unggulan jika tabel masih kosong.
 
-**Name:** SMK Telkom Primary DB
+### 4.2. Penyimpanan Media (Media Store)
+- **Penyedia**: Cloudinary.
+- **Strategi Hibrida**:
+  - **Foto Konten** (foto guru, fasilitas, berita, kegiatan): Dioptimalkan melalui Cloudinary CDN dengan transformasi dinamis (`f_auto,q_auto`, responsive width, dan smart face detection `g_face`).
+  - **Vektor & Aset Statis** (format SVG, ikon kecil, dan logo resmi Telkom Schools): Disajikan langsung dari folder lokal `public/` agar menghemat kuota CDN.
+- **Peralatan**: Skrip CLI `scripts/sync-cloudinary.mjs` untuk audit ukuran, dry-run, dan upload massal yang menghasilkan `frontend/src/lib/cloudinary-manifest.json`.
 
-**Type:** PostgreSQL (hosting: Supabase atau Neon). Untuk pengembangan lokal (local dev) bila `DATABASE_URL` tidak dikonfigurasi, backend secara otomatis fallback ke Pure-Go SQLite (`smktelkom_dev.db`) via driver `github.com/glebarez/sqlite`.
+---
 
-**Purpose:** Menyimpan seluruh data terstruktur situs: profil alumni, lowongan BKK, berita, jurusan, item marketplace, log chatbot.
+## 5. Integrasi Eksternal (External Integrations)
 
-**Key Schemas/Tables:** `users` (alumni + admin), `lowongan`, `berita`, `jurusan`, `marketplace_items`, `chatbot_logs`. Field array (seperti `skills` & `prospek_karier`) disimpan menggunakan `serializer:json` GORM agar kompatibel di Postgres maupun SQLite.
+| Layanan | Peran | Metode Integrasi |
+|---|---|---|
+| **NexusRouter AI Gateway** | Menjawab pertanyaan seputar profil sekolah, jurusan, dan informasi PPDB | HTTP POST proxy dari backend Go (`/api/chatbot/message`) ke `https://fahlyce.vercel.app/api/v1/skomda/chat` |
+| **Cloudinary API** | Penyimpanan gambar terkompresi dan pengiriman CDN | REST API + Signed Upload Parameter (`/api/cloudinary/sign`) |
+| **Google Maps** | Menampilkan lokasi kampus SMK Telkom Sidoarjo di footer | Iframe embed resmi terenkapsulasi aman |
 
-### 4.2. Media Store
+---
 
-**Name:** Cloudinary Media Store
+## 6. Lingkungan Pengembangan & Standar QA
 
-**Type:** Cloudinary (object storage + CDN + transformation)
+### 6.1. Menjalankan Backend
+```bash
+cd backend
+go run ./src/cmd/server
+```
 
-**Purpose:** Semua gambar (foto jurusan, cover berita, foto profil alumni, produk marketplace) disimpan & dioptimasi di sini (`f_auto,q_auto`, responsive delivery). Upload selalu lewat signed request dari Backend Go, bukan langsung dari client.
+### 6.2. Menjalankan Frontend
+```bash
+cd frontend
+npm run dev
+```
 
-### 4.3. Rate Limit / Cache (opsional, disiapkan kalau traffic naik)
+### 6.3. Standar Kualitas (Quality Assurance Gate)
+Sebelum rilis atau merge kode, verifikasi berikut wajib berstatus lulus:
+1. `npm run typecheck` di `frontend/`: Wajib 0 error TypeScript.
+2. `npm run lint` di `frontend/`: Wajib 0 warning dan 0 error ESLint.
+3. `npm run build` di `frontend/`: Memastikan kompilasi SSG dan bundle Next.js bersih.
+4. `go vet ./...` di `backend/`: Validasi kebenaran kode Go.
+5. `go test -v ./...` di `backend/`: Memastikan semua unit test model dan handler lulus.
 
-**Name:** Upstash Redis
+---
 
-**Type:** Redis (serverless)
+## 7. Rencana Pengembangan Lanjutan (Future Roadmap)
 
-**Purpose:** Rate limiting endpoint publik (`/chatbot`, form alumni/lowongan) dan cache ringan untuk hasil retrieval RAG chatbot.
+- **Portal Direktori Alumni & BKK**: Formulir pendaftaran alumni terverifikasi dan papan lowongan kerja mitra industri.
+- **VR Virtual Campus Tour**: Integrasi penampil 360 derajat fasilitas sekolah.
+- **Autentikasi Staf Pengelola**: Penerbitan JWT untuk pengamanan akses penuh ke endpoint rute manajemen berita.
 
-## 5. External Integrations / APIs
+---
 
-**Service Name:** Anthropic/OpenAI LLM API
-**Purpose:** Menjawab pertanyaan chatbot FAQ berbasis konten resmi situs (RAG).
-**Integration Method:** REST API, dipanggil dari Backend Go (`src/client/llm/`), key disimpan sebagai env var backend saja.
+## 8. Identifikasi Dokumen
 
-**Service Name:** Cloudinary
-**Purpose:** Optimasi & delivery media (gambar).
-**Integration Method:** REST API + signed upload dari backend.
-
-**Service Name:** Google Search Console
-**Purpose:** Submit sitemap, monitor indexing & performa pencarian.
-**Integration Method:** Sitemap XML (`frontend/src/app/sitemap.ts`) + verifikasi manual.
-
-**Service Name:** LinkedIn (opsional, fase P2)
-**Purpose:** Social proof alumni/sekolah.
-**Integration Method:** Link/badge statis, embed opsional (bukan API resmi kecuali dibutuhkan nanti).
-
-## 6. Deployment & Infrastructure
-
-**Cloud Provider:** Vercel (frontend) + Fly.io/Railway atau Vercel Go runtime (backend) — final keputusan dicatat sebelum Fase 1 mulai.
-
-**Key Services Used:** Vercel (Next.js hosting, CDN, ISR), Supabase/Neon (Postgres), Cloudinary (media), Upstash (rate limit, opsional).
-
-**CI/CD Pipeline:** GitHub Actions — pipeline terpisah untuk `frontend/` (lint, type-check, build, deploy Vercel) dan `backend/` (go vet, go test, build, deploy).
-
-**Monitoring & Logging:** Vercel Analytics (frontend, Core Web Vitals), structured logging di Go (mis. `zerolog`) dikirim ke provider log sederhana (mis. Better Stack/Logtail) — hindari over-engineering untuk skala proyek ini.
-
-## 7. Security Considerations
-
-**Authentication:** JWT diterbitkan oleh Backend Go — alumni login via email OTP atau OAuth Google, admin login via kredensial staff. Token disimpan httpOnly cookie di frontend.
-
-**Authorization:** RBAC sederhana dua role (`alumni`, `admin`). Semua endpoint `/admin/*` di backend wajib cek role di server — tidak boleh mengandalkan penyembunyian UI di frontend saja.
-
-**Data Encryption:** TLS wajib di semua koneksi (frontend↔backend, backend↔Postgres, backend↔LLM/Cloudinary). Data sensitif alumni (kontak) tidak dienkripsi khusus di rest kecuali kebijakan sekolah minta lebih — cukup andalkan enkripsi at-rest bawaan Supabase/Neon di awal.
-
-**Key Security Tools/Practices:** Validasi input pakai `validator` Go tag di setiap request body; rate limiting endpoint publik (form + chatbot); honeypot/captcha di form registrasi alumni & lowongan; secret hanya di env var backend, tidak pernah di-commit atau diekspos ke frontend.
-
-## 8. Development & Testing Environment
-
-**Local Setup Instructions:** Lihat `README.md` — ringkas: `docker-compose up` untuk Postgres lokal, `cd backend && go run ./src/cmd/server`, `cd frontend && npm run dev`.
-
-**Testing Frameworks:** Go — `testing` bawaan + `testify` untuk backend; Jest/Vitest + React Testing Library untuk frontend.
-
-**Code Quality Tools:** `golangci-lint` untuk backend; ESLint + Prettier + `tsc --noEmit` untuk frontend.
-
-## 9. Future Considerations / Roadmap
-
-- **Strategi Type-Sync (Go <-> TypeScript)**: Saat ini menggunakan **Manual Sync** (disiplin meng-update Go struct dan TS interface pada commit yang sama). Evaluasi migrasi ke automatic codegen (`swaggo/swag` + `openapi-typescript`) jika jumlah model sudah mencapai 5-6+ dengan field kompleks, atau jika backend mulai dikonsumsi aplikasi mobile/platform lain.
-- Pertimbangkan pisah `chatbot` jadi service terpisah kalau volume trafik/embedding search jadi berat (saat ini masih dalam satu Go service).
-- Tambah pgvector di Postgres untuk RAG embedding search yang lebih akurat (v1 masih boleh keyword-based).
-- Evaluasi migrasi rate-limit dari in-memory ke Redis begitu traffic form/chatbot mulai signifikan.
-- Multi-bahasa penuh (EN) untuk konten utama, bukan cuma chatbot, jika ada kebutuhan siswa/ortu internasional.
-
-## 10. Project Identification
-
-**Project Name:** SMK Telkom Sidoarjo — Website Redesign
-
-**Repository URL:** _(isi setelah repo dibuat)_
-
-**Primary Contact/Team:** Fah (Full Stack Engineer, freelance)
-
-**Date of Last Update:** 2026-08-09
-
-## 11. Glossary / Acronyms
-
-**DTP:** Digital Talent Program — program spesialisasi unggulan sekolah dengan 9 bidang.
-
-**BKK:** Bursa Kerja Khusus — unit penyalur kerja/lowongan resmi sekolah vokasi untuk alumni.
-
-**RAG:** Retrieval-Augmented Generation — teknik menjawab pertanyaan chatbot dengan mengambil konteks relevan dari data situs sebelum memanggil LLM, supaya jawaban akurat dan tidak mengarang.
-
-**ISR:** Incremental Static Regeneration — fitur Next.js untuk regenerasi halaman statis secara periodik tanpa full rebuild.
-
-**Teaching Factory:** Model pembelajaran vokasi di mana siswa memproduksi produk/jasa nyata sebagai bagian kurikulum (dasar dari fitur Student Marketplace).
+- **Nama Proyek**: SMK Telkom Sidoarjo Website Redesign
+- **Status Arsitektur**: Aktif & Tersinkronisasi Penuh
+- **Terakhir Diperbarui**: September 2026
