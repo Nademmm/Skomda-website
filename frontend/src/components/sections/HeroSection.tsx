@@ -49,7 +49,7 @@ export default function HeroSection() {
             {/* Welcome label */}
             <p className="font-jakarta text-[18px] leading-[28px]">
               <span className="font-normal text-[#4a5565]">{t("hero.welcome")} </span>
-              <span className="font-semibold text-[#e7000b]">SMK Telkom Sidoarjo!</span>
+              <span className="font-semibold text-[#bc0c11]">SMK Telkom Sidoarjo!</span>
             </p>
 
             {/* Main 3-line heading */}
@@ -59,11 +59,11 @@ export default function HeroSection() {
             >
               {t("hero.title1")} <br />
               {t("hero.title2")}<br />
-              <span className="text-[#e7000b]">{t("hero.title3")}</span>
+              <span className="text-[#bc0c11]">{t("hero.title3")}</span>
             </h1>
 
             {/* Red accent line (Flush aligned with text) */}
-            <div className="my-3.5 h-[2.5px] w-9 rounded-full bg-[#ee5053]" />
+            <div className="my-3.5 h-[2.5px] w-9 rounded-full bg-[#bc0c11]" />
 
             {/* Subtext */}
             <p
@@ -166,7 +166,7 @@ export default function HeroSection() {
             <div
               className="relative w-full rounded-[25px] overflow-hidden"
               style={{
-                background: "linear-gradient(135deg, #e7000b 0%, #bc0c11 100%)",
+                background: "linear-gradient(135deg, #bc0c11 0%, #990a0e 100%)",
                 boxShadow: "0px 10px 30px rgba(188, 12, 17, 0.25)",
                 padding: "24px 40px",
               }}
@@ -223,16 +223,16 @@ export default function HeroSection() {
           <div className="relative z-10 flex flex-col items-start">
             <p className="font-jakarta text-[14px] sm:text-[17px] leading-snug">
               <span className="font-normal text-[#4a5565]">{t("hero.welcome")} </span>
-              <span className="font-semibold text-[#e7000b]">SMK Telkom Sidoarjo!</span>
+              <span className="font-semibold text-[#bc0c11]">SMK Telkom Sidoarjo!</span>
             </p>
             <div className="mt-1.5 sm:mt-2 font-jakarta font-bold text-[#101828] text-[24px] sm:text-[32px] leading-tight">
               <p className="mb-0">{t("hero.title1")}</p>
               <p className="mb-0">{t("hero.title2")}</p>
-              <p className="text-[#e7000b]">{t("hero.title3")}</p>
+              <p className="text-[#bc0c11]">{t("hero.title3")}</p>
             </div>
 
             {/* Red accent line */}
-            <div className="my-2.5 sm:my-3.5 h-[2.5px] w-9 rounded-full bg-[#ee5053]" />
+            <div className="my-2.5 sm:my-3.5 h-[2.5px] w-9 rounded-full bg-[#bc0c11]" />
 
             <p className="font-poppins text-[13px] sm:text-[15px] leading-relaxed text-[#787878] max-w-[365px]">
               {t("hero.description")}
@@ -306,7 +306,7 @@ export default function HeroSection() {
           </div>
 
           {/* Mobile stats bar seamlessly connected with 0 gap */}
-          <div className="relative z-20 -mt-1 sm:-mt-2 rounded-[20px] bg-gradient-to-r from-[#e7000b] to-[#bc0c11] p-4 sm:p-5 text-white shadow-[0px_8px_20px_rgba(188,12,17,0.25)]">
+          <div className="relative z-20 -mt-1 sm:-mt-2 rounded-[20px] bg-gradient-to-r from-[#bc0c11] to-[#990a0e] p-4 sm:p-5 text-white shadow-[0px_8px_20px_rgba(188,12,17,0.25)]">
             <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
               <div>
                 <span className="font-jakarta font-bold text-xl sm:text-2xl">2</span>

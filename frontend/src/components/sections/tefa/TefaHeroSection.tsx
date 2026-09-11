@@ -1,87 +1,229 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface TefaHeroSectionProps {
-  onOpenProducts: () => void;
+  onExploreServices: () => void;
+  onRequestProject: () => void;
 }
 
-export default function TefaHeroSection({ onOpenProducts }: TefaHeroSectionProps) {
+export default function TefaHeroSection({
+  onExploreServices,
+  onRequestProject,
+}: TefaHeroSectionProps) {
+  const { t } = useLanguage();
+
   return (
-    <section className="relative w-full overflow-hidden bg-[#f3f4f6] pt-36 sm:pt-40 lg:pt-44 pb-16 lg:pb-24">
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-3xl flex flex-col items-start"
+    <section className="relative w-full pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 overflow-hidden bg-[#f3f4f6]">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative">
+        {/* Subtle Background Watermark from Figma */}
+        <div
+          className="absolute top-10 left-[45%] pointer-events-none select-none z-0 hidden xl:block"
+          aria-hidden="true"
         >
-          {/* Standard Breadcrumb Navigation */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs sm:text-sm font-jakarta text-[#4a5565] mb-4"
+          <span className="text-[130px] font-black text-gray-300/25 tracking-widest font-jakarta">
+            TEFA
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="lg:col-span-6 flex flex-col items-start"
           >
-            <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-              Beranda
-            </Link>
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]" aria-hidden="true">
-              <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="font-semibold text-[#101828]" aria-current="page">
-              Teaching Factory
-            </span>
-          </nav>
-
-          {/* Main Title */}
-          <div className="relative mb-5">
-            <h1 className="font-jakarta font-bold text-3xl sm:text-5xl lg:text-[56px] leading-[1.16] tracking-tight text-[#101828]">
-              Teaching Factory{" "}
-              <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
-            </h1>
-            {/* Standard Red Accent Underline Bar */}
-            <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
-          </div>
-
-          {/* Description */}
-          <p className="font-jakarta text-base sm:text-lg text-[#4a5565] leading-relaxed mb-8 max-w-2xl font-normal">
-            Teaching Factory (TEFA) adalah konsep pembelajaran berbasis produksi yang menggabungkan
-            kompetensi siswa dengan kebutuhan industri, sehingga menghasilkan karya nyata dan bernilai.
-          </p>
-
-          {/* Website Standard Primary CTA Button */}
-          <div>
-            <button
-              type="button"
-              onClick={onOpenProducts}
-              className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer"
-              style={{
-                boxShadow:
-                  "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
-              }}
+            {/* Standard Breadcrumb Navigation */}
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 text-sm font-jakarta text-[#4a5565] mb-4"
             >
-              <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                Jelajahi Produk & Jasa
-              </span>
+              <Link href="/" className="hover:text-[#bc0c11] transition-colors">
+                Beranda
+              </Link>
               <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
                 fill="none"
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="text-[#4a5565] shrink-0"
                 aria-hidden="true"
               >
                 <path
-                  d="M5 12H19M19 12L12 5M19 12L12 19"
-                  stroke="white"
-                  strokeWidth="2"
+                  d="M6 12L10 8L6 4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+              <Link href="/tefa" className="hover:text-[#bc0c11] transition-colors">
+                TeFa
+              </Link>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                className="text-[#4a5565] shrink-0"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 12L10 8L6 4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="font-medium text-[#101828]" aria-current="page">
+                {t("tefa.breadcrumb")}
+              </span>
+            </nav>
+
+            {/* Main Heading with Signature Red Underline Bar */}
+            <div className="relative mb-6">
+              <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[56px] leading-[1.15] tracking-tight text-[#101828]">
+                Dari Kebutuhan Menjadi{" "}
+                <span className="text-[#bc0c11] block sm:inline">Solusi Nyata</span>
+              </h1>
+              {/* Standard Red Accent Underline Bar */}
+              <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
+            </div>
+
+            {/* Description */}
+            <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-xl mb-8 font-normal">
+              {t("tefa.heroDesc")}
+            </p>
+
+            {/* Action Buttons with Signature Button Styles */}
+            <div className="flex flex-wrap items-center gap-4">
+              {/* Primary Button */}
+              <button
+                type="button"
+                onClick={onExploreServices}
+                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3.5 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer"
+                style={{
+                  boxShadow:
+                    "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
+                }}
+              >
+                <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
+                  {t("tefa.exploreServices")}
+                </span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+
+              {/* Secondary Button */}
+              <button
+                type="button"
+                onClick={onRequestProject}
+                className="group inline-flex items-center gap-2.5 rounded-full bg-white border border-[#d1d5dc] px-7 py-3.5 text-base font-medium text-[#364153] transition-all duration-300 hover:bg-gray-50 hover:border-[#bc0c11] hover:text-[#bc0c11] active:scale-[0.98] shadow-sm cursor-pointer"
+              >
+                <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
+                  {t("tefa.requestProject")}
+                </span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Visual Artwork Collage (Figma Nodes 261:7, 262:26, 262:27, 262:9, 262:25, 262:28) */}
+          <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end select-none">
+            <div className="relative w-full max-w-[500px] sm:max-w-[540px] h-[450px] sm:h-[490px]">
+              {/* Layer 1: Gray Card Backdrop (Figma Rectangle 30: 438x189, bg-[#dfdfe0], rounded-[20px]) */}
+              <div
+                className="absolute top-6 sm:top-8 left-8 sm:left-10 w-[72%] sm:w-[74%] h-[175px] sm:h-[190px] rounded-[24px] bg-[#dfdfe0] z-0"
+                aria-hidden="true"
+              />
+
+              {/* Layer 2: Right Light Gray Card with Stylized Motto (Figma Rectangle 31 & Text 262:28) */}
+              <div
+                className="absolute top-20 sm:top-24 -right-6 sm:-right-12 w-[58%] sm:w-[60%] h-[165px] sm:h-[185px] rounded-[22px] bg-[#ebebeb] z-10 flex flex-col justify-center pl-28 sm:pl-32 pr-3 select-none pointer-events-none shadow-xs"
+              >
+                <div
+                  className="text-[#4e4e4e] text-[17px] sm:text-[20px] leading-[28px] sm:leading-[34px] -rotate-2"
+                  style={{
+                    fontFamily:
+                      "'Papyrus', 'Bradley Hand', 'Chilanka', cursive, sans-serif",
+                  }}
+                >
+                  <p className="m-0 whitespace-nowrap">Raih</p>
+                  <p className="m-0 whitespace-nowrap">Pengalaman,</p>
+                  <p className="m-0 whitespace-nowrap">Raih Impian</p>
+                </div>
+              </div>
+
+              {/* Layer 3: Solid Telkom Red Card behind student (Figma Rectangle 28: 333x333, bg-[#bd0c12], rounded-tl-[40px] rounded-tr-[40px]) */}
+              <div
+                className="absolute bottom-0 left-[14%] sm:left-[15%] w-[58%] sm:w-[56%] h-[320px] sm:h-[350px] rounded-t-[36px] sm:rounded-t-[40px] bg-[#bd0c12] z-10 shadow-sm"
+                aria-hidden="true"
+              />
+
+              {/* Layer 4: Student Cutout Photo (Aligned to center on red card with left arm overlap) */}
+              <div className="absolute bottom-0 left-[5%] sm:left-[6%] w-[70%] sm:w-[68%] h-[435px] sm:h-[480px] z-20 pointer-events-none flex items-end justify-center">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/images/tefa/figma-hero-student.png"
+                    alt="Siswa Teaching Factory SMK Telkom Sidoarjo"
+                    fill
+                    sizes="(max-width: 640px) 320px, 360px"
+                    className="object-contain object-bottom drop-shadow-sm"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Layer 5: Left Floating White Card (Figma Rectangle 29 & Frame 179) */}
+              <div
+                className="absolute top-36 sm:top-40 -left-2 sm:-left-4 bg-white rounded-[20px] p-3.5 sm:p-4 shadow-[0_12px_28px_-6px_rgba(0,0,0,0.12)] border border-gray-100 z-30 max-w-[155px] sm:max-w-[170px]"
+              >
+                {/* Red Pill Bar */}
+                <div className="w-[21px] h-[3px] bg-[#bc0c11] rounded-[10px] mb-2" />
+                <p className="font-jakarta font-semibold text-xs sm:text-[13px] text-[#364153] leading-[18px] mb-1.5">
+                  {t("tefa.studentBadge")}
+                </p>
+                <span className="font-jakarta font-medium text-[8px] sm:text-[9px] text-[#686868] uppercase tracking-wider block">
+                  SMK Telkom Sidoarjo
+                </span>
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -74,7 +74,15 @@ export default function Navbar() {
         { label: t("nav.k3Implementation"), href: "/informasi/penerapan-k3", desc: t("nav.k3ImplementationDesc") },
       ],
     },
-    { label: t("nav.tefa"), href: "/tefa" },
+    {
+      label: t("nav.tefa"),
+      href: "#tefa",
+      submenu: [
+        { label: t("nav.tefaOverview"), href: "/tefa", desc: t("nav.tefaOverviewDesc") },
+        { label: t("nav.tefaProducts"), href: "/tefa/produk", desc: t("nav.tefaProductsDesc") },
+        { label: t("nav.tefaRequest"), href: "/tefa/request", desc: t("nav.tefaRequestDesc") },
+      ],
+    },
     { label: t("nav.trialClass"), href: "#trial-class" },
     { label: t("nav.ppdb"), href: "#ppdb" },
   ];

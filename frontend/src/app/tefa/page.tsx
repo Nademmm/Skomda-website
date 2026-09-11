@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import TefaPageClient from "@/components/sections/tefa/TefaPageClient";
+import TefaOverviewClient from "@/components/sections/tefa/TefaOverviewClient";
 
 export const metadata: Metadata = {
   title: "Teaching Factory (TeFa) | SMK Telkom Sidoarjo",
@@ -38,7 +38,7 @@ export default function TefaPage() {
 
       {/* Main Content */}
       <main className="flex-1">
-        <TefaPageClient />
+        <TefaOverviewClient />
       </main>
 
       {/* 4-Column Footer */}

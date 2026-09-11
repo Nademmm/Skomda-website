@@ -131,49 +131,51 @@ export default function TefaProductsModal({ isOpen, onClose }: TefaProductsModal
               </button>
             </div>
 
-            {/* Scrollable Body */}
-            <div className="px-6 sm:px-8 py-6 overflow-y-auto space-y-5">
-              {TEFA_UNITS.map((unit) => {
-                const IconComponent = unit.icon;
-                return (
-                  <div
-                    key={unit.id}
-                    className="p-5 sm:p-6 rounded-[20px] border border-gray-200/80 bg-white hover:border-[#bc0c11]/30 transition-all hover:shadow-sm"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2.5 rounded-xl border ${unit.color}`}>
-                          <IconComponent className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <h4 className="text-base sm:text-lg font-bold font-jakarta text-[#101828] leading-tight">
-                            {unit.title}
-                          </h4>
-                          <span className="text-xs font-medium font-jakarta text-gray-500">{unit.jurusan}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <p className="text-sm font-jakarta text-[#4a5565] leading-relaxed mb-4">
-                      {unit.description}
-                    </p>
-
-                    <div className="bg-[#f3f4f6]/70 rounded-xl p-4 border border-gray-100">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-gray-600 block mb-2 font-jakarta">
-                        Portofolio Layanan Unggulan:
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {unit.deliverables.map((item, idx) => (
-                          <div key={idx} className="flex items-start gap-2 text-xs font-jakarta text-[#364153]">
-                            <CheckCircle2 className="w-4 h-4 text-[#bc0c11] shrink-0 mt-0.5" />
-                            <span>{item}</span>
+            {/* Search-like Scrollable Body */}
+            <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar px-6 sm:px-8 py-6">
+              <div className="space-y-5 pr-1 sm:pr-2">
+                {TEFA_UNITS.map((unit) => {
+                  const IconComponent = unit.icon;
+                  return (
+                    <div
+                      key={unit.id}
+                      className="p-5 sm:p-6 rounded-[20px] border border-gray-200/80 bg-white hover:border-[#bc0c11]/30 transition-all hover:shadow-sm"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2.5 rounded-xl border ${unit.color}`}>
+                            <IconComponent className="w-5 h-5" />
                           </div>
-                        ))}
+                          <div>
+                            <h4 className="text-base sm:text-lg font-bold font-jakarta text-[#101828] leading-tight">
+                              {unit.title}
+                            </h4>
+                            <span className="text-xs font-medium font-jakarta text-gray-500">{unit.jurusan}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="text-sm font-jakarta text-[#4a5565] leading-relaxed mb-4">
+                        {unit.description}
+                      </p>
+
+                      <div className="bg-[#f3f4f6]/70 rounded-xl p-4 border border-gray-100">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-gray-600 block mb-2 font-jakarta">
+                          Portofolio Layanan Unggulan:
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {unit.deliverables.map((item, idx) => (
+                            <div key={idx} className="flex items-start gap-2 text-xs font-jakarta text-[#364153]">
+                              <CheckCircle2 className="w-4 h-4 text-[#bc0c11] shrink-0 mt-0.5" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             {/* Footer Actions */}

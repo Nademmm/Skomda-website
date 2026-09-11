@@ -766,5 +766,95 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789021470/skomda/tefa/tefa-building.png",
     "format": "png",
     "bytes": 1146437
+  },
+  "tefa/figma-building-vector.png": {
+    "public_id": "skomda/tefa/figma-building-vector",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129984/skomda/tefa/figma-building-vector.png",
+    "format": "png",
+    "bytes": 1303167
+  },
+  "tefa/figma-hero-student.png": {
+    "public_id": "skomda/tefa/figma-hero-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129985/skomda/tefa/figma-hero-student.png",
+    "format": "png",
+    "bytes": 1969082
+  },
+  "tefa/figma-student-exact.png": {
+    "public_id": "skomda/tefa/figma-student-exact",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129986/skomda/tefa/figma-student-exact.png",
+    "format": "png",
+    "bytes": 1969082
+  },
+  "tefa/figma-vector1-direct.png": {
+    "public_id": "skomda/tefa/figma-vector1-direct",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129988/skomda/tefa/figma-vector1-direct.png",
+    "format": "png",
+    "bytes": 1906684
+  },
+  "tefa/icon-all-services.png": {
+    "public_id": "skomda/tefa/icon-all-services",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129989/skomda/tefa/icon-all-services.png",
+    "format": "png",
+    "bytes": 633686
+  },
+  "tefa/icon-network-infra.png": {
+    "public_id": "skomda/tefa/icon-network-infra",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129990/skomda/tefa/icon-network-infra.png",
+    "format": "png",
+    "bytes": 585876
+  },
+  "tefa/icon-project-idea.png": {
+    "public_id": "skomda/tefa/icon-project-idea",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129992/skomda/tefa/icon-project-idea.png",
+    "format": "png",
+    "bytes": 492077
+  },
+  "tefa/icon-web-system.png": {
+    "public_id": "skomda/tefa/icon-web-system",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129993/skomda/tefa/icon-web-system.png",
+    "format": "png",
+    "bytes": 562104
+  },
+  "tefa/prod-company-profile.png": {
+    "public_id": "skomda/tefa/prod-company-profile",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129994/skomda/tefa/prod-company-profile.png",
+    "format": "png",
+    "bytes": 933497
+  },
+  "tefa/prod-it-maintenance.png": {
+    "public_id": "skomda/tefa/prod-it-maintenance",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129995/skomda/tefa/prod-it-maintenance.png",
+    "format": "png",
+    "bytes": 832497
+  },
+  "tefa/prod-network-install.png": {
+    "public_id": "skomda/tefa/prod-network-install",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129996/skomda/tefa/prod-network-install.png",
+    "format": "png",
+    "bytes": 703077
+  },
+  "tefa/prod-uiux-design.png": {
+    "public_id": "skomda/tefa/prod-uiux-design",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129998/skomda/tefa/prod-uiux-design.png",
+    "format": "png",
+    "bytes": 1767645
+  },
+  "tefa/tefa-building-banner.png": {
+    "public_id": "skomda/tefa/tefa-building-banner",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129999/skomda/tefa/tefa-building-banner.png",
+    "format": "png",
+    "bytes": 1303167
+  },
+  "tefa/tefa-building-photo.png": {
+    "public_id": "skomda/tefa/tefa-building-photo",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789130000/skomda/tefa/tefa-building-photo.png",
+    "format": "png",
+    "bytes": 1906684
+  },
+  "tefa/tefa-hero-student.png": {
+    "public_id": "skomda/tefa/tefa-hero-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789130002/skomda/tefa/tefa-hero-student.png",
+    "format": "png",
+    "bytes": 1969082
   }
 }

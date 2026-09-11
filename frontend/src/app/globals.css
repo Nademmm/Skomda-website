@@ -85,6 +85,29 @@ img {
   background-color: #94a3b8;
 }
 
+/* Handcrafted premium scrollbar for TeFa popups & modals */
+.tefa-custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.tefa-custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.tefa-custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 9999px;
+  margin: 6px 0;
+}
+.tefa-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+.tefa-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #bc0c11 0%, #990a0e 100%);
+  box-shadow: 0 0 8px rgba(188, 12, 17, 0.35);
+}
+
 /* Chatbot LLM Thinking State & Streaming Animations */
 @keyframes soundwave {
   0%, 100% {
