@@ -18,7 +18,7 @@ export default function TefaCtaBanner({ onRequestProject }: TefaCtaBannerProps) 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative rounded-[28px] bg-gradient-to-r from-[#bd0c12] via-[#bc0c11] to-[#990a0e] p-8 sm:p-12 lg:p-14 text-white overflow-hidden shadow-xl border-2 border-dashed border-white/30"
+          className="relative rounded-[28px] bg-gradient-to-r from-[#bc0c11] via-[#bc0c11] to-[#990a0e] p-8 sm:p-12 lg:p-14 text-white overflow-hidden shadow-xl border-2 border-dashed border-white/30"
         >
           {/* Subtle background glow */}
           <div

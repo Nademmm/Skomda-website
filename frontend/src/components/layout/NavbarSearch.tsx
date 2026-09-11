@@ -786,7 +786,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
 
                             <div className="flex-1 min-w-0">
                               <span
-                                className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
+                                className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bc0c11]" : "text-slate-900"
                                   }`}
                               >
                                 {item.title}
@@ -847,7 +847,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                             >
                               <div
                                 className={`size-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected
-                                    ? "bg-white text-[#bd0c12] shadow-xs border border-slate-200"
+                                    ? "bg-white text-[#bc0c11] shadow-xs border border-slate-200"
                                     : "bg-slate-100/80 border border-slate-200/50 text-slate-600"
                                   }`}
                               >
@@ -856,7 +856,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
 
                               <div className="flex-1 min-w-0">
                                 <span
-                                  className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bd0c12]" : "text-slate-900"
+                                  className={`font-jakarta text-sm font-bold truncate block transition-colors ${isSelected ? "text-[#bc0c11]" : "text-slate-900"
                                     }`}
                                 >
                                   {item.title}
@@ -867,7 +867,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                               </div>
 
                               <svg
-                                className={`size-4 shrink-0 transition-transform ${isSelected ? "text-[#bd0c12] translate-x-1" : "text-slate-300 opacity-0"
+                                className={`size-4 shrink-0 transition-transform ${isSelected ? "text-[#bc0c11] translate-x-1" : "text-slate-300 opacity-0"
                                   }`}
                                 viewBox="0 0 24 24"
                                 fill="none"

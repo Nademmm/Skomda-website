@@ -166,13 +166,13 @@ export default function MembangunKompetensiSection() {
               className={`relative z-10 flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-colors duration-200 cursor-pointer select-none ${
                 activeJurusan === "SIJA"
                   ? "text-white font-semibold"
-                  : "text-[#364153] hover:text-[#bd0c12]"
+                  : "text-[#364153] hover:text-[#bc0c11]"
               }`}
             >
               {activeJurusan === "SIJA" && (
                 <motion.div
                   layoutId="activeJurusanPill"
-                  className="absolute inset-0 rounded-full bg-[#bd0c12] shadow-sm -z-10"
+                  className="absolute inset-0 rounded-full bg-[#bc0c11] shadow-sm -z-10"
                   transition={{ type: "spring", stiffness: 450, damping: 35 }}
                 />
               )}
@@ -190,13 +190,13 @@ export default function MembangunKompetensiSection() {
               className={`relative z-10 flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-colors duration-200 cursor-pointer select-none ${
                 activeJurusan === "TJAT"
                   ? "text-white font-semibold"
-                  : "text-[#364153] hover:text-[#bd0c12]"
+                  : "text-[#364153] hover:text-[#bc0c11]"
               }`}
             >
               {activeJurusan === "TJAT" && (
                 <motion.div
                   layoutId="activeJurusanPill"
-                  className="absolute inset-0 rounded-full bg-[#bd0c12] shadow-sm -z-10"
+                  className="absolute inset-0 rounded-full bg-[#bc0c11] shadow-sm -z-10"
                   transition={{ type: "spring", stiffness: 450, damping: 35 }}
                 />
               )}
@@ -280,7 +280,7 @@ export default function MembangunKompetensiSection() {
               <div className="lg:col-span-7 flex flex-col items-start">
                 {/* Title: Red on Top, Black Below */}
                 <h3 className="font-jakarta font-bold text-2xl sm:text-3xl lg:text-[40px] leading-[1.18] tracking-tight">
-                  <span className="text-[#bd0c12] block">{current.titleRed}</span>
+                  <span className="text-[#bc0c11] block">{current.titleRed}</span>
                   <span className="text-[#101828] block">{current.titleBlack}</span>
                 </h3>
 

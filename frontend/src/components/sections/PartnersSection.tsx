@@ -106,7 +106,7 @@ export default function PartnersSection() {
               className="flex h-[112px] w-[240px] shrink-0 items-center justify-center px-6"
             >
               <div
-                className="group relative flex h-[112px] w-[192px] items-center justify-center rounded-lg border-2 border-dashed border-[#d1d5dc] bg-white p-3 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] transition-all duration-200 hover:border-[#bd0c12] hover:shadow-md"
+                className="group relative flex h-[112px] w-[192px] items-center justify-center rounded-lg border-2 border-dashed border-[#d1d5dc] bg-white p-3 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] transition-all duration-200 hover:border-[#bc0c11] hover:shadow-md"
               >
                 {/* Logo Image */}
                 <div className="relative h-[70px] w-[150px] max-h-[80px] max-w-[150px] opacity-80 transition-opacity duration-200 group-hover:opacity-100">

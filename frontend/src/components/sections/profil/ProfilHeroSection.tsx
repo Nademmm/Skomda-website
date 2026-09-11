@@ -61,7 +61,7 @@ export default function ProfilHeroSection() {
             <div className="flex items-center gap-2 mb-4 text-sm font-jakarta">
               <Link
                 href="/"
-                className="text-[#4a5565] hover:text-[#bd0c12] transition-colors"
+                className="text-[#4a5565] hover:text-[#bc0c11] transition-colors"
               >
                 Tentang Kami
               </Link>
@@ -89,7 +89,7 @@ export default function ProfilHeroSection() {
                 Profil <span className="text-[#e7000b]">Sekolah</span>
               </h1>
               {/* Red Accent Underline Bar */}
-              <div className="mt-3.5 h-[3px] w-14 bg-[#bd0c12] rounded-full" />
+              <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             {/* Description Paragraph */}

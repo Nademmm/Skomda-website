@@ -59,7 +59,7 @@ export default async function NewsDetailPage({ params }: Props) {
           <nav className="mb-6 sm:mb-8">
             <Link
               href="/berita"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#515151] hover:text-[#bd0c12] transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#515151] hover:text-[#bc0c11] transition-colors"
             >
               <svg
                 width="16"
@@ -84,7 +84,7 @@ export default async function NewsDetailPage({ params }: Props) {
           <header className="mb-8 sm:mb-10">
             {/* Category & Date Badges */}
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="bg-[rgba(188,12,17,0.1)] text-[#bd0c12] font-jakarta font-semibold text-xs sm:text-sm px-3.5 py-1 rounded-full border border-[rgba(188,12,17,0.2)]">
+              <span className="bg-[rgba(188,12,17,0.1)] text-[#bc0c11] font-jakarta font-semibold text-xs sm:text-sm px-3.5 py-1 rounded-full border border-[rgba(188,12,17,0.2)]">
                 {news.category}
               </span>
               <div className="flex items-center gap-2 text-xs sm:text-sm text-[#6a7282]">
@@ -124,7 +124,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
             {/* Author bar */}
             <div className="flex items-center gap-3 pt-2 border-t border-gray-200/80">
-              <div className="size-10 rounded-full bg-[#bd0c12]/10 flex items-center justify-center text-[#bd0c12] font-bold text-sm">
+              <div className="size-10 rounded-full bg-[#bc0c11]/10 flex items-center justify-center text-[#bc0c11] font-bold text-sm">
                 SK
               </div>
               <div>
@@ -153,7 +153,7 @@ export default async function NewsDetailPage({ params }: Props) {
           {/* Article Body */}
           <article className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 shadow-sm border border-gray-100 mb-14">
             {news.summary && (
-              <div className="p-4 sm:p-6 mb-8 bg-red-50/60 border-l-4 border-[#bd0c12] rounded-r-xl">
+              <div className="p-4 sm:p-6 mb-8 bg-red-50/60 border-l-4 border-[#bc0c11] rounded-r-xl">
                 <p className="font-jakarta font-medium text-base sm:text-lg leading-relaxed text-[#364153] italic">
                   &ldquo;{news.summary}&rdquo;
                 </p>
@@ -183,7 +183,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 </h3>
                 <Link
                   href="/berita"
-                  className="text-sm font-semibold text-[#bd0c12] hover:underline"
+                  className="text-sm font-semibold text-[#bc0c11] hover:underline"
                 >
                   Lihat Semua →
                 </Link>
@@ -208,7 +208,7 @@ export default async function NewsDetailPage({ params }: Props) {
                       />
                     </Link>
                     <Link href={`/berita/${item.slug}`}>
-                      <h4 className="font-jakarta font-bold text-sm text-[#101828] line-clamp-2 group-hover:text-[#bd0c12] transition-colors mb-2">
+                      <h4 className="font-jakarta font-bold text-sm text-[#101828] line-clamp-2 group-hover:text-[#bc0c11] transition-colors mb-2">
                         {item.title}
                       </h4>
                     </Link>

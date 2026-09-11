@@ -178,7 +178,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                   {/* Title */}
                   <div className="p-[10px] pb-0">
                     <Link href={`/berita/${item.slug}`}>
-                      <h4 className="font-jakarta font-bold text-[14px] leading-[17.5px] text-[#101828] line-clamp-3 min-h-[52px] group-hover:text-[#bd0c12] transition-colors">
+                      <h4 className="font-jakarta font-bold text-[14px] leading-[17.5px] text-[#101828] line-clamp-3 min-h-[52px] group-hover:text-[#bc0c11] transition-colors">
                         {item.title}
                       </h4>
                     </Link>
@@ -304,7 +304,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                     <span
                       className={`rounded-full transition-all duration-200 ${
                         isActive
-                          ? "size-[12px] bg-[#bd0c12] scale-110 shadow-sm"
+                          ? "size-[12px] bg-[#bc0c11] scale-110 shadow-sm"
                           : "size-[8px] bg-[#99a1af] hover:bg-[#6a7282]"
                       }`}
                     />

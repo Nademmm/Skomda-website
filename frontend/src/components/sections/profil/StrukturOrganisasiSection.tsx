@@ -40,7 +40,7 @@ export default function StrukturOrganisasiSection() {
                 Struktur Organisasi <br />
                 <span className="text-[#e7000b]">SMK Telkom Sidoarjo</span>
               </h2>
-              <div className="mt-3.5 h-[3px] w-14 bg-[#bd0c12] rounded-full" />
+              <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed">
@@ -104,7 +104,7 @@ export default function StrukturOrganisasiSection() {
                     e.stopPropagation();
                     setIsOpen(true);
                   }}
-                  className="inline-flex items-center gap-1.5 text-[#bd0c12] hover:text-[#990a0e] font-semibold hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-[#bc0c11] hover:text-[#990a0e] font-semibold hover:underline cursor-pointer"
                 >
                   <span>Buka Layar Penuh</span>
                   <svg

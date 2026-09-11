@@ -72,7 +72,7 @@ export default function WhyChooseUsSection() {
             <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#101828]">
               {t("why.title1")}
             </h2>
-            <span className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#e7000b]">
+            <span className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#bc0c11]">
               {t("why.title2")}
             </span>
           </div>
@@ -81,7 +81,7 @@ export default function WhyChooseUsSection() {
           <div className="shrink-0">
             <Link
               href="#ppdb"
-              className="group inline-flex items-center gap-3 rounded-full bg-[#bd0c12] px-8 py-3.5 text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-8 py-3.5 text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
               style={{
                 boxShadow:
                   "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
@@ -116,7 +116,7 @@ export default function WhyChooseUsSection() {
                   key={card.id}
                   href={card.href || "#"}
                   data-node-id={card.id}
-                  className="group relative rounded-[25px] bg-[#bd0c12] px-6 sm:px-7 py-6 text-white shadow-[0px_4px_9px_0px_rgba(0,0,0,0.1)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer border-2 border-dashed border-white/50 hover:border-white min-h-[120px]"
+                  className="group relative rounded-[25px] bg-[#bc0c11] px-6 sm:px-7 py-6 text-white shadow-[0px_4px_9px_0px_rgba(0,0,0,0.1)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer border-2 border-dashed border-white/50 hover:border-white min-h-[120px]"
                 >
                   {/* White circle icon (Figma 23:120 / 67:237) */}
                   <div className="flex size-[64px] sm:size-[70px] shrink-0 items-center justify-center rounded-full bg-white shadow-sm p-3 transition-transform duration-300 group-hover:scale-105">

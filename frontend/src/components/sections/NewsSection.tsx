@@ -118,7 +118,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                 {t("news.title1")}
               </h2>
               <h3
-                className="font-jakarta font-bold text-3xl sm:text-[46px] leading-tight sm:leading-[40px] text-[#e7000b]"
+                className="font-jakarta font-bold text-3xl sm:text-[46px] leading-tight sm:leading-[40px] text-[#bc0c11]"
                 data-node-id="123:7"
               >
                 {t("news.title2")}
@@ -165,7 +165,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                       className={`group relative w-full h-[38px] px-3.5 rounded-[10px] flex items-center justify-between font-jakarta text-[15px] font-medium transition-colors duration-150 select-none text-left cursor-pointer ${
                         isActive
                           ? "bg-[rgba(188,12,17,0.98)] text-white shadow-sm font-semibold"
-                          : "text-[#364153] hover:text-[#bd0c12] hover:bg-white/80 active:bg-gray-100"
+                          : "text-[#364153] hover:text-[#bc0c11] hover:bg-white/80 active:bg-gray-100"
                       }`}
                     >
                       <span className="truncate pr-2">{cat}</span>
@@ -221,7 +221,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                       className={`shrink-0 h-[36px] px-4 rounded-full font-jakarta text-sm font-medium transition-all duration-150 select-none whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                         isActive
                           ? "bg-[rgba(188,12,17,0.98)] text-white shadow-sm font-semibold"
-                          : "bg-white text-[#364153] border border-gray-200/80 hover:border-[#bd0c12] hover:text-[#bd0c12]"
+                          : "bg-white text-[#364153] border border-gray-200/80 hover:border-[#bc0c11] hover:text-[#bc0c11]"
                       }`}
                     >
                       <span>{cat}</span>
@@ -285,7 +285,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                       <div className="p-[10px] pb-0">
                         <Link href={`/berita/${item.slug}`}>
                           <h4
-                            className="font-jakarta font-bold text-[14px] leading-[17.5px] text-[#101828] line-clamp-3 min-h-[52px] group-hover:text-[#bd0c12] transition-colors"
+                            className="font-jakarta font-bold text-[14px] leading-[17.5px] text-[#101828] line-clamp-3 min-h-[52px] group-hover:text-[#bc0c11] transition-colors"
                             data-node-id="123:85"
                           >
                             {item.title}
@@ -412,7 +412,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                           <span
                             className={`rounded-full transition-all duration-200 ${
                               isActive
-                                ? "size-[12px] bg-[#bd0c12] scale-110 shadow-sm"
+                                ? "size-[12px] bg-[#bc0c11] scale-110 shadow-sm"
                                 : "size-[8px] bg-[#99a1af] hover:bg-[#6a7282]"
                             }`}
                           />

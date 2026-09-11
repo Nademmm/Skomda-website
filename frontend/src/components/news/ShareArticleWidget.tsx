@@ -46,10 +46,10 @@ export default function ShareArticleWidget({ slug }: ShareArticleWidgetProps) {
       <button
         type="button"
         onClick={handleCopy}
-        className={`inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bd0c12] px-5 text-xs font-bold font-jakarta transition-all shadow-sm active:scale-[0.98] cursor-pointer ${
+        className={`inline-flex h-[38px] items-center gap-2 rounded-full border border-[#bc0c11] px-5 text-xs font-bold font-jakarta transition-all shadow-sm active:scale-[0.98] cursor-pointer ${
           copied
-            ? "bg-[#bd0c12] text-white"
-            : "text-[#bd0c12] hover:bg-[#bd0c12] hover:text-white"
+            ? "bg-[#bc0c11] text-white"
+            : "text-[#bc0c11] hover:bg-[#bc0c11] hover:text-white"
         }`}
       >
         <span>{copied ? "Tersalin!" : "Salin Link"}</span>

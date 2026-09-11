@@ -174,7 +174,7 @@ export default function AdminBeritaPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2">
-              <span className="bg-[#bd0c12] text-white font-bold text-base px-2.5 py-1 rounded-lg">
+              <span className="bg-[#bc0c11] text-white font-bold text-base px-2.5 py-1 rounded-lg">
                 SKOMDA
               </span>
               <span className="font-bold text-base text-[#101828]">
@@ -190,7 +190,7 @@ export default function AdminBeritaPage() {
             <Link
               href="/berita"
               target="_blank"
-              className="text-xs sm:text-sm font-medium text-[#6a7282] hover:text-[#bd0c12] transition-colors"
+              className="text-xs sm:text-sm font-medium text-[#6a7282] hover:text-[#bc0c11] transition-colors"
             >
               Lihat Website ↗
             </Link>
@@ -214,7 +214,7 @@ export default function AdminBeritaPage() {
           <button
             type="button"
             onClick={handleOpenAddModal}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#bd0c12] text-white font-semibold text-sm rounded-xl shadow-sm hover:bg-[#990a0e] active:scale-95 transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#bc0c11] text-white font-semibold text-sm rounded-xl shadow-sm hover:bg-[#990a0e] active:scale-95 transition-all cursor-pointer"
           >
             <svg
               width="18"
@@ -243,7 +243,7 @@ export default function AdminBeritaPage() {
               placeholder="Cari judul, kategori, penulis..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#bd0c12]"
+              className="w-full pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#bc0c11]"
             />
             <svg
               width="16"
@@ -267,7 +267,7 @@ export default function AdminBeritaPage() {
         <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs overflow-hidden">
           {isLoading ? (
             <div className="p-16 text-center text-gray-500 text-sm">
-              <div className="inline-block size-8 border-3 border-gray-200 border-t-[#bd0c12] rounded-full animate-spin mb-3"></div>
+              <div className="inline-block size-8 border-3 border-gray-200 border-t-[#bc0c11] rounded-full animate-spin mb-3"></div>
               <p>Memuat data berita dari Supabase...</p>
             </div>
           ) : filteredList.length === 0 ? (
@@ -310,7 +310,7 @@ export default function AdminBeritaPage() {
                         <Link
                           href={`/berita/${item.slug}`}
                           target="_blank"
-                          className="font-bold text-[#101828] hover:text-[#bd0c12] transition-colors line-clamp-1"
+                          className="font-bold text-[#101828] hover:text-[#bc0c11] transition-colors line-clamp-1"
                         >
                           {item.title}
                         </Link>
@@ -319,7 +319,7 @@ export default function AdminBeritaPage() {
                         </p>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="inline-block px-2.5 py-1 text-xs font-semibold bg-red-50 text-[#bd0c12] rounded-md border border-red-100">
+                        <span className="inline-block px-2.5 py-1 text-xs font-semibold bg-red-50 text-[#bc0c11] rounded-md border border-red-100">
                           {item.category}
                         </span>
                       </td>
@@ -390,7 +390,7 @@ export default function AdminBeritaPage() {
                   placeholder="Masukkan judul berita lengkap..."
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
                 />
               </div>
 
@@ -402,7 +402,7 @@ export default function AdminBeritaPage() {
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12] bg-white"
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11] bg-white"
                   >
                     {NEWS_CATEGORIES.filter((c) => c !== "Semua").map((cat) => (
                       <option key={cat} value={cat}>
@@ -421,7 +421,7 @@ export default function AdminBeritaPage() {
                     placeholder="Contoh: Humas SKOMDA"
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12]"
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
                   />
                 </div>
               </div>
@@ -435,7 +435,7 @@ export default function AdminBeritaPage() {
                   placeholder="/images/berita/news-thumb-1.png atau URL eksternal"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
                 />
               </div>
 
@@ -448,7 +448,7 @@ export default function AdminBeritaPage() {
                   placeholder="Ringkasan 1-2 kalimat untuk preview card..."
                   value={formData.summary}
                   onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
                 />
               </div>
 
@@ -461,7 +461,7 @@ export default function AdminBeritaPage() {
                   placeholder="Tuliskan isi berita lengkap di sini (pisahkan paragraf dengan enter ganda)..."
                   value={formData.content}
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bd0c12]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
                 />
               </div>
 
@@ -476,7 +476,7 @@ export default function AdminBeritaPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2.5 text-sm font-semibold bg-[#bd0c12] text-white rounded-xl hover:bg-[#990a0e] transition-colors shadow-sm disabled:opacity-50"
+                  className="px-6 py-2.5 text-sm font-semibold bg-[#bc0c11] text-white rounded-xl hover:bg-[#990a0e] transition-colors shadow-sm disabled:opacity-50"
                 >
                   {isSubmitting
                     ? "Menyimpan ke Database..."

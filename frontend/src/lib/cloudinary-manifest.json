@@ -856,5 +856,41 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789130002/skomda/tefa/tefa-hero-student.png",
     "format": "png",
     "bytes": 1969082
+  },
+  "trial-class/hero-student.png": {
+    "public_id": "skomda/trial-class/hero-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135297/skomda/trial-class/hero-student.png",
+    "format": "png",
+    "bytes": 1782022
+  },
+  "trial-class/icon-date.png": {
+    "public_id": "skomda/trial-class/icon-date",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135298/skomda/trial-class/icon-date.png",
+    "format": "png",
+    "bytes": 41629
+  },
+  "trial-class/icon-online.png": {
+    "public_id": "skomda/trial-class/icon-online",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135300/skomda/trial-class/icon-online.png",
+    "format": "png",
+    "bytes": 50379
+  },
+  "trial-class/icon-time.png": {
+    "public_id": "skomda/trial-class/icon-time",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135302/skomda/trial-class/icon-time.png",
+    "format": "png",
+    "bytes": 81833
+  },
+  "trial-class/laptop-mockup.png": {
+    "public_id": "skomda/trial-class/laptop-mockup",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135303/skomda/trial-class/laptop-mockup.png",
+    "format": "png",
+    "bytes": 1920486
+  },
+  "trial-class/school-3d.png": {
+    "public_id": "skomda/trial-class/school-3d",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135304/skomda/trial-class/school-3d.png",
+    "format": "png",
+    "bytes": 230698
   }
 }

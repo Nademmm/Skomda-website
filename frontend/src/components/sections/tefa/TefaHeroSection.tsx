@@ -188,9 +188,9 @@ export default function TefaHeroSection({
                 </div>
               </div>
 
-              {/* Layer 3: Solid Telkom Red Card behind student (Figma Rectangle 28: 333x333, bg-[#bd0c12], rounded-tl-[40px] rounded-tr-[40px]) */}
+              {/* Layer 3: Solid Telkom Red Card behind student (Figma Rectangle 28: 333x333, bg-[#bc0c11], rounded-tl-[40px] rounded-tr-[40px]) */}
               <div
-                className="absolute bottom-0 left-[14%] sm:left-[15%] w-[58%] sm:w-[56%] h-[320px] sm:h-[350px] rounded-t-[36px] sm:rounded-t-[40px] bg-[#bd0c12] z-10 shadow-sm"
+                className="absolute bottom-0 left-[14%] sm:left-[15%] w-[58%] sm:w-[56%] h-[320px] sm:h-[350px] rounded-t-[36px] sm:rounded-t-[40px] bg-[#bc0c11] z-10 shadow-sm"
                 aria-hidden="true"
               />
 

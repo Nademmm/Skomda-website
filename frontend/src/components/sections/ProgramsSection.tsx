@@ -32,13 +32,13 @@ export default function ProgramsSection() {
               className={`relative z-10 flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-colors duration-200 cursor-pointer select-none ${
                 activeTab === "SIJA"
                   ? "text-white font-semibold"
-                  : "text-[#364153] hover:text-[#bd0c12]"
+                  : "text-[#364153] hover:text-[#bc0c11]"
               }`}
             >
               {activeTab === "SIJA" && (
                 <motion.div
                   layoutId="activeBerandaTabPill"
-                  className="absolute inset-0 rounded-full bg-[#bd0c12] shadow-sm -z-10"
+                  className="absolute inset-0 rounded-full bg-[#bc0c11] shadow-sm -z-10"
                   transition={{ type: "spring", stiffness: 450, damping: 35 }}
                 />
               )}
@@ -54,13 +54,13 @@ export default function ProgramsSection() {
               className={`relative z-10 flex-1 h-full rounded-full flex items-center justify-center gap-2 font-jakarta text-sm font-medium transition-colors duration-200 cursor-pointer select-none ${
                 activeTab === "TJAT"
                   ? "text-white font-semibold"
-                  : "text-[#364153] hover:text-[#bd0c12]"
+                  : "text-[#364153] hover:text-[#bc0c11]"
               }`}
             >
               {activeTab === "TJAT" && (
                 <motion.div
                   layoutId="activeBerandaTabPill"
-                  className="absolute inset-0 rounded-full bg-[#bd0c12] shadow-sm -z-10"
+                  className="absolute inset-0 rounded-full bg-[#bc0c11] shadow-sm -z-10"
                   transition={{ type: "spring", stiffness: 450, damping: 35 }}
                 />
               )}
@@ -155,7 +155,7 @@ export default function ProgramsSection() {
             <div className="lg:col-span-7 flex flex-col gap-6" data-node-id="96:391">
               <div>
                 <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight">
-                  <span className="text-[#bd0c12]">Sistem Informasi</span>{" "}
+                  <span className="text-[#bc0c11]">Sistem Informasi</span>{" "}
                   <span className="text-[#101828]">Jaringan dan Aplikasi</span>
                 </h3>
                 <p className="mt-2 font-jakarta text-sm sm:text-base leading-relaxed text-[#4a5565]">
@@ -170,7 +170,7 @@ export default function ProgramsSection() {
                     title: "Software Development",
                     desc: "Belajar membuat aplikasi web, mobile, dan desktop yang fungsional dan modern.",
                     icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bd0c12" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
                         <polyline points="16 18 22 12 16 6" />
                         <polyline points="8 6 2 12 8 18" />
                       </svg>
@@ -180,7 +180,7 @@ export default function ProgramsSection() {
                     title: "Database & Cloud Computing",
                     desc: "Belajar membuat aplikasi web, mobile, dan desktop yang fungsional dan modern.",
                     icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bd0c12" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
                         <ellipse cx="12" cy="5" rx="9" ry="3" />
                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
@@ -191,7 +191,7 @@ export default function ProgramsSection() {
                     title: "Networking & Cybersecurity",
                     desc: "Belajar membuat aplikasi web, mobile, dan desktop yang fungsional dan modern.",
                     icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bd0c12" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       </svg>
                     ),
@@ -227,7 +227,7 @@ export default function ProgramsSection() {
               <div>
                 <Link
                   href="/program/profil-jurusan?jurusan=SIJA#kompetensi"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[#bd0c12] px-7 py-3 text-sm sm:text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
+                  className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-sm sm:text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
                   style={{
                     boxShadow:
                       "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
@@ -321,7 +321,7 @@ export default function ProgramsSection() {
             <div className="lg:col-span-7 flex flex-col gap-6">
               <div>
                 <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight">
-                  <span className="text-[#bd0c12]">Teknik Jaringan</span>{" "}
+                  <span className="text-[#bc0c11]">Teknik Jaringan</span>{" "}
                   <span className="text-[#101828]">Akses Telekomunikasi</span>
                 </h3>
                 <p className="mt-2 font-jakarta text-sm sm:text-base leading-relaxed text-[#4a5565]">
@@ -336,7 +336,7 @@ export default function ProgramsSection() {
                     title: "Telecommunication Networks",
                     desc: "Mempelajari prinsip transmisi sinyal dan arsitektur jaringan komunikasi suara dan data.",
                     icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bd0c12" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
                         <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
                         <path d="M12 6v6l4 2" />
                       </svg>
@@ -346,7 +346,7 @@ export default function ProgramsSection() {
                     title: "Fiber Optic Technology",
                     desc: "Instalasi, penyambungan fusion splicing, pengukuran OTDR, dan pemeliharaan kabel serat optik.",
                     icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bd0c12" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
                         <path d="M4 11a9 9 0 0 1 9 9" />
                         <path d="M4 4a16 16 0 0 1 16 16" />
                         <circle cx="5" cy="19" r="1" />
@@ -357,7 +357,7 @@ export default function ProgramsSection() {
                     title: "Wireless & Microwave Communication",
                     desc: "Konfigurasi radio link, base transceiver station (BTS), serta transmisi frekuensi nirkabel seluler.",
                     icon: (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bd0c12" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
                         <path d="M5 12.55a11 11 0 0 1 14.08 0" />
                         <path d="M1.42 9a16 16 0 0 1 21.16 0" />
                         <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
@@ -396,7 +396,7 @@ export default function ProgramsSection() {
               <div>
                 <Link
                   href="/program/profil-jurusan?jurusan=TJAT#kompetensi"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[#bd0c12] px-7 py-3 text-sm sm:text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
+                  className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-sm sm:text-base font-medium text-white transition-all hover:bg-[#990a0e] active:scale-[0.98]"
                   style={{
                     boxShadow:
                       "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",

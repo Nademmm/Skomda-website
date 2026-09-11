@@ -30,7 +30,7 @@ export default function AkreditasiSection() {
             <p className="font-jakarta text-lg sm:text-xl text-[#364153] leading-relaxed">
               Berdasarkan Keputusan Badan Akreditasi Nasional Sekolah/Madrasah Nomor:{" "}
               <span className="font-semibold text-[#101828]">1336/BAN-SM/SK/2021</span>, menyatakan bahwa SMK Telkom Sidoarjo{" "}
-              <span className="font-semibold text-[#bd0c12]">&ldquo;Terakreditasi A (UNGGUL).&rdquo;</span> Dengan Nilai{" "}
+              <span className="font-semibold text-[#bc0c11]">&ldquo;Terakreditasi A (UNGGUL).&rdquo;</span> Dengan Nilai{" "}
               <span className="font-semibold text-[#101828]">93</span>, Akreditasi SMK Telkom Sidoarjo berlaku sampai dengan{" "}
               <span className="font-semibold text-[#101828]">31 Desember 2026</span>.
             </p>

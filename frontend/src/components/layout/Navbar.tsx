@@ -83,7 +83,7 @@ export default function Navbar() {
         { label: t("nav.tefaRequest"), href: "/tefa/request", desc: t("nav.tefaRequestDesc") },
       ],
     },
-    { label: t("nav.trialClass"), href: "#trial-class" },
+    { label: t("nav.trialClass"), href: "/trial-class" },
     { label: t("nav.ppdb"), href: "#ppdb" },
   ];
 
@@ -125,8 +125,8 @@ export default function Navbar() {
                       <div key={item.href} className="relative group/nav py-3">
                         <button
                           type="button"
-                          className={`flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold transition-colors group-hover/nav:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer ${
-                            isActive(item) ? "text-[#bd0c12]" : "text-[#364153]"
+                          className={`flex items-center gap-1.5 px-3 py-1.5 text-[15px] font-semibold transition-colors group-hover/nav:text-[#bc0c11] whitespace-nowrap font-jakarta leading-6 rounded-full cursor-pointer ${
+                            isActive(item) ? "text-[#bc0c11]" : "text-[#364153]"
                           }`}
                         >
                           <span>{item.label}</span>
@@ -135,7 +135,7 @@ export default function Navbar() {
                             height="12"
                             viewBox="0 0 12 12"
                             fill="none"
-                            className="opacity-60 transition-transform duration-200 group-hover/nav:rotate-180 group-hover/nav:opacity-100 group-hover/nav:text-[#bd0c12]"
+                            className="opacity-60 transition-transform duration-200 group-hover/nav:rotate-180 group-hover/nav:opacity-100 group-hover/nav:text-[#bc0c11]"
                           >
                             <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
@@ -150,14 +150,14 @@ export default function Navbar() {
                                 href={sub.href}
                                 className="group/item flex flex-col p-2.5 rounded-xl transition-all hover:bg-[#ffebed] text-left"
                               >
-                                <span className="font-jakarta text-sm font-semibold text-[#101828] group-hover/item:text-[#bd0c12] flex items-center justify-between">
+                                <span className="font-jakarta text-sm font-semibold text-[#101828] group-hover/item:text-[#bc0c11] flex items-center justify-between">
                                   <span>{sub.label}</span>
                                   <svg
                                     width="14"
                                     height="14"
                                     viewBox="0 0 24 24"
                                     fill="none"
-                                    className="opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-[#bd0c12]"
+                                    className="opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-[#bc0c11]"
                                   >
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
@@ -179,8 +179,8 @@ export default function Navbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`flex items-center px-3 py-1.5 text-[15px] font-semibold transition-colors hover:text-[#bd0c12] whitespace-nowrap font-jakarta leading-6 ${
-                        isActive(item) ? "text-[#bd0c12]" : "text-[#364153]"
+                      className={`flex items-center px-3 py-1.5 text-[15px] font-semibold transition-colors hover:text-[#bc0c11] whitespace-nowrap font-jakarta leading-6 ${
+                        isActive(item) ? "text-[#bc0c11]" : "text-[#364153]"
                       }`}
                     >
                       {item.label}
@@ -195,7 +195,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setSearchOpen(true)}
-                  className="flex items-center justify-center text-[#6b7280] transition-colors hover:text-[#bd0c12] cursor-pointer p-1"
+                  className="flex items-center justify-center text-[#6b7280] transition-colors hover:text-[#bc0c11] cursor-pointer p-1"
                   aria-label="Search"
                 >
                   <svg className="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -209,8 +209,8 @@ export default function Navbar() {
                     onClick={() => setLang("ID")}
                     className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
                       lang === "ID"
-                        ? "bg-[#bd0c12] text-white shadow-sm"
-                        : "text-[#4b5563] hover:text-[#bd0c12]"
+                        ? "bg-[#bc0c11] text-white shadow-sm"
+                        : "text-[#4b5563] hover:text-[#bc0c11]"
                     }`}
                     aria-label="Bahasa Indonesia"
                   >
@@ -221,8 +221,8 @@ export default function Navbar() {
                     onClick={() => setLang("EN")}
                     className={`h-[30px] w-[34px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
                       lang === "EN"
-                        ? "bg-[#bd0c12] text-white shadow-sm"
-                        : "text-[#4b5563] hover:text-[#bd0c12]"
+                        ? "bg-[#bc0c11] text-white shadow-sm"
+                        : "text-[#4b5563] hover:text-[#bc0c11]"
                     }`}
                     aria-label="English"
                   >
@@ -233,7 +233,7 @@ export default function Navbar() {
                 {/* CTA Button Unduh Informasi */}
                 <Link
                   href="/unduh-informasi"
-                  className="inline-flex h-[38px] items-center gap-2 rounded-full bg-[#bd0c12] hover:bg-[#9e0a0f] px-5 text-xs font-bold font-jakarta text-white transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
+                  className="inline-flex h-[38px] items-center gap-2 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] px-5 text-xs font-bold font-jakarta text-white transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
                 >
                   <span>{t("nav.downloadInfo")}</span>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -251,7 +251,7 @@ export default function Navbar() {
                     setMobileOpen(false);
                     setSearchOpen(true);
                   }}
-                  className="flex items-center justify-center text-[#6b7280] active:text-[#bd0c12] cursor-pointer p-1.5"
+                  className="flex items-center justify-center text-[#6b7280] active:text-[#bc0c11] cursor-pointer p-1.5"
                   aria-label="Search"
                   style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
                 >
@@ -263,7 +263,7 @@ export default function Navbar() {
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setMobileOpen((prev) => !prev); }}
                   onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); setMobileOpen((prev) => !prev); }}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#364153] active:border-[#bd0c12] active:text-[#bd0c12] active:bg-gray-50 bg-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#364153] active:border-[#bc0c11] active:text-[#bc0c11] active:bg-gray-50 bg-white"
                   aria-label="Toggle menu"
                   style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
                 >
@@ -305,7 +305,7 @@ export default function Navbar() {
                       <button
                         type="button"
                         onClick={() => toggleMobileSubmenu(item.href)}
-                        className="flex items-center justify-between px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12] w-full text-left cursor-pointer select-none"
+                        className="flex items-center justify-between px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bc0c11] w-full text-left cursor-pointer select-none"
                       >
                         <span>{item.label}</span>
                         <svg
@@ -313,20 +313,20 @@ export default function Navbar() {
                           height="14"
                           viewBox="0 0 12 12"
                           fill="none"
-                          className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-[#bd0c12]" : "text-gray-400"}`}
+                          className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-[#bc0c11]" : "text-gray-400"}`}
                         >
                           <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </button>
 
                       {isOpen && (
-                        <div className="mt-1 flex flex-col gap-1 pl-4 border-l-2 border-[#bd0c12]/30 ml-2">
+                        <div className="mt-1 flex flex-col gap-1 pl-4 border-l-2 border-[#bc0c11]/30 ml-2">
                           {item.submenu.map((sub) => (
                             <Link
                               key={sub.href}
                               href={sub.href}
                               onClick={() => setMobileOpen(false)}
-                              className="px-2 py-2 text-sm font-medium text-[#4a5565] hover:text-[#bd0c12] active:text-[#bd0c12]"
+                              className="px-2 py-2 text-sm font-medium text-[#4a5565] hover:text-[#bc0c11] active:text-[#bc0c11]"
                             >
                               {sub.label}
                             </Link>
@@ -342,7 +342,7 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bd0c12] active:text-[#bd0c12] border-b border-gray-100 last:border-0"
+                    className="px-2 py-2.5 text-base font-semibold text-[#364153] hover:text-[#bc0c11] active:text-[#bc0c11] border-b border-gray-100 last:border-0"
                   >
                     {item.label}
                   </Link>
@@ -355,7 +355,7 @@ export default function Navbar() {
                     type="button"
                     onClick={() => setLang("ID")}
                     className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
-                      lang === "ID" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#4b5563]"
+                      lang === "ID" ? "bg-[#bc0c11] text-white shadow-sm" : "text-[#4b5563]"
                     }`}
                   >
                     ID
@@ -364,7 +364,7 @@ export default function Navbar() {
                     type="button"
                     onClick={() => setLang("EN")}
                     className={`h-[28px] w-[32px] flex items-center justify-center rounded-full text-xs font-bold font-jakarta transition-all cursor-pointer ${
-                      lang === "EN" ? "bg-[#bd0c12] text-white shadow-sm" : "text-[#4b5563]"
+                      lang === "EN" ? "bg-[#bc0c11] text-white shadow-sm" : "text-[#4b5563]"
                     }`}
                   >
                     EN
@@ -373,7 +373,7 @@ export default function Navbar() {
                 <Link
                   href="/unduh-informasi"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex h-[36px] items-center rounded-full bg-[#bd0c12] px-5 text-xs font-bold font-jakarta text-white shadow-sm"
+                  className="inline-flex h-[36px] items-center rounded-full bg-[#bc0c11] px-5 text-xs font-bold font-jakarta text-white shadow-sm"
                 >
                   {t("nav.downloadInfo")}
                 </Link>

@@ -12,7 +12,7 @@ export default function Footer() {
     { label: t("nav.schoolProfile"), href: "/tentang-kami/profil-sekolah" },
     { label: t("nav.majorProfiles"), href: "/program/profil-jurusan" },
     { label: t("nav.news"), href: "/informasi/berita" },
-    { label: t("nav.trialClass"), href: "#trial-class" },
+    { label: t("nav.trialClass"), href: "/trial-class" },
     { label: t("nav.ppdb"), href: "#ppdb" },
   ];
 
@@ -61,7 +61,7 @@ export default function Footer() {
             <div className="flex flex-col gap-3 pt-2">
               {/* Email */}
               <div className="flex items-center gap-3">
-                <div className="flex size-4 shrink-0 items-center justify-center text-[#bd0c12]">
+                <div className="flex size-4 shrink-0 items-center justify-center text-[#bc0c11]">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path
                       d="M2.5 3.5H13.5C14.05 3.5 14.5 3.95 14.5 4.5V11.5C14.5 12.05 14.05 12.5 13.5 12.5H2.5C1.95 12.5 1.5 12.05 1.5 11.5V4.5C1.5 3.95 1.95 3.5 2.5 3.5Z"
@@ -73,7 +73,7 @@ export default function Footer() {
                 </div>
                 <a
                   href="mailto:informasi@smktelkom-sda.sch.id"
-                  className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
+                  className="font-jakarta text-sm text-[#364153] hover:text-[#bc0c11] transition-colors"
                 >
                   informasi@smktelkom-sda.sch.id
                 </a>
@@ -81,7 +81,7 @@ export default function Footer() {
 
               {/* Phone */}
               <div className="flex items-center gap-3">
-                <div className="flex size-4 shrink-0 items-center justify-center text-[#bd0c12]">
+                <div className="flex size-4 shrink-0 items-center justify-center text-[#bc0c11]">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path
                       d="M3.5 2.5C3.5 2.5 4.5 1.5 5.5 1.5C6.5 1.5 7 2.5 7.5 3.5L8 4.5C8.5 5.5 8 6 7.5 6.5C7 7 6.5 7.5 7 8.5C7.5 9.5 8.5 10.5 9.5 11C10.5 11.5 11 11 11.5 10.5C12 10 12.5 9.5 13.5 10L14.5 10.5C15.5 11 15.5 12 14.5 13C13.5 14 12.5 14.5 11.5 14.5C8.5 14.5 3.5 9.5 1.5 4.5C1.5 3.5 2 2.5 3.5 2.5Z"
@@ -92,7 +92,7 @@ export default function Footer() {
                 </div>
                 <a
                   href="tel:08113021919"
-                  className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
+                  className="font-jakarta text-sm text-[#364153] hover:text-[#bc0c11] transition-colors"
                 >
                   0811-3021-919
                 </a>
@@ -100,7 +100,7 @@ export default function Footer() {
 
               {/* Address */}
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 flex size-4 shrink-0 items-center justify-center text-[#bd0c12]">
+                <div className="mt-0.5 flex size-4 shrink-0 items-center justify-center text-[#bc0c11]">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path
                       d="M8 1.5C5.51 1.5 3.5 3.51 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.51 10.49 1.5 8 1.5ZM8 7.5C7.17 7.5 6.5 6.83 6.5 6C6.5 5.17 7.17 4.5 8 4.5C8.83 4.5 9.5 5.17 9.5 6C9.5 6.83 8.83 7.5 8 7.5Z"
@@ -176,7 +176,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="flex size-9 items-center justify-center rounded-full border border-gray-200 text-[#4a5565] transition-colors hover:border-[#bd0c12] hover:bg-[#bd0c12] hover:text-white"
+                  className="flex size-9 items-center justify-center rounded-full border border-gray-200 text-[#4a5565] transition-colors hover:border-[#bc0c11] hover:bg-[#bc0c11] hover:text-white"
                 >
                   {s.icon}
                 </a>
@@ -200,7 +200,7 @@ export default function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
+                      className="font-jakarta text-sm text-[#364153] hover:text-[#bc0c11] transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -220,7 +220,7 @@ export default function Footer() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
+                      className="font-jakarta text-sm text-[#364153] hover:text-[#bc0c11] transition-colors"
                     >
                       {item.label}
                     </a>
@@ -241,7 +241,7 @@ export default function Footer() {
                   <li key={`${item.label}-${idx}`}>
                     <Link
                       href={item.href}
-                      className="font-jakarta text-sm text-[#364153] hover:text-[#bd0c12] transition-colors"
+                      className="font-jakarta text-sm text-[#364153] hover:text-[#bc0c11] transition-colors"
                     >
                       {item.label}
                     </Link>

@@ -127,7 +127,7 @@ export default function PageHeroSection({
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[54px] leading-tight tracking-tight text-[#101828]">
                 {titlePrefix} <span className="text-[#e7000b]">{titleHighlight}</span> {titleSuffix}
               </h1>
-              <div className="mt-3.5 h-[3px] w-14 bg-[#bd0c12] rounded-full" />
+              <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             {/* Description */}

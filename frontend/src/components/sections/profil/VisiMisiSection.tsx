@@ -31,7 +31,7 @@ export default function VisiMisiSection() {
             {/* Visi Block */}
             <div className="flex items-start gap-4 sm:gap-5 mb-10 group">
               {/* Icon Container */}
-              <div className="shrink-0 size-12 sm:size-14 rounded-full bg-[#e7000b] flex items-center justify-center shadow-md shadow-[#e7000b]/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="shrink-0 size-12 sm:size-14 rounded-full bg-[#bc0c11] flex items-center justify-center shadow-md shadow-[#bc0c11]/20 group-hover:scale-105 transition-transform duration-300">
                 <div className="relative size-6 sm:size-7">
                   <Image
                     src="/images/tentang-kami/profil-sekolah/icons/icon-target-dart.svg"
@@ -56,7 +56,7 @@ export default function VisiMisiSection() {
             {/* Misi Block */}
             <div className="flex items-start gap-4 sm:gap-5 group">
               {/* Icon Container */}
-              <div className="shrink-0 size-12 sm:size-14 rounded-full bg-[#e7000b] flex items-center justify-center shadow-md shadow-[#e7000b]/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="shrink-0 size-12 sm:size-14 rounded-full bg-[#bc0c11] flex items-center justify-center shadow-md shadow-[#bc0c11]/20 group-hover:scale-105 transition-transform duration-300">
                 <div className="relative size-6 sm:size-7">
                   <Image
                     src="/images/tentang-kami/profil-sekolah/icons/icon-misi.svg"
@@ -77,7 +77,7 @@ export default function VisiMisiSection() {
                 <div className="space-y-4">
                   {misiList.map((item, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <span className="font-jakarta font-bold text-base text-[#e7000b] shrink-0 pt-0.5">
+                      <span className="font-jakarta font-bold text-base text-[#bc0c11] shrink-0 pt-0.5">
                         {index + 1}.
                       </span>
                       <p className="font-jakarta text-base text-[#364153] leading-relaxed">
