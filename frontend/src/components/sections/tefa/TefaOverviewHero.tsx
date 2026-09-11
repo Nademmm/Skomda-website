@@ -9,16 +9,6 @@ export default function TefaOverviewHero() {
 
   return (
     <section className="relative w-full overflow-hidden bg-[#f3f4f6] pt-36 sm:pt-40 lg:pt-44 pb-16 lg:pb-24">
-      {/* Subtle Background Watermark from Figma */}
-      <div
-        className="absolute top-12 left-[48%] pointer-events-none select-none z-0 hidden xl:block"
-        aria-hidden="true"
-      >
-        <span className="text-[140px] font-black text-gray-300/20 tracking-widest font-jakarta">
-          TEFA
-        </span>
-      </div>
-
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

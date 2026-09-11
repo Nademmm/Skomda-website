@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface TefaNeedSectionProps {
   onSelectCategory?: (category: string) => void;
-  onRequestProject: () => void;
+  onRequestProject?: () => void;
   onViewAllServices: () => void;
 }
 
@@ -37,7 +38,7 @@ export default function TefaNeedSection({
       titleKey: "tefa.need3Title",
       descKey: "tefa.need3Desc",
       icon: "/images/tefa/icon-project-idea.png",
-      action: onRequestProject,
+      href: "/tefa/request",
     },
     {
       id: "04",
@@ -75,39 +76,74 @@ export default function TefaNeedSection({
                 {/* Clean Solid Divider */}
                 <div className="w-full h-px bg-[#e5e7eb]" />
 
-                <button
-                  type="button"
-                  onClick={item.action}
-                  className="group w-full flex items-center gap-4 sm:gap-6 py-4 sm:py-4.5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-2 sm:px-3 -mx-2 sm:-mx-3 cursor-pointer"
-                >
-                  {/* Big Number from Figma */}
-                  <span className="font-jakarta font-bold text-3xl sm:text-[38px] text-[#747878] w-10 sm:w-14 shrink-0 text-left group-hover:text-[#bc0c11] transition-colors leading-none select-none">
-                    {item.id}
-                  </span>
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    className="group w-full flex items-center gap-4 sm:gap-6 py-4 sm:py-4.5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-2 sm:px-3 -mx-2 sm:-mx-3 cursor-pointer"
+                  >
+                    {/* Big Number from Figma */}
+                    <span className="font-jakarta font-bold text-3xl sm:text-[38px] text-[#747878] w-10 sm:w-14 shrink-0 text-left group-hover:text-[#bc0c11] transition-colors leading-none select-none">
+                      {item.id}
+                    </span>
 
-                  {/* Icon Container: Simple consistent circle matching other sections */}
-                  <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-full bg-[#ffebed] transition-transform duration-200 group-hover:scale-105 p-3">
-                    <div className="relative size-7 sm:size-8">
-                      <Image
-                        src={item.icon}
-                        alt=""
-                        fill
-                        className="object-contain"
-                        aria-hidden="true"
-                      />
+                    {/* Icon Container: Simple consistent circle matching other sections */}
+                    <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-full bg-[#ffebed] transition-transform duration-200 group-hover:scale-105 p-3">
+                      <div className="relative size-7 sm:size-8">
+                        <Image
+                          src={item.icon}
+                          alt=""
+                          fill
+                          className="object-contain"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Text Details */}
-                  <div className="flex-1 min-w-0 pr-1">
-                    <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mb-1">
-                      {t(item.titleKey)}
-                    </h3>
-                    <p className="font-jakarta text-xs sm:text-[13px] text-[#787878] leading-relaxed font-normal">
-                      {t(item.descKey)}
-                    </p>
-                  </div>
-                </button>
+                    {/* Text Details */}
+                    <div className="flex-1 min-w-0 pr-1">
+                      <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mb-1">
+                        {t(item.titleKey)}
+                      </h3>
+                      <p className="font-jakarta text-xs sm:text-[13px] text-[#787878] leading-relaxed font-normal">
+                        {t(item.descKey)}
+                      </p>
+                    </div>
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={item.action}
+                    className="group w-full flex items-center gap-4 sm:gap-6 py-4 sm:py-4.5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-2 sm:px-3 -mx-2 sm:-mx-3 cursor-pointer"
+                  >
+                    {/* Big Number from Figma */}
+                    <span className="font-jakarta font-bold text-3xl sm:text-[38px] text-[#747878] w-10 sm:w-14 shrink-0 text-left group-hover:text-[#bc0c11] transition-colors leading-none select-none">
+                      {item.id}
+                    </span>
+
+                    {/* Icon Container: Simple consistent circle matching other sections */}
+                    <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-full bg-[#ffebed] transition-transform duration-200 group-hover:scale-105 p-3">
+                      <div className="relative size-7 sm:size-8">
+                        <Image
+                          src={item.icon}
+                          alt=""
+                          fill
+                          className="object-contain"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Text Details */}
+                    <div className="flex-1 min-w-0 pr-1">
+                      <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mb-1">
+                        {t(item.titleKey)}
+                      </h3>
+                      <p className="font-jakarta text-xs sm:text-[13px] text-[#787878] leading-relaxed font-normal">
+                        {t(item.descKey)}
+                      </p>
+                    </div>
+                  </button>
+                )}
               </div>
             ))}
             {/* Bottom Closing Divider */}

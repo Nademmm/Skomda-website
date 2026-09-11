@@ -5,14 +5,10 @@ import TefaHeroSection from "./TefaHeroSection";
 import TefaNeedSection from "./TefaNeedSection";
 import TefaCatalogSection, { TefaProductItem } from "./TefaCatalogSection";
 import TefaCtaBanner from "./TefaCtaBanner";
-import TefaRequestModal from "./TefaRequestModal";
 import TefaProductDetailModal from "./TefaProductDetailModal";
 
 export default function TefaPageClient() {
-  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [selectedProductForDetail, setSelectedProductForDetail] =
-    useState<TefaProductItem | null>(null);
-  const [selectedProductForRequest, setSelectedProductForRequest] =
     useState<TefaProductItem | null>(null);
   const [catalogCategory, setCatalogCategory] = useState<string>("Semua");
 
@@ -21,11 +17,6 @@ export default function TefaPageClient() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const handleOpenRequestModal = (product?: TefaProductItem | null) => {
-    setSelectedProductForRequest(product || null);
-    setIsRequestModalOpen(true);
   };
 
   const handleSelectCategoryFromNeed = (category: string) => {
@@ -47,15 +38,11 @@ export default function TefaPageClient() {
   return (
     <>
       {/* 1. Hero Section (Dari Kebutuhan Menjadi Solusi Nyata) */}
-      <TefaHeroSection
-        onExploreServices={handleExploreServices}
-        onRequestProject={() => handleOpenRequestModal(null)}
-      />
+      <TefaHeroSection onExploreServices={handleExploreServices} />
 
       {/* 2. Mulai Dari Kebutuhan Anda (Apa yang bisa kami bantu? - 01-04 list + TeFa Building photo) */}
       <TefaNeedSection
         onSelectCategory={handleSelectCategoryFromNeed}
-        onRequestProject={() => handleOpenRequestModal(null)}
         onViewAllServices={handleViewAllServices}
       />
 
@@ -63,25 +50,16 @@ export default function TefaPageClient() {
       <TefaCatalogSection
         selectedCategory={catalogCategory}
         onSelectProduct={(product) => setSelectedProductForDetail(product)}
-        onRequestProduct={(product) => handleOpenRequestModal(product)}
       />
 
       {/* 4. Ceritakan Project Anda (Crimson Gradient CTA Banner) */}
-      <TefaCtaBanner onRequestProject={() => handleOpenRequestModal(null)} />
+      <TefaCtaBanner />
 
-      {/* 5. Interactive Project Request Modal */}
-      <TefaRequestModal
-        isOpen={isRequestModalOpen}
-        onClose={() => setIsRequestModalOpen(false)}
-        initialProduct={selectedProductForRequest}
-      />
-
-      {/* 6. Product Detail Modal */}
+      {/* 5. Product Detail Modal */}
       <TefaProductDetailModal
         isOpen={Boolean(selectedProductForDetail)}
         product={selectedProductForDetail}
         onClose={() => setSelectedProductForDetail(null)}
-        onRequestThisProduct={(product) => handleOpenRequestModal(product)}
       />
     </>
   );

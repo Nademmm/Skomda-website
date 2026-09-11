@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface TefaCtaBannerProps {
-  onRequestProject: () => void;
+  onRequestProject?: () => void;
 }
 
 export default function TefaCtaBanner({ onRequestProject }: TefaCtaBannerProps) {
@@ -50,9 +51,8 @@ export default function TefaCtaBanner({ onRequestProject }: TefaCtaBannerProps) 
 
             {/* Right Column: CTA Button */}
             <div className="shrink-0">
-              <button
-                type="button"
-                onClick={onRequestProject}
+              <Link
+                href="/tefa/request"
                 className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#bc0c11] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg active:scale-[0.98] cursor-pointer shadow-md"
               >
                 <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
@@ -74,7 +74,7 @@ export default function TefaCtaBanner({ onRequestProject }: TefaCtaBannerProps) 
                     strokeLinejoin="round"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>

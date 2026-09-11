@@ -108,14 +108,8 @@ export default function TrialClassEventCard({ onOpenRegister }: TrialClassEventC
               </div>
             </div>
 
-            {/* Middle: Actions Stacked Vertically (3 cols) */}
-            <div className="lg:col-span-3 flex flex-col items-start lg:items-center justify-center gap-3">
-              {/* Badge */}
-              <div className="w-full sm:w-auto lg:w-[200px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#dcfce7] text-[#16a34a] font-jakarta text-xs sm:text-sm font-semibold border border-[#bbf7d0] shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0" />
-                <span className="whitespace-nowrap">{t("trialClassPage.statusOpen", "Pendaftaran Dibuka")}</span>
-              </div>
-
+            {/* Middle: Actions (3 cols) */}
+            <div className="lg:col-span-3 flex flex-col items-start lg:items-center justify-center">
               {/* Register CTA Button */}
               <button
                 type="button"

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -20,7 +21,7 @@ export interface TefaProductItem {
 interface TefaCatalogSectionProps {
   selectedCategory?: string;
   onSelectProduct: (product: TefaProductItem) => void;
-  onRequestProduct: (product: TefaProductItem) => void;
+  onRequestProduct?: (product: TefaProductItem) => void;
 }
 
 export const TEFA_PRODUCTS: TefaProductItem[] = [
@@ -236,17 +237,16 @@ export default function TefaCatalogSection({
                       </svg>
                     </button>
 
-                    <button
-                      type="button"
-                      onClick={() => onRequestProduct(product)}
-                      className="px-4 py-2 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white text-xs font-jakarta font-medium transition-all active:scale-[0.98] cursor-pointer"
+                    <Link
+                      href={`/tefa/request?service=${encodeURIComponent(product.title)}`}
+                      className="px-4 py-2 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white text-xs font-jakarta font-medium transition-all active:scale-[0.98] cursor-pointer inline-flex items-center justify-center"
                       style={{
                         boxShadow:
                           "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
                       }}
                     >
                       {t("tefa.cardOrder")}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

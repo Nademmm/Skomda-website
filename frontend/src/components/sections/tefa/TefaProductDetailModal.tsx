@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { TefaProductItem } from "./TefaCatalogSection";
 
@@ -9,7 +10,7 @@ interface TefaProductDetailModalProps {
   product: TefaProductItem | null;
   isOpen: boolean;
   onClose: () => void;
-  onRequestThisProduct: (product: TefaProductItem) => void;
+  onRequestThisProduct?: (product: TefaProductItem) => void;
 }
 
 export default function TefaProductDetailModal({
@@ -157,12 +158,9 @@ export default function TefaProductDetailModal({
               Kembali
             </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                onClose();
-                onRequestThisProduct(product);
-              }}
+            <Link
+              href={`/tefa/request?service=${encodeURIComponent(product.title)}`}
+              onClick={onClose}
               className="flex-1 sm:flex-none inline-flex items-center justify-center gap-3 px-7 py-3 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white text-base font-jakarta font-medium transition-all active:scale-[0.98] cursor-pointer"
               style={{
                 boxShadow:
@@ -185,7 +183,7 @@ export default function TefaProductDetailModal({
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </motion.div>
       </div>

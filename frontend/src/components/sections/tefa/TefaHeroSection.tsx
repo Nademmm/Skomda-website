@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 interface TefaHeroSectionProps {
   onExploreServices: () => void;
-  onRequestProject: () => void;
+  onRequestProject?: () => void;
 }
 
 export default function TefaHeroSection({
@@ -19,16 +19,6 @@ export default function TefaHeroSection({
   return (
     <section className="relative w-full pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 overflow-hidden bg-[#f3f4f6]">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative">
-        {/* Subtle Background Watermark from Figma */}
-        <div
-          className="absolute top-10 left-[45%] pointer-events-none select-none z-0 hidden xl:block"
-          aria-hidden="true"
-        >
-          <span className="text-[130px] font-black text-gray-300/25 tracking-widest font-jakarta">
-            TEFA
-          </span>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
           {/* Left Column: Text & CTA */}
           <motion.div
@@ -134,9 +124,8 @@ export default function TefaHeroSection({
               </button>
 
               {/* Secondary Button */}
-              <button
-                type="button"
-                onClick={onRequestProject}
+              <Link
+                href="/tefa/request"
                 className="group inline-flex items-center gap-2.5 rounded-full bg-white border border-[#d1d5dc] px-7 py-3.5 text-base font-medium text-[#364153] transition-all duration-300 hover:bg-gray-50 hover:border-[#bc0c11] hover:text-[#bc0c11] active:scale-[0.98] shadow-sm cursor-pointer"
               >
                 <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
@@ -158,7 +147,7 @@ export default function TefaHeroSection({
                     strokeLinejoin="round"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </motion.div>
 
