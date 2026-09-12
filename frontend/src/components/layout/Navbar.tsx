@@ -63,6 +63,7 @@ export default function Navbar() {
         { label: t("nav.extracurriculars"), href: "/program/ekstrakurikuler", desc: t("nav.extracurricularsDesc") },
         { label: t("nav.digitalTalent"), href: "/program/digital-talent", desc: t("nav.digitalTalentDesc") },
         { label: t("nav.ts21Program"), href: "/program/ts21", desc: t("nav.ts21ProgramDesc") },
+        { label: t("nav.bkk"), href: "/program/bkk", desc: t("nav.bkkDesc") },
       ],
     },
     {

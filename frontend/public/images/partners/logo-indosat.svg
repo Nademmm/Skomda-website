@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 40" fill="none">
+  <!-- Indosat Yellow/Red Graphic -->
+  <g transform="translate(4, 5)">
+    <circle cx="15" cy="15" r="14" fill="#FFC900"/>
+    <circle cx="15" cy="15" r="9" fill="#ED1C24"/>
+    <circle cx="15" cy="15" r="4.5" fill="#FFFFFF"/>
+  </g>
+  <!-- Indosat Typography -->
+  <text x="38" y="20" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#101828" letter-spacing="-0.3">indosat</text>
+  <text x="38" y="31" font-family="'Plus Jakarta Sans', sans-serif" font-size="8.5" font-weight="600" fill="#787878" letter-spacing="0.2">ooredoo hutchison</text>
+</svg>

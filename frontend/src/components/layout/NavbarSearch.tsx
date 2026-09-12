@@ -38,6 +38,7 @@ const STATIC_PAGES: SearchItem[] = [
   { id: "p-ekskul", title: "Ekstrakurikuler", description: "Wadah pengembangan minat, bakat, kepemimpinan siswa", href: "/program/ekstrakurikuler", category: "Halaman", iconType: "page" },
   { id: "p-dtp", title: "Digital Talent Program (DTP)", description: "Akselerasi keahlian teknologi khusus dan startup digital", href: "/program/digital-talent", category: "Halaman", iconType: "star" },
   { id: "p-ts21", title: "Program TS21", description: "Telkom Schools 21st Century Learning Framework", href: "/program/ts21", category: "Halaman", iconType: "page" },
+  { id: "p-bkk", title: "BKK (Bursa Kerja Khusus)", description: "Peluang karier, lowongan kerja, magang & talenta alumni", href: "/program/bkk", category: "Halaman", iconType: "star", keywords: "bkk bursa kerja khusus lowongan karier magang internship alumni rekrutmen kerja" },
   { id: "p-berita", title: "Berita & Agenda", description: "Kabar terbaru, prestasi dan kegiatan civitas akademika", href: "/informasi/berita", category: "Halaman", iconType: "news" },
   { id: "p-kelulusan", title: "Pengumuman Kelulusan", description: "Informasi resmi status kelulusan peserta didik", href: "/informasi/pengumuman-kelulusan", category: "Halaman", iconType: "doc" },
   { id: "p-k3", title: "Penerapan K3", description: "Keselamatan & Kesehatan Kerja di lingkungan sekolah", href: "/informasi/penerapan-k3", category: "Halaman", iconType: "info" },

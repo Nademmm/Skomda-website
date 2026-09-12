@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <!-- Lintasarta Blue/Yellow Swirl Icon -->
+  <g transform="translate(4, 6)">
+    <circle cx="14" cy="14" r="13" fill="#00529C"/>
+    <path d="M7 14C7 10.134 10.134 7 14 7C17.866 7 21 10.134 21 14C21 17.866 17.866 21 14 21" stroke="#FDB913" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="14" cy="14" r="3.5" fill="#FFFFFF"/>
+  </g>
+  <!-- Lintasarta Typography -->
+  <text x="36" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="800" fill="#00529C" letter-spacing="-0.3">lintasarta</text>
+</svg>
