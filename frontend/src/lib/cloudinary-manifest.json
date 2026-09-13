@@ -892,5 +892,95 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789135304/skomda/trial-class/school-3d.png",
     "format": "png",
     "bytes": 230698
+  },
+  "partners/bdx_data_center.jpg": {
+    "public_id": "skomda/partners/bdx_data_center",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211163/skomda/partners/bdx_data_center.jpg",
+    "format": "jpg",
+    "bytes": 229606
+  },
+  "partners/Logo-Lintasarta.png": {
+    "public_id": "skomda/partners/Logo-Lintasarta",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211164/skomda/partners/Logo-Lintasarta.png",
+    "format": "png",
+    "bytes": 3572
+  },
+  "partners/logo-telkom-indonesia.jpg": {
+    "public_id": "skomda/partners/logo-telkom-indonesia",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211165/skomda/partners/logo-telkom-indonesia.jpg",
+    "format": "jpg",
+    "bytes": 20753
+  },
+  "partners/logo_cisco.png": {
+    "public_id": "skomda/partners/logo_cisco",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211165/skomda/partners/logo_cisco.png",
+    "format": "png",
+    "bytes": 34304
+  },
+  "partners/logo_huawei.webp": {
+    "public_id": "skomda/partners/logo_huawei",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211166/skomda/partners/logo_huawei.webp",
+    "format": "webp",
+    "bytes": 105072
+  },
+  "partners/logo_mikrotik.png": {
+    "public_id": "skomda/partners/logo_mikrotik",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211167/skomda/partners/logo_mikrotik.png",
+    "format": "png",
+    "bytes": 17345
+  },
+  "partners/logo_zte.webp": {
+    "public_id": "skomda/partners/logo_zte",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211168/skomda/partners/logo_zte.webp",
+    "format": "webp",
+    "bytes": 10454
+  },
+  "tefa/request-student-thinking.png": {
+    "public_id": "skomda/tefa/request-student-thinking",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211169/skomda/tefa/request-student-thinking.png",
+    "format": "png",
+    "bytes": 1969082
+  },
+  "tefa/request-students-three.png": {
+    "public_id": "skomda/tefa/request-students-three",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211170/skomda/tefa/request-students-three.png",
+    "format": "png",
+    "bytes": 2749078
+  },
+  "documents/thumbnails/thumb-brosur-ppdb.jpg": {
+    "public_id": "skomda/documents/thumbnails/thumb-brosur-ppdb",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211337/skomda/documents/thumbnails/thumb-brosur-ppdb.jpg",
+    "format": "jpg",
+    "bytes": 1105787
+  },
+  "documents/thumbnails/thumb-permendikbud-82-2015.jpg": {
+    "public_id": "skomda/documents/thumbnails/thumb-permendikbud-82-2015",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211338/skomda/documents/thumbnails/thumb-permendikbud-82-2015.jpg",
+    "format": "jpg",
+    "bytes": 357788
+  },
+  "documents/thumbnails/thumb-permendikbudristek-30-2021.jpg": {
+    "public_id": "skomda/documents/thumbnails/thumb-permendikbudristek-30-2021",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211339/skomda/documents/thumbnails/thumb-permendikbudristek-30-2021.jpg",
+    "format": "jpg",
+    "bytes": 333649
+  },
+  "documents/thumbnails/thumb-persekjen-17-2022.jpg": {
+    "public_id": "skomda/documents/thumbnails/thumb-persekjen-17-2022",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211340/skomda/documents/thumbnails/thumb-persekjen-17-2022.jpg",
+    "format": "jpg",
+    "bytes": 353654
+  },
+  "documents/thumbnails/thumb-sertifikat-akreditasi.jpg": {
+    "public_id": "skomda/documents/thumbnails/thumb-sertifikat-akreditasi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211341/skomda/documents/thumbnails/thumb-sertifikat-akreditasi.jpg",
+    "format": "jpg",
+    "bytes": 533087
+  },
+  "documents/thumbnails/thumb-sertifikat-iso-21001.jpg": {
+    "public_id": "skomda/documents/thumbnails/thumb-sertifikat-iso-21001",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211342/skomda/documents/thumbnails/thumb-sertifikat-iso-21001.jpg",
+    "format": "jpg",
+    "bytes": 938909
   }
 }

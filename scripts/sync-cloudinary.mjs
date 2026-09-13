@@ -14,30 +14,39 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const IMAGES_DIR = path.resolve(__dirname, "../frontend/public/images");
+const PUBLIC_DIR = path.resolve(__dirname, "../frontend/public");
+const IMAGES_DIR = path.resolve(PUBLIC_DIR, "images");
+const DOC_THUMBS_DIR = path.resolve(PUBLIC_DIR, "documents/thumbnails");
 const ENV_FILE = path.resolve(__dirname, "../backend/.env");
 const MANIFEST_FILE = path.resolve(__dirname, "../frontend/src/lib/cloudinary-manifest.json");
 
 console.log("=== SKOMDA ASSET CLOUDINARY AUDITOR & SYNC ===");
-console.log(`Direktori target: ${IMAGES_DIR}\n`);
+console.log(`Direktori target:`);
+console.log(`- ${IMAGES_DIR}`);
+if (fs.existsSync(DOC_THUMBS_DIR)) {
+  console.log(`- ${DOC_THUMBS_DIR}`);
+}
+console.log("");
 
 if (!fs.existsSync(IMAGES_DIR)) {
   console.error(`Direktori ${IMAGES_DIR} tidak ditemukan!`);
   process.exit(1);
 }
 
-function scanFiles(dir) {
+function scanFiles(dir, baseDir, prefix = "") {
   let results = [];
+  if (!fs.existsSync(dir)) return results;
   const list = fs.readdirSync(dir);
   for (const file of list) {
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
     if (stat && stat.isDirectory()) {
-      results = results.concat(scanFiles(filePath));
+      results = results.concat(scanFiles(filePath, baseDir, prefix));
     } else {
+      const rel = path.relative(baseDir, filePath).replace(/\\/g, "/");
       results.push({
         fullPath: filePath,
-        relativePath: path.relative(IMAGES_DIR, filePath).replace(/\\/g, "/"),
+        relativePath: prefix ? `${prefix}${rel}` : rel,
         size: stat.size,
         ext: path.extname(file).toLowerCase(),
       });
@@ -46,7 +55,10 @@ function scanFiles(dir) {
   return results;
 }
 
-const allFiles = scanFiles(IMAGES_DIR);
+const allFiles = [
+  ...scanFiles(IMAGES_DIR, IMAGES_DIR, ""),
+  ...(fs.existsSync(DOC_THUMBS_DIR) ? scanFiles(DOC_THUMBS_DIR, DOC_THUMBS_DIR, "documents/thumbnails/") : []),
+];
 const totalBytes = allFiles.reduce((acc, f) => acc + f.size, 0);
 const totalMB = (totalBytes / (1024 * 1024)).toFixed(2);
 
