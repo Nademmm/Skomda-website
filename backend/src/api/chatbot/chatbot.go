@@ -110,10 +110,20 @@ func handleChatMessage(c *gin.Context, cfg config.Config) {
 		return
 	}
 
+	if req.Model == "" {
+		req.Model = "Emberock"
+	}
+
+	// Injeksi instruksi kompresi respon dan akurasi resmi SKOMDA jika belum ada
+	processedMessage := trimmedMessage
+	if !strings.Contains(trimmedMessage, "[PANDUAN") {
+		processedMessage = "[PANDUAN KOMPRESI: Jawab secara padat, ringkas, dan akurat (maksimal 2-3 poin inti atau 1-2 paragraf pendek). Langsung ke inti jawaban tanpa salam pembuka berulang atau penutup template panjang. Gunakan fakta resmi: Jurusan SIJA (4 tahun, IoT, Cloud AWS/GCP, Cybersecurity, Full-Stack), Jurusan TJAT (3 tahun, Fiber Optic, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jangan mengarang angka biaya jika belum ada dokumen resmi].\n\nPertanyaan: " + trimmedMessage
+	}
+
 	// 3. Siapkan request ke NexusRouter Gateway
 	nexusURL := strings.TrimRight(cfg.NexusRouterURL, "/") + "/api/v1/skomda/chat"
 	forwardPayload, err := json.Marshal(map[string]interface{}{
-		"message": req.Message,
+		"message": processedMessage,
 		"history": req.History,
 		"stream":  req.Stream,
 		"model":   req.Model,

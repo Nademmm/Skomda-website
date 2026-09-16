@@ -43,6 +43,9 @@ const QUICK_PROMPTS = [
   "Sertifikasi internasional apa saja yang didapatkan siswa?",
 ];
 
+const SKOMDA_PROMPT_PREFIX =
+  "[PANDUAN KOMPRESI: Jawab secara padat, ringkas, dan akurat (maksimal 2-3 poin inti atau 1-2 paragraf pendek). Langsung ke inti jawaban tanpa salam pembuka berulang atau penutup template panjang. Gunakan fakta resmi: Jurusan SIJA (4 tahun, IoT, Cloud AWS/GCP, Cybersecurity, Full-Stack), Jurusan TJAT (3 tahun, Fiber Optic, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jangan mengarang angka biaya jika belum ada dokumen resmi].\n\nPertanyaan: ";
+
 const INITIAL_WELCOME: Message = {
   id: "welcome-1",
   role: "assistant",
@@ -183,7 +186,9 @@ export default function SkomdaChatWidget() {
   useEffect(() => {
     if (isOpen) {
       scrollToBottom(true);
-      setTimeout(() => inputRef.current?.focus(), 150);
+      if (typeof window !== "undefined" && window.innerWidth >= 640) {
+        setTimeout(() => inputRef.current?.focus(), 150);
+      }
     }
   }, [isOpen, scrollToBottom]);
 
@@ -240,6 +245,9 @@ export default function SkomdaChatWidget() {
     // Initial smooth scroll to show user query
     setTimeout(() => scrollToBottom(true), 50);
 
+    // Injeksi panduan sistem kompresi resmi SKOMDA
+    const promptPayload = query.startsWith("[PANDUAN") ? query : `${SKOMDA_PROMPT_PREFIX}${query}`;
+
     try {
       const historyPayload = messages
         .filter((m) => m.id !== "welcome-1")
@@ -269,7 +277,7 @@ export default function SkomdaChatWidget() {
             Accept: "text/event-stream, application/json",
           },
           body: JSON.stringify({
-            message: query,
+            message: promptPayload,
             history: historyPayload,
             stream: true,
             model: "Emberock",
@@ -290,7 +298,7 @@ export default function SkomdaChatWidget() {
               Accept: "text/event-stream, application/json",
             },
             body: JSON.stringify({
-              message: query,
+              message: promptPayload,
               history: historyPayload,
               stream: true,
               model: "Emberock",
@@ -312,6 +320,31 @@ export default function SkomdaChatWidget() {
         let accumulatedText = "";
         let collectedSources: ChatSource[] = [];
         let streamBuffer = "";
+        let rafId: number | null = null;
+        let pendingFrame = false;
+
+        const scheduleRender = () => {
+          if (pendingFrame) return;
+          pendingFrame = true;
+          rafId = requestAnimationFrame(() => {
+            pendingFrame = false;
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === botMsgId
+                  ? {
+                      ...msg,
+                      content: accumulatedText,
+                      sources: collectedSources,
+                      isStreaming: true,
+                    }
+                  : msg
+              )
+            );
+            if (scrollContainerRef.current && isAutoScrollActiveRef.current) {
+              scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+            }
+          });
+        };
 
         while (true) {
           const { done, value } = await reader.read();
@@ -319,7 +352,6 @@ export default function SkomdaChatWidget() {
 
           streamBuffer += decoder.decode(value, { stream: true });
           const lines = streamBuffer.split("\n");
-          // Simpan baris terakhir yang mungkin belum selesai terkirim di dalam buffer
           streamBuffer = lines.pop() || "";
 
           for (const line of lines) {
@@ -343,49 +375,27 @@ export default function SkomdaChatWidget() {
                 if (parsed.response) {
                   accumulatedText = parsed.response;
                 }
-
-                setMessages((prev) =>
-                  prev.map((msg) =>
-                    msg.id === botMsgId
-                      ? {
-                          ...msg,
-                          content: accumulatedText,
-                          sources: collectedSources,
-                          isStreaming: true,
-                        }
-                      : msg
-                  )
-                );
-
-                // Fluid scroll tracking without fighting user manual scroll
-                if (scrollContainerRef.current && isAutoScrollActiveRef.current) {
-                  scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-                }
+                scheduleRender();
               } catch {
                 if (dataStr && !dataStr.startsWith("{")) {
                   accumulatedText += dataStr;
-                  setMessages((prev) =>
-                    prev.map((msg) =>
-                      msg.id === botMsgId ? { ...msg, content: accumulatedText } : msg
-                    )
-                  );
-                  if (scrollContainerRef.current && isAutoScrollActiveRef.current) {
-                    scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-                  }
+                  scheduleRender();
                 }
               }
             }
           }
         }
 
-        // Finalize streaming state
+        // Batalkan animasi frame tertunda dan commit state final
+        if (rafId) cancelAnimationFrame(rafId);
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === botMsgId
               ? {
                   ...msg,
-                  isStreaming: false,
+                  content: accumulatedText,
                   sources: collectedSources,
+                  isStreaming: false,
                 }
               : msg
           )
@@ -456,13 +466,20 @@ export default function SkomdaChatWidget() {
   };
 
   return (
-    <aside aria-label="Asisten Virtual SMK Telkom Sidoarjo" className="fixed bottom-5 right-5 z-50">
+    <aside
+      aria-label="Asisten Virtual SMK Telkom Sidoarjo"
+      className={`fixed z-50 ${
+        isOpen
+          ? "inset-0 sm:inset-auto sm:bottom-5 sm:right-5 flex items-end sm:items-auto justify-center sm:justify-end"
+          : "bottom-5 right-5"
+      }`}
+    >
       {/* Floating Toggle Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
           aria-label="Buka Chatbot Asisten Virtual SMK Telkom Sidoarjo"
-          className="group relative flex size-14 items-center justify-center rounded-full bg-[#bc0c11] text-white shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#990a0e] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#bc0c11] active:scale-95"
+          className="group relative flex size-14 items-center justify-center rounded-full bg-[#bc0c11] text-white shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#990a0e] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#bc0c11] active:scale-95 cursor-pointer"
         >
           <div className="relative flex items-center justify-center">
             <MessageSquare className="size-6 transition-transform duration-300 group-hover:scale-110" />
@@ -484,10 +501,10 @@ export default function SkomdaChatWidget() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="chatbot-heading"
-          className="flex flex-col w-[94vw] sm:w-[440px] h-[600px] max-h-[88vh] rounded-2xl bg-white border border-slate-200/90 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+          className="flex flex-col w-full h-[100dvh] sm:w-[440px] sm:h-[600px] sm:max-h-[88vh] rounded-none sm:rounded-2xl bg-white border-0 sm:border border-slate-200/90 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
         >
           {/* Header Panel */}
-          <header className="relative flex items-center justify-between px-4 py-3.5 bg-[#bc0c11] text-white select-none">
+          <header className="relative flex items-center justify-between px-4 py-3.5 bg-[#bc0c11] text-white select-none shrink-0 pt-[max(0.875rem,env(safe-area-inset-top))]">
             <div className="flex items-center gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/15 backdrop-blur-xs border border-white/20">
                 <School className="size-5 text-white" />
@@ -509,7 +526,7 @@ export default function SkomdaChatWidget() {
                 onClick={handleTriggerReset}
                 title="Bersihkan percakapan"
                 aria-label="Bersihkan riwayat percakapan"
-                className="flex size-8 items-center justify-center rounded-lg text-red-100 hover:bg-white/15 hover:text-white transition-colors"
+                className="flex size-11 sm:size-8 items-center justify-center rounded-lg text-red-100 hover:bg-white/15 hover:text-white transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
               >
                 <RotateCcw className="size-4" />
               </button>
@@ -517,7 +534,7 @@ export default function SkomdaChatWidget() {
                 onClick={() => setIsOpen(false)}
                 title="Tutup (Esc)"
                 aria-label="Tutup jendela chatbot"
-                className="flex size-8 items-center justify-center rounded-lg text-red-100 hover:bg-white/15 hover:text-white transition-colors"
+                className="flex size-11 sm:size-8 items-center justify-center rounded-lg text-red-100 hover:bg-white/15 hover:text-white transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
               >
                 <X className="size-5" />
               </button>
@@ -547,14 +564,14 @@ export default function SkomdaChatWidget() {
                   <button
                     type="button"
                     onClick={() => setShowResetConfirm(false)}
-                    className="flex-1 py-2 px-3 rounded-xl border border-slate-200/90 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors cursor-pointer"
+                    className="flex-1 min-h-[44px] py-2 px-3 rounded-xl border border-slate-200/90 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors cursor-pointer"
                   >
                     Batal
                   </button>
                   <button
                     type="button"
                     onClick={handleConfirmReset}
-                    className="flex-1 py-2 px-3 rounded-xl bg-[#bc0c11] text-white text-xs font-semibold hover:bg-[#990a0e] transition-colors shadow-xs active:scale-95 cursor-pointer"
+                    className="flex-1 min-h-[44px] py-2 px-3 rounded-xl bg-[#bc0c11] text-white text-xs font-semibold hover:bg-[#990a0e] transition-colors shadow-xs active:scale-95 cursor-pointer"
                   >
                     Hapus
                   </button>
@@ -567,7 +584,7 @@ export default function SkomdaChatWidget() {
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/70 custom-scrollbar text-sm relative"
+            className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/70 custom-scrollbar text-sm relative overscroll-contain"
           >
             {messages.map((msg) => (
               <div
@@ -595,13 +612,19 @@ export default function SkomdaChatWidget() {
                     {/* Render Content */}
                     {msg.role === "user" ? (
                       <div className="whitespace-pre-wrap font-medium">{msg.content}</div>
-                    ) : msg.content ? (
-                      <div>
-                        <MarkdownRenderer content={msg.content} isStreaming={msg.isStreaming} />
-                      </div>
-                    ) : msg.isStreaming ? (
-                      <ThinkingState />
-                    ) : null}
+                    ) : (() => {
+                      const clean = msg.content
+                        .replace(/<think>[\s\S]*?(<\/think>|$)/gi, "")
+                        .replace(/—/g, " - ")
+                        .trim();
+                      if (!clean && msg.isStreaming) {
+                        return <ThinkingState />;
+                      }
+                      if (clean) {
+                        return <MarkdownRenderer content={clean} isStreaming={msg.isStreaming} />;
+                      }
+                      return null;
+                    })()}
 
                     {/* Sources Badge List */}
                     {msg.sources && msg.sources.length > 0 && !msg.isStreaming && (
@@ -616,7 +639,7 @@ export default function SkomdaChatWidget() {
                               key={idx}
                               href={src.url}
                               target={src.url.startsWith("http") ? "_blank" : undefined}
-                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100/90 text-slate-800 hover:bg-red-50 hover:text-[#bc0c11] border border-slate-200/70 hover:border-red-200 transition-all font-medium text-xs shadow-2xs"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100/90 text-slate-800 hover:bg-red-50 hover:text-[#bc0c11] border border-slate-200/70 hover:border-red-200 transition-all font-medium text-xs shadow-2xs min-h-[32px]"
                             >
                               <span>{src.title}</span>
                               <ExternalLink className="size-2.5 shrink-0 text-[#bc0c11] opacity-75" />
@@ -644,7 +667,7 @@ export default function SkomdaChatWidget() {
                         onClick={() => handleCopyText(msg.id, msg.content)}
                         title="Salin isi pesan"
                         aria-label="Salin teks jawaban"
-                        className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 hover:text-[#bc0c11] py-0.5 px-1.5 rounded-md hover:bg-slate-200/70 active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[#bc0c11]"
+                        className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 hover:text-[#bc0c11] py-1 px-2 rounded-md hover:bg-slate-200/70 active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[#bc0c11] min-h-[32px]"
                       >
                         {copiedId === msg.id ? (
                           <>
@@ -677,12 +700,12 @@ export default function SkomdaChatWidget() {
                   <Sparkles className="size-3.5 text-[#bc0c11]" />
                   Pertanyaan Populer:
                 </p>
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-2">
                   {QUICK_PROMPTS.map((prompt, index) => (
                     <button
                       key={index}
                       onClick={() => handleSendMessage(prompt)}
-                      className="text-left font-jakarta text-xs text-slate-700 bg-white hover:bg-red-50/70 hover:text-[#bc0c11] hover:border-[#bc0c11]/30 p-2.5 rounded-xl border border-slate-200/80 transition-all duration-150 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-[#bc0c11]"
+                      className="text-left font-jakarta text-xs text-slate-700 bg-white hover:bg-red-50/70 hover:text-[#bc0c11] hover:border-[#bc0c11]/30 p-3 min-h-[44px] flex items-center rounded-xl border border-slate-200/80 transition-all duration-150 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-[#bc0c11] cursor-pointer"
                     >
                       {prompt}
                     </button>
@@ -699,7 +722,7 @@ export default function SkomdaChatWidget() {
                 <button
                   type="button"
                   onClick={() => scrollToBottom(true)}
-                  className="pointer-events-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-700 text-xs font-semibold shadow-md border border-slate-200/90 hover:bg-red-50 hover:text-[#bc0c11] hover:border-red-200 transition-all active:scale-95 cursor-pointer"
+                  className="pointer-events-auto flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white text-slate-700 text-xs font-semibold shadow-md border border-slate-200/90 hover:bg-red-50 hover:text-[#bc0c11] hover:border-red-200 transition-all active:scale-95 cursor-pointer min-h-[40px]"
                 >
                   <ArrowDown className="size-3.5 text-[#bc0c11]" />
                   <span>Ke pesan terbaru</span>
@@ -710,14 +733,14 @@ export default function SkomdaChatWidget() {
 
           {/* Error Notice Bar (if any) */}
           {errorStatus && (
-            <div className="px-3 py-1.5 bg-amber-50 border-t border-amber-200 text-amber-800 text-[11px] flex items-center gap-1.5">
+            <div className="px-3 py-1.5 bg-amber-50 border-t border-amber-200 text-amber-800 text-[11px] flex items-center gap-1.5 shrink-0">
               <AlertCircle className="size-3.5 shrink-0 text-amber-600" />
               <span className="truncate">{errorStatus}</span>
             </div>
           )}
 
           {/* Input Form Section */}
-          <footer className="p-3 bg-white border-t border-slate-200">
+          <footer className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-white border-t border-slate-200 shrink-0">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -732,13 +755,13 @@ export default function SkomdaChatWidget() {
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Ketik pertanyaan seputar sekolah..."
                 disabled={isLoading}
-                className="flex-1 min-h-[44px] px-3.5 py-2 text-sm text-[#101828] bg-slate-50 rounded-xl border border-slate-200 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#bc0c11]/30 focus:border-[#bc0c11] transition-all disabled:opacity-50"
+                className="flex-1 min-h-[44px] px-3.5 py-2 text-base sm:text-sm text-[#101828] bg-slate-50 rounded-xl border border-slate-200 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#bc0c11]/30 focus:border-[#bc0c11] transition-all disabled:opacity-50"
               />
               <button
                 type="submit"
                 disabled={!inputMessage.trim() || isLoading}
                 aria-label="Kirim pertanyaan"
-                className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#bc0c11] text-white hover:bg-[#990a0e] transition-colors disabled:opacity-40 disabled:hover:bg-[#bc0c11] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bc0c11]"
+                className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#bc0c11] text-white hover:bg-[#990a0e] transition-colors disabled:opacity-40 disabled:hover:bg-[#bc0c11] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bc0c11] cursor-pointer active:scale-95"
               >
                 <Send className="size-4.5" />
               </button>
@@ -778,19 +801,18 @@ function MarkdownRenderer({ content, isStreaming }: MarkdownRendererProps) {
             </strong>
           ),
           h1: ({ children }) => (
-            <h4 className="font-jakarta font-bold text-sm text-slate-900 mt-3 mb-1.5 pb-1 border-b border-slate-100 flex items-center gap-1.5 tracking-tight">
+            <h4 className="font-jakarta font-bold text-[15px] text-slate-900 mt-3 mb-1.5 pb-1 border-b border-slate-100 tracking-tight">
               {children}
             </h4>
           ),
           h2: ({ children }) => (
-            <h4 className="font-jakarta font-bold text-sm text-slate-900 mt-3 mb-1.5 pb-1 border-b border-slate-100 flex items-center gap-1.5 tracking-tight">
+            <h4 className="font-jakarta font-bold text-[14.5px] text-slate-900 mt-3 mb-1.5 pb-1 border-b border-slate-100 tracking-tight">
               {children}
             </h4>
           ),
           h3: ({ children }) => (
-            <h5 className="font-jakarta font-bold text-[13.5px] text-slate-900 mt-2.5 mb-1 flex items-center gap-1.5 tracking-tight">
-              <span className="size-1.5 rounded-full bg-[#bc0c11] inline-block shrink-0" />
-              <span>{children}</span>
+            <h5 className="font-jakarta font-bold text-[14px] text-slate-900 mt-2.5 mb-1 tracking-tight">
+              {children}
             </h5>
           ),
           h4: ({ children }) => (
@@ -804,18 +826,18 @@ function MarkdownRenderer({ content, isStreaming }: MarkdownRendererProps) {
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="my-2 space-y-1.5 pl-5 list-decimal text-[13.5px] text-slate-800 marker:text-[#bc0c11] marker:font-semibold">
+            <ol className="my-2 space-y-1.5 pl-5 list-decimal text-[13.5px] text-slate-800 marker:text-slate-500 marker:font-medium">
               {children}
             </ol>
           ),
           li: ({ children }) => (
-            <li className="flex items-start gap-2 text-slate-800 leading-relaxed text-[13.5px]">
-              <span className="size-1.5 rounded-full bg-[#bc0c11]/80 mt-2 shrink-0" />
+            <li className="flex items-start gap-2.5 text-slate-800 leading-relaxed text-[13.5px]">
+              <span className="size-1.5 rounded-full bg-slate-400 mt-2 shrink-0" />
               <div className="flex-1 min-w-0">{children}</div>
             </li>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="my-2.5 rounded-r-xl border-l-3 border-[#bc0c11] bg-red-50/60 px-3.5 py-2 text-xs text-slate-700 leading-relaxed italic">
+            <blockquote className="my-2.5 rounded-r-xl border-l-2 border-slate-300 bg-slate-50 px-3.5 py-2 text-xs text-slate-700 leading-relaxed italic">
               {children}
             </blockquote>
           ),
@@ -856,7 +878,7 @@ function MarkdownRenderer({ content, isStreaming }: MarkdownRendererProps) {
             );
           },
           code: ({ children }) => (
-            <code className="px-1.5 py-0.5 rounded-md bg-slate-100 text-red-700 font-mono text-xs border border-slate-200/60">
+            <code className="px-1.5 py-0.5 rounded-md bg-slate-100/90 text-slate-800 font-mono text-xs border border-slate-200/80 font-medium">
               {children}
             </code>
           ),

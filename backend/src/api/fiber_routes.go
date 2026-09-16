@@ -263,9 +263,15 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 			req.Model = "Emberock"
 		}
 
+		// Injeksi instruksi kompresi respon dan akurasi resmi SKOMDA jika belum ada
+		processedMessage := trimmed
+		if !strings.Contains(trimmed, "[PANDUAN") {
+			processedMessage = "[PANDUAN KOMPRESI: Jawab secara padat, ringkas, dan akurat (maksimal 2-3 poin inti atau 1-2 paragraf pendek). Langsung ke inti jawaban tanpa salam pembuka berulang atau penutup template panjang. Gunakan fakta resmi: Jurusan SIJA (4 tahun, IoT, Cloud AWS/GCP, Cybersecurity, Full-Stack), Jurusan TJAT (3 tahun, Fiber Optic, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jangan mengarang angka biaya jika belum ada dokumen resmi].\n\nPertanyaan: " + trimmed
+		}
+
 		targetURL := strings.TrimRight(cfg.NexusRouterURL, "/") + "/api/v1/skomda/chat"
 		forwardPayload, err := json.Marshal(map[string]interface{}{
-			"message": req.Message,
+			"message": processedMessage,
 			"history": req.History,
 			"stream":  req.Stream,
 			"model":   req.Model,

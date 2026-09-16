@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import TrialClassHero from "./TrialClassHero";
-import TrialClassEventCard from "./TrialClassEventCard";
 import TrialClassFeelingsSection from "./TrialClassFeelingsSection";
 import TrialClassStepsSection from "./TrialClassStepsSection";
 import TrialClassRegistrationModal from "./TrialClassRegistrationModal";
@@ -12,8 +11,8 @@ export default function TrialClassClient() {
 
   return (
     <div className="w-full">
-      <TrialClassHero />
-      <TrialClassEventCard onOpenRegister={() => setIsModalOpen(true)} />
+      {/* Unified Hero & Upcoming Event Section matching Figma */}
+      <TrialClassHero onOpenRegister={() => setIsModalOpen(true)} />
       <TrialClassFeelingsSection />
       <TrialClassStepsSection />
       <TrialClassRegistrationModal
