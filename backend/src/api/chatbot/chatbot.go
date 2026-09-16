@@ -111,13 +111,13 @@ func handleChatMessage(c *gin.Context, cfg config.Config) {
 	}
 
 	if req.Model == "" {
-		req.Model = "Emberock"
+		req.Model = "groq"
 	}
 
-	// Injeksi instruksi kompresi respon dan akurasi resmi SKOMDA jika belum ada
+	// Injeksi instruksi asisten resmi SKOMDA jika belum ada
 	processedMessage := trimmedMessage
 	if !strings.Contains(trimmedMessage, "[PANDUAN") {
-		processedMessage = "[PANDUAN KOMPRESI: Jawab secara padat, ringkas, dan akurat (maksimal 2-3 poin inti atau 1-2 paragraf pendek). Langsung ke inti jawaban tanpa salam pembuka berulang atau penutup template panjang. Gunakan fakta resmi: Jurusan SIJA (4 tahun, IoT, Cloud AWS/GCP, Cybersecurity, Full-Stack), Jurusan TJAT (3 tahun, Fiber Optic, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jangan mengarang angka biaya jika belum ada dokumen resmi].\n\nPertanyaan: " + trimmedMessage
+		processedMessage = "[PANDUAN ASISTEN RESMI SKOMDA: Berikan jawaban yang LENGKAP, DETAIL, MENDALAM, dan TERSTRUKTUR RAPI menggunakan poin-poin penjelasan rinci yang informatif dan mudah dipahami. Langsung mulai jawaban pada inti topik tanpa pengulangan salam basa-basi dan tanpa penutup template panjang. Gunakan data resmi SKOMDA: Jurusan SIJA (4 tahun: Full-Stack web/mobile, Cloud AWS/GCP, Cybersecurity, IoT, sertifikasi industri AWS Academy & BNSP), Jurusan TJAT (3 tahun: Fiber Optic FTTH/FTTx, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Jl. Pahlawan No. 27 Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jika ditanya biaya yang belum tertera resmi, arahkan ke Panitia PPDB tanpa mengarang angka].\n\nPertanyaan: " + trimmedMessage
 	}
 
 	// 3. Siapkan request ke NexusRouter Gateway

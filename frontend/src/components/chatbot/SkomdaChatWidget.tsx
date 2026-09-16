@@ -44,7 +44,7 @@ const QUICK_PROMPTS = [
 ];
 
 const SKOMDA_PROMPT_PREFIX =
-  "[PANDUAN KOMPRESI: Jawab secara padat, ringkas, dan akurat (maksimal 2-3 poin inti atau 1-2 paragraf pendek). Langsung ke inti jawaban tanpa salam pembuka berulang atau penutup template panjang. Gunakan fakta resmi: Jurusan SIJA (4 tahun, IoT, Cloud AWS/GCP, Cybersecurity, Full-Stack), Jurusan TJAT (3 tahun, Fiber Optic, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jangan mengarang angka biaya jika belum ada dokumen resmi].\n\nPertanyaan: ";
+  "[PANDUAN ASISTEN RESMI SKOMDA: Berikan jawaban yang LENGKAP, DETAIL, MENDALAM, dan TERSTRUKTUR RAPI menggunakan poin-poin penjelasan rinci yang informatif dan mudah dipahami. Langsung mulai jawaban pada inti topik tanpa pengulangan salam basa-basi dan tanpa penutup template panjang. Gunakan data resmi SKOMDA: Jurusan SIJA (4 tahun: Full-Stack web/mobile, Cloud AWS/GCP, Cybersecurity, IoT, sertifikasi industri AWS Academy & BNSP), Jurusan TJAT (3 tahun: Fiber Optic FTTH/FTTx, Transmisi Seluler 4G/5G, Jaringan ISP), Kampus Jl. Pahlawan No. 27 Sekardangan Sidoarjo, Kontak WA Humas resmi 0811-3021-919, tautan brosur /unduh-informasi. Jika ditanya biaya yang belum tertera resmi, arahkan ke Panitia PPDB tanpa mengarang angka].\n\nPertanyaan: ";
 
 const INITIAL_WELCOME: Message = {
   id: "welcome-1",
@@ -251,10 +251,10 @@ export default function SkomdaChatWidget() {
     try {
       const historyPayload = messages
         .filter((m) => m.id !== "welcome-1")
-        .slice(-6)
+        .slice(-4)
         .map((m) => ({
           role: m.role,
-          content: m.content,
+          content: m.content.slice(0, 1000),
         }));
 
       const apiBase =
@@ -268,44 +268,44 @@ export default function SkomdaChatWidget() {
 
       let response: Response | null = null;
 
-      // 1. Coba hubungi proxy backend lokal terlebih dahulu
+      // 1. Panggil langsung Edge Gateway AI (model 'groq') untuk respons instan ~1.1 detik tanpa lag proxy
       try {
-        response = await fetch(`${apiBase}/chatbot/message`, {
+        response = await fetch(`${liveGatewayUrl.replace(/\/+$/, "")}/api/v1/skomda/chat`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "X-Internal-Client": "skomda",
             Accept: "text/event-stream, application/json",
           },
           body: JSON.stringify({
             message: promptPayload,
             history: historyPayload,
             stream: true,
-            model: "Emberock",
+            model: "groq",
           }),
         });
-      } catch (localErr) {
-        console.warn("[SkomdaChatWidget] Backend lokal tidak merespons, beralih langsung ke cloud gateway:", localErr);
+      } catch (cloudErr) {
+        console.warn("[SkomdaChatWidget] Cloud gateway langsung gagal, beralih ke proxy lokal:", cloudErr);
       }
 
-      // 2. Jika backend lokal tidak aktif atau mengembalikan status error, hubungi langsung gateway cloud Fahlyce
+      // 2. Fallback ke proxy backend lokal jika koneksi cloud langsung tidak merespons
       if (!response || !response.ok) {
         try {
-          response = await fetch(`${liveGatewayUrl.replace(/\/+$/, "")}/api/v1/skomda/chat`, {
+          response = await fetch(`${apiBase}/chatbot/message`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "X-Internal-Client": "skomda",
               Accept: "text/event-stream, application/json",
             },
             body: JSON.stringify({
               message: promptPayload,
               history: historyPayload,
               stream: true,
-              model: "Emberock",
+              model: "groq",
             }),
           });
-        } catch (cloudErr) {
-          console.error("[SkomdaChatWidget] Cloud gateway error:", cloudErr);
+        } catch (localErr) {
+          console.error("[SkomdaChatWidget] Proxy backend lokal gagal:", localErr);
         }
       }
 
@@ -367,7 +367,7 @@ export default function SkomdaChatWidget() {
               try {
                 const parsed = JSON.parse(dataStr);
                 if (parsed.sources && Array.isArray(parsed.sources)) {
-                  collectedSources = parsed.sources;
+                  collectedSources = parsed.sources.slice(0, 3);
                 }
                 if (parsed.delta) {
                   accumulatedText += parsed.delta;
@@ -394,7 +394,7 @@ export default function SkomdaChatWidget() {
               ? {
                   ...msg,
                   content: accumulatedText,
-                  sources: collectedSources,
+                  sources: collectedSources.slice(0, 3),
                   isStreaming: false,
                 }
               : msg
@@ -412,7 +412,7 @@ export default function SkomdaChatWidget() {
               ? {
                   ...msg,
                   content: data.response || "Terima kasih atas pertanyaannya.",
-                  sources: data.sources || [],
+                  sources: (data.sources || []).slice(0, 3),
                   isStreaming: false,
                 }
               : msg
@@ -634,7 +634,7 @@ export default function SkomdaChatWidget() {
                           <span>Halaman Terkait:</span>
                         </div>
                         <div className="flex flex-wrap gap-1.5">
-                          {msg.sources.map((src, idx) => (
+                          {msg.sources.slice(0, 3).map((src, idx) => (
                             <Link
                               key={idx}
                               href={src.url}
