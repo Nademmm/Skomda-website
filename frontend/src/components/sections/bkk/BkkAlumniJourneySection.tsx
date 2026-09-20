@@ -3,8 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ALUMNI_STORIES_ITEMS } from "@/data/bkkData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function BkkAlumniJourneySection() {
+  const { language } = useLanguage();
+  const isEn = language === "en";
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const currentStory = ALUMNI_STORIES_ITEMS[currentIndex];
@@ -38,11 +41,15 @@ export default function BkkAlumniJourneySection() {
           {/* Left Column: Heading & Subtitle */}
           <div className="lg:col-span-5">
             <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-4">
-              Setelah SKOMDA,{" "}
-              <span className="text-[#bc0c11]">Melangkah Lebih Jauh.</span>
+              {isEn ? "Beyond SKOMDA, " : "Setelah SKOMDA, "}
+              <span className="text-[#bc0c11]">
+                {isEn ? "Stepping Further Ahead." : "Melangkah Lebih Jauh."}
+              </span>
             </h2>
             <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mb-6">
-              Cerita nyata dari alumni yang kini berkarya di berbagai industri teknologi dan telekomunikasi terkemuka.
+              {isEn
+                ? "Real stories from alumni now thriving in leading technology and telecommunications industries."
+                : "Cerita nyata dari alumni yang kini berkarya di berbagai industri teknologi dan telekomunikasi terkemuka."}
             </p>
           </div>
 
@@ -94,7 +101,7 @@ export default function BkkAlumniJourneySection() {
                     <div className="flex items-center gap-2.5 shrink-0">
                       <button
                         onClick={handlePrev}
-                        aria-label="Cerita Alumni Sebelumnya"
+                        aria-label={isEn ? "Previous Alumni Story" : "Cerita Alumni Sebelumnya"}
                         className="w-9 h-9 rounded-full border border-gray-200 bg-white text-[#101828] hover:border-[#bc0c11] hover:text-[#bc0c11] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -104,7 +111,7 @@ export default function BkkAlumniJourneySection() {
 
                       <button
                         onClick={handleNext}
-                        aria-label="Cerita Alumni Berikutnya"
+                        aria-label={isEn ? "Next Alumni Story" : "Cerita Alumni Berikutnya"}
                         className="w-9 h-9 rounded-full bg-[#bc0c11] text-white hover:bg-[#990a0e] flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

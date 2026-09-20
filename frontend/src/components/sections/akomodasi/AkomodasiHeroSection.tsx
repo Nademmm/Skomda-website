@@ -4,7 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function AkomodasiHeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative w-full pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden">
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -25,22 +29,22 @@ export default function AkomodasiHeroSection() {
                 href="/"
                 className="hover:text-[#bc0c11] transition-colors"
               >
-                Beranda
+                {t("common.home")}
               </Link>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>Tentang Kami</span>
+              <span>{t("common.about")}</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="font-semibold text-[#101828]">Akomodasi</span>
+              <span className="font-semibold text-[#101828]">{t("akomodasi.breadcrumb")}</span>
             </nav>
 
             {/* Main Heading */}
             <h1 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[48px] leading-[1.18] tracking-tight text-[#101828] mb-3">
-              Akomodasi &amp;{" "}
-              <span className="text-[#bc0c11]">Biaya Hidup</span>
+              {t("akomodasi.heroTitle1")}{" "}
+              <span className="text-[#bc0c11]">{t("akomodasi.heroTitle2")}</span>
             </h1>
 
             {/* Red accent line */}
@@ -48,12 +52,7 @@ export default function AkomodasiHeroSection() {
 
             {/* Description Paragraph */}
             <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed max-w-[560px] mb-8">
-              SMK Telkom Sidoarjo menyajikan informasi akomodasi dan biaya hidup
-              secara transparan. Kami merekomendasikan berbagai pilihan tempat
-              tinggal yang nyaman, seperti kos atau kontrakan, di sekitar sekolah.
-              Dukungan ini bertujuan agar siswa fokus pada pembelajaran dan mencapai
-              hasil optimal. Jelajahi rekomendasi penginapan di sekitar SMK Telkom
-              Sidoarjo untuk mempermudah perencanaan Anda.
+              {t("akomodasi.heroDesc")}
             </p>
 
             {/* CTA Buttons */}
@@ -66,7 +65,7 @@ export default function AkomodasiHeroSection() {
                     "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
                 }}
               >
-                <span className="font-jakarta font-medium">Jelajahi Estimasi Biaya</span>
+                <span className="font-jakarta font-medium">{t("akomodasi.heroCta")}</span>
                 <svg
                   width="18"
                   height="18"

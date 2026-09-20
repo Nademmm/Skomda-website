@@ -10,7 +10,10 @@ export type LocaleData = typeof idTranslations;
 
 interface LanguageContextType {
   lang: Language;
+  language: "id" | "en";
+  isEn: boolean;
   setLang: (lang: Language) => void;
+  setLanguage: (lang: Language | "id" | "en") => void;
   t: (path: string, fallback?: string) => string;
   locale: LocaleData;
 }
@@ -22,7 +25,10 @@ const locales: Record<Language, LocaleData> = {
 
 const LanguageContext = createContext<LanguageContextType>({
   lang: "ID",
+  language: "id",
+  isEn: false,
   setLang: () => {},
+  setLanguage: () => {},
   t: (_path, fallback) => fallback || _path,
   locale: idTranslations,
 });
@@ -87,9 +93,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return fallback !== undefined ? fallback : path;
   };
 
+  const setLanguage = (newLang: Language | "id" | "en") => {
+    setLang(newLang.toUpperCase() as Language);
+  };
+
+  const isEn = lang === "EN";
+
   const value = {
     lang,
+    language: (lang.toLowerCase() as "id" | "en"),
+    isEn,
     setLang,
+    setLanguage,
     t,
     locale: locales[lang],
   };

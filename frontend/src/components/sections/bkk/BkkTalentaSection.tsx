@@ -3,8 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { TALENTA_SKOMDA_ITEMS, TalentaSkomdaItem } from "@/data/bkkData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function BkkTalentaSection() {
+  const { language } = useLanguage();
+  const isEn = language === "en";
   const [selectedTalent, setSelectedTalent] = useState<TalentaSkomdaItem | null>(null);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ export default function BkkTalentaSection() {
         <div className="flex items-center gap-2.5 mb-3">
           <div className="h-[3px] w-6 bg-[#bc0c11] rounded-full" />
           <span className="font-jakarta text-xs sm:text-sm font-bold tracking-wider uppercase text-[#bc0c11]">
-            TALENTA SKOMDA
+            {isEn ? "SKOMDA TALENT" : "TALENTA SKOMDA"}
           </span>
         </div>
 
@@ -39,10 +42,15 @@ export default function BkkTalentaSection() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
           <div>
             <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-2">
-              Kenali <span className="text-[#bc0c11]">Talenta SKOMDA</span>
+              {isEn ? "Meet " : "Kenali "}
+              <span className="text-[#bc0c11]">
+                {isEn ? "SKOMDA Talents" : "Talenta SKOMDA"}
+              </span>
             </h2>
             <p className="font-jakarta text-sm sm:text-base text-[#4a5565]">
-              Siswa dan alumni dengan kompetensi yang siap berkembang bersama industri.
+              {isEn
+                ? "Students and alumni with industry-ready competencies ready to grow with partners."
+                : "Siswa dan alumni dengan kompetensi yang siap berkembang bersama industri."}
             </p>
           </div>
 
@@ -50,7 +58,7 @@ export default function BkkTalentaSection() {
             href="#kerjasama-rekrutmen"
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-jakarta font-bold text-[#bc0c11] hover:text-[#990a0e] transition-colors group self-start sm:self-auto cursor-pointer"
           >
-            <span>Lihat Semua Talenta</span>
+            <span>{isEn ? "View All Talents" : "Lihat Semua Talenta"}</span>
             <svg
               width="15"
               height="15"
@@ -117,7 +125,7 @@ export default function BkkTalentaSection() {
                     onClick={() => setSelectedTalent(talent)}
                     className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-jakarta font-semibold text-[#bc0c11] hover:text-[#990a0e] group/btn cursor-pointer"
                   >
-                    <span>Lihat Profil</span>
+                    <span>{isEn ? "View Profile" : "Lihat Profil"}</span>
                     <svg
                       width="14"
                       height="14"
@@ -157,7 +165,7 @@ export default function BkkTalentaSection() {
             {/* Close Button */}
             <button
               onClick={() => setSelectedTalent(null)}
-              aria-label="Tutup Profil Talenta"
+              aria-label={isEn ? "Close Talent Profile" : "Tutup Profil Talenta"}
               className="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -192,7 +200,7 @@ export default function BkkTalentaSection() {
             {/* Bio */}
             <div className="mb-5">
               <h4 className="font-jakarta font-bold text-xs uppercase tracking-wider text-[#101828] mb-1.5">
-                Ringkasan Kompetensi
+                {isEn ? "Competency Summary" : "Ringkasan Kompetensi"}
               </h4>
               <p className="font-poppins text-sm text-[#4a5565] leading-relaxed">
                 {selectedTalent.bio}
@@ -202,7 +210,7 @@ export default function BkkTalentaSection() {
             {/* Skills */}
             <div className="mb-5">
               <h4 className="font-jakarta font-bold text-xs uppercase tracking-wider text-[#101828] mb-2">
-                Keahlian & Teknologi
+                {isEn ? "Skills & Technology" : "Keahlian & Teknologi"}
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {selectedTalent.skills.map((skill) => (
@@ -219,7 +227,7 @@ export default function BkkTalentaSection() {
             {/* Achievements */}
             <div className="mb-6">
               <h4 className="font-jakarta font-bold text-xs uppercase tracking-wider text-[#101828] mb-2">
-                Prestasi & Sertifikasi
+                {isEn ? "Achievements & Certifications" : "Prestasi & Sertifikasi"}
               </h4>
               <ul className="space-y-1.5 list-disc list-inside font-poppins text-xs sm:text-sm text-[#4a5565] leading-relaxed">
                 {selectedTalent.achievements.map((item, idx) => (
@@ -231,12 +239,16 @@ export default function BkkTalentaSection() {
             {/* Modal Footer CTA */}
             <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-end gap-3">
               <a
-                href="https://wa.me/628113021919?text=Halo%20BKK%20SMK%20Telkom%20Sidoarjo,%20perusahaan%20kami%20tertarik%20dengan%20profil%20talenta%20ini"
+                href={
+                  isEn
+                    ? "https://wa.me/628113021919?text=Hello%20BKK%20SMK%20Telkom%20Sidoarjo,%20our%20company%20is%20interested%20in%20this%20talent%20profile"
+                    : "https://wa.me/628113021919?text=Halo%20BKK%20SMK%20Telkom%20Sidoarjo,%20perusahaan%20kami%20tertarik%20dengan%20profil%20talenta%20ini"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#bc0c11] text-xs sm:text-sm font-jakarta font-bold text-white hover:bg-[#990a0e] transition-colors shadow-sm"
               >
-                <span>Hubungi Talenta via BKK</span>
+                <span>{isEn ? "Contact Talent via BKK" : "Hubungi Talenta via BKK"}</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>

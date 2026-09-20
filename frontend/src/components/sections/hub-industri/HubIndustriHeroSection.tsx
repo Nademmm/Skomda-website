@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HubIndustriHeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative w-full pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -23,7 +26,7 @@ export default function HubIndustriHeroSection() {
                 href="/"
                 className="text-[#4a5565] hover:text-[#bc0c11] transition-colors"
               >
-                Beranda
+                {t("nav.home", "Beranda")}
               </Link>
               <svg
                 width="14"
@@ -41,10 +44,10 @@ export default function HubIndustriHeroSection() {
                 />
               </svg>
               <Link
-                href="#"
+                href="/tentang-kami/profil-sekolah"
                 className="text-[#4a5565] hover:text-[#bc0c11] transition-colors"
               >
-                Tentang Kami
+                {t("nav.aboutUs", "Tentang Kami")}
               </Link>
               <svg
                 width="14"
@@ -61,14 +64,14 @@ export default function HubIndustriHeroSection() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="font-medium text-[#101828]">Hub Industri</span>
+              <span className="font-medium text-[#101828]">{t("hubIndustri.breadcrumb", "Hub Industri")}</span>
             </div>
 
             {/* Main Heading */}
             <div className="relative mb-6">
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[56px] leading-tight tracking-tight text-[#101828]">
-                Hub{" "}
-                <span className="text-[#bc0c11]">Industri</span>
+                {t("hubIndustri.heroTitle1", "Jejaring Kemitraan")}{" "}
+                <span className="text-[#bc0c11]">{t("hubIndustri.heroTitle2", "Industri Global")}</span>
               </h1>
               {/* Red Accent Underline Bar */}
               <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
@@ -76,10 +79,7 @@ export default function HubIndustriHeroSection() {
 
             {/* Description */}
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-xl mb-8">
-              Kemitraan strategis SMK Telkom Sidoarjo dengan berbagai perusahaan
-              teknologi dan telekomunikasi terkemuka, memastikan kurikulum
-              tetap relevan, siswa mendapat pengalaman nyata, dan lulusan
-              langsung terserap di dunia industri.
+              {t("hubIndustri.heroDesc")}
             </p>
 
             {/* CTA Buttons */}
@@ -92,7 +92,7 @@ export default function HubIndustriHeroSection() {
                     "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
                 }}
               >
-                <span className="font-jakarta font-medium">Lihat Mitra Kami</span>
+                <span className="font-jakarta font-medium">{t("hubIndustri.heroCta", "Lihat Mitra Kami")}</span>
                 <svg
                   width="18"
                   height="18"

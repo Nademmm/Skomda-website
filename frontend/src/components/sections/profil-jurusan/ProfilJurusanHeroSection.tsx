@@ -3,8 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProfilJurusanHeroSection() {
+  const { t } = useLanguage();
+
   const scrollToKompetensi = () => {
     const el = document.getElementById("kompetensi");
     if (el) {
@@ -29,21 +32,22 @@ export default function ProfilJurusanHeroSection() {
               className="flex items-center gap-2 text-xs sm:text-sm text-[#4a5565] mb-5 font-jakarta"
             >
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-                Beranda
+                {t("common.home")}
               </Link>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>Program</span>
+              <span>{t("common.programs")}</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="font-semibold text-[#101828]">Profil Jurusan</span>
+              <span className="font-semibold text-[#101828]">{t("profilJurusan.breadcrumb")}</span>
             </nav>
 
             {/* Heading */}
             <h1 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[48px] leading-[1.18] tracking-tight text-[#101828] mb-3">
-              Profil <span className="text-[#bc0c11]">Jurusan</span>
+              {t("profilJurusan.heroTitle1")}{" "}
+              <span className="text-[#bc0c11]">{t("profilJurusan.heroTitle2")}</span>
             </h1>
 
             {/* Red Accent Line */}
@@ -51,12 +55,7 @@ export default function ProfilJurusanHeroSection() {
 
             {/* Description */}
             <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed max-w-[580px] mb-8">
-              SMK Telkom Sidoarjo memiliki dua jurusan unggulan: Teknik Jaringan
-              Akses Telekomunikasi (TJAT) dan Sistem Informasi Jaringan dan
-              Aplikasi (SIJA). Kurikulum Nasional Plus kami relevan dengan
-              industri, melatih Anda menguasai teknologi terkini, mulai dari
-              jaringan hingga pengembangan aplikasi, untuk membangun karir
-              digital yang cemerlang. Jelajahi detail jurusan sekarang.
+              {t("profilJurusan.heroDesc")}
             </p>
 
             {/* CTA Button */}
@@ -69,7 +68,7 @@ export default function ProfilJurusanHeroSection() {
                   "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
               }}
             >
-              <span className="font-jakarta font-medium">Jelajahi</span>
+              <span className="font-jakarta font-medium">{t("profilJurusan.heroCta")}</span>
               <svg
                 width="18"
                 height="18"

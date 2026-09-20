@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProfilGuruHeroSection() {
+  const { t } = useLanguage();
+
   const handleScrollToContent = () => {
     const el = document.getElementById("kepala-sekolah-section");
     if (el) {
@@ -49,7 +52,7 @@ export default function ProfilGuruHeroSection() {
                 href="/"
                 className="text-[#4a5565] hover:text-[#bc0c11] transition-colors"
               >
-                Beranda
+                {t("nav.home", "Beranda")}
               </Link>
               <svg
                 width="14"
@@ -70,7 +73,7 @@ export default function ProfilGuruHeroSection() {
                 href="/tentang-kami/profil-sekolah"
                 className="text-[#4a5565] hover:text-[#bc0c11] transition-colors"
               >
-                Tentang Kami
+                {t("nav.aboutUs", "Tentang Kami")}
               </Link>
               <svg
                 width="14"
@@ -87,20 +90,21 @@ export default function ProfilGuruHeroSection() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="font-medium text-[#101828]">Profil Guru</span>
+              <span className="font-medium text-[#101828]">{t("profilGuru.breadcrumb", "Profil Guru")}</span>
             </div>
 
             {/* Title & Red Underline Bar */}
             <div className="relative mb-6">
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[56px] leading-tight tracking-tight text-[#101828]">
-                Profil <span className="text-[#e7000b]">Guru</span>
+                {t("profilGuru.heroTitle1", "Pendidik &")}{" "}
+                <span className="text-[#e7000b]">{t("profilGuru.heroTitle2", "Tenaga Pengajar")}</span>
               </h1>
               <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             {/* Description */}
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-2xl mb-8">
-              Tim pengajar kami adalah para profesional berdedikasi dengan keahlian di bidang Teknologi dan Informatika, serta berpengalaman di industri. Mereka siap membimbing siswa dengan metode inovatif dan mendukung pengembangan potensi maksimal.
+              {t("profilGuru.heroDesc")}
             </p>
 
             {/* CTA Button */}
@@ -109,7 +113,7 @@ export default function ProfilGuruHeroSection() {
               className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer shadow-card-cta"
             >
               <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                Jelajahi
+                {t("profilGuru.heroCta", "Lihat Tim Pendidik")}
               </span>
               <svg
                 width="18"

@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function BkkKerjasamaSection() {
+  const { language } = useLanguage();
+  const isEn = language === "en";
+
   const [modalOpen, setModalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,18 +66,21 @@ export default function BkkKerjasamaSection() {
               <div className="flex items-center gap-2.5 mb-3">
                 <div className="h-[3px] w-6 bg-[#bc0c11] rounded-full" />
                 <span className="font-jakarta text-xs sm:text-sm font-bold tracking-wider uppercase text-[#bc0c11]">
-                  MENCARI TALENTA?
+                  {isEn ? "LOOKING FOR TALENT?" : "MENCARI TALENTA?"}
                 </span>
               </div>
 
               {/* Title */}
               <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-4">
-                Bekerja Sama dengan <span className="text-[#bc0c11]">SKOMDA</span>
+                {isEn ? "Partner with " : "Bekerja Sama dengan "}
+                <span className="text-[#bc0c11]">SKOMDA</span>
               </h2>
 
               {/* Description */}
               <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed max-w-xl mb-8">
-                BKK SMK Telkom Sidoarjo membuka kesempatan bagi perusahaan untuk terhubung langsung dengan siswa dan alumni berkompetensi tinggi sesuai kebutuhan industri.
+                {isEn
+                  ? "BKK SMK Telkom Sidoarjo opens opportunities for companies to connect directly with highly competent students and alumni tailored to industry needs."
+                  : "BKK SMK Telkom Sidoarjo membuka kesempatan bagi perusahaan untuk terhubung langsung dengan siswa dan alumni berkompetensi tinggi sesuai kebutuhan industri."}
               </p>
 
               {/* CTA Buttons */}
@@ -82,7 +89,7 @@ export default function BkkKerjasamaSection() {
                   onClick={() => setModalOpen(true)}
                   className="group inline-flex items-center gap-2.5 rounded-full bg-[#bc0c11] px-7 py-3 text-sm font-jakarta font-bold text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-card-cta cursor-pointer"
                 >
-                  <span>Pasang Lowongan</span>
+                  <span>{isEn ? "Post a Job" : "Pasang Lowongan"}</span>
                   <svg
                     width="16"
                     height="16"
@@ -99,12 +106,16 @@ export default function BkkKerjasamaSection() {
                 </button>
 
                 <a
-                  href="https://wa.me/628113021919?text=Halo%20BKK%20SMK%20Telkom%20Sidoarjo,%20kami%20ingin%20berkolaborasi%20untuk%20kebutuhan%20rekrutmen%20talenta"
+                  href={
+                    isEn
+                      ? "https://wa.me/628113021919?text=Hello%20BKK%20SMK%20Telkom%20Sidoarjo,%20we%20would%20like%20to%20collaborate%20for%20talent%20recruitment"
+                      : "https://wa.me/628113021919?text=Halo%20BKK%20SMK%20Telkom%20Sidoarjo,%20kami%20ingin%20berkolaborasi%20untuk%20kebutuhan%20rekrutmen%20talenta"
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2.5 rounded-full border-2 border-[#bc0c11] px-7 py-2.5 text-sm font-jakarta font-bold text-[#bc0c11] transition-all duration-300 hover:bg-[#bc0c11] hover:text-white active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Hubungi BKK</span>
+                  <span>{isEn ? "Contact BKK" : "Hubungi BKK"}</span>
                   <svg
                     width="16"
                     height="16"
@@ -134,10 +145,12 @@ export default function BkkKerjasamaSection() {
                   </svg>
                 </div>
                 <p className="font-jakarta italic text-base sm:text-lg font-medium text-[#101828] leading-snug mb-3">
-                  “Kolaborasi untuk Masa Depan Talenta Indonesia”
+                  {isEn
+                    ? "“Collaborating for the Future of Indonesian Talents”"
+                    : "“Kolaborasi untuk Masa Depan Talenta Indonesia”"}
                 </p>
                 <span className="font-jakarta text-xs font-bold text-[#bc0c11] tracking-wide uppercase">
-                  Bursa Kerja Khusus SKOMDA
+                  {isEn ? "SKOMDA Career Center (BKK)" : "Bursa Kerja Khusus SKOMDA"}
                 </span>
               </div>
             </div>
@@ -163,7 +176,7 @@ export default function BkkKerjasamaSection() {
             {/* Close Button */}
             <button
               onClick={() => setModalOpen(false)}
-              aria-label="Tutup Form Lowongan"
+              aria-label={isEn ? "Close Job Form" : "Tutup Form Lowongan"}
               className="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -179,35 +192,39 @@ export default function BkkKerjasamaSection() {
                   </svg>
                 </div>
                 <h3 className="font-jakarta font-bold text-xl text-[#101828] mb-2">
-                  Permintaan Berhasil Terkirim!
+                  {isEn ? "Request Successfully Sent!" : "Permintaan Berhasil Terkirim!"}
                 </h3>
                 <p className="font-poppins text-sm text-[#4a5565]">
-                  Tim BKK SMK Telkom Sidoarjo akan segera menghubungi perusahaan Anda untuk proses verifikasi dan publikasi lowongan.
+                  {isEn
+                    ? "The BKK SMK Telkom Sidoarjo team will contact your company shortly for verification and vacancy publication."
+                    : "Tim BKK SMK Telkom Sidoarjo akan segera menghubungi perusahaan Anda untuk proses verifikasi dan publikasi lowongan."}
                 </p>
               </div>
             ) : (
               <div>
                 <div className="mb-6">
                   <span className="text-xs font-jakarta font-bold uppercase tracking-wider text-[#bc0c11] block mb-1">
-                    Kemitraan Rekrutmen
+                    {isEn ? "Recruitment Partnership" : "Kemitraan Rekrutmen"}
                   </span>
                   <h3 id="modal-recruiter-title" className="font-jakarta font-bold text-xl text-[#101828]">
-                    Pasang Lowongan Kerja / Magang
+                    {isEn ? "Post Job / Internship Vacancy" : "Pasang Lowongan Kerja / Magang"}
                   </h3>
                   <p className="font-poppins text-xs text-[#787878] mt-1">
-                    Silakan isi data kebutuhan rekrutmen perusahaan Anda untuk dipublikasikan ke siswa dan alumni SKOMDA.
+                    {isEn
+                      ? "Please fill in your company recruitment requirements to be shared with SKOMDA students and alumni."
+                      : "Silakan isi data kebutuhan rekrutmen perusahaan Anda untuk dipublikasikan ke siswa dan alumni SKOMDA."}
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4 font-jakarta text-xs sm:text-sm">
                   <div>
                     <label className="block font-semibold text-[#101828] mb-1">
-                      Nama Perusahaan / Institusi *
+                      {isEn ? "Company / Institution Name *" : "Nama Perusahaan / Institusi *"}
                     </label>
                     <input
                       required
                       type="text"
-                      placeholder="Contoh: PT Teknologi Inovasi Bersama"
+                      placeholder={isEn ? "e.g. PT Teknologi Inovasi Bersama" : "Contoh: PT Teknologi Inovasi Bersama"}
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
@@ -217,12 +234,12 @@ export default function BkkKerjasamaSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block font-semibold text-[#101828] mb-1">
-                        Nama PIC / HR *
+                        {isEn ? "PIC / HR Name *" : "Nama PIC / HR *"}
                       </label>
                       <input
                         required
                         type="text"
-                        placeholder="Nama narahubung"
+                        placeholder={isEn ? "Contact person name" : "Nama narahubung"}
                         value={formData.contactPerson}
                         onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
@@ -230,7 +247,7 @@ export default function BkkKerjasamaSection() {
                     </div>
                     <div>
                       <label className="block font-semibold text-[#101828] mb-1">
-                        No. WhatsApp / Email *
+                        {isEn ? "WhatsApp No. / Email *" : "No. WhatsApp / Email *"}
                       </label>
                       <input
                         required
@@ -246,12 +263,12 @@ export default function BkkKerjasamaSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block font-semibold text-[#101828] mb-1">
-                        Posisi yang Dibuka *
+                        {isEn ? "Open Position *" : "Posisi yang Dibuka *"}
                       </label>
                       <input
                         required
                         type="text"
-                        placeholder="Contoh: Network Technician"
+                        placeholder={isEn ? "e.g. Network Technician" : "Contoh: Network Technician"}
                         value={formData.positionTitle}
                         onChange={(e) => setFormData({ ...formData, positionTitle: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
@@ -259,7 +276,7 @@ export default function BkkKerjasamaSection() {
                     </div>
                     <div>
                       <label className="block font-semibold text-[#101828] mb-1">
-                        Tipe Pekerjaan
+                        {isEn ? "Job Type" : "Tipe Pekerjaan"}
                       </label>
                       <select
                         value={formData.jobType}
@@ -267,34 +284,38 @@ export default function BkkKerjasamaSection() {
                         className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
                       >
                         <option value="Full Time">Full Time</option>
-                        <option value="Internship">Internship / Magang</option>
-                        <option value="Contract">Kontrak Proyek</option>
+                        <option value="Internship">{isEn ? "Internship" : "Internship / Magang"}</option>
+                        <option value="Contract">{isEn ? "Project Contract" : "Kontrak Proyek"}</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
                     <label className="block font-semibold text-[#101828] mb-1">
-                      Jurusan yang Dibutuhkan
+                      {isEn ? "Target Major" : "Jurusan yang Dibutuhkan"}
                     </label>
                     <select
                       value={formData.jurusanNeeded}
                       onChange={(e) => setFormData({ ...formData, jurusanNeeded: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
                     >
-                      <option value="SIJA">SIJA (Sistem Informasi Jaringan dan Aplikasi)</option>
-                      <option value="TJAT">TJAT (Teknik Jaringan Akses Telekomunikasi)</option>
-                      <option value="SIJA & TJAT">Keduanya (SIJA & TJAT)</option>
+                      <option value="SIJA">SIJA ({isEn ? "Information Systems, Networks, and Applications" : "Sistem Informasi Jaringan dan Aplikasi"})</option>
+                      <option value="TJAT">TJAT ({isEn ? "Telecommunications Access Network Engineering" : "Teknik Jaringan Akses Telekomunikasi"})</option>
+                      <option value="SIJA & TJAT">{isEn ? "Both (SIJA & TJAT)" : "Keduanya (SIJA & TJAT)"}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block font-semibold text-[#101828] mb-1">
-                      Kualifikasi Ringkas / Catatan
+                      {isEn ? "Brief Qualifications / Notes" : "Kualifikasi Ringkas / Catatan"}
                     </label>
                     <textarea
                       rows={3}
-                      placeholder="Tuliskan kualifikasi utama atau tautan dokumen lowongan..."
+                      placeholder={
+                        isEn
+                          ? "Describe key requirements or provide vacancy document links..."
+                          : "Tuliskan kualifikasi utama atau tautan dokumen lowongan..."
+                      }
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       className="w-full px-3.5 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
@@ -306,7 +327,7 @@ export default function BkkKerjasamaSection() {
                       type="submit"
                       className="w-full py-3 rounded-full bg-[#bc0c11] font-bold text-white hover:bg-[#990a0e] transition-colors shadow-sm cursor-pointer"
                     >
-                      Kirim Kebutuhan Lowongan
+                      {isEn ? "Submit Vacancy Details" : "Kirim Kebutuhan Lowongan"}
                     </button>
                   </div>
                 </form>

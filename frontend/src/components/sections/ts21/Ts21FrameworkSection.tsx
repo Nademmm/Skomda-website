@@ -2,50 +2,81 @@
 
 import { motion } from "framer-motion";
 import { HeartHandshake, Cpu, Compass, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const frameworkPillars = [
+const getFrameworkPillars = (isEn: boolean) => [
   {
     number: "01",
     title: "Soft Skill & TS Character",
-    subtitle: "Karakter Mulia & Etika Digital",
-    desc: "Pembentukan karakter berlandaskan Akhlak, Profil Pelajar Pancasila, dan TS Character untuk menghasilkan talenta berintegritas tinggi.",
+    subtitle: isEn ? "Noble Character & Digital Ethics" : "Karakter Mulia & Etika Digital",
+    desc: isEn
+      ? "Character formation rooted in Akhlak, Pancasila Student Profile, and TS Character to nurture high-integrity digital talents."
+      : "Pembentukan karakter berlandaskan Akhlak, Profil Pelajar Pancasila, dan TS Character untuk menghasilkan talenta berintegritas tinggi.",
     icon: <HeartHandshake className="size-6 transition-colors duration-300" />,
-    points: [
-      "Penanaman Akhlak & Budi Pekerti Luhur",
-      "Penerapan 6 Dimensi Profil Pelajar Pancasila",
-      "TS Character: Integrity, Excellence, Totality",
-      "Etika Komunikasi & Kolaborasi Digital",
-    ],
+    points: isEn
+      ? [
+          "Cultivation of Noble Character and Moral Values",
+          "6 Dimensions of Pancasila Student Profile",
+          "TS Character: Integrity, Excellence, Totality",
+          "Digital Communication & Collaboration Ethics",
+        ]
+      : [
+          "Penanaman Akhlak & Budi Pekerti Luhur",
+          "Penerapan 6 Dimensi Profil Pelajar Pancasila",
+          "TS Character: Integrity, Excellence, Totality",
+          "Etika Komunikasi & Kolaborasi Digital",
+        ],
   },
   {
     number: "02",
     title: "Hard Skill & Digital Talent",
-    subtitle: "Kompetensi Teknis Industri 4.0",
-    desc: "Penguasaan keahlian teknis terkini di bidang telekomunikasi, pemrograman, komputasi awan, dan keamanan siber berstandar internasional.",
+    subtitle: isEn ? "Industry 4.0 Technical Competencies" : "Kompetensi Teknis Industri 4.0",
+    desc: isEn
+      ? "Mastery of modern technical competencies in telecommunications, software programming, cloud computing, and international standard cybersecurity."
+      : "Penguasaan keahlian teknis terkini di bidang telekomunikasi, pemrograman, komputasi awan, dan keamanan siber berstandar internasional.",
     icon: <Cpu className="size-6 transition-colors duration-300" />,
-    points: [
-      "Penguasaan Literasi Digital & Numerasi Terapan",
-      "Keahlian Rekayasa Jaringan & Fiber Optic (TJAT)",
-      "Pengembangan Software, Cloud & IoT (SIJA)",
-      "Sertifikasi Kompetensi Industri Nasional & Global",
-    ],
+    points: isEn
+      ? [
+          "Applied Digital Literacy and Numeracy",
+          "Fiber Optic & Network Engineering (TJAT)",
+          "Software, Cloud & IoT Development (SIJA)",
+          "National & Global Industry Certifications",
+        ]
+      : [
+          "Penguasaan Literasi Digital & Numerasi Terapan",
+          "Keahlian Rekayasa Jaringan & Fiber Optic (TJAT)",
+          "Pengembangan Software, Cloud & IoT (SIJA)",
+          "Sertifikasi Kompetensi Industri Nasional & Global",
+        ],
   },
   {
     number: "03",
     title: "Life Skill Balance",
-    subtitle: "Ketangguhan & Kemandirian Hidup",
-    desc: "Pengembangan kecakapan hidup yang proporsional antara daya juang (grit), kepemimpinan, pemecahan masalah kritis, dan jiwa wirausaha.",
+    subtitle: isEn ? "Resilience & Independent Living" : "Ketangguhan & Kemandirian Hidup",
+    desc: isEn
+      ? "Development of essential life skills: perseverance (grit), leadership, critical problem-solving, and entrepreneurship."
+      : "Pengembangan kecakapan hidup yang proporsional antara daya juang (grit), kepemimpinan, pemecahan masalah kritis, dan jiwa wirausaha.",
     icon: <Compass className="size-6 transition-colors duration-300" />,
-    points: [
-      "Critical Thinking & Real-World Problem Solving",
-      "Kepemimpinan & Adaptabilitas di Era Disrupsi",
-      "Technopreneurship & Inkubasi Produk Kreatif",
-      "Keseimbangan Kesehatan Fisik, Mental, dan Emosional",
-    ],
+    points: isEn
+      ? [
+          "Critical Thinking & Real-World Problem Solving",
+          "Leadership & Adaptability in the Disruption Era",
+          "Technopreneurship & Creative Product Incubation",
+          "Holistic Physical, Mental, and Emotional Health",
+        ]
+      : [
+          "Critical Thinking & Real-World Problem Solving",
+          "Kepemimpinan & Adaptabilitas di Era Disrupsi",
+          "Technopreneurship & Inkubasi Produk Kreatif",
+          "Keseimbangan Kesehatan Fisik, Mental, dan Emosional",
+        ],
   },
 ];
 
 export default function Ts21FrameworkSection() {
+  const { isEn, t } = useLanguage();
+  const frameworkPillars = getFrameworkPillars(isEn);
+
   return (
     <section
       id="framework"
@@ -62,14 +93,22 @@ export default function Ts21FrameworkSection() {
         >
           <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
-            Framework TS.21{" "}
-            <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+            {isEn ? (
+              <>
+                TS.21 Framework{" "}
+                <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+              </>
+            ) : (
+              <>
+                Framework TS.21{" "}
+                <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+              </>
+            )}
           </h2>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-4">
-            Mengimplementasikan Kurikulum Merdeka TS.21 dengan alokasi bobot proporsional
-            antara <strong className="text-[#101828]">Attitude / Character</strong> dan{" "}
-            <strong className="text-[#101828]">Knowledge / Skill</strong> untuk memastikan
-            perkembangan holistik pada setiap siswa.
+            {isEn
+              ? "Implementing TS.21 Independent Curriculum with balanced weighting between Attitude/Character and Knowledge/Skills for holistic student development."
+              : "Mengimplementasikan Kurikulum Merdeka TS.21 dengan alokasi bobot proporsional antara Attitude / Character dan Knowledge / Skill untuk memastikan perkembangan holistik pada setiap siswa."}
           </p>
         </motion.div>
 
@@ -123,24 +162,33 @@ export default function Ts21FrameworkSection() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             <div className="md:col-span-8 flex flex-col gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                Struktur Kurikulum Berlapis
+                {isEn ? "Tiered Curriculum Structure" : "Struktur Kurikulum Berlapis"}
               </span>
               <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828]">
-                Keseimbangan Attitude, Knowledge, dan Skill
+                {isEn ? "Balance of Attitude, Knowledge, and Skills" : "Keseimbangan Attitude, Knowledge, dan Skill"}
               </h3>
               <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] leading-relaxed mt-1">
-                Pondasi karakter yang kokoh menjamin kemampuan teknis siswa dapat dimanfaatkan
-                secara bertanggung jawab dan beretika di tengah pesatnya kemajuan teknologi kecerdasan buatan dan otomasi industri.
+                {isEn
+                  ? "A solid character foundation ensures that students' technical skills are utilized responsibly and ethically amidst rapid advances in AI and industry automation."
+                  : "Pondasi karakter yang kokoh menjamin kemampuan teknis siswa dapat dimanfaatkan secara bertanggung jawab dan beretika di tengah pesatnya kemajuan teknologi kecerdasan buatan dan otomasi industri."}
               </p>
             </div>
             <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col gap-3 justify-center">
               <div className="p-3.5 rounded-xl bg-white border border-gray-200/80 shadow-xs flex items-center justify-between">
-                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#101828]">Karakter & Sikap</span>
-                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#bc0c11]">Proporsional</span>
+                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#101828]">
+                  {isEn ? "Character & Attitude" : "Karakter & Sikap"}
+                </span>
+                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#bc0c11]">
+                  {isEn ? "Proportional" : "Proporsional"}
+                </span>
               </div>
               <div className="p-3.5 rounded-xl bg-white border border-gray-200/80 shadow-xs flex items-center justify-between">
-                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#101828]">Kompetensi Kejuruan</span>
-                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#bc0c11]">Standar Industri</span>
+                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#101828]">
+                  {isEn ? "Vocational Competency" : "Kompetensi Kejuruan"}
+                </span>
+                <span className="font-jakarta font-bold text-xs sm:text-sm text-[#bc0c11]">
+                  {isEn ? "Industry Standard" : "Standar Industri"}
+                </span>
               </div>
             </div>
           </div>

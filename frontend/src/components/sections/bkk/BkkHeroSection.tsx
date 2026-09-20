@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function BkkHeroSection() {
+  const { isEn, t } = useLanguage();
+
   const scrollToPeluang = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const element = document.getElementById("peluang-karier");
@@ -28,7 +31,7 @@ export default function BkkHeroSection() {
             {/* Breadcrumb Path with consistent Chevron SVG */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-4 text-sm font-jakarta text-[#4a5565] flex-wrap">
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-                Beranda
+                {t("common.home")}
               </Link>
               <span className="flex items-center gap-2">
                 <svg
@@ -48,7 +51,7 @@ export default function BkkHeroSection() {
                   />
                 </svg>
                 <Link href="/program/profil-jurusan" className="hover:text-[#bc0c11] transition-colors">
-                  Program
+                  {t("common.programs")}
                 </Link>
               </span>
               <span className="flex items-center gap-2">
@@ -68,21 +71,31 @@ export default function BkkHeroSection() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="font-medium text-[#101828]">BKK</span>
+                <span className="font-medium text-[#101828]">{t("bkk.breadcrumb")}</span>
               </span>
             </nav>
 
             {/* Title & Red Underline Accent Bar */}
             <div className="relative mb-6">
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[54px] leading-tight tracking-tight text-[#101828]">
-                Langkah Berikutnya <span className="text-[#e7000b]">Dimulai dari Sini.</span>
+                {isEn ? (
+                  <>
+                    Your Next Step{" "}
+                    <span className="text-[#e7000b]">Starts Right Here.</span>
+                  </>
+                ) : (
+                  <>
+                    Langkah Berikutnya{" "}
+                    <span className="text-[#e7000b]">Dimulai dari Sini.</span>
+                  </>
+                )}
               </h1>
               <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             {/* Description */}
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-xl mb-8">
-              Menghubungkan siswa dan alumni SMK Telkom Sidoarjo dengan peluang kerja, pengembangan karier, dan dunia industri.
+              {t("bkk.heroDesc")}
             </p>
 
             {/* CTA Button */}
@@ -92,7 +105,7 @@ export default function BkkHeroSection() {
               className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3.5 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-card-cta"
             >
               <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                Jelajahi Peluang
+                {t("bkk.heroCta")}
               </span>
               <svg
                 width="18"

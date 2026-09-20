@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function StrukturOrganisasiSection() {
   const [isOpen, setIsOpen] = useState(false);
+  const { lang, t } = useLanguage();
 
   // Close modal with ESC key & manage body scroll
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function StrukturOrganisasiSection() {
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           
-          {/* Left Column: Heading & Text (Clean, no buttons below text) */}
+          {/* Left Column: Heading & Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -37,18 +39,14 @@ export default function StrukturOrganisasiSection() {
           >
             <div className="mb-6">
               <h2 className="font-jakarta font-bold text-3xl sm:text-4xl text-[#101828] leading-tight">
-                Struktur Organisasi <br />
+                {t("profilSekolah.strukturTitle", "Struktur Organisasi")} <br />
                 <span className="text-[#e7000b]">SMK Telkom Sidoarjo</span>
               </h2>
               <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed">
-              Diagram ini menyajikan Struktur Organisasi resmi SMK Telkom
-              Sidoarjo, yang merinci pembagian tugas dan tanggung jawab unit
-              kerja. Struktur ini berfungsi sebagai kerangka formal untuk
-              memastikan koordinasi, efisiensi operasional, dan pencapaian target
-              mutu sekolah (ISO 21001:2018).
+              {t("profilSekolah.strukturDesc")}
             </p>
           </motion.div>
 
@@ -75,8 +73,8 @@ export default function StrukturOrganisasiSection() {
                 />
 
                 {/* Hover overlay hint */}
-                <div className="absolute inset-0 bg-[#101828]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                  <div className="bg-white/95 text-[#101828] font-jakarta font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="bg-white/90 backdrop-blur-xs text-[#101828] text-xs sm:text-sm font-semibold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
                     <svg
                       width="16"
                       height="16"
@@ -90,14 +88,16 @@ export default function StrukturOrganisasiSection() {
                       <line x1="11" y1="8" x2="11" y2="14" />
                       <line x1="8" y1="11" x2="14" y2="11" />
                     </svg>
-                    <span>Klik untuk memperbesar</span>
+                    <span>{lang === "EN" ? "Click to view full chart" : "Klik untuk memperbesar"}</span>
                   </div>
                 </div>
               </div>
 
               {/* Bottom Action Bar below image */}
               <div className="mt-3.5 pt-3 border-t border-gray-100 flex items-center justify-between text-xs sm:text-sm font-jakarta px-1">
-                <span className="text-[#6a7282]">Bagan Resmi ISO 21001:2018</span>
+                <span className="text-[#6a7282]">
+                  {lang === "EN" ? "Official ISO 21001:2018 Chart" : "Bagan Resmi ISO 21001:2018"}
+                </span>
                 <button
                   type="button"
                   onClick={(e) => {
@@ -106,7 +106,7 @@ export default function StrukturOrganisasiSection() {
                   }}
                   className="inline-flex items-center gap-1.5 text-[#bc0c11] hover:text-[#990a0e] font-semibold hover:underline cursor-pointer"
                 >
-                  <span>Buka Layar Penuh</span>
+                  <span>{lang === "EN" ? "Open Fullscreen" : "Buka Layar Penuh"}</span>
                   <svg
                     width="14"
                     height="14"
@@ -152,16 +152,16 @@ export default function StrukturOrganisasiSection() {
               <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-gray-200">
                 <div>
                   <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828]">
-                    Struktur Organisasi SMK Telkom Sidoarjo
+                    {lang === "EN" ? "Organizational Structure of SMK Telkom Sidoarjo" : "Struktur Organisasi SMK Telkom Sidoarjo"}
                   </h3>
                   <p className="font-jakarta text-xs text-[#6a7282]">
-                    Bagan Resmi &bull; Standar Penjaminan Mutu ISO 21001:2018
+                    {lang === "EN" ? "Official Chart • ISO 21001:2018 Quality Standard" : "Bagan Resmi • Standar Penjaminan Mutu ISO 21001:2018"}
                   </p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="size-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors cursor-pointer"
-                  aria-label="Tutup"
+                  aria-label={lang === "EN" ? "Close" : "Tutup"}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="6" x2="6" y2="18" />

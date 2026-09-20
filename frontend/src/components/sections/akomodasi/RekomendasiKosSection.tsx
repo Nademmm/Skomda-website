@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 type CategoryType = "Semua" | "Kos Putra" | "Kos Putri" | "Asrama / Kontrakan";
 
@@ -11,7 +12,8 @@ interface Accommodation {
   category: "Kos Putra" | "Kos Putri" | "Asrama / Kontrakan";
   location: string;
   price: string;
-  features: string[];
+  featuresId: string[];
+  featuresEn: string[];
   contactPerson: string;
   whatsappNumber: string;
 }
@@ -23,10 +25,15 @@ const accommodations: Accommodation[] = [
     category: "Kos Putra",
     location: "Sekardangan, Sidoarjo",
     price: "Rp650.000 - Rp1.100.000",
-    features: [
+    featuresId: [
       "AC / Kipas & WiFi Cepat",
       "Kamar Mandi Dalam",
       "Kasur, Lemari & Meja",
+    ],
+    featuresEn: [
+      "AC / Fan & Fast WiFi",
+      "Private Bathroom",
+      "Bed, Wardrobe & Study Desk",
     ],
     contactPerson: "Pak Hendro",
     whatsappNumber: "6281234567890",
@@ -37,10 +44,15 @@ const accommodations: Accommodation[] = [
     category: "Kos Putri",
     location: "Pecantingan, Sekardangan",
     price: "Rp700.000 - Rp1.250.000",
-    features: [
+    featuresId: [
       "AC & Kamar Mandi Dalam",
       "WiFi & Ruang Belajar",
       "Penjaga & CCTV 24 Jam",
+    ],
+    featuresEn: [
+      "AC & Private Bathroom",
+      "WiFi & Study Room",
+      "Security Guard & 24h CCTV",
     ],
     contactPerson: "Ibu Hj. Aminah",
     whatsappNumber: "6281234567891",
@@ -51,10 +63,15 @@ const accommodations: Accommodation[] = [
     category: "Asrama / Kontrakan",
     location: "Jl. Raya Jati, Sidoarjo",
     price: "Rp850.000",
-    features: [
+    featuresId: [
       "Makan 2x Sehari & Laundry",
       "Pembinaan Karakter Siswa",
       "WiFi & Area Belajar Bersama",
+    ],
+    featuresEn: [
+      "2x Daily Meals & Laundry",
+      "Student Character Mentorship",
+      "WiFi & Communal Study Area",
     ],
     contactPerson: "Ustadz Rahmat",
     whatsappNumber: "6281234567892",
@@ -65,10 +82,15 @@ const accommodations: Accommodation[] = [
     category: "Kos Putri",
     location: "Sekardangan Permai, Sidoarjo",
     price: "Rp600.000 - Rp950.000",
-    features: [
+    featuresId: [
       "Free Listrik & Air PDAM",
       "WiFi & Kasur Springbed",
       "Lingkungan Tenang & Bersih",
+    ],
+    featuresEn: [
+      "Free Electricity & Tap Water",
+      "WiFi & Springbed Mattress",
+      "Quiet & Clean Environment",
     ],
     contactPerson: "Ibu Ratna",
     whatsappNumber: "6281234567893",
@@ -79,10 +101,15 @@ const accommodations: Accommodation[] = [
     category: "Asrama / Kontrakan",
     location: "Jl. Pahlawan, Sidoarjo",
     price: "Rp500.000",
-    features: [
+    featuresId: [
       "Rumah 3 Kamar Tidur",
       "Dapur & Mesin Cuci",
       "Workspace & WiFi Fiber",
+    ],
+    featuresEn: [
+      "3-Bedroom House",
+      "Kitchen & Washing Machine",
+      "Workspace & Fiber WiFi",
     ],
     contactPerson: "Pak Dimas",
     whatsappNumber: "6281234567894",
@@ -93,24 +120,30 @@ const accommodations: Accommodation[] = [
     category: "Kos Putra",
     location: "Jl. KH. Mukmin, Sidoarjo",
     price: "Rp550.000 - Rp850.000",
-    features: [
+    featuresId: [
       "Kipas / AC & WiFi",
       "Kasur, Lemari & Parkir",
       "Dekat Masjid & Minimarket",
+    ],
+    featuresEn: [
+      "Fan / AC & WiFi",
+      "Bed, Wardrobe & Parking Space",
+      "Near Mosque & Minimarket",
     ],
     contactPerson: "Pak H. Supardi",
     whatsappNumber: "6281234567895",
   },
 ];
 
-const categories: CategoryType[] = [
-  "Semua",
-  "Kos Putra",
-  "Kos Putri",
-  "Asrama / Kontrakan",
+const categoryList: { key: CategoryType; labelId: string; labelEn: string }[] = [
+  { key: "Semua", labelId: "Semua", labelEn: "All" },
+  { key: "Kos Putra", labelId: "Kos Putra", labelEn: "Boys Dorm" },
+  { key: "Kos Putri", labelId: "Kos Putri", labelEn: "Girls Dorm" },
+  { key: "Asrama / Kontrakan", labelId: "Asrama / Kontrakan", labelEn: "Hostel / Rental" },
 ];
 
 export default function RekomendasiKosSection() {
+  const { isEn, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<CategoryType>("Semua");
 
   const filteredItems =
@@ -128,29 +161,27 @@ export default function RekomendasiKosSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="flex flex-col gap-2 max-w-2xl">
             <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-              Rekomendasi Tempat Tinggal di Sekitar{" "}
-              <span className="text-[#bc0c11]">Sekolah</span>
+              {t("akomodasi.kosTitle")}
             </h2>
             <p className="font-jakarta text-base text-[#4a5565] leading-relaxed">
-              Pilihan hunian kos, kontrakan, dan asrama terdekat yang aman,
-              nyaman, dan kondusif untuk mendukung kegiatan belajar siswa.
+              {t("akomodasi.kosSubtitle")}
             </p>
           </div>
 
           {/* Filter Tabs */}
           <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
+            {categoryList.map((cat) => (
               <button
-                key={cat}
+                key={cat.key}
                 type="button"
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => setActiveCategory(cat.key)}
                 className={`rounded-full px-4 py-2 text-xs sm:text-sm font-semibold font-jakarta transition-all duration-200 cursor-pointer ${
-                  activeCategory === cat
+                  activeCategory === cat.key
                     ? "bg-[#bc0c11] text-white shadow-sm"
                     : "bg-white text-[#4a5565] border border-gray-200 hover:border-[#bc0c11] hover:text-[#bc0c11]"
                 }`}
               >
-                {cat}
+                {isEn ? cat.labelEn : cat.labelId}
               </button>
             ))}
           </div>
@@ -173,7 +204,13 @@ export default function RekomendasiKosSection() {
                 {/* Header: Category + Name + Location */}
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-semibold text-[#bc0c11] tracking-wide font-jakarta">
-                    {item.category}
+                    {isEn
+                      ? item.category === "Kos Putra"
+                        ? "Boys Dorm"
+                        : item.category === "Kos Putri"
+                        ? "Girls Dorm"
+                        : "Hostel / Rental"
+                      : item.category}
                   </span>
                   <h3 className="font-jakarta font-bold text-lg text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mt-0.5">
                     {item.name}
@@ -185,7 +222,7 @@ export default function RekomendasiKosSection() {
 
                 {/* Key Features: 3 Clean Bullet Points */}
                 <ul className="flex flex-col gap-2 pt-1 border-t border-gray-100">
-                  {item.features.map((feat) => (
+                  {(isEn ? item.featuresEn : item.featuresId).map((feat) => (
                     <li
                       key={feat}
                       className="flex items-center gap-2 text-xs text-[#4a5565] font-jakarta"
@@ -204,7 +241,7 @@ export default function RekomendasiKosSection() {
                     {item.price}
                   </span>
                   <span className="font-jakarta text-[11px] text-gray-500">
-                    per bulan
+                    {isEn ? "per month" : "per bulan"}
                   </span>
                 </div>
 
@@ -218,7 +255,7 @@ export default function RekomendasiKosSection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] px-4 py-2 text-xs font-semibold text-white transition-all duration-200 shadow-xs hover:shadow-sm font-jakarta shrink-0 active:scale-95"
                 >
-                  <span>Hubungi</span>
+                  <span>{isEn ? "Contact" : "Hubungi"}</span>
                   <svg
                     width="13"
                     height="13"

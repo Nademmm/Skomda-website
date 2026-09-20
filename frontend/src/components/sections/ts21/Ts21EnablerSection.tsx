@@ -12,64 +12,87 @@ import {
   Award,
   Building,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const digitalEnablers = [
+const getDigitalEnablers = (isEn: boolean) => [
   {
     name: "iGRACIAS",
-    category: "Integrated Academic Portal",
-    desc: "Sistem informasi manajemen terpadu Telkom Schools untuk administrasi, data siswa, dan operasional sekolah.",
+    category: isEn ? "Integrated Academic Portal" : "Integrated Academic Portal",
+    desc: isEn
+      ? "Integrated management information system of Telkom Schools for student administration and operations."
+      : "Sistem informasi manajemen terpadu Telkom Schools untuk administrasi, data siswa, dan operasional sekolah.",
     icon: <Database className="size-5" />,
   },
   {
     name: "SIAKAD Online",
-    category: "Academic Information System",
-    desc: "Platform pencatatan nilai, rapor digital, presensi KBM, dan pemantauan capaian kurikulum harian.",
+    category: isEn ? "Academic Information System" : "Academic Information System",
+    desc: isEn
+      ? "Digital grade recording, academic reporting, daily attendance, and curriculum progression monitoring."
+      : "Platform pencatatan nilai, rapor digital, presensi KBM, dan pemantauan capaian kurikulum harian.",
     icon: <GraduationCap className="size-5" />,
   },
   {
     name: "LMS Telkom Schools",
-    category: "Learning Management System",
-    desc: "Ruang kelas virtual terstandardisasi untuk distribusi modul, penugasan proyek, dan diskusi interaktif.",
+    category: isEn ? "Learning Management System" : "Learning Management System",
+    desc: isEn
+      ? "Standardized virtual classroom for module distribution, project submission, and active peer discussions."
+      : "Ruang kelas virtual terstandardisasi untuk distribusi modul, penugasan proyek, dan diskusi interaktif.",
     icon: <Laptop2 className="size-5" />,
   },
   {
     name: "E-Library",
-    category: "Digital Library & Resources",
-    desc: "Akses 24/7 ke ribuan buku digital, jurnal teknologi, modul praktikum, dan referensi akademik modern.",
+    category: isEn ? "Digital Library & Resources" : "Digital Library & Resources",
+    desc: isEn
+      ? "24/7 access to thousands of digital textbooks, technology journals, lab manuals, and academic references."
+      : "Akses 24/7 ke ribuan buku digital, jurnal teknologi, modul praktikum, dan referensi akademik modern.",
     icon: <BookOpen className="size-5" />,
   },
   {
     name: "DITA / JIWA",
-    category: "Character & Activity Tracker",
-    desc: "Platform pemantauan perkembangan karakter (soft skill), kedisiplinan, dan portofolio keikutsertaan siswa.",
+    category: isEn ? "Character & Activity Tracker" : "Character & Activity Tracker",
+    desc: isEn
+      ? "Student soft skills, behavioral discipline, character growth, and extracurricular participation tracking platform."
+      : "Platform pemantauan perkembangan karakter (soft skill), kedisiplinan, dan portofolio keikutsertaan siswa.",
     icon: <ShieldAlert className="size-5" />,
   },
 ];
 
-const teacherDevelopment = [
+const getTeacherDevelopment = (isEn: boolean) => [
   {
-    title: "Platform Merdeka Mengajar (PMM)",
-    desc: "Peningkatan kompetensi pedagogik guru secara berkelanjutan mengikuti standar kurikulum nasional.",
+    title: isEn ? "Merdeka Mengajar Platform (PMM)" : "Platform Merdeka Mengajar (PMM)",
+    desc: isEn
+      ? "Continuous pedagogical competency enhancement adhering to national vocational standards."
+      : "Peningkatan kompetensi pedagogik guru secara berkelanjutan mengikuti standar kurikulum nasional.",
     icon: <UserCheck className="size-5" />,
   },
   {
-    title: "Webinar & Training Berkala",
-    desc: "Workshop intensif seputar tren teknologi baru, Artificial Intelligence, dan metodologi mengajar modern.",
+    title: isEn ? "Regular Webinars & Workshops" : "Webinar & Training Berkala",
+    desc: isEn
+      ? "Intensive training on emerging technology trends, Artificial Intelligence, and modern teaching methodologies."
+      : "Workshop intensif seputar tren teknologi baru, Artificial Intelligence, dan metodologi mengajar modern.",
     icon: <Video className="size-5" />,
   },
   {
-    title: "Sertifikasi Industri Guru",
-    desc: "Sertifikasi keahlian BNSP dan vendor global (Cisco, MikroTik, AWS) untuk para pengajar kejuruan.",
+    title: isEn ? "Teacher Industry Certifications" : "Sertifikasi Industri Guru",
+    desc: isEn
+      ? "BNSP assessor certifications and global vendor credentials (Cisco, MikroTik, AWS) for vocational educators."
+      : "Sertifikasi keahlian BNSP dan vendor global (Cisco, MikroTik, AWS) untuk para pengajar kejuruan.",
     icon: <Award className="size-5" />,
   },
   {
-    title: "Program Guru Magang",
-    desc: "Penerjunan guru secara berkala ke industri IT dan telekomunikasi agar materi ajar selalu sinkron.",
+    title: isEn ? "Teacher Industry Internship" : "Program Guru Magang",
+    desc: isEn
+      ? "Periodic teacher immersion in IT and telecommunication companies to ensure classroom learning stays synchronized."
+      : "Penerjunan guru secara berkala ke industri IT dan telekomunikasi agar materi ajar selalu sinkron.",
     icon: <Building className="size-5" />,
   },
 ];
 
 export default function Ts21EnablerSection() {
+  const { isEn } = useLanguage();
+  const digitalEnablers = getDigitalEnablers(isEn);
+  const teacherDevelopment = getTeacherDevelopment(isEn);
+
   return (
     <section
       id="enabler"
@@ -86,12 +109,22 @@ export default function Ts21EnablerSection() {
         >
           <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
-            Digital Enabler &{" "}
-            <span className="text-[#bc0c11]">Skill Development</span>
+            {isEn ? (
+              <>
+                Digital Enablers &{" "}
+                <span className="text-[#bc0c11]">Skill Development</span>
+              </>
+            ) : (
+              <>
+                Digital Enabler &{" "}
+                <span className="text-[#bc0c11]">Skill Development</span>
+              </>
+            )}
           </h2>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-4">
-            Ekosistem teknologi digital terintegrasi serta akselerasi kompetensi guru
-            yang menjadi pilar penopang keberhasilan implementasi Program TS.21.
+            {isEn
+              ? "An integrated digital ecosystem and educator skill acceleration underpinning the success of the TS.21 Program."
+              : "Ekosistem teknologi digital terintegrasi serta akselerasi kompetensi guru yang menjadi pilar penopang keberhasilan implementasi Program TS.21."}
           </p>
         </motion.div>
 
@@ -100,14 +133,14 @@ export default function Ts21EnablerSection() {
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                Platform Teknologi Sekolah
+                {isEn ? "School Technology Platforms" : "Platform Teknologi Sekolah"}
               </span>
               <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mt-1">
-                Aplikasi & Digital Enabler TS.21
+                {isEn ? "TS.21 Digital Enablers & Applications" : "Aplikasi & Digital Enabler TS.21"}
               </h3>
             </div>
             <span className="hidden sm:inline-block font-jakarta text-xs text-[#6b7280]">
-              Terintegrasi Telkom Schools
+              {isEn ? "Integrated with Telkom Schools" : "Terintegrasi Telkom Schools"}
             </span>
           </div>
 
@@ -141,14 +174,16 @@ export default function Ts21EnablerSection() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-gray-200/80">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                Tenaga Pendidik Profesional
+                {isEn ? "Professional Educators" : "Tenaga Pendidik Profesional"}
               </span>
               <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mt-1">
-                Peningkatan Kompetensi & Skill Guru
+                {isEn ? "Teacher Competency & Skill Acceleration" : "Peningkatan Kompetensi & Skill Guru"}
               </h3>
             </div>
             <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] max-w-md">
-              Guru SMK Telkom Sidoarjo rutin mengikuti pelatihan, sertifikasi internasional, dan magang industri agar pembelajaran selalu relevan.
+              {isEn
+                ? "SMK Telkom Sidoarjo teachers regularly participate in certified upskilling, global vendor programs, and corporate internships."
+                : "Guru SMK Telkom Sidoarjo rutin mengikuti pelatihan, sertifikasi internasional, dan magang industri agar pembelajaran selalu relevan."}
             </p>
           </div>
 

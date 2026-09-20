@@ -5,8 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ZoomIn, X } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Ts21HeroSection() {
+  const { isEn, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToFramework = () => {
@@ -46,31 +48,27 @@ export default function Ts21HeroSection() {
             {/* Breadcrumbs - placed tightly right above the heading */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs sm:text-sm font-jakarta text-[#4a5565] mb-3">
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-                Beranda
+                {t("common.home")}
               </Link>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>Program</span>
+              <span>{t("common.programs")}</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="font-semibold text-[#101828]">Program TS.21</span>
+              <span className="font-semibold text-[#101828]">{t("ts21.breadcrumb")}</span>
             </nav>
 
             {/* Main Title */}
             <h1 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[44px] leading-[1.18] tracking-tight text-[#101828] mb-5">
-              Program TS.21: Langkah Menuju{" "}
-              <span className="text-[#bc0c11]">Sekolah 4.0</span>
+              {t("ts21.heroTitle1")}{" "}
+              <span className="text-[#bc0c11]">{t("ts21.heroTitle2")}</span>
             </h1>
 
             {/* Description */}
             <p className="font-jakarta text-base sm:text-lg text-[#4a5565] leading-relaxed mb-8 max-w-2xl">
-              Kurikulum unggulan yang berfokus pada Kompetensi Abad 21. Mengintegrasikan{" "}
-              <strong className="text-[#101828] font-semibold">Blended Learning</strong>,{" "}
-              <strong className="text-[#101828] font-semibold">Project-Based Learning</strong>, dan{" "}
-              <strong className="text-[#101828] font-semibold">Studio Classroom</strong> untuk mencetak
-              lulusan berkarakter unggul, berdaya saing digital tinggi, dan siap kerja.
+              {t("ts21.heroDesc")}
             </p>
 
             {/* Exact Website Standard Primary CTA Button */}
@@ -85,7 +83,7 @@ export default function Ts21HeroSection() {
                 }}
               >
                 <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                  Pelajari Selengkapnya
+                  {t("ts21.heroCta")}
                 </span>
                 <svg
                   width="18"
@@ -137,7 +135,7 @@ export default function Ts21HeroSection() {
                 <div className="absolute inset-0 bg-[#101828]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
                   <div className="bg-white/95 text-[#101828] font-jakarta font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     <ZoomIn className="size-4 text-[#bc0c11]" />
-                    <span>Klik untuk memperbesar</span>
+                    <span>{isEn ? "Click to enlarge" : "Klik untuk memperbesar"}</span>
                   </div>
                 </div>
               </div>
@@ -168,16 +166,20 @@ export default function Ts21HeroSection() {
               <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-gray-200">
                 <div>
                   <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828]">
-                    Framework Ekosistem Implementasi Kurikulum Merdeka TS 21.40 PLiS
+                    {isEn
+                      ? "TS 21.40 PLiS Independent Curriculum Implementation Ecosystem Framework"
+                      : "Framework Ekosistem Implementasi Kurikulum Merdeka TS 21.40 PLiS"}
                   </h3>
                   <p className="font-jakarta text-xs text-[#6a7282]">
-                    SMK Telkom Sidoarjo &bull; Langkah Menuju Sekolah 4.0
+                    {isEn
+                      ? "SMK Telkom Sidoarjo &bull; Steps Toward School 4.0"
+                      : "SMK Telkom Sidoarjo &bull; Langkah Menuju Sekolah 4.0"}
                   </p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="size-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors cursor-pointer"
-                  aria-label="Tutup"
+                  aria-label={isEn ? "Close" : "Tutup"}
                 >
                   <X className="size-5" />
                 </button>

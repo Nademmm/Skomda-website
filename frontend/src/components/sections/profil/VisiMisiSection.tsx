@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function VisiMisiSection() {
+  const { lang, t } = useLanguage();
+
   const misiList = [
-    "Mengembangkan sistem pembinaan peserta didik untuk membentuk lulusan yang berkarakter tangguh, berakhlak, dan berwawasan digital.",
-    "Menyelenggarakan pendidikan dengan kurikulum Link and Match di bidang Teknologi Informasi.",
-    "Mewujudkan lulusan yang memiliki pengetahuan dan keterampilan siap untuk Bekerja, Melanjutkan, atau Wirausaha (BMW).",
+    t("profilSekolah.misi1", "Mengembangkan sistem pembinaan peserta didik untuk membentuk lulusan yang berkarakter tangguh, berakhlak, dan berwawasan digital."),
+    t("profilSekolah.misi2", "Menyelenggarakan pendidikan dengan kurikulum Link and Match di bidang Teknologi Informasi."),
+    t("profilSekolah.misi3", "Mewujudkan lulusan yang memiliki pengetahuan dan keterampilan siap untuk Bekerja, Melanjutkan, atau Wirausaha (BMW)."),
   ];
 
   return (
@@ -25,7 +28,7 @@ export default function VisiMisiSection() {
           >
             {/* Section Heading */}
             <h2 className="font-jakarta font-bold text-3xl sm:text-4xl text-[#101828] mb-10 tracking-tight">
-              Visi &amp; Misi Sekolah
+              {t("profilSekolah.visiTitle", "Visi & Misi Sekolah")}
             </h2>
 
             {/* Visi Block */}
@@ -45,10 +48,10 @@ export default function VisiMisiSection() {
               {/* Text content */}
               <div className="flex-1 pt-1">
                 <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mb-2">
-                  Visi Sekolah
+                  {t("profilSekolah.visiHeading", "Visi Sekolah")}
                 </h3>
                 <p className="font-jakarta text-base sm:text-[17px] text-[#364153] leading-relaxed">
-                  Mewujudkan Lulusan Tangguh, Berakhlak, dan Berwawasan Digital.
+                  {t("profilSekolah.visiText", "Mewujudkan Lulusan Tangguh, Berakhlak, dan Berwawasan Digital.")}
                 </p>
               </div>
             </div>
@@ -70,7 +73,7 @@ export default function VisiMisiSection() {
               {/* Text content */}
               <div className="flex-1 pt-1">
                 <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mb-4">
-                  Misi Sekolah
+                  {t("profilSekolah.misiHeading", "Misi Sekolah")}
                 </h3>
 
                 {/* Numbered List */}
@@ -90,7 +93,7 @@ export default function VisiMisiSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Visual Composition + Quote (Matching exact Figma coordinates & layering) */}
+          {/* Right Column: Visual Composition + Quote */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -101,7 +104,7 @@ export default function VisiMisiSection() {
             {/* Visual Art Container with exact proportional geometry */}
             <div className="relative w-full max-w-[380px] sm:max-w-[400px] aspect-[400/430] select-none">
               
-              {/* Large Red Circle (Ellipse 22): left 1.25%, top 17.9%, w 77.75%, h 72.3% */}
+              {/* Large Red Circle */}
               <div className="absolute left-[1.25%] top-[17.9%] w-[77.75%] h-[72.3%] pointer-events-none z-0">
                 <Image
                   src="/images/tentang-kami/profil-sekolah/visimisi-circle-large.svg"
@@ -111,7 +114,7 @@ export default function VisiMisiSection() {
                 />
               </div>
 
-              {/* Small Red Circle (Ellipse 23): left 47.75%, top 26.28%, w 52%, h 48.37% */}
+              {/* Small Red Circle */}
               <div className="absolute left-[47.75%] top-[26.28%] w-[52%] h-[48.37%] pointer-events-none z-0">
                 <Image
                   src="/images/tentang-kami/profil-sekolah/visimisi-circle-small.svg"
@@ -121,7 +124,7 @@ export default function VisiMisiSection() {
                 />
               </div>
 
-              {/* Dark Grey Circle (Ellipse 24): left 0%, top 72.09%, w 27%, h 25.12% */}
+              {/* Dark Grey Circle */}
               <div className="absolute left-0 top-[72.09%] w-[27%] h-[25.12%] pointer-events-none z-0">
                 <Image
                   src="/images/tentang-kami/profil-sekolah/visimisi-ellipse-decor.svg"
@@ -131,11 +134,11 @@ export default function VisiMisiSection() {
                 />
               </div>
 
-              {/* Student Photo (image 11): left 10%, top 2.33%, w 69%, h 96.28% */}
+              {/* Student Photo */}
               <div className="absolute left-[10%] top-[2.33%] w-[69%] h-[96.28%] z-10">
                 <Image
                   src="/images/tentang-kami/profil-sekolah/visimisi-student.png"
-                  alt="Siswi SMK Telkom Sidoarjo dengan tablet"
+                  alt="Siswi SMK Telkom Sidoarjo"
                   fill
                   className="object-contain object-bottom drop-shadow-md"
                   priority
@@ -146,7 +149,9 @@ export default function VisiMisiSection() {
             {/* Quote Caption */}
             <div className="mt-4 max-w-[380px] text-center lg:text-left px-2">
               <p className="font-jakarta italic text-sm sm:text-[15px] text-[#4a5565] leading-relaxed">
-                Visi dan misi ini menjadi arah langkah SMK Telkom Sidoarjo dalam mencetak generasi unggul di era digital.
+                {lang === "EN"
+                  ? "This vision and mission guide SMK Telkom Sidoarjo in nurturing an exceptional generation in the digital era."
+                  : "Visi dan misi ini menjadi arah langkah SMK Telkom Sidoarjo dalam mencetak generasi unggul di era digital."}
               </p>
             </div>
           </motion.div>

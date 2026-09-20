@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProfilHeroSection() {
+  const { t } = useLanguage();
+
   const scrollToVisiMisi = () => {
     const element = document.getElementById("visi-misi");
     if (element) {
@@ -26,7 +29,7 @@ export default function ProfilHeroSection() {
           >
             <div className="relative w-full max-w-[460px] aspect-[500/470] select-none">
               
-              {/* Background Geometric Arches: left 0%, top 17.23%, w 99.6%, h 83% */}
+              {/* Background Geometric Arches */}
               <div className="absolute left-0 top-[17.23%] w-[99.6%] h-[83%] pointer-events-none z-0">
                 <Image
                   src="/images/tentang-kami/profil-sekolah/hero-bg-shapes.svg"
@@ -37,7 +40,7 @@ export default function ProfilHeroSection() {
                 />
               </div>
 
-              {/* Student Portrait: left 26.6%, top 0%, w 62.4%, h 99.57% */}
+              {/* Student Portrait */}
               <div className="absolute left-[26.6%] top-0 w-[62.4%] h-[99.57%] z-10">
                 <Image
                   src="/images/tentang-kami/profil-sekolah/profil-hero-student.png"
@@ -60,10 +63,10 @@ export default function ProfilHeroSection() {
             {/* Breadcrumbs */}
             <div className="flex items-center gap-2 mb-4 text-sm font-jakarta">
               <Link
-                href="/"
+                href="/tentang-kami/profil-sekolah"
                 className="text-[#4a5565] hover:text-[#bc0c11] transition-colors"
               >
-                Tentang Kami
+                {t("nav.aboutUs", "Tentang Kami")}
               </Link>
               <svg
                 width="14"
@@ -80,13 +83,14 @@ export default function ProfilHeroSection() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="font-medium text-[#101828]">Profil Sekolah</span>
+              <span className="font-medium text-[#101828]">{t("profilSekolah.breadcrumb", "Profil Sekolah")}</span>
             </div>
 
             {/* Main Heading */}
             <div className="relative mb-6">
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[56px] leading-tight tracking-tight text-[#101828]">
-                Profil <span className="text-[#e7000b]">Sekolah</span>
+                {t("profilSekolah.heroTitle1", "Profil")}{" "}
+                <span className="text-[#e7000b]">{t("profilSekolah.heroTitle2", "Sekolah")}</span>
               </h1>
               {/* Red Accent Underline Bar */}
               <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
@@ -94,13 +98,7 @@ export default function ProfilHeroSection() {
 
             {/* Description Paragraph */}
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-2xl mb-8">
-              SMK Telkom Sidoarjo adalah SMK Teknologi dan Informatika di bawah
-              Yayasan Pendidikan Telkom, berdiri tahun 2018 dengan akreditasi
-              &ldquo;A&rdquo; dan standar ISO 21001:2018. Sekolah ini menawarkan
-              jurusan TJAT dan SIJA, menggunakan Kurikulum Nasional Plus yang
-              fokus melatih siswa siap bekerja dan terampil dalam mengoperasikan
-              serta memelihara jaringan telekomunikasi sesuai kebutuhan
-              industri.
+              {t("profilSekolah.heroDesc")}
             </p>
 
             {/* CTA Button */}
@@ -113,7 +111,7 @@ export default function ProfilHeroSection() {
               }}
             >
               <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                Jelajahi
+                {t("profilSekolah.heroCta", "Jelajahi")}
               </span>
               <svg
                 width="18"

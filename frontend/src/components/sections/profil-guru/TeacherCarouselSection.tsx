@@ -5,10 +5,13 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TeacherItem } from "@/data/teachers";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface TeacherCarouselSectionProps {
   title: string;
+  titleEn?: string;
   subtitle?: string;
+  subtitleEn?: string;
   items: TeacherItem[];
   itemsPerPage?: number;
   bgWhite?: boolean;
@@ -16,11 +19,15 @@ interface TeacherCarouselSectionProps {
 
 export default function TeacherCarouselSection({
   title,
+  titleEn,
   subtitle = "SMK Telkom Sidoarjo",
+  subtitleEn = "SMK Telkom Sidoarjo",
   items,
   itemsPerPage = 4,
   bgWhite = true,
 }: TeacherCarouselSectionProps) {
+  const { lang, language } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -76,12 +83,12 @@ export default function TeacherCarouselSection({
         {/* Section Heading */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl text-[#101828] tracking-tight">
-            {title}
+            {isEn && titleEn ? titleEn : title}
           </h2>
           <div className="mt-3 h-[3px] w-14 bg-[#bc0c11] rounded-full mx-auto mb-2" />
-          {subtitle && (
+          {(subtitle || subtitleEn) && (
             <p className="font-jakarta text-sm sm:text-base font-semibold text-[#bc0c11] tracking-wide mt-1">
-              {subtitle}
+              {isEn && subtitleEn ? subtitleEn : subtitle}
             </p>
           )}
         </div>
@@ -138,7 +145,7 @@ export default function TeacherCarouselSection({
             <button
               onClick={handlePrev}
               disabled={currentPage === 0}
-              aria-label="Profil sebelumnya"
+              aria-label={isEn ? "Previous profile" : "Profil sebelumnya"}
               className="size-12 rounded-full bg-[#bc0c11] text-white flex items-center justify-center transition-all duration-300 hover:bg-[#990a0e] active:scale-95 disabled:opacity-30 disabled:pointer-events-none shadow-md shadow-[#bc0c11]/20 cursor-pointer"
             >
               <ChevronLeft className="size-6" />
@@ -150,10 +157,10 @@ export default function TeacherCarouselSection({
                 <button
                   key={dotIdx}
                   onClick={() => handleDotClick(dotIdx)}
-                  aria-label={`Ke halaman ${dotIdx + 1}`}
+                  aria-label={isEn ? `Go to page ${dotIdx + 1}` : `Ke halaman ${dotIdx + 1}`}
                   className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                     dotIdx === currentPage
-                      ? "w-8 bg-[#bc0c11]"
+                       ? "w-8 bg-[#bc0c11]"
                       : "w-2.5 bg-gray-300 hover:bg-gray-400"
                   }`}
                 />
@@ -164,7 +171,7 @@ export default function TeacherCarouselSection({
             <button
               onClick={handleNext}
               disabled={currentPage === totalPages - 1}
-              aria-label="Profil berikutnya"
+              aria-label={isEn ? "Next profile" : "Profil berikutnya"}
               className="size-12 rounded-full bg-[#bc0c11] text-white flex items-center justify-center transition-all duration-300 hover:bg-[#990a0e] active:scale-95 disabled:opacity-30 disabled:pointer-events-none shadow-md shadow-[#bc0c11]/20 cursor-pointer"
             >
               <ChevronRight className="size-6" />

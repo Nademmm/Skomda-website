@@ -10,7 +10,7 @@ export default function HeroSection() {
   return (
     <>
       {/* ══════════════════════════════════════════════
-          DESKTOP LAYOUT (≥1280px) — Spacious, Comfortable, No Gap
+          DESKTOP LAYOUT (≥1280px) - Spacious, Comfortable, No Gap
           ══════════════════════════════════════════════ */}
       <section
         className="relative w-full bg-[#f3f4f6] overflow-hidden hidden xl:block mb-20"

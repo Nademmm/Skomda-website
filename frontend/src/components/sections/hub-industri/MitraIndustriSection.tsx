@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface MitraPartner {
   name: string;
@@ -278,6 +279,8 @@ const cardVariants = {
 };
 
 export default function MitraIndustriSection() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="mitra-industri"
@@ -293,11 +296,10 @@ export default function MitraIndustriSection() {
           className="flex flex-col gap-2 mb-14"
         >
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-            Mitra Industri <span className="text-[#bc0c11]">Kami</span>
+            {t("hubIndustri.mitraTitle", "Mitra Industri & Perusahaan Ternama")}
           </h2>
           <p className="font-jakarta text-base text-[#4a5565] max-w-[540px] leading-relaxed">
-            Perusahaan-perusahaan terkemuka di bidang teknologi, telekomunikasi,
-            cloud, dan solusi digital yang menjadi mitra strategis SMK Telkom Sidoarjo.
+            {t("hubIndustri.mitraSubtitle", "Kolaborasi erat bersama perusahaan teknologi, telekomunikasi, dan instansi nasional.")}
           </p>
         </motion.div>
 

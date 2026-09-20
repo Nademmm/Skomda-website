@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   Users2,
   Award,
@@ -12,48 +13,61 @@ import {
 
 interface AdvantageItem {
   number: string;
-  title: string;
-  desc: string;
+  titleId: string;
+  titleEn: string;
+  descId: string;
+  descEn: string;
   icon: React.ReactNode;
 }
 
 const advantages: AdvantageItem[] = [
   {
     number: "01",
-    title: "Kurikulum Sinkronisasi Industri",
-    desc: "Materi pembelajaran diselaraskan langsung dengan standar kebutuhan Telkom Group, Wowrack, Weza Group, dan puluhan mitra IT ternama.",
+    titleId: "Kurikulum Sinkronisasi Industri",
+    titleEn: "Industry-Synchronized Curriculum",
+    descId: "Materi pembelajaran diselaraskan langsung dengan standar kebutuhan Telkom Group, Wowrack, Weza Group, dan puluhan mitra IT ternama.",
+    descEn: "Learning syllabus aligned directly with the workforce requirements of Telkom Group, Wowrack, Weza Group, and prominent IT partners.",
     icon: <Users2 className="size-5" />,
   },
   {
     number: "02",
-    title: "Sertifikasi Profesi Nasional (BNSP)",
-    desc: "Setiap siswa mengikuti uji sertifikasi keahlian berstandar Badan Nasional Sertifikasi Profesi melalui Lembaga Sertifikasi Profesi (LSP-P1).",
+    titleId: "Sertifikasi Profesi Nasional (BNSP)",
+    titleEn: "National Professional Certification (BNSP)",
+    descId: "Setiap siswa mengikuti uji sertifikasi keahlian berstandar Badan Nasional Sertifikasi Profesi melalui Lembaga Sertifikasi Profesi (LSP-P1).",
+    descEn: "Every student undergoes competency certification assessments under the National Professional Certification Board via LSP-P1.",
     icon: <Award className="size-5" />,
   },
   {
     number: "03",
-    title: "Sertifikasi Vendor Global",
-    desc: "Kesempatan meraih sertifikasi bertaraf internasional seperti Cisco (CCNA), MikroTik (MTCNA), AWS Cloud Practitioner, dan Oracle Academy.",
+    titleId: "Sertifikasi Vendor Global",
+    titleEn: "Global Vendor Certifications",
+    descId: "Kesempatan meraih sertifikasi bertaraf internasional seperti Cisco (CCNA), MikroTik (MTCNA), AWS Cloud Practitioner, dan Oracle Academy.",
+    descEn: "Opportunity to obtain international credentials such as Cisco (CCNA), MikroTik (MTCNA), AWS Cloud Practitioner, and Oracle Academy.",
     icon: <Globe2 className="size-5" />,
   },
   {
     number: "04",
-    title: "Teaching Factory & Magang Industri",
-    desc: "Pembelajaran berbasis proyek riil industri (Project-Based Learning) serta program Praktik Kerja Lapangan intensif di ekosistem digital Indonesia.",
+    titleId: "Teaching Factory & Magang Industri",
+    titleEn: "Teaching Factory & Industrial Internships",
+    descId: "Pembelajaran berbasis proyek riil industri (Project-Based Learning) serta program Praktik Kerja Lapangan intensif di ekosistem digital Indonesia.",
+    descEn: "Project-based learning on authentic industry workflows combined with intensive digital ecosystem internships.",
     icon: <Briefcase className="size-5" />,
   },
 ];
 
-const certifications = [
-  { name: "BNSP LSP-P1", tag: "Standar Nasional Profesi" },
+const getCertifications = (isEn: boolean) => [
+  { name: "BNSP LSP-P1", tag: isEn ? "National Professional Standard" : "Standar Nasional Profesi" },
   { name: "MikroTik Academy (MTCNA)", tag: "Networking Certification" },
   { name: "Cisco Networking Academy", tag: "Enterprise Routing & Switching" },
   { name: "AWS Academy", tag: "Cloud Architecture & Computing" },
   { name: "Oracle Academy", tag: "Database & Java Programming" },
-  { name: "Telkom Certified Engineer", tag: "Fiber Optic & Telecom Core" },
+  { name: "Telkom Certified Engineer", tag: isEn ? "Fiber Optic & Core Telecom" : "Fiber Optic & Telecom Core" },
 ];
 
 export default function KeunggulanSertifikasiSection() {
+  const { isEn, t } = useLanguage();
+  const certifications = getCertifications(isEn);
+
   return (
     <section
       id="keunggulan-sertifikasi"
@@ -70,12 +84,20 @@ export default function KeunggulanSertifikasiSection() {
         >
           <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-            Keunggulan Kurikulum &{" "}
-            <span className="text-[#bc0c11]">Sertifikasi Industri</span>
+            {isEn ? (
+              <>
+                Curriculum Excellence &{" "}
+                <span className="text-[#bc0c11]">Industry Certifications</span>
+              </>
+            ) : (
+              <>
+                Keunggulan Kurikulum &{" "}
+                <span className="text-[#bc0c11]">Sertifikasi Industri</span>
+              </>
+            )}
           </h2>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-3">
-            Kurikulum Nasional Plus yang didukung lisensi kompetensi resmi memastikan
-            lulusan memiliki keahlian teruji dan berdaya saing tinggi di pasar kerja global.
+            {t("profilJurusan.sertifikasiDesc")}
           </p>
         </motion.div>
 
@@ -99,12 +121,12 @@ export default function KeunggulanSertifikasiSection() {
 
                 {/* Title */}
                 <h3 className="font-jakarta font-bold text-lg text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mb-2">
-                  {item.title}
+                  {isEn ? item.titleEn : item.titleId}
                 </h3>
 
                 {/* Description */}
                 <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] leading-relaxed">
-                  {item.desc}
+                  {isEn ? item.descEn : item.descId}
                 </p>
               </div>
             </div>
@@ -116,14 +138,16 @@ export default function KeunggulanSertifikasiSection() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-gray-100">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                Portfolio Kompetensi Siswa
+                {isEn ? "Student Competency Portfolio" : "Portfolio Kompetensi Siswa"}
               </span>
               <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mt-1">
-                Program Sertifikasi yang Dapat Diikuti Siswa
+                {isEn ? "Certification Programs Available for Students" : "Program Sertifikasi yang Dapat Diikuti Siswa"}
               </h3>
             </div>
             <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] max-w-md">
-              Diakui oleh asosiasi industri dan menjadi nilai tambah utama pada portofolio kelulusan.
+              {isEn
+                ? "Recognized by industry associations, serving as a standout milestone in graduation portfolios."
+                : "Diakui oleh asosiasi industri dan menjadi nilai tambah utama pada portofolio kelulusan."}
             </p>
           </div>
 

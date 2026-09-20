@@ -8,35 +8,47 @@ import {
   BriefcaseBusiness,
   Users,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const methods = [
+const getMethods = (isEn: boolean) => [
   {
     icon: <MonitorSmartphone className="size-6 transition-colors duration-300" />,
     title: "Blended & Hybrid Learning",
-    tagline: "Fleksibel, Terstandardisasi, Berbasis ICT",
-    desc: "Menggabungkan interaksi tatap muka interaktif di sekolah dengan pembelajaran digital mandiri melalui platform LMS terintegrasi.",
+    tagline: isEn ? "Flexible, Standardized, ICT-Driven" : "Fleksibel, Terstandardisasi, Berbasis ICT",
+    desc: isEn
+      ? "Combining interactive classroom learning with self-paced online modules on the school's integrated LMS platform."
+      : "Menggabungkan interaksi tatap muka interaktif di sekolah dengan pembelajaran digital mandiri melalui platform LMS terintegrasi.",
   },
   {
     icon: <FolderGit2 className="size-6 transition-colors duration-300" />,
     title: "Project-Based Learning (PjBL)",
-    tagline: "Studi Kasus & Tantangan Riil",
-    desc: "Siswa mengerjakan portofolio proyek industri secara berkelompok, mengasah pemecahan masalah, eksekusi teknis, dan manajemen waktu.",
+    tagline: isEn ? "Authentic Case Studies & Live Challenges" : "Studi Kasus & Tantangan Riil",
+    desc: isEn
+      ? "Students work in collaborative teams on industry projects, sharpening problem-solving, engineering execution, and project management."
+      : "Siswa mengerjakan portofolio proyek industri secara berkelompok, mengasah pemecahan masalah, eksekusi teknis, dan manajemen waktu.",
   },
   {
     icon: <LayoutGrid className="size-6 transition-colors duration-300" />,
     title: "Studio Classroom Environment",
-    tagline: "Suasana Kerja Profesional",
-    desc: "Desain ruang belajar bergaya studio kerja modern yang menstimulasi ide kreatif, kolaborasi tim, dan diskusi aktif antar siswa.",
+    tagline: isEn ? "Professional Work Atmosphere" : "Suasana Kerja Profesional",
+    desc: isEn
+      ? "Modern studio-style classroom layouts stimulating creative brainstorming, peer discussions, and active team collaboration."
+      : "Desain ruang belajar bergaya studio kerja modern yang menstimulasi ide kreatif, kolaborasi tim, dan diskusi aktif antar siswa.",
   },
   {
     icon: <BriefcaseBusiness className="size-6 transition-colors duration-300" />,
     title: "Teaching Factory & Magang PKL",
-    tagline: "Terjun Langsung ke Industri",
-    desc: "Pengalaman magang intensif di perusahaan mitra dan sentra inovasi sekolah, didampingi langsung oleh praktisi industri profesional.",
+    tagline: isEn ? "Direct Industry Immersion" : "Terjun Langsung ke Industri",
+    desc: isEn
+      ? "Intensive apprenticeship at corporate partners and school production centers, mentored directly by seasoned industry practitioners."
+      : "Pengalaman magang intensif di perusahaan mitra dan sentra inovasi sekolah, didampingi langsung oleh praktisi industri profesional.",
   },
 ];
 
 export default function Ts21MetodeSection() {
+  const { isEn } = useLanguage();
+  const methods = getMethods(isEn);
+
   return (
     <section
       id="metode"
@@ -53,11 +65,21 @@ export default function Ts21MetodeSection() {
         >
           <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
-            Metode Pembelajaran <span className="text-[#bc0c11]">KBM 21.40 Plis</span>
+            {isEn ? (
+              <>
+                Learning Methodologies:{" "}
+                <span className="text-[#bc0c11]">KBM 21.40 Plis</span>
+              </>
+            ) : (
+              <>
+                Metode Pembelajaran <span className="text-[#bc0c11]">KBM 21.40 Plis</span>
+              </>
+            )}
           </h2>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-4">
-            Proses kegiatan belajar mengajar yang terstandardisasi, berpusat pada siswa (*student-centered*),
-            interaktif, inovatif, dan menyenangkan untuk mencetak generasi tangguh abad ke-21.
+            {isEn
+              ? "Standardized, student-centered, innovative, and engaging learning processes to cultivate resilient 21st-century graduates."
+              : "Proses kegiatan belajar mengajar yang terstandardisasi, berpusat pada siswa (student-centered), interaktif, inovatif, dan menyenangkan untuk mencetak generasi tangguh abad ke-21."}
           </p>
         </motion.div>
 
@@ -101,14 +123,15 @@ export default function Ts21MetodeSection() {
             </div>
             <div className="flex flex-col">
               <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                Sinergi Kolaboratif
+                {isEn ? "Collaborative Synergy" : "Sinergi Kolaboratif"}
               </span>
               <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mt-1">
-                Komunitas Belajar Terpadu
+                {isEn ? "Integrated Learning Community" : "Komunitas Belajar Terpadu"}
               </h3>
               <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] leading-relaxed mt-2 max-w-3xl">
-                Kurikulum TS.21 bergerak aktif melalui sinergi berkelanjutan antara sekolah, Yayasan Pendidikan Telkom (BPK YPT),
-                guru pembina, peserta didik, serta diperkuat oleh nara sumber dan praktisi profesional industri.
+                {isEn
+                  ? "The TS.21 curriculum thrives on active, sustained synergy between the school, Telkom Education Foundation (YPT), educators, students, and industry professionals."
+                  : "Kurikulum TS.21 bergerak aktif melalui sinergi berkelanjutan antara sekolah, Yayasan Pendidikan Telkom (BPK YPT), guru pembina, peserta didik, serta diperkuat oleh nara sumber dan praktisi profesional industri."}
               </p>
             </div>
           </div>

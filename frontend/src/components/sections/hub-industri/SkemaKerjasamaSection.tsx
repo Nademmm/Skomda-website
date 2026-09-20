@@ -1,39 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface PilarCard {
   number: string;
   title: string;
   description: string;
 }
-
-const pilarData: PilarCard[] = [
-  {
-    number: "01",
-    title: "Sinkronisasi Kurikulum",
-    description:
-      "Kurikulum disusun bersama industri melalui Focus Group Discussion (FGD), memastikan materi pembelajaran selalu selaras dengan kebutuhan dan standar dunia kerja terkini.",
-  },
-  {
-    number: "02",
-    title: "Praktik Kerja Lapangan (PKL)",
-    description:
-      "Siswa mendapat kesempatan magang langsung di perusahaan mitra, menerapkan keterampilan dalam lingkungan profesional sesungguhnya selama 3–6 bulan.",
-  },
-  {
-    number: "03",
-    title: "Guest Lecture & Workshop",
-    description:
-      "Praktisi industri diundang secara rutin untuk berbagi pengetahuan, pengalaman, dan tren teknologi terbaru melalui seminar, workshop, dan kelas tamu.",
-  },
-  {
-    number: "04",
-    title: "Rekrutmen & Penyaluran Kerja",
-    description:
-      "Lulusan difasilitasi untuk terserap langsung ke dunia kerja melalui program rekrutmen bersama mitra industri, job fair eksklusif, dan jaringan alumni BKK.",
-  },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -49,6 +23,31 @@ const cardVariants = {
 };
 
 export default function SkemaKerjasamaSection() {
+  const { t } = useLanguage();
+
+  const pilarData: PilarCard[] = [
+    {
+      number: "01",
+      title: t("hubIndustri.skema1Title", "Sinkronisasi Kurikulum"),
+      description: t("hubIndustri.skema1Desc"),
+    },
+    {
+      number: "02",
+      title: t("hubIndustri.skema2Title", "Program PKL & Magang"),
+      description: t("hubIndustri.skema2Desc"),
+    },
+    {
+      number: "03",
+      title: t("hubIndustri.skema3Title", "Guru Tamu & Pengajar Ahli"),
+      description: t("hubIndustri.skema3Desc"),
+    },
+    {
+      number: "04",
+      title: t("hubIndustri.skema4Title", "Rekrutmen & Penyaluran Kerja"),
+      description: t("hubIndustri.skema4Desc"),
+    },
+  ];
+
   return (
     <section
       id="skema-kerjasama"
@@ -64,12 +63,10 @@ export default function SkemaKerjasamaSection() {
           className="flex flex-col items-center text-center mb-16"
         >
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-            Empat Pilar{" "}
-            <span className="text-[#bc0c11]">Kemitraan Industri</span>
+            {t("hubIndustri.skemaTitle", "4 Pilar Skema Kerjasama Industri")}
           </h2>
           <p className="mt-4 font-jakarta text-base text-[#4a5565] max-w-[560px] leading-relaxed">
-            Model Link & Match yang memastikan setiap aspek pendidikan vokasi
-            terhubung langsung dengan kebutuhan dunia industri nyata.
+            {t("hubIndustri.skemaSubtitle", "Sinergi berkelanjutan untuk menjamin lulusan memiliki kompetensi tepat guna.")}
           </p>
         </motion.div>
 

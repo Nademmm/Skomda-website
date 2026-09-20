@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ExpenseItem {
   name: string;
@@ -18,65 +19,67 @@ interface CostTier {
   items: ExpenseItem[];
 }
 
-const costTiers: CostTier[] = [
+const getCostTiers = (isEn: boolean): CostTier[] => [
   {
-    category: "Domisili Sidoarjo",
-    tag: "Tinggal Bersama Keluarga",
+    category: isEn ? "Sidoarjo Resident" : "Domisili Sidoarjo",
+    tag: isEn ? "Living with Family" : "Tinggal Bersama Keluarga",
     badgeColor: "bg-gray-100 text-gray-700",
-    description:
-      "Perkiraan biaya akomodasi untuk siswa yang tinggal di wilayah Sidoarjo.",
+    description: isEn
+      ? "Estimated monthly living expenses for students living within Sidoarjo regency."
+      : "Perkiraan biaya akomodasi untuk siswa yang tinggal di wilayah Sidoarjo.",
     price: "Rp400.000",
-    period: "/ bulan",
+    period: isEn ? "/ month" : "/ bulan",
     items: [
       {
-        name: "Transportasi harian ke sekolah",
-        desc: "Bahan bakar motor / transportasi umum lokal",
+        name: isEn ? "Daily commute to school" : "Transportasi harian ke sekolah",
+        desc: isEn ? "Motorcycle fuel or local public transport" : "Bahan bakar motor / transportasi umum lokal",
         included: true,
       },
       {
-        name: "Makan siang & kebutuhan sehari-hari",
-        desc: "Konsumsi istirahat di kantin sehat sekolah",
+        name: isEn ? "Lunch & daily snacks" : "Makan siang & kebutuhan sehari-hari",
+        desc: isEn ? "Meals during breaks at school healthy canteen" : "Konsumsi istirahat di kantin sehat sekolah",
         included: true,
       },
       {
-        name: "Tempat Tinggal (Kos / Sewa)",
-        desc: "Tidak memerlukan sewa (tinggal di rumah pribadi)",
+        name: isEn ? "Accommodation (Boarding/Rent)" : "Tempat Tinggal (Kos / Sewa)",
+        desc: isEn ? "No rental fee required (living at home)" : "Tidak memerlukan sewa (tinggal di rumah pribadi)",
         included: false,
       },
       {
-        name: "Lain-Lainnya",
-        desc: "Kebutuhan praktikum harian & uang saku",
+        name: isEn ? "Other expenses" : "Lain-Lainnya",
+        desc: isEn ? "Daily workshop supplies and pocket allowance" : "Kebutuhan praktikum harian & uang saku",
         included: true,
       },
     ],
   },
   {
-    category: "Domisili Luar Sidoarjo",
-    tag: "Siswa Perantau / Kos",
+    category: isEn ? "Out-of-Town Students" : "Domisili Luar Sidoarjo",
+    tag: isEn ? "Boarding / Rental House" : "Siswa Perantau / Kos",
     badgeColor: "bg-[#bc0c11]/10 text-[#bc0c11]",
-    description:
-      "Perkiraan biaya akomodasi untuk siswa yang tinggal di luar wilayah Sidoarjo.",
+    description: isEn
+      ? "Estimated monthly expenses for students originating from outside Sidoarjo."
+      : "Perkiraan biaya akomodasi untuk siswa yang tinggal di luar wilayah Sidoarjo.",
     price: "Rp2.050.000",
-    period: "/ bulan",
+    period: isEn ? "/ month" : "/ bulan",
     items: [
       {
-        name: "Tempat Tinggal",
-        desc: "Sewa kamar kos mandiri / asrama pelajar",
+        name: isEn ? "Accommodation Room" : "Tempat Tinggal",
+        desc: isEn ? "Private boarding house / student hostel room" : "Sewa kamar kos mandiri / asrama pelajar",
         included: true,
       },
       {
-        name: "Makan siang & kebutuhan sehari-hari",
-        desc: "Konsumsi makan & kebutuhan harian siswa",
+        name: isEn ? "Daily meals & nutrition" : "Makan siang & kebutuhan sehari-hari",
+        desc: isEn ? "3 daily meals and student basic supplies" : "Konsumsi makan & kebutuhan harian siswa",
         included: true,
       },
       {
-        name: "Transportasi harian ke sekolah",
-        desc: "Jarak dekat (jalan kaki / sepeda motor ke kampus)",
+        name: isEn ? "Daily commute to school" : "Transportasi harian ke sekolah",
+        desc: isEn ? "Short distance (walking or bicycle to campus)" : "Jarak dekat (jalan kaki / sepeda motor ke kampus)",
         included: true,
       },
       {
-        name: "Lain-Lainnya",
-        desc: "Laundry, kuota, darurat, dan uang saku",
+        name: isEn ? "Other expenses" : "Lain-Lainnya",
+        desc: isEn ? "Laundry, internet quota, emergency, and allowance" : "Laundry, kuota, darurat, dan uang saku",
         included: true,
       },
     ],
@@ -101,6 +104,9 @@ const cardVariants = {
 };
 
 export default function BiayaHidupSection() {
+  const { isEn, t } = useLanguage();
+  const costTiers = getCostTiers(isEn);
+
   return (
     <section
       id="biaya-hidup"
@@ -116,12 +122,20 @@ export default function BiayaHidupSection() {
           className="flex flex-col gap-2 mb-14 text-center items-center max-w-3xl mx-auto"
         >
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-            Biaya Hidup Selama Bersekolah di{" "}
-            <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+            {isEn ? (
+              <>
+                Estimated Living Cost at{" "}
+                <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+              </>
+            ) : (
+              <>
+                Biaya Hidup Selama Bersekolah di{" "}
+                <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+              </>
+            )}
           </h2>
           <p className="font-jakarta text-base text-[#4a5565] leading-relaxed mt-1">
-            Panduan transparansi estimasi pengeluaran bulanan bagi calon siswa dan
-            orang tua untuk mempermudah perencanaan pendidikan yang terukur.
+            {t("akomodasi.biayaSubtitle")}
           </p>
         </motion.div>
 
@@ -168,7 +182,7 @@ export default function BiayaHidupSection() {
                 {/* Breakdown Items List */}
                 <div className="flex flex-col gap-3.5 pt-2">
                   <p className="font-jakarta font-bold text-xs uppercase tracking-wider text-[#374151]">
-                    Rincian Komponen Biaya:
+                    {isEn ? "Cost Component Breakdown:" : "Rincian Komponen Biaya:"}
                   </p>
                   {tier.items.map((item) => (
                     <div

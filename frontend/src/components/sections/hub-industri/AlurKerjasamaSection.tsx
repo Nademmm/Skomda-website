@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface AlurStep {
   step: string;
@@ -8,37 +9,6 @@ interface AlurStep {
   title: string;
   description: string;
 }
-
-const alurSteps: AlurStep[] = [
-  {
-    step: "01",
-    phase: "Tahap Eksplorasi",
-    title: "Identifikasi Kebutuhan",
-    description:
-      "Diskusi awal antara sekolah dan mitra industri untuk memetakan kebutuhan kompetensi, gap keterampilan, dan ruang lingkup sinergi.",
-  },
-  {
-    step: "02",
-    phase: "Legalitas & Komitmen",
-    title: "Penyusunan MoU",
-    description:
-      "Perumusan Memorandum of Understanding (MoU) dan Perjanjian Kerjasama (PKS) yang memuat hak, kewajiban, dan target kolaborasi kedua belah pihak.",
-  },
-  {
-    step: "03",
-    phase: "Eksekusi Kolaborasi",
-    title: "Implementasi Program",
-    description:
-      "Pelaksanaan program nyata: penyelarasan kurikulum, magang/PKL siswa, kelas industri bersama praktisi, dan sertifikasi keahlian.",
-  },
-  {
-    step: "04",
-    phase: "Monitoring Mutu",
-    title: "Evaluasi & Ekspansi",
-    description:
-      "Review berkala terhadap serapan kompetensi, umpan balik dari industri mitra, serta perluasan lingkup kemitraan secara berkelanjutan.",
-  },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,6 +24,35 @@ const cardVariants = {
 };
 
 export default function AlurKerjasamaSection() {
+  const { lang, t } = useLanguage();
+
+  const alurSteps: AlurStep[] = [
+    {
+      step: "01",
+      phase: lang === "EN" ? "Exploration Phase" : "Tahap Eksplorasi",
+      title: t("hubIndustri.alur1Title", "Inisiasi & Konsultasi"),
+      description: t("hubIndustri.alur1Desc"),
+    },
+    {
+      step: "02",
+      phase: lang === "EN" ? "Legality & Commitment" : "Legalitas & Komitmen",
+      title: t("hubIndustri.alur2Title", "Perjanjian Kerjasama (MoU)"),
+      description: t("hubIndustri.alur2Desc"),
+    },
+    {
+      step: "03",
+      phase: lang === "EN" ? "Program Execution" : "Eksekusi Kolaborasi",
+      title: t("hubIndustri.alur3Title", "Implementasi Program"),
+      description: t("hubIndustri.alur3Desc"),
+    },
+    {
+      step: "04",
+      phase: lang === "EN" ? "Quality Review" : "Monitoring Mutu",
+      title: t("hubIndustri.alur4Title", "Evaluasi & Pengembangan"),
+      description: t("hubIndustri.alur4Desc"),
+    },
+  ];
+
   return (
     <section id="alur-kerjasama" className="relative w-full py-20 lg:py-28 bg-white border-t border-gray-200/60 overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -66,11 +65,10 @@ export default function AlurKerjasamaSection() {
           className="flex flex-col gap-3 mb-16"
         >
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-            Alur <span className="text-[#bc0c11]">Kerjasama</span>
+            {t("hubIndustri.alurTitle", "Alur Kerjasama Kemitraan")}
           </h2>
           <p className="font-jakarta text-base text-[#4a5565] max-w-[560px] leading-relaxed">
-            Tahapan kemitraan yang terstruktur, transparan, dan terukur dari
-            awal inisiasi hingga evaluasi kesinambungan program.
+            {t("hubIndustri.alurSubtitle", "Langkah terstruktur dalam membangun kolaborasi strategis bersama SMK Telkom Sidoarjo.")}
           </p>
         </motion.div>
 

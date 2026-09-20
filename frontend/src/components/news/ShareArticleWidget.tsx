@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ShareArticleWidgetProps {
   title?: string;
@@ -8,6 +9,8 @@ interface ShareArticleWidgetProps {
 }
 
 export default function ShareArticleWidget({ slug }: ShareArticleWidgetProps) {
+  const { lang, language } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -40,7 +43,7 @@ export default function ShareArticleWidget({ slug }: ShareArticleWidgetProps) {
   return (
     <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
       <span className="font-jakarta text-sm text-[#6a7282] font-medium">
-        Bagikan artikel ini:
+        {isEn ? "Share this article:" : "Bagikan artikel ini:"}
       </span>
 
       <button
@@ -52,7 +55,11 @@ export default function ShareArticleWidget({ slug }: ShareArticleWidgetProps) {
             : "text-[#bc0c11] hover:bg-[#bc0c11] hover:text-white"
         }`}
       >
-        <span>{copied ? "Tersalin!" : "Salin Link"}</span>
+        <span>
+          {copied
+            ? (isEn ? "Copied!" : "Tersalin!")
+            : (isEn ? "Copy Link" : "Salin Link")}
+        </span>
         {copied ? (
           <svg
             width="14"

@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AkreditasiSection() {
+  const { lang } = useLanguage();
+
   return (
     <section id="akreditasi" className="relative w-full py-20 lg:py-28 bg-white border-y border-[#e5e7eb]/60 overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -27,13 +30,23 @@ export default function AkreditasiSection() {
 
           {/* Official Decree Statement */}
           <div className="max-w-[680px] px-4">
-            <p className="font-jakarta text-lg sm:text-xl text-[#364153] leading-relaxed">
-              Berdasarkan Keputusan Badan Akreditasi Nasional Sekolah/Madrasah Nomor:{" "}
-              <span className="font-semibold text-[#101828]">1336/BAN-SM/SK/2021</span>, menyatakan bahwa SMK Telkom Sidoarjo{" "}
-              <span className="font-semibold text-[#bc0c11]">&ldquo;Terakreditasi A (UNGGUL).&rdquo;</span> Dengan Nilai{" "}
-              <span className="font-semibold text-[#101828]">93</span>, Akreditasi SMK Telkom Sidoarjo berlaku sampai dengan{" "}
-              <span className="font-semibold text-[#101828]">31 Desember 2026</span>.
-            </p>
+            {lang === "EN" ? (
+              <p className="font-jakarta text-lg sm:text-xl text-[#364153] leading-relaxed">
+                Based on the National Accreditation Board for Schools/Madrasah Decree Number:{" "}
+                <span className="font-semibold text-[#101828]">1336/BAN-SM/SK/2021</span>, SMK Telkom Sidoarjo is{" "}
+                <span className="font-semibold text-[#bc0c11]">&ldquo;Accredited A (EXCELLENT)&rdquo;</span> with a score of{" "}
+                <span className="font-semibold text-[#101828]">93</span>, valid through{" "}
+                <span className="font-semibold text-[#101828]">December 31, 2026</span>.
+              </p>
+            ) : (
+              <p className="font-jakarta text-lg sm:text-xl text-[#364153] leading-relaxed">
+                Berdasarkan Keputusan Badan Akreditasi Nasional Sekolah/Madrasah Nomor:{" "}
+                <span className="font-semibold text-[#101828]">1336/BAN-SM/SK/2021</span>, menyatakan bahwa SMK Telkom Sidoarjo{" "}
+                <span className="font-semibold text-[#bc0c11]">&ldquo;Terakreditasi A (UNGGUL).&rdquo;</span> Dengan Nilai{" "}
+                <span className="font-semibold text-[#101828]">93</span>, Akreditasi SMK Telkom Sidoarjo berlaku sampai dengan{" "}
+                <span className="font-semibold text-[#101828]">31 Desember 2026</span>.
+              </p>
+            )}
           </div>
 
         </motion.div>

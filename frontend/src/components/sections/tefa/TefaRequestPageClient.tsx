@@ -16,7 +16,8 @@ const SERVICE_OPTIONS = [
 ];
 
 export default function TefaRequestPageClient() {
-  const { t } = useLanguage();
+  const { lang, language, t } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
   const searchParams = useSearchParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -68,11 +69,21 @@ export default function TefaRequestPageClient() {
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
 
-    const waMessage = `Halo Tim Teaching Factory SMK Telkom Sidoarjo,\n\nSaya ingin konsultasi dan mengajukan request project TeFa:\n- Nama: ${name}\n- Instansi/Organisasi: ${organization || "-"}\n- Kontak/WA: ${phone}\n- Layanan: ${service}\n- Kebutuhan: ${description || "Ingin berdiskusi lebih lanjut"}\n\nMohon info dan jadwal konsultasinya. Terima kasih.`;
+    const targetPhone = "628113021919";
+    const textMessage = `Halo Tim Teaching Factory SMK Telkom Sidoarjo,
+Saya ingin mengajukan request project:
 
-    const encoded = encodeURIComponent(waMessage);
-    const waUrl = `https://wa.me/628113021919?text=${encoded}`;
+- *Nama*: ${name.trim()}
+- *Instansi/Perusahaan*: ${organization.trim() || "-"}
+- *Kontak*: ${phone.trim()}
+- *Kategori Layanan*: ${service}
+- *Keterangan*:
+${description.trim() || "Tidak ada keterangan tambahan"}
 
+Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima kasih!`;
+
+    const encoded = encodeURIComponent(textMessage);
+    const waUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encoded}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
     setIsSent(true);
   };
@@ -105,7 +116,7 @@ export default function TefaRequestPageClient() {
             />
           </svg>
           <Link href="/tefa/produk" className="hover:text-[#bc0c11] transition-colors">
-            Produk & Jasa
+            {isEn ? "Products & Services" : "Produk & Jasa"}
           </Link>
           <svg
             width="12"
@@ -139,19 +150,31 @@ export default function TefaRequestPageClient() {
             <div className="w-full flex flex-col items-start">
               {/* Main Title matching Figma 271:43 */}
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[52px] leading-[1.12] tracking-tight text-[#101828] mb-6">
-                Ceritakan <br />
-                Kebutuhan <br />
-                <span className="text-[#bc0c11]">Project Anda</span>
+                {isEn ? (
+                  <>
+                    Tell Us <br />
+                    About Your <br />
+                    <span className="text-[#bc0c11]">Project Needs</span>
+                  </>
+                ) : (
+                  <>
+                    Ceritakan <br />
+                    Kebutuhan <br />
+                    <span className="text-[#bc0c11]">Project Anda</span>
+                  </>
+                )}
               </h1>
 
               {/* Subtitle */}
               <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed mb-6 max-w-lg font-normal">
-                Sampaikan kebutuhan Anda dan tim Teaching Factory akan meninjau request sebelum menentukan langkah selanjutnya. Bersama, kita wujudkan solusi nyata yang berdampak
+                {isEn
+                  ? "Share your requirements and the Teaching Factory team will review your request before deciding on the next steps. Together, let us build impactful solutions."
+                  : "Sampaikan kebutuhan Anda dan tim Teaching Factory akan meninjau request sebelum menentukan langkah selanjutnya. Bersama, kita wujudkan solusi nyata yang berdampak."}
               </p>
 
               {/* Motto */}
               <div className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] tracking-tight mb-8">
-                “ Dari ide, menjadi karya nyata”
+                {isEn ? "“ From ideas, to real creations”" : "“ Dari ide, menjadi karya nyata”"}
               </div>
             </div>
 
@@ -192,7 +215,9 @@ export default function TefaRequestPageClient() {
                   “
                 </div>
                 <p className="font-jakarta font-bold text-xs sm:text-sm text-[#101828] leading-snug">
-                  Ide besar selalu berawal dari satu permintaan, lho!
+                  {isEn
+                    ? "Great ideas always start with a single request!"
+                    : "Ide besar selalu berawal dari satu permintaan, lho!"}
                 </p>
                 <div className="w-12 h-1 bg-[#bc0c11] rounded-full mt-3" />
               </motion.div>
@@ -210,7 +235,11 @@ export default function TefaRequestPageClient() {
             <div className="relative w-full max-w-[460px] sm:max-w-[500px] h-[260px] sm:h-[320px] -mb-10 sm:-mb-14 z-0 pointer-events-none select-none">
               <Image
                 src="/images/tefa/request-students-three.png"
-                alt="Tim Siswa Teaching Factory SMK Telkom Sidoarjo"
+                alt={
+                  isEn
+                    ? "Teaching Factory Student Team SMK Telkom Sidoarjo"
+                    : "Tim Siswa Teaching Factory SMK Telkom Sidoarjo"
+                }
                 fill
                 priority
                 sizes="(max-width: 1024px) 460px, 500px"
@@ -228,41 +257,45 @@ export default function TefaRequestPageClient() {
                     </svg>
                   </div>
                   <h3 className="font-jakarta font-bold text-2xl text-[#101828] mb-2">
-                    Request Berhasil Dibuka!
+                    {isEn ? "Request Successfully Opened!" : "Request Berhasil Dibuka!"}
                   </h3>
                   <p className="text-[#4a5565] font-jakarta text-sm sm:text-base max-w-md">
-                    WhatsApp Anda telah terbuka dengan format data konsultasi. Silakan kirimkan pesan tersebut agar tim TeFa segera merespons.
+                    {isEn
+                      ? "Your WhatsApp has opened with formatted consultation details. Please send the message so the TeFa team can respond promptly."
+                      : "WhatsApp Anda telah terbuka dengan format data konsultasi. Silakan kirimkan pesan tersebut agar tim TeFa segera merespons."}
                   </p>
                   <button
                     type="button"
                     onClick={() => setIsSent(false)}
                     className="mt-6 px-6 py-2.5 rounded-full bg-[#bc0c11] text-white text-sm font-semibold font-jakarta hover:bg-[#990a0e] transition-colors"
                   >
-                    Kirim Request Lain
+                    {isEn ? "Send Another Request" : "Kirim Request Lain"}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   <div className="border-b border-gray-100 pb-4 mb-1">
                     <h2 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828]">
-                      Formulir Pengajuan Proyek
+                      {isEn ? "Project Request Form" : "Formulir Pengajuan Proyek"}
                     </h2>
                     <p className="text-xs sm:text-sm text-[#4a5565] font-jakarta mt-1">
-                      Lengkapi data singkat di bawah ini untuk memulai sesi konsultasi.
+                      {isEn
+                        ? "Fill in the brief information below to initiate a consultation session."
+                        : "Lengkapi data singkat di bawah ini untuk memulai sesi konsultasi."}
                     </p>
                   </div>
 
                   {/* Nama */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold font-jakarta text-[#101828] mb-1.5">
-                      Nama Lengkap <span className="text-[#bc0c11]">*</span>
+                      {isEn ? "Full Name" : "Nama Lengkap"} <span className="text-[#bc0c11]">*</span>
                     </label>
                     <input
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Masukkan nama Anda"
+                      placeholder={isEn ? "Enter your name" : "Masukkan nama Anda"}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-jakarta text-[#101828] placeholder:text-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all"
                     />
                   </div>
@@ -270,13 +303,13 @@ export default function TefaRequestPageClient() {
                   {/* Instansi */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold font-jakarta text-[#101828] mb-1.5">
-                      Instansi / Perusahaan / Sekolah
+                      {isEn ? "Institution / Company / School" : "Instansi / Perusahaan / Sekolah"}
                     </label>
                     <input
                       type="text"
                       value={organization}
                       onChange={(e) => setOrganization(e.target.value)}
-                      placeholder="Contoh: PT Digital Karya / Pribadi"
+                      placeholder={isEn ? "e.g. PT Digital Works / Individual" : "Contoh: PT Digital Karya / Pribadi"}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-jakarta text-[#101828] placeholder:text-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all"
                     />
                   </div>
@@ -284,7 +317,7 @@ export default function TefaRequestPageClient() {
                   {/* Kontak WA */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold font-jakarta text-[#101828] mb-1.5">
-                      Nomor WhatsApp / HP <span className="text-[#bc0c11]">*</span>
+                      {isEn ? "WhatsApp / Phone Number" : "Nomor WhatsApp / HP"} <span className="text-[#bc0c11]">*</span>
                     </label>
                     <input
                       type="tel"
@@ -302,10 +335,10 @@ export default function TefaRequestPageClient() {
                       id="service-dropdown-label"
                       className="block text-xs sm:text-sm font-bold font-jakarta text-[#101828] mb-1.5"
                     >
-                      Kategori Layanan yang Dibutuhkan
+                      {isEn ? "Required Service Category" : "Kategori Layanan yang Dibutuhkan"}
                     </label>
 
-                    {/* Trigger Button - Matches other inputs perfectly */}
+                    {/* Trigger Button */}
                     <button
                       type="button"
                       id="service-dropdown-btn"
@@ -398,13 +431,17 @@ export default function TefaRequestPageClient() {
                   {/* Deskripsi Singkat */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold font-jakarta text-[#101828] mb-1.5">
-                      Ceritakan Kebutuhan Proyek Anda
+                      {isEn ? "Describe Your Project Requirements" : "Ceritakan Kebutuhan Proyek Anda"}
                     </label>
                     <textarea
                       rows={4}
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Jelaskan kebutuhan, gambaran sistem, atau target waktu pengerjaan..."
+                      placeholder={
+                        isEn
+                          ? "Explain project requirements, system overview, or target timeframe..."
+                          : "Jelaskan kebutuhan, gambaran sistem, atau target waktu pengerjaan..."
+                      }
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-jakarta text-[#101828] placeholder:text-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all resize-none"
                     />
                   </div>
@@ -420,7 +457,7 @@ export default function TefaRequestPageClient() {
                       }}
                     >
                       <span className="font-jakarta font-semibold text-[15px] leading-none">
-                        Kirim Request via WhatsApp
+                        {isEn ? "Send Request via WhatsApp" : "Kirim Request via WhatsApp"}
                       </span>
                       <svg
                         width="18"

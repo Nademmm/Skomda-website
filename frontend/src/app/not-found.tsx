@@ -3,8 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function NotFound() {
+  const { lang, language } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
+
   return (
     <div className="min-h-screen bg-[#f3f4f6] flex flex-col items-center justify-center px-4 relative overflow-hidden">
       {/* Subtle background decoration */}
@@ -50,13 +54,14 @@ export default function NotFound() {
 
         {/* Title */}
         <h2 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828] mt-2 mb-3">
-          Halaman Tidak Ditemukan
+          {isEn ? "Page Not Found" : "Halaman Tidak Ditemukan"}
         </h2>
 
         {/* Subtitle */}
         <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mb-8 max-w-md">
-          Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.
-          Silakan kembali ke beranda untuk melanjutkan.
+          {isEn
+            ? "Sorry, the page you are looking for is unavailable or has been moved. Please return to the homepage to continue."
+            : "Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan. Silakan kembali ke beranda untuk melanjutkan."}
         </p>
 
         {/* CTA Button */}
@@ -84,7 +89,7 @@ export default function NotFound() {
             />
           </svg>
           <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-            Kembali ke Beranda
+            {isEn ? "Back to Homepage" : "Kembali ke Beranda"}
           </span>
         </Link>
       </motion.div>

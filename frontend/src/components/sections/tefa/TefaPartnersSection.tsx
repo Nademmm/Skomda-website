@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 const TEFA_PARTNERS = [
   {
@@ -44,6 +45,9 @@ const TEFA_PARTNERS = [
 ];
 
 export default function TefaPartnersSection() {
+  const { lang, language } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
+
   return (
     <section className="relative w-full py-20 lg:py-28 overflow-hidden bg-[#f3f4f6]">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -60,21 +64,23 @@ export default function TefaPartnersSection() {
             <div className="flex items-center gap-2.5 mb-4">
               <div className="h-[3px] w-10 rounded-full bg-[#bc0c11]" />
               <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                MITRA INDUSTRI
+                {isEn ? "INDUSTRY PARTNERS" : "MITRA INDUSTRI"}
               </span>
             </div>
 
             {/* Section Heading */}
             <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#101828] mb-5">
-              Kolaborasi untuk{" "}
-              <span className="text-[#bc0c11]">Industri</span>
+              {isEn ? "Collaboration with " : "Kolaborasi untuk "}
+              <span className="text-[#bc0c11]">
+                {isEn ? "Industry" : "Industri"}
+              </span>
             </h2>
 
             {/* Body Description */}
             <p className="font-jakarta text-base sm:text-lg text-[#4a5565] leading-relaxed max-w-xl mb-8">
-              TEFA di SMK Telkom Sidoarjo didukung oleh berbagai mitra industri dari berbagai sektor.
-              Kolaborasi ini menjadi bukti nyata bahwa karya siswa kami diakui dan dimanfaatkan di
-              dunia kerja.
+              {isEn
+                ? "TEFA at SMK Telkom Sidoarjo is supported by diverse industry partners across sectors. This collaboration is tangible proof that our students' work is recognized and applied in the professional world."
+                : "TEFA di SMK Telkom Sidoarjo didukung oleh berbagai mitra industri dari berbagai sektor. Kolaborasi ini menjadi bukti nyata bahwa karya siswa kami diakui dan dimanfaatkan di dunia kerja."}
             </p>
 
             {/* Website Standard CTA Button */}
@@ -88,7 +94,7 @@ export default function TefaPartnersSection() {
                 }}
               >
                 <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                  Lihat Mitra Industri
+                  {isEn ? "View Industry Partners" : "Lihat Mitra Industri"}
                 </span>
                 <svg
                   width="18"

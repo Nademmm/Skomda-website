@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { TefaProductItem } from "./TefaCatalogSection";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface TefaProductDetailModalProps {
   product: TefaProductItem | null;
@@ -19,6 +20,9 @@ export default function TefaProductDetailModal({
   onClose,
   onRequestThisProduct,
 }: TefaProductDetailModalProps) {
+  const { lang, language } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -56,7 +60,7 @@ export default function TefaProductDetailModal({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Tutup modal"
+            aria-label={isEn ? "Close modal" : "Tutup modal"}
             className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 hover:bg-white text-gray-600 hover:text-black shadow-sm transition-all cursor-pointer"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -101,7 +105,7 @@ export default function TefaProductDetailModal({
                   )}
                   {product.duration && (
                     <span className="inline-block px-3 py-1 rounded-md text-xs font-jakarta font-medium bg-gray-100 text-[#4a5565]">
-                      Estimasi: {product.duration}
+                      {isEn ? "Estimated: " : "Estimasi: "}{product.duration}
                     </span>
                   )}
                 </div>
@@ -115,7 +119,7 @@ export default function TefaProductDetailModal({
                 <div>
                   <h4 className="font-jakarta font-bold text-sm text-[#101828] uppercase tracking-wider mb-3 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bc0c11]" />
-                    Fitur & Lingkup Kerja
+                    {isEn ? "Features & Scope of Work" : "Fitur & Lingkup Kerja"}
                   </h4>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {product.features.map((feat, idx) => (
@@ -134,7 +138,7 @@ export default function TefaProductDetailModal({
               {product.deliverables && (
                 <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
                   <h4 className="font-jakarta font-bold text-xs text-[#364153] uppercase tracking-wider mb-2">
-                    Apa yang Anda Dapatkan:
+                    {isEn ? "What You Receive:" : "Apa yang Anda Dapatkan:"}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {product.deliverables.map((deliv, idx) => (
@@ -155,7 +159,7 @@ export default function TefaProductDetailModal({
               onClick={onClose}
               className="px-6 py-3 rounded-full border border-gray-300 text-sm font-jakarta font-medium text-[#4a5565] hover:bg-gray-50 hover:border-gray-400 transition-colors cursor-pointer"
             >
-              Kembali
+              {isEn ? "Back" : "Kembali"}
             </button>
 
             <Link
@@ -167,7 +171,9 @@ export default function TefaProductDetailModal({
                   "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
               }}
             >
-              <span className="text-[15px] leading-none whitespace-nowrap">Konsultasikan Layanan Ini</span>
+              <span className="text-[15px] leading-none whitespace-nowrap">
+                {isEn ? "Consult This Service" : "Konsultasikan Layanan Ini"}
+              </span>
               <svg
                 width="18"
                 height="18"

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   BookOpen,
   Globe2,
@@ -28,18 +29,24 @@ import {
 type JurusanKey = "SIJA" | "TJAT";
 
 interface SubjectItem {
-  name: string;
+  nameId: string;
+  nameEn: string;
   icon: LucideIcon;
 }
 
 interface JurusanData {
   key: JurusanKey;
   label: string;
-  badge: string;
-  titleRed: string;
-  titleBlack: string;
-  description: string;
-  duration: string;
+  badgeId: string;
+  badgeEn: string;
+  titleRedId: string;
+  titleRedEn: string;
+  titleBlackId: string;
+  titleBlackEn: string;
+  descriptionId: string;
+  descriptionEn: string;
+  durationId: string;
+  durationEn: string;
   studentImage: string;
   studentAlt: string;
   badgeIcon: string;
@@ -50,59 +57,72 @@ const jurusanContent: Record<JurusanKey, JurusanData> = {
   SIJA: {
     key: "SIJA",
     label: "SIJA",
-    badge: "Sistem Informasi Jaringan & Aplikasi",
-    titleRed: "Sistem Informasi",
-    titleBlack: "Jaringan dan Aplikasi",
-    description:
+    badgeId: "Sistem Informasi Jaringan & Aplikasi",
+    badgeEn: "Information Systems, Networks & Applications",
+    titleRedId: "Sistem Informasi",
+    titleRedEn: "Information Systems",
+    titleBlackId: "Jaringan dan Aplikasi",
+    titleBlackEn: "Networks and Applications",
+    descriptionId:
       "Merupakan kompetensi keahlian baru berbasis Teknologi Informasi dan Komunikasi pada program keahlian Teknik Komputer dan Informatika yang mulai dibuka pada Tahun Pelajaran 2017/2018 untuk program pendidikan SMK dengan pembelajaran Empat (4) Tahun. Sesuai dengan Keputusan Dirjen Dikdasmen Kemendikbud Nomor: 4678/D/KEP/MK/2016.",
-    duration: "Masa pendidikan 4 tahun",
+    descriptionEn:
+      "A forward-looking IT competency within Computer and Informatics Engineering introduced in 2017/2018 for a comprehensive Four (4) Year vocational program, tailored to equip students with enterprise cloud, cybersecurity, and software skills.",
+    durationId: "Masa pendidikan 4 tahun",
+    durationEn: "4-Year Education Program",
     studentImage: "/images/program/profil-jurusan/charen.png",
     studentAlt: "Siswi SIJA SMK Telkom Sidoarjo",
     badgeIcon: "/images/common/icons/ph-code-fill.svg",
     subjects: [
-      { name: "Kelompok Mata Pelajaran Nasional", icon: BookOpen },
-      { name: "Kelompok Mata Pelajaran Kewilayahan", icon: Globe2 },
-      { name: "Kelompok Mata Pelajaran Peminatan", icon: GraduationCap },
-      { name: "Komputer dan Jaringan Dasar", icon: Network },
-      { name: "Platform Komputasi Awan", icon: Cloud },
-      { name: "Sistem Internet of Things (SIoT)", icon: Cpu },
-      { name: "Produk Kreatif dan Kewirausahaan", icon: Lightbulb },
-      { name: "Sistem Komputer", icon: Monitor },
-      { name: "Pemrograman Dasar", icon: Code2 },
-      { name: "Dasar Desain Grafis", icon: Palette },
-      { name: "Infrastruktur Komputasi Awan", icon: Server },
-      { name: "Layanan Komputasi Awan", icon: CloudCog },
-      { name: "Sistem Keamanan Jaringan", icon: ShieldCheck },
-      { name: "Materi sinkronisasi dengan industri", icon: Building2 },
+      { nameId: "Kelompok Mata Pelajaran Nasional", nameEn: "National Standard Curriculum", icon: BookOpen },
+      { nameId: "Kelompok Mata Pelajaran Kewilayahan", nameEn: "Regional Studies Modules", icon: Globe2 },
+      { nameId: "Kelompok Mata Pelajaran Peminatan", nameEn: "Specialized Major Subjects", icon: GraduationCap },
+      { nameId: "Komputer dan Jaringan Dasar", nameEn: "Computer & Basic Networking", icon: Network },
+      { nameId: "Platform Komputasi Awan", nameEn: "Cloud Computing Platforms", icon: Cloud },
+      { nameId: "Sistem Internet of Things (SIoT)", nameEn: "Internet of Things Systems (SIoT)", icon: Cpu },
+      { nameId: "Produk Kreatif dan Kewirausahaan", nameEn: "Creative Products & Entrepreneurship", icon: Lightbulb },
+      { nameId: "Sistem Komputer", nameEn: "Computer Architecture", icon: Monitor },
+      { nameId: "Pemrograman Dasar", nameEn: "Fundamental Programming", icon: Code2 },
+      { nameId: "Dasar Desain Grafis", nameEn: "Graphic Design Fundamentals", icon: Palette },
+      { nameId: "Infrastruktur Komputasi Awan", nameEn: "Cloud Infrastructure Management", icon: Server },
+      { nameId: "Layanan Komputasi Awan", nameEn: "Cloud Service Solutions", icon: CloudCog },
+      { nameId: "Sistem Keamanan Jaringan", nameEn: "Network Security Systems", icon: ShieldCheck },
+      { nameId: "Materi sinkronisasi dengan industri", nameEn: "Industry Synchronized Syllabus", icon: Building2 },
     ],
   },
   TJAT: {
     key: "TJAT",
     label: "TJAT",
-    badge: "Teknik Jaringan Akses Telekomunikasi",
-    titleRed: "Teknik Jaringan Akses",
-    titleBlack: "Telekomunikasi",
-    description:
+    badgeId: "Teknik Jaringan Akses Telekomunikasi",
+    badgeEn: "Telecommunication Access Network Engineering",
+    titleRedId: "Teknik Jaringan Akses",
+    titleRedEn: "Access Network Engineering",
+    titleBlackId: "Telekomunikasi",
+    titleBlackEn: "Telecommunications",
+    descriptionId:
       "Merupakan program keahlian unggulan SMK Telkom Sidoarjo yang berfokus pada teknologi transmisi gelombang, instalasi dan penyambungan serat optik (Fiber Optic), konfigurasi jaringan nirkabel (Wireless & Seluler), serta pemeliharaan infrastruktur telekomunikasi terintegrasi standar industri Telkom.",
-    duration: "Masa pendidikan 3 tahun",
+    descriptionEn:
+      "A flagship vocational program focused on wave transmission, fiber optic fusion splicing and installation, cellular and wireless network engineering, and integrated telecommunication infrastructure adhering to Telkom Group standards.",
+    durationId: "Masa pendidikan 3 tahun",
+    durationEn: "3-Year Education Program",
     studentImage: "/images/home/hero/image5.png",
     studentAlt: "Siswi TJAT SMK Telkom Sidoarjo",
     badgeIcon: "/images/program/profil-jurusan/icon-tjat.svg",
     subjects: [
-      { name: "Jaringan Fiber Optic", icon: Cable },
-      { name: "Jaringan Komputer", icon: Network },
-      { name: "Jaringan Nirkabel / Wireless", icon: Wifi },
-      { name: "Pemrograman Web", icon: Code2 },
-      { name: "Desain Grafis", icon: Palette },
-      { name: "Internet of things (IOT)", icon: Radio },
-      { name: "Sistem Keamanan Jaringan", icon: ShieldCheck },
-      { name: "Produk Kreatif dan Kewirausahaan", icon: Lightbulb },
-      { name: "Materi sinkronisasi dengan industri", icon: Building2 },
+      { nameId: "Jaringan Fiber Optic", nameEn: "Fiber Optic Networks", icon: Cable },
+      { nameId: "Jaringan Komputer", nameEn: "Computer Networking", icon: Network },
+      { nameId: "Jaringan Nirkabel / Wireless", nameEn: "Wireless & Microwave Networks", icon: Wifi },
+      { nameId: "Pemrograman Web", nameEn: "Web Development", icon: Code2 },
+      { nameId: "Desain Grafis", nameEn: "Graphic Design", icon: Palette },
+      { nameId: "Internet of things (IOT)", nameEn: "Internet of Things (IoT)", icon: Radio },
+      { nameId: "Sistem Keamanan Jaringan", nameEn: "Network Security Systems", icon: ShieldCheck },
+      { nameId: "Produk Kreatif dan Kewirausahaan", nameEn: "Creative Products & Entrepreneurship", icon: Lightbulb },
+      { nameId: "Materi sinkronisasi dengan industri", nameEn: "Industry Synchronized Syllabus", icon: Building2 },
     ],
   },
 };
 
 export default function MembangunKompetensiSection() {
+  const { isEn } = useLanguage();
   const searchParams = useSearchParams();
   const jurusanParam =
     searchParams.get("jurusan")?.toUpperCase() ||
@@ -151,10 +171,10 @@ export default function MembangunKompetensiSection() {
           {/* Top Red Accent Bar */}
           <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
-            Membangun Kompetensi
+            {isEn ? "Building Competencies" : "Membangun Kompetensi"}
           </h2>
           <p className="font-jakarta font-semibold text-xl sm:text-2xl text-[#101828] mt-1">
-            Sesuai Minat dan Bakat Siswa.
+            {isEn ? "Aligned with Student Passions & Talents." : "Sesuai Minat dan Bakat Siswa."}
           </p>
 
           {/* Segmented Pill Tabs with Animated Sliding Pill Indicator */}
@@ -280,19 +300,19 @@ export default function MembangunKompetensiSection() {
               <div className="lg:col-span-7 flex flex-col items-start">
                 {/* Title: Red on Top, Black Below */}
                 <h3 className="font-jakarta font-bold text-2xl sm:text-3xl lg:text-[40px] leading-[1.18] tracking-tight">
-                  <span className="text-[#bc0c11] block">{current.titleRed}</span>
-                  <span className="text-[#101828] block">{current.titleBlack}</span>
+                  <span className="text-[#bc0c11] block">{isEn ? current.titleRedEn : current.titleRedId}</span>
+                  <span className="text-[#101828] block">{isEn ? current.titleBlackEn : current.titleBlackId}</span>
                 </h3>
 
                 {/* Description Paragraph */}
                 <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-5 mb-5">
-                  {current.description}
+                  {isEn ? current.descriptionEn : current.descriptionId}
                 </p>
 
                 {/* Duration Tag */}
                 <div className="pt-2">
                   <span className="font-jakarta font-bold text-base text-[#101828] tracking-wide">
-                    {current.duration}
+                    {isEn ? current.durationEn : current.durationId}
                   </span>
                 </div>
               </div>
@@ -303,7 +323,15 @@ export default function MembangunKompetensiSection() {
           <div className="mt-20 pt-10 border-t border-gray-100">
             <div className="text-center mb-10">
               <h3 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828]">
-                Apa saja yang <span className="text-[#bc0c11]">di pelajari?</span>
+                {isEn ? (
+                  <>
+                    Key Curriculum <span className="text-[#bc0c11]">Modules</span>
+                  </>
+                ) : (
+                  <>
+                    Apa saja yang <span className="text-[#bc0c11]">di pelajari?</span>
+                  </>
+                )}
               </h3>
             </div>
 
@@ -313,7 +341,7 @@ export default function MembangunKompetensiSection() {
                 const IconComponent = sub.icon;
                 return (
                   <div
-                    key={`${activeJurusan}-${idx}-${sub.name}`}
+                    key={`${activeJurusan}-${idx}-${sub.nameId}`}
                     className="relative min-h-[74px] rounded-[16px] bg-white p-4 flex items-center gap-3.5 border-2 border-dashed border-[#d1d5dc] transition-colors duration-200 hover:border-[#bc0c11]"
                   >
                     {/* Red Icon Badge */}
@@ -323,7 +351,7 @@ export default function MembangunKompetensiSection() {
 
                     {/* Subject Name */}
                     <p className="font-jakarta font-semibold text-xs sm:text-[13px] text-[#101828] leading-[1.3]">
-                      {sub.name}
+                      {isEn ? sub.nameEn : sub.nameId}
                     </p>
                   </div>
                 );

@@ -2,8 +2,12 @@
 
 import Image from "next/image";
 import { MITRA_BKK_LOGOS } from "@/data/bkkData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function BkkMitraSection() {
+  const { language } = useLanguage();
+  const isEn = language === "en";
+
   return (
     <section className="relative w-full py-20 lg:py-24 bg-white border-t border-gray-200/60 overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -12,18 +16,22 @@ export default function BkkMitraSection() {
         <div className="flex items-center gap-2.5 mb-3">
           <div className="h-[3px] w-6 bg-[#bc0c11] rounded-full" />
           <span className="font-jakarta text-xs sm:text-sm font-bold tracking-wider uppercase text-[#bc0c11]">
-            MITRA INDUSTRI
+            {isEn ? "INDUSTRY PARTNERS" : "MITRA INDUSTRI"}
           </span>
         </div>
 
         {/* Section Heading */}
         <div className="mb-10 max-w-2xl">
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-2">
-            Terhubung dengan{" "}
-            <span className="text-[#bc0c11]">Dunia Industri</span>
+            {isEn ? "Connected with the " : "Terhubung dengan "}
+            <span className="text-[#bc0c11]">
+              {isEn ? "Industrial World" : "Dunia Industri"}
+            </span>
           </h2>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed">
-            Bersama mitra industri terkemuka, kami terus membuka peluang yang lebih luas untuk siswa dan alumni SKOMDA.
+            {isEn
+              ? "Together with leading industry partners, we continuously open broader opportunities for SKOMDA students and alumni."
+              : "Bersama mitra industri terkemuka, kami terus membuka peluang yang lebih luas untuk siswa dan alumni SKOMDA."}
           </p>
         </div>
 

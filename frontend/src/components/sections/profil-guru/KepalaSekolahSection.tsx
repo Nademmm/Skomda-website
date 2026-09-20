@@ -4,8 +4,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { kepalaSekolah } from "@/data/teachers";
 import { Mail } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function KepalaSekolahSection() {
+  const { lang } = useLanguage();
+
   return (
     <section
       id="kepala-sekolah-section"
@@ -46,7 +49,8 @@ export default function KepalaSekolahSection() {
           >
             {/* Eyebrow */}
             <p className="font-jakarta text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4a5565] mb-2">
-              Kepala Sekolah <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
+              {lang === "EN" ? "Principal of" : "Kepala Sekolah"}{" "}
+              <span className="text-[#bc0c11]">SMK Telkom Sidoarjo</span>
             </p>
 
             {/* Name */}
@@ -63,7 +67,7 @@ export default function KepalaSekolahSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 w-full max-w-xl mb-8">
               <div className="rounded-2xl bg-[#f9fafb] p-5 border border-gray-100 hover:border-gray-200/80 transition-all shadow-xs">
                 <span className="font-jakarta text-xs font-bold uppercase tracking-wider text-[#bc0c11] block mb-1">
-                  Pendidikan Terakhir
+                  {lang === "EN" ? "Highest Education" : "Pendidikan Terakhir"}
                 </span>
                 <p className="font-jakarta text-base text-[#101828] font-medium">
                   {kepalaSekolah.pendidikanTerakhir}
@@ -72,7 +76,7 @@ export default function KepalaSekolahSection() {
 
               <div className="rounded-2xl bg-[#f9fafb] p-5 border border-gray-100 hover:border-gray-200/80 transition-all shadow-xs">
                 <span className="font-jakarta text-xs font-bold uppercase tracking-wider text-[#bc0c11] block mb-1">
-                  Bidang Keahlian
+                  {lang === "EN" ? "Area of Expertise" : "Bidang Keahlian"}
                 </span>
                 <p className="font-jakarta text-base text-[#101828] font-medium">
                   {kepalaSekolah.bidangKeahlian}
@@ -81,7 +85,7 @@ export default function KepalaSekolahSection() {
 
               <div className="rounded-2xl bg-[#f9fafb] p-5 border border-gray-100 hover:border-gray-200/80 transition-all shadow-xs">
                 <span className="font-jakarta text-xs font-bold uppercase tracking-wider text-[#bc0c11] block mb-1">
-                  Jabatan / Posisi
+                  {lang === "EN" ? "Position / Title" : "Jabatan / Posisi"}
                 </span>
                 <p className="font-jakarta text-base text-[#101828] font-medium">
                   {kepalaSekolah.role}
@@ -101,7 +105,7 @@ export default function KepalaSekolahSection() {
             {/* Contact */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
               <span className="font-jakarta text-xs font-bold uppercase tracking-wider text-[#bc0c11]">
-                Kontak Profesional:
+                {lang === "EN" ? "Professional Contact:" : "Kontak Profesional:"}
               </span>
               <a
                 href={`mailto:${kepalaSekolah.kontak}`}

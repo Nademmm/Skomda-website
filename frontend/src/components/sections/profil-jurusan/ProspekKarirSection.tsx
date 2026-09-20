@@ -2,114 +2,164 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Rocket, Check } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface CareerPath {
-  role: string;
-  focus: string;
+  roleId: string;
+  roleEn: string;
+  focusId: string;
+  focusEn: string;
 }
 
 interface MajorCareer {
-  major: string;
+  majorId: string;
+  majorEn: string;
   code: "SIJA" | "TJAT";
   badgeColor: string;
   scope: string;
-  summary: string;
+  summaryId: string;
+  summaryEn: string;
   careers: CareerPath[];
-  popularCompanies: string[];
+  popularCompaniesId: string[];
+  popularCompaniesEn: string[];
 }
 
-const careerData: MajorCareer[] = [
+const getCareerData = (): MajorCareer[] => [
   {
-    major: "Sistem Informasi Jaringan dan Aplikasi",
+    majorId: "Sistem Informasi Jaringan dan Aplikasi",
+    majorEn: "Information Systems, Networks and Applications",
     code: "SIJA",
     badgeColor: "bg-[#bc0c11]/10 text-[#bc0c11]",
     scope: "(Software, Cloud & Cyber)",
-    summary:
+    summaryId:
       "Lulusan SIJA siap berkarir di industri software development, cloud infrastructure, sistem enterprise, dan keamanan siber.",
+    summaryEn:
+      "SIJA graduates are prepared for careers in software development, cloud infrastructure, enterprise systems, and cybersecurity.",
     careers: [
       {
-        role: "Full-Stack & Mobile Developer",
-        focus: "Merancang dan membangun aplikasi web dan mobile modern untuk kebutuhan bisnis.",
+        roleId: "Full-Stack & Mobile Developer",
+        roleEn: "Full-Stack & Mobile Developer",
+        focusId: "Merancang dan membangun aplikasi web dan mobile modern untuk kebutuhan bisnis.",
+        focusEn: "Designing and building modern web and mobile applications for enterprise needs.",
       },
       {
-        role: "Cloud & DevOps Engineer",
-        focus: "Mengelola arsitektur server awan (AWS/GCP), containerization, dan otomasi deployment CI/CD.",
+        roleId: "Cloud & DevOps Engineer",
+        roleEn: "Cloud & DevOps Engineer",
+        focusId: "Mengelola arsitektur server awan (AWS/GCP), containerization, dan otomasi deployment CI/CD.",
+        focusEn: "Managing cloud server architecture (AWS/GCP), containerization, and CI/CD deployment pipelines.",
       },
       {
-        role: "Database & System Administrator",
-        focus: "Merancang skema database, optimalisasi query, dan pemeliharaan server data perusahaan.",
+        roleId: "Database & System Administrator",
+        roleEn: "Database & System Administrator",
+        focusId: "Merancang skema database, optimalisasi query, dan pemeliharaan server data perusahaan.",
+        focusEn: "Architecting database schemas, query optimization, and company data server maintenance.",
       },
       {
-        role: "Cybersecurity Analyst",
-        focus: "Melakukan audit keamanan jaringan, proteksi celah sistem, dan penanganan insiden digital.",
+        roleId: "Cybersecurity Analyst",
+        roleEn: "Cybersecurity Analyst",
+        focusId: "Melakukan audit keamanan jaringan, proteksi celah sistem, dan penanganan insiden digital.",
+        focusEn: "Conducting network security audits, vulnerability mitigation, and digital incident response.",
       },
     ],
-    popularCompanies: [
+    popularCompaniesId: [
       "Software House",
-      "Startup Unicorn / Tech Company",
+      "Startup Unicorn / Perusahaan Teknologi",
       "Perbankan & Fintech",
       "Instansi Pemerintahan / BUMN",
     ],
+    popularCompaniesEn: [
+      "Software Houses",
+      "Tech Startups / Unicorns",
+      "Banking & Fintech",
+      "State-Owned Enterprises (BUMN)",
+    ],
   },
   {
-    major: "Teknik Jaringan Akses Telekomunikasi",
+    majorId: "Teknik Jaringan Akses Telekomunikasi",
+    majorEn: "Telecommunication Access Network Engineering",
     code: "TJAT",
     badgeColor: "bg-[#101828]/8 text-[#101828]",
     scope: "(Fiber Optic & Telecom)",
-    summary:
+    summaryId:
       "Lulusan TJAT memiliki kompetensi khusus yang sangat dicari oleh operator telekomunikasi, Internet Service Provider (ISP), dan kontraktor jaringan.",
+    summaryEn:
+      "TJAT graduates hold specialized competencies in high demand across telecommunication operators, Internet Service Providers (ISPs), and network contractors.",
     careers: [
       {
-        role: "Fiber Optic Project Engineer",
-        focus: "Perencanaan rute kabel serat optik (FTTH/FTTx), penyambungan fusion splicing, dan uji OTDR.",
+        roleId: "Fiber Optic Project Engineer",
+        roleEn: "Fiber Optic Project Engineer",
+        focusId: "Perencanaan rute kabel serat optik (FTTH/FTTx), penyambungan fusion splicing, dan uji OTDR.",
+        focusEn: "Fiber optic route engineering (FTTH/FTTx), precision fusion splicing, and OTDR testing.",
       },
       {
-        role: "Network Operations Center (NOC) Engineer",
-        focus: "Monitoring traffic jaringan 24/7, troubleshooting link terputus, dan menjaga SLA konektivitas.",
+        roleId: "Network Operations Center (NOC) Engineer",
+        roleEn: "Network Operations Center (NOC) Engineer",
+        focusId: "Monitoring traffic jaringan 24/7, troubleshooting link terputus, dan menjaga SLA konektivitas.",
+        focusEn: "24/7 network traffic monitoring, link failure troubleshooting, and uptime SLA maintenance.",
       },
       {
-        role: "Wireless & Cellular Transmission Specialist",
-        focus: "Instalasi dan pemeliharaan perangkat Base Transceiver Station (BTS) dan radio link telekomunikasi.",
+        roleId: "Wireless & Cellular Transmission Specialist",
+        roleEn: "Wireless & Cellular Transmission Specialist",
+        focusId: "Instalasi dan pemeliharaan perangkat Base Transceiver Station (BTS) dan radio link telekomunikasi.",
+        focusEn: "Installation and maintenance of Base Transceiver Stations (BTS) and microwave radio links.",
       },
       {
-        role: "ISP Infrastructure Technician",
-        focus: "Konfigurasi perangkat routing & switching backbone, distribusi bandwidth, dan instalasi pelanggan korporasi.",
+        roleId: "ISP Infrastructure Technician",
+        roleEn: "ISP Infrastructure Technician",
+        focusId: "Konfigurasi perangkat routing & switching backbone, distribusi bandwidth, dan instalasi pelanggan korporasi.",
+        focusEn: "Backbone routing and switching configuration, bandwidth distribution, and enterprise client setup.",
       },
     ],
-    popularCompanies: [
+    popularCompaniesId: [
       "Telkom Group & Telkomsel",
       "Internet Service Provider (ISP)",
       "Tower & BTS Infrastructure",
       "Kontraktor Jaringan Fiber",
     ],
+    popularCompaniesEn: [
+      "Telkom Group & Telkomsel",
+      "Internet Service Providers (ISPs)",
+      "Tower & BTS Infrastructure Companies",
+      "Fiber Network Contractors",
+    ],
   },
 ];
 
-const bmwData = [
+const getBmwData = (isEn: boolean) => [
   {
     letter: "B",
-    title: "Bekerja",
-    subtitle: "Industri & Korporasi IT",
-    desc: "Siap langsung terserap di industri teknologi, telekomunikasi, startup unicorn, maupun instansi BUMN berbekal sertifikasi resmi dan portofolio proyek riil.",
+    title: isEn ? "Bekerja (Work)" : "Bekerja",
+    subtitle: isEn ? "Industry & IT Corporates" : "Industri & Korporasi IT",
+    desc: isEn
+      ? "Directly absorbable into tech industries, telecom giants, startups, and state-owned enterprises with certified portfolios."
+      : "Siap langsung terserap di industri teknologi, telekomunikasi, startup unicorn, maupun instansi BUMN berbekal sertifikasi resmi dan portofolio proyek riil.",
     icon: <Briefcase className="size-5" />,
   },
   {
     letter: "M",
-    title: "Melanjutkan",
-    subtitle: "Perguruan Tinggi Ternama",
-    desc: "Kesiapan akademik unggul dan peluang beasiswa prestasi untuk melanjutkan studi sarjana ke PTN dan PTS favorit (ITB, ITS, Telkom University, dll.).",
+    title: isEn ? "Melanjutkan (Study)" : "Melanjutkan",
+    subtitle: isEn ? "Top Renowned Universities" : "Perguruan Tinggi Ternama",
+    desc: isEn
+      ? "Strong academic preparation and merit scholarship pathways for bachelor degree studies at top universities (ITB, ITS, Telkom University, etc.)."
+      : "Kesiapan akademik unggul dan peluang beasiswa prestasi untuk melanjutkan studi sarjana ke PTN dan PTS favorit (ITB, ITS, Telkom University, dll.).",
     icon: <GraduationCap className="size-5" />,
   },
   {
     letter: "W",
-    title: "Wirausaha",
-    subtitle: "Technopreneur & Digital Startup",
-    desc: "Mendirikan bisnis teknologi mandiri, software house, agensi digital, jasa instalasi jaringan fiber optik, atau startup inovatif.",
+    title: isEn ? "Wirausaha (Business)" : "Wirausaha",
+    subtitle: isEn ? "Technopreneur & Digital Startup" : "Technopreneur & Digital Startup",
+    desc: isEn
+      ? "Establish independent tech ventures, software agencies, fiber optic network contracting, or innovative tech startups."
+      : "Mendirikan bisnis teknologi mandiri, software house, agensi digital, jasa instalasi jaringan fiber optik, atau startup inovatif.",
     icon: <Rocket className="size-5" />,
   },
 ];
 
 export default function ProspekKarirSection() {
+  const { isEn, t } = useLanguage();
+  const careerData = getCareerData();
+  const bmwData = getBmwData(isEn);
+
   return (
     <section
       id="prospek-karir"
@@ -126,12 +176,20 @@ export default function ProspekKarirSection() {
         >
           <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
-            Peluang Karir &{" "}
-            <span className="text-[#bc0c11]">Prospek Kerja Lulusan</span>
+            {isEn ? (
+              <>
+                Career Opportunities &{" "}
+                <span className="text-[#bc0c11]">Graduate Prospects</span>
+              </>
+            ) : (
+              <>
+                Peluang Karir &{" "}
+                <span className="text-[#bc0c11]">Prospek Kerja Lulusan</span>
+              </>
+            )}
           </h2>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-3">
-            Lulusan SMK Telkom Sidoarjo dipersiapkan menjadi talenta unggul yang
-            memiliki arah masa depan terarah dengan serapan industri yang tinggi.
+            {t("profilJurusan.prospekDesc")}
           </p>
         </motion.div>
 
@@ -146,22 +204,22 @@ export default function ProspekKarirSection() {
                 {/* Header */}
                 <div className="flex flex-col gap-2 pb-6 border-b border-gray-100">
                   <h3 className="font-jakarta font-bold text-2xl text-[#101828] leading-snug mt-1">
-                    Prospek Karir <span className="text-[#bc0c11]">{item.code}</span> {item.scope}
+                    {isEn ? "Career Prospects" : "Prospek Karir"} <span className="text-[#bc0c11]">{item.code}</span> {item.scope}
                   </h3>
                   <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed">
-                    {item.summary}
+                    {isEn ? item.summaryEn : item.summaryId}
                   </p>
                 </div>
 
                 {/* Career Roles Checklist */}
                 <div className="flex flex-col gap-4 py-6">
                   <span className="text-xs font-bold uppercase tracking-wider text-[#101828] font-jakarta">
-                    Profesi & Bidang Pekerjaan:
+                    {isEn ? "Occupations & Job Roles:" : "Profesi & Bidang Pekerjaan:"}
                   </span>
                   <div className="flex flex-col gap-3.5">
                     {item.careers.map((career) => (
                       <div
-                        key={career.role}
+                        key={career.roleId}
                         className="flex items-start gap-3 text-sm font-jakarta"
                       >
                         <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#bc0c11]/10 text-[#bc0c11] mt-0.5">
@@ -169,10 +227,10 @@ export default function ProspekKarirSection() {
                         </div>
                         <div className="flex flex-col">
                           <span className="font-bold text-[#101828] text-sm">
-                            {career.role}
+                            {isEn ? career.roleEn : career.roleId}
                           </span>
                           <span className="text-xs text-[#6b7280] leading-relaxed mt-0.5">
-                            {career.focus}
+                            {isEn ? career.focusEn : career.focusId}
                           </span>
                         </div>
                       </div>
@@ -184,10 +242,10 @@ export default function ProspekKarirSection() {
               {/* Bottom Industry Tags */}
               <div className="pt-6 border-t border-gray-100 flex flex-col gap-2">
                 <span className="font-jakarta text-xs font-semibold text-[#6b7280]">
-                  Ekosistem Industri Penempatan:
+                  {isEn ? "Placement Industry Ecosystem:" : "Ekosistem Industri Penempatan:"}
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {item.popularCompanies.map((comp) => (
+                  {(isEn ? item.popularCompaniesEn : item.popularCompaniesId).map((comp) => (
                     <span
                       key={comp}
                       className="rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-medium text-[#374151] font-jakarta"
@@ -206,10 +264,20 @@ export default function ProspekKarirSection() {
           {/* Top Header */}
           <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-10">
             <h3 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828]">
-              Orientasi Masa Depan: <span className="text-[#bc0c11]">Konsep BMW</span>
+              {isEn ? (
+                <>
+                  Future Orientation: <span className="text-[#bc0c11]">BMW Concept</span>
+                </>
+              ) : (
+                <>
+                  Orientasi Masa Depan: <span className="text-[#bc0c11]">Konsep BMW</span>
+                </>
+              )}
             </h3>
             <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] mt-2 leading-relaxed">
-              Setiap siswa dibimbing dan dipersiapkan secara komprehensif agar siap menempuh salah satu dari tiga pilar masa depan sesuai minat dan potensinya.
+              {isEn
+                ? "Every student is guided and comprehensively nurtured to pursue one of the three future pillars tailored to their potential and ambitions."
+                : "Setiap siswa dibimbing dan dipersiapkan secara komprehensif agar siap menempuh salah satu dari tiga pilar masa depan sesuai minat dan potensinya."}
             </p>
           </div>
 

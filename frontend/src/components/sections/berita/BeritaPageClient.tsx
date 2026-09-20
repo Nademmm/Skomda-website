@@ -5,12 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { NewsItem, NEWS_CATEGORIES } from "@/services/news";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface BeritaPageClientProps {
   initialNews: NewsItem[];
 }
 
 export default function BeritaPageClient({ initialNews }: BeritaPageClientProps) {
+  const { lang, language, t } = useLanguage();
+  const isEn = lang === "EN" || language === "en";
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +25,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
     let list = [...initialNews];
 
     // Filter by category
-    if (selectedCategory && selectedCategory !== "Semua") {
+    if (selectedCategory && selectedCategory !== "Semua" && selectedCategory !== "All") {
       list = list.filter(
         (item) => item.category.toLowerCase() === selectedCategory.toLowerCase()
       );
@@ -72,24 +76,27 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
         <div className="max-w-3xl mb-8">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs sm:text-sm font-jakarta text-[#4a5565] mb-3">
             <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-              Beranda
+              {t("nav.home", "Beranda")}
             </Link>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span>Informasi</span>
+            <span>{t("nav.information", "Informasi")}</span>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="font-semibold text-[#101828]">Berita</span>
+            <span className="font-semibold text-[#101828]">{t("nav.news", "Berita")}</span>
           </nav>
 
           <h1 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[44px] leading-[1.18] tracking-tight text-[#101828]">
-            Berita & Informasi <span className="text-[#bc0c11]">Terkini</span>
+            {t("informasi.beritaTitle1", "Berita & Informasi")}{" "}
+            <span className="text-[#bc0c11]">{t("informasi.beritaTitle2", "Terkini")}</span>
           </h1>
           <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-2.5 max-w-2xl">
-            Temukan kabar terbaru seputar kegiatan sekolah, prestasi siswa, kemitraan industri,
-            dan informasi penting dari SMK Telkom Sidoarjo.
+            {t(
+              "informasi.beritaDesc",
+              "Temukan kabar terbaru seputar kegiatan sekolah, prestasi siswa, kemitraan industri, dan informasi penting dari SMK Telkom Sidoarjo."
+            )}
           </p>
         </div>
 
@@ -104,7 +111,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="Cari judul berita, kegiatan, prestasi, atau pengumuman..."
+              placeholder={t("informasi.searchPlaceholder", "Cari judul berita, kegiatan, prestasi, atau pengumuman...")}
               className="w-full rounded-full bg-white pl-14 sm:pl-16 pr-12 sm:pr-14 py-3.5 text-sm sm:text-base font-jakarta text-[#101828] placeholder-gray-400 border border-gray-200/90 focus:border-[#bc0c11] focus:outline-none shadow-xs transition-all"
             />
             {searchQuery && (
@@ -112,7 +119,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                 type="button"
                 onClick={() => handleSearchChange("")}
                 className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 size-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Hapus pencarian"
+                aria-label={isEn ? "Clear search" : "Hapus pencarian"}
               >
                 <X className="size-3.5" />
               </button>
@@ -123,6 +130,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
             {NEWS_CATEGORIES.map((cat) => {
               const isActive = selectedCategory === cat;
+              const displayCat = cat === "Semua" && isEn ? "All" : cat;
               return (
                 <button
                   key={cat}
@@ -134,7 +142,7 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
                       : "bg-white text-[#4a5565] border border-gray-200/80 hover:border-[#bc0c11] hover:text-[#bc0c11]"
                   }`}
                 >
-                  {cat}
+                  {displayCat}
                 </button>
               );
             })}
@@ -223,25 +231,44 @@ export default function BeritaPageClient({ initialNews }: BeritaPageClientProps)
           /* ─── Simplified Minimal Empty State ─── */
           <div className="py-16 text-center">
             <p className="font-jakarta text-sm sm:text-base text-[#4a5565] mb-4">
-              Tidak ada berita yang sesuai dengan pencarian{" "}
-              {searchQuery && (
+              {isEn ? (
                 <>
-                  kata kunci &ldquo;<strong className="text-[#101828]">{searchQuery}</strong>&rdquo;
+                  No news articles matched your search
+                  {searchQuery && (
+                    <>
+                      {" "}for keyword &ldquo;<strong className="text-[#101828]">{searchQuery}</strong>&rdquo;
+                    </>
+                  )}
+                  {selectedCategory !== "Semua" && selectedCategory !== "All" && (
+                    <>
+                      {searchQuery ? " in" : " in"} category &ldquo;<strong className="text-[#101828]">{selectedCategory}</strong>&rdquo;
+                    </>
+                  )}
+                  .
+                </>
+              ) : (
+                <>
+                  Tidak ada berita yang sesuai dengan pencarian{" "}
+                  {searchQuery && (
+                    <>
+                      kata kunci &ldquo;<strong className="text-[#101828]">{searchQuery}</strong>&rdquo;
+                    </>
+                  )}
+                  {selectedCategory !== "Semua" && (
+                    <>
+                      {searchQuery ? " di" : ""} kategori &ldquo;<strong className="text-[#101828]">{selectedCategory}</strong>&rdquo;
+                    </>
+                  )}
+                  .
                 </>
               )}
-              {selectedCategory !== "Semua" && (
-                <>
-                  {searchQuery ? " di" : ""} kategori &ldquo;<strong className="text-[#101828]">{selectedCategory}</strong>&rdquo;
-                </>
-              )}
-              .
             </p>
             <button
               type="button"
               onClick={handleResetFilters}
               className="inline-flex items-center gap-2 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white px-6 py-2 text-xs sm:text-sm font-semibold font-jakarta transition-all duration-200 cursor-pointer shadow-xs"
             >
-              <span>Reset Pencarian</span>
+              <span>{t("informasi.resetFilter", "Reset Pencarian")}</span>
             </button>
           </div>
         )}

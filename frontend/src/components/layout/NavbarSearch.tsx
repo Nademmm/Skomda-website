@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 import { MOCK_NEWS } from "@/services/news";
 import { DOWNLOAD_DOCUMENTS } from "@/components/sections/unduh/UnduhInformasiClient";
 
@@ -467,6 +468,7 @@ function ItemIcon({ type }: { type: SearchItem["iconType"] }) {
 /* ──────────────────── Component ──────────────────── */
 export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
   const router = useRouter();
+  const { lang, t } = useLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -557,11 +559,17 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
     for (const cat of order) {
       const matched = filteredResults.filter((r) => r.category === cat);
       if (matched.length > 0) {
-        map.set(cat === "Section" ? "Bagian Halaman (Section)" : cat, matched);
+        let label = cat;
+        if (cat === "Section") label = lang === "EN" ? "Page Section" : "Bagian Halaman (Section)";
+        else if (cat === "Jurusan") label = lang === "EN" ? "Majors" : "Jurusan";
+        else if (cat === "Halaman") label = lang === "EN" ? "Pages" : "Halaman";
+        else if (cat === "Berita") label = lang === "EN" ? "News" : "Berita";
+        else if (cat === "Dokumen") label = lang === "EN" ? "Documents" : "Dokumen";
+        map.set(label, matched);
       }
     }
     return map;
-  }, [filteredResults]);
+  }, [filteredResults, lang]);
 
   // Focus on open
   useEffect(() => {
@@ -679,7 +687,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                 setSelectedIndex(0);
               }}
               onKeyDown={handleKeyDown}
-              placeholder="Cari section, halaman, jurusan, berita, dokumen..."
+              placeholder={t("searchModal.inputPlaceholder", "Cari section, halaman, jurusan, berita, dokumen...")}
               className="flex-1 bg-transparent font-jakarta text-[14px] sm:text-[15px] font-semibold text-slate-900 placeholder-slate-400 outline-none min-w-0"
               autoComplete="off"
               spellCheck={false}
@@ -708,7 +716,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                 onClick={onClose}
                 className="inline-flex items-center justify-center h-[34px] px-3.5 sm:px-4 rounded-full bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-xs font-bold font-jakarta text-slate-700 transition-all cursor-pointer shadow-xs active:scale-95"
               >
-                Tutup
+                {t("searchModal.closeHint", "Tutup")}
               </button>
             </div>
           </motion.div>
@@ -735,7 +743,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                   {/* Popular Search Tags */}
                   <div>
                     <p className="font-jakarta text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5 px-1">
-                      Pencarian Populer
+                      {t("searchModal.popularSearches", "Pencarian Populer")}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {POPULAR_TAGS.map((tag) => (
@@ -760,7 +768,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                   {/* Clean List Quick Access Links */}
                   <div>
                     <p className="font-jakarta text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-                      Akses Cepat Halaman & Section
+                      {lang === "EN" ? "Quick Access Pages & Sections" : "Akses Cepat Halaman & Section"}
                     </p>
                     <div className="flex flex-col gap-1">
                       {QUICK_FEATURED_ITEMS.map((item, idx) => {
@@ -895,10 +903,10 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                     </svg>
                   </div>
                   <p className="font-jakarta text-sm font-bold text-slate-900">
-                    Tidak ada hasil untuk &ldquo;{query}&rdquo;
+                    {lang === "EN" ? `No results for "${query}"` : `Tidak ada hasil untuk "${query}"`}
                   </p>
                   <p className="font-jakarta text-xs text-slate-500 mt-1">
-                    Coba kata kunci seperti &lsquo;Visi Misi&rsquo;, &lsquo;Biaya Hidup&rsquo;, &lsquo;SIJA&rsquo;, &lsquo;Mitra&rsquo;, atau &lsquo;Sertifikasi&rsquo;
+                    {lang === "EN" ? "Try keywords like 'Vision Mission', 'Living Cost', 'SIJA', 'Partners', or 'Certification'" : "Coba kata kunci seperti 'Visi Misi', 'Biaya Hidup', 'SIJA', 'Mitra', atau 'Sertifikasi'"}
                   </p>
                 </div>
               )}
