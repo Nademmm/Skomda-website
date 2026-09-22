@@ -124,7 +124,7 @@ export default function TeacherCarouselSection({
 
                   {/* Floating Info Box */}
                   <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-[12px] p-3.5 shadow-[0px_4px_12px_rgba(0,0,0,0.08)] border border-gray-100/90 z-10 transition-transform duration-300 group-hover:-translate-y-1">
-                    <h3 className="font-jakarta font-bold text-[14px] sm:text-[15px] text-[#101828] leading-snug line-clamp-1 group-hover:text-[#bc0c11] transition-colors">
+                    <h3 className="font-jakarta font-bold text-[14px] sm:text-[15px] text-[#101828] leading-snug line-clamp-2 group-hover:text-[#bc0c11] transition-colors">
                       {teacher.name}
                     </h3>
                     <p className="font-jakarta text-[12px] text-[#4a5565] leading-relaxed line-clamp-2 mt-0.5 font-normal">

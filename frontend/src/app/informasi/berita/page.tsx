@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -24,7 +25,9 @@ export default async function BeritaPage() {
     <div className="min-h-screen bg-white text-[#101828] overflow-x-hidden flex flex-col justify-between">
       <Navbar />
       <main className="flex-1">
-        <BeritaPageClient initialNews={newsList} />
+        <Suspense fallback={<div className="min-h-[400px] bg-[#f3f4f6]" />}>
+          <BeritaPageClient initialNews={newsList} />
+        </Suspense>
       </main>
       <Footer />
     </div>

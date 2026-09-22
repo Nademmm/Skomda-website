@@ -1,0 +1,222 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MessageCircle, ChevronDown, Clock, HelpCircle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+
+interface FaqItem {
+  id: string;
+  qId: string;
+  aId: string;
+  qEn: string;
+  aEn: string;
+}
+
+const PPDB_FAQS: FaqItem[] = [
+  {
+    id: "faq-1",
+    qId: "Apa perbedaan mendasar antara program 3 tahun dan program 4 tahun di SMK Telkom Sidoarjo?",
+    aId: "Program 4 tahun (jurusan SIJA) memberikan pendalaman kurikulum setara diploma vokasi dengan fokus spesialisasi Cloud Computing, Cyber Security, dan magang industri (PKL) selama 6 hingga 10 bulan penuh. Sementara program 3 tahun (jurusan TJKT dan RPL) berfokus pada kesiapan kerja cepat serta persiapan studi lanjut perguruan tinggi dengan masa PKL 6 bulan di kelas 12.",
+    qEn: "What is the primary difference between the 3-year and 4-year programs at SMK Telkom Sidoarjo?",
+    aEn: "The 4-year program (SIJA major) provides advanced vocational curricula equivalent to a diploma level with deep focus on Cloud Computing, Cyber Security, and 6 to 10 months of full industry internship (PKL). The 3-year programs (TJKT and RPL) focus on accelerated work readiness and university entrance preparation with a 6-month internship in Grade 12.",
+  },
+  {
+    id: "faq-2",
+    qId: "Apa saja jalur pendaftaran yang dibuka pada PPDB tahun ini?",
+    aId: "SMK Telkom Sidoarjo membuka 3 jalur penerimaan utama: Jalur Prestasi (akademik maupun non-akademik dengan bukti sertifikat kejuaraan), Jalur Rapor Unggulan (berdasarkan konsistensi nilai rapor SMP), dan Jalur Tes Potensi Akademik & Wawancara (Reguler). Calon siswa dapat memilih jalur yang paling sesuai dengan portofolio yang dimiliki.",
+    qEn: "What admission tracks are open for this year's PPDB?",
+    aEn: "SMK Telkom Sidoarjo offers 3 main admission tracks: Achievement Track (academic and non-academic competition certificates), Report Card Excellence Track (based on middle school grade consistency), and the General Academic Potential Test & Interview Track. Prospective students can select the track that best highlights their profile.",
+  },
+  {
+    id: "faq-3",
+    qId: "Apakah calon siswa dari luar kota Sidoarjo dan Jawa Timur dapat mendaftar?",
+    aId: "Tentu saja bisa. SMK Telkom Sidoarjo menerima calon siswa dari seluruh pelosok Indonesia. Untuk pendaftar dari luar daerah, seluruh proses pendaftaran berkas dan tes seleksi dapat diikuti secara daring (online). Selain itu, pihak sekolah bekerja sama dengan puluhan pengelola kos dan asrama terverifikasi di dekat kampus untuk kenyamanan tempat tinggal siswa.",
+    qEn: "Can prospective students from outside Sidoarjo and East Java apply?",
+    aEn: "Yes, certainly. SMK Telkom Sidoarjo welcomes students from all across Indonesia. For out-of-town applicants, the entire registration process and selection test can be completed online. Furthermore, the school collaborates with verified boarding house and dormitory operators near campus to ensure safe student accommodation.",
+  },
+  {
+    id: "faq-4",
+    qId: "Bagaimana tahapan seleksi setelah membuat akun di portal PPDB online?",
+    aId: "Setelah membuat akun dan melengkapi formulir data diri serta mengunggah berkas persyaratan (rapor dan pasfoto), calon siswa akan dijadwalkan mengikuti Tes Seleksi Digital & Akademik, Tes Bebas Buta Warna, serta Wawancara Minat Bakat. Hasil pengumuman kelulusan dapat dipantau langsung secara real-time melalui dashboard akun pendaftar.",
+    qEn: "What are the selection stages after creating an account on the online PPDB portal?",
+    aEn: "After registering an account, submitting personal data, and uploading required documents (academic records and photos), applicants are scheduled for a Digital & Academic Aptitude Test, Color Blindness Screening, and an Interest & Talent Interview. Results can be tracked directly through the applicant dashboard.",
+  },
+  {
+    id: "faq-5",
+    qId: "Apakah lulusan SMK Telkom Sidoarjo dapat melanjutkan studi ke Perguruan Tinggi Negeri (PTN)?",
+    aId: "Sangat bisa. Lulusan SMK Telkom Sidoarjo memegang ijazah formal SMK yang diakui secara nasional dan memiliki hak penuh mengikuti seleksi masuk PTN (SNBP, SNBT, maupun Jalur Mandiri), politeknik negeri, sekolah kedinasan, maupun program beasiswa kemitraan khusus Telkom University.",
+    qEn: "Can graduates of SMK Telkom Sidoarjo pursue higher education at state universities (PTN)?",
+    aEn: "Yes, absolutely. Graduates receive an accredited national vocational diploma with full eligibility to enroll in state universities (SNBP, SNBT, and independent exams), state polytechnics, official government academies, and Telkom University scholarship partnerships.",
+  },
+  {
+    id: "faq-6",
+    qId: "Apakah tersedia program beasiswa atau skema pembayaran bertahap?",
+    aId: "Tersedia beasiswa potongan biaya pendidikan bagi calon siswa dengan prestasi kejuaraan minimal tingkat kabupaten/kota atau peringkat paralel di sekolah asal. Untuk membantu kemudahan wali murid, sekolah juga memfasilitasi skema pembayaran bertahap (cicilan) melalui sistem virtual account bank mitra resmi.",
+    qEn: "Are there scholarship programs or installment payment options available?",
+    aEn: "Merit scholarships with tuition discounts are available for applicants with championship achievements at the district/city level or top academic rankings in their junior high schools. To support parents, flexible installment payment schemes are also provided through partner bank virtual account systems.",
+  },
+];
+
+export default function PpdbFaqSection() {
+  const { isEn } = useLanguage();
+  const [openId, setOpenId] = useState<string | null>(PPDB_FAQS[0].id);
+
+  const toggleAccordion = (id: string) => {
+    setOpenId((prev) => (prev === id ? null : id));
+  };
+
+  return (
+    <section
+      id="faq-ppdb"
+      className="relative w-full py-20 lg:py-28 bg-white border-y border-gray-200/60 overflow-hidden scroll-mt-24"
+    >
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-14 sm:mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-[#bc0c11] text-xs font-semibold uppercase tracking-wider mb-3">
+            <HelpCircle className="w-3.5 h-3.5 shrink-0" />
+            <span>{isEn ? "Questions & Answers" : "Tanya Jawab PPDB"}</span>
+          </div>
+
+          <h2 className="font-jakarta font-bold text-3xl sm:text-4xl text-[#101828] tracking-tight">
+            {isEn ? (
+              <>Frequently Asked <span className="text-[#bc0c11]">Questions</span></>
+            ) : (
+              <>Pertanyaan yang Sering <span className="text-[#bc0c11]">Diajukan</span></>
+            )}
+          </h2>
+
+          <div className="mt-3 h-[3px] w-14 bg-[#bc0c11] rounded-full mx-auto mb-3" />
+
+          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed">
+            {isEn
+              ? "Find clear, complete answers regarding admission tracks, learning programs, entry tests, and student facilities."
+              : "Temukan jawaban lengkap dan informatif seputar jalur pendaftaran, program studi, tahapan seleksi masuk, serta fasilitas pendidikan."}
+          </p>
+        </motion.div>
+
+        {/* Content Layout: Helpdesk Card + Accordion List */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          
+          {/* Left: Helpdesk Card (5 Cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="lg:col-span-5"
+          >
+            <div className="rounded-[24px] bg-[#f9fafb] p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between h-full">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#bc0c11] flex items-center justify-center mb-5">
+                  <MessageCircle className="w-6 h-6" />
+                </div>
+
+                <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mb-3 leading-snug">
+                  {isEn ? "Need Consultation with Admission Officers?" : "Butuh Panduan Langsung dari Panitia PPDB?"}
+                </h3>
+
+                <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed mb-6">
+                  {isEn
+                    ? "Our admission team is ready to guide parents and prospective students through major selection, document preparation, and online registration."
+                    : "Tim Admisi SMK Telkom Sidoarjo siap mendampingi orang tua dan calon siswa dalam berkonsultasi seputar pilihan jurusan, verifikasi berkas, maupun panduan pendaftaran online."}
+                </p>
+
+                <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white border border-gray-200/60 mb-6">
+                  <Clock className="w-5 h-5 text-[#bc0c11] shrink-0" />
+                  <div className="text-xs font-jakarta">
+                    <span className="font-semibold text-[#101828] block">
+                      {isEn ? "Operating Hours" : "Jam Pelayanan Admisi"}
+                    </span>
+                    <span className="text-[#4a5565]">
+                      {isEn ? "Monday to Friday (08:00 - 15:00 WIB)" : "Senin - Jumat (08.00 - 15.00 WIB)"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/6281234567899?text=Halo%20Panitia%20PPDB%20SMK%20Telkom%20Sidoarjo,%20saya%20ingin%20berkonsultasi%20mengenai%20informasi%20pendaftaran%20siswa%20baru."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#bc0c11] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-md shadow-[#bc0c11]/20 font-jakarta cursor-pointer min-h-[44px]"
+              >
+                <MessageCircle className="w-4 h-4 shrink-0" />
+                <span>{isEn ? "Chat Admission via WhatsApp" : "Hubungi WhatsApp Panitia"}</span>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right: Accordion Items (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-3.5">
+            {PPDB_FAQS.map((faq, idx) => {
+              const isOpen = openId === faq.id;
+              const question = isEn ? faq.qEn : faq.qId;
+              const answer = isEn ? faq.aEn : faq.aId;
+
+              return (
+                <motion.div
+                  key={faq.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.06, ease: "easeOut" }}
+                  className={`rounded-[18px] bg-white border transition-all duration-200 overflow-hidden ${
+                    isOpen
+                      ? "border-[#bc0c11]/60 shadow-sm"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleAccordion(faq.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${faq.id}`}
+                    className="w-full px-5 sm:px-6 py-4 sm:py-4.5 text-left flex items-center justify-between gap-4 font-jakarta font-bold text-sm sm:text-[15px] text-[#101828] cursor-pointer min-h-[44px]"
+                  >
+                    <span className="leading-snug">{question}</span>
+                    <div
+                      className={`size-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                        isOpen
+                          ? "bg-red-50 text-[#bc0c11] rotate-180"
+                          : "bg-gray-100 text-[#4a5565]"
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`faq-answer-${faq.id}`}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                      >
+                        <div className="px-5 sm:px-6 pb-5 pt-1 text-sm text-[#4a5565] font-jakarta leading-relaxed border-t border-gray-100/80">
+                          {answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+}

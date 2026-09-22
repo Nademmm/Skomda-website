@@ -14,6 +14,8 @@ export default function Footer() {
     { label: t("nav.news"), href: "/informasi/berita" },
     { label: t("nav.trialClass"), href: "/trial-class" },
     { label: t("nav.ppdb"), href: "/ppdb" },
+    { label: t("nav.tefa", "TeFa"), href: "/tefa" },
+    { label: t("nav.downloadInfo", "Unduh Informasi"), href: "/unduh-informasi" },
   ];
 
   const aplikasiSiswa = [
@@ -24,13 +26,13 @@ export default function Footer() {
   ];
 
   const beritaSekolah = [
-    { label: t("footer.schoolActivities", "Kegiatan Sekolah"), href: "#informasi" },
-    { label: t("nav.achievements", "Prestasi"), href: "#informasi" },
-    { label: t("footer.announcements", "Pengumuman"), href: "#informasi" },
-    { label: t("footer.partnerships", "Kemitraan & Kerja Sama"), href: "#informasi" },
-    { label: t("footer.innovations", "Karya & Inovasi Siswa"), href: "#informasi" },
-    { label: t("footer.articles", "Artikel & Edukasi"), href: "#informasi" },
-    { label: t("footer.alumni", "Alumni"), href: "#informasi" },
+    { label: t("footer.schoolActivities", "Kegiatan Sekolah"), href: "/informasi/berita?kategori=Kegiatan+Sekolah" },
+    { label: t("nav.achievements", "Prestasi"), href: "/informasi/berita?kategori=Prestasi" },
+    { label: t("footer.announcements", "Pengumuman"), href: "/informasi/berita?kategori=Pengumuman" },
+    { label: t("footer.partnerships", "Kemitraan & Kerja Sama"), href: "/informasi/berita?kategori=Kemitraan+%26+Kerja+Sama" },
+    { label: t("footer.innovations", "Karya & Inovasi Siswa"), href: "/informasi/berita?kategori=Karya+%26+Inovasi+Siswa" },
+    { label: t("footer.articles", "Artikel & Edukasi"), href: "/informasi/berita?kategori=Artikel+%26+Edukasi" },
+    { label: t("footer.alumni", "Alumni"), href: "/informasi/berita?kategori=Alumni" },
   ];
 
   return (
@@ -121,7 +123,7 @@ export default function Footer() {
               {[
                 {
                   name: "Website",
-                  href: "https://smktelkom-sda.sch.id",
+                  href: "/",
                   icon: (
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />

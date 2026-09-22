@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { NewsItem, NEWS_CATEGORIES } from "@/services/news";
 import { useLanguage } from "@/context/LanguageContext";
@@ -14,11 +15,29 @@ interface BeritaPageClientProps {
 export default function BeritaPageClient({ initialNews }: BeritaPageClientProps) {
   const { lang, language, t } = useLanguage();
   const isEn = lang === "EN" || language === "en";
+  const searchParams = useSearchParams();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
+  // Sync category from URL query param (e.g., from footer links or navbar)
+  useEffect(() => {
+    const catParam = searchParams.get("kategori") || searchParams.get("category");
+    if (catParam) {
+      const decoded = decodeURIComponent(catParam).trim();
+      const match = NEWS_CATEGORIES.find(
+        (c) => c.toLowerCase() === decoded.toLowerCase()
+      );
+      if (match) {
+        setSelectedCategory(match);
+      } else {
+        setSelectedCategory(decoded);
+      }
+      setCurrentPage(1);
+    }
+  }, [searchParams]);
 
   // Filter & Search Logic
   const filteredNews = useMemo(() => {

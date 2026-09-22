@@ -39,20 +39,20 @@ export default function ProfilGuruPage() {
         {/* 2. Kepala Sekolah Featured Section */}
         <KepalaSekolahSection />
 
-        {/* 3. Wakil Kepala Bidang Carousel */}
+        {/* 3. Wakil Kepala & Manajemen Sekolah Carousel */}
         <TeacherCarouselSection
-          title="Wakil Kepala Bidang"
-          titleEn="Vice Principals"
+          title="Pimpinan & Manajemen Sekolah"
+          titleEn="School Management & Vice Principals"
           subtitle="SMK Telkom Sidoarjo"
           items={wakilKepalaList}
           itemsPerPage={4}
           bgWhite={false}
         />
 
-        {/* 4. Guru Produktif dan Non Produktif Carousel */}
+        {/* 4. Guru Mata Pelajaran Carousel */}
         <TeacherCarouselSection
-          title="Guru Produktif dan Non Produktif"
-          titleEn="Vocational & General Subject Teachers"
+          title="Guru Mata Pelajaran"
+          titleEn="Subject Teachers"
           subtitle="SMK Telkom Sidoarjo"
           items={guruList}
           itemsPerPage={4}
@@ -62,7 +62,7 @@ export default function ProfilGuruPage() {
         {/* 5. Staff dan Karyawan Carousel */}
         <TeacherCarouselSection
           title="Staff dan Karyawan"
-          titleEn="Administrative Staff & Personnel"
+          titleEn="Administrative & Support Staff"
           subtitle="SMK Telkom Sidoarjo"
           items={staffList}
           itemsPerPage={4}

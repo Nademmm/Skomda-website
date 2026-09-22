@@ -4,6 +4,7 @@ import { useState } from "react";
 import PpdbHeroSection from "./PpdbHeroSection";
 import PpdbAlurSection from "./PpdbAlurSection";
 import PpdbLearningJourneySection from "./PpdbLearningJourneySection";
+import PpdbFaqSection from "./PpdbFaqSection";
 import PpdbCtaSection from "./PpdbCtaSection";
 import PpdbBrochureModal from "./PpdbBrochureModal";
 
@@ -15,6 +16,7 @@ export default function PpdbClient() {
       <PpdbHeroSection onOpenBrochure={() => setIsBrochureOpen(true)} />
       <PpdbAlurSection />
       <PpdbLearningJourneySection />
+      <PpdbFaqSection />
       <PpdbCtaSection onOpenBrochure={() => setIsBrochureOpen(true)} />
 
       <PpdbBrochureModal

@@ -1,283 +1,267 @@
 export interface TeacherItem {
   id?: number | string;
   name: string;
+  gelar?: string;
   role: string;
   image: string;
 }
 
 export const kepalaSekolah = {
-  name: "Abror S.Hum M.Pd",
+  name: "Abror, S.Hum., M.Pd.",
   title: "Kepala Sekolah",
   institution: "SMK Telkom Sidoarjo",
   role: "Kepala Sekolah",
   image: "/images/tentang-kami/profil-guru/abror.png",
-  bio: "Guru yang berfokus pada pengembangan karakter dan keterampilan digital siswa, khususnya di bidang jaringan komputer dan teknologi informasi.",
-  pendidikanTerakhir: "-",
-  bidangKeahlian: "-",
-  motto: "Belajar bukan sekadar mencari nilai, tapi membangun masa depan",
+  bio: "Berkomitmen memimpin SMK Telkom Sidoarjo dalam mencetak generasi unggul yang berkarakter, berdaya saing global, dan siap menjadi pionir industri teknologi digital masa depan.",
+  pendidikanTerakhir: "S2 Magister Pendidikan",
+  bidangKeahlian: "Manajemen Pendidikan & Kepemimpinan Sekolah",
+  motto: "Belajar bukan sekadar mencari nilai, tapi membangun masa depan.",
   kontak: "abror@smktelkom-sda.sch.id",
 };
 
+// Wakil Kepala Sekolah, Kepala Program Studi, dan Kepala Urusan (Manajemen Sekolah)
 export const wakilKepalaList: TeacherItem[] = [
   {
-    name: "Achmad Rifa'i",
-    role: "Wakil Kepala Sekolah Bidang Laboratorium IT dan Sarpra",
-    image: "/images/tentang-kami/profil-guru/rifai.png",
-  },
-  {
-    name: "Eka Prasetia P Iswardiani",
-    role: "Wakil Kepala Sekolah Bidang Hubungan Industri",
-    image: "/images/tentang-kami/profil-guru/eka.png",
-  },
-  {
-    name: "Maulana Al Ghofiqi",
-    role: "Wakil Kepala Sekolah Bidang Kesiswaan",
-    image: "/images/tentang-kami/profil-guru/maulana.png",
-  },
-  {
-    name: "Sigit Eka Prayoga",
-    role: "Kepala Administrasi/Tata Usaha",
-    image: "/images/tentang-kami/profil-guru/sigit.png",
-  },
-  {
-    name: "Indra Hadi Purnomo",
-    role: "Wakil Kepala Sekolah Bidang Kurikulum & Akademik",
-    image: "/images/tentang-kami/profil-guru/indra hadi.png",
-  },
-  {
-    name: "Indra Kurniawan",
-    role: "Kepala Laboratorium Telekomunikasi & Jaringan",
-    image: "/images/tentang-kami/profil-guru/indra kurniawan.png",
-  },
-];
-
-export const guruList: TeacherItem[] = [
-  {
-    name: "Amir Hamka",
-    role: "Guru Mata Pelajaran Pendidikan Agama Islam",
-    image: "/images/tentang-kami/profil-guru/hamka.png",
-  },
-  {
-    name: "Arganata Dian Amrullah",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/arga.png",
-  },
-  {
-    name: "Chintia Trinanda Wijaya",
-    role: "Guru Mata Pelajaran Pendidikan Olahraga",
-    image: "/images/tentang-kami/profil-guru/chintia.png",
-  },
-  {
-    name: "David Wahyu Pratomo",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/david.png",
-  },
-  {
-    name: "Muhammad Abid",
-    role: "Guru Mata Pelajaran Produktif SIJA",
-    image: "/images/tentang-kami/profil-guru/abid.png",
-  },
-  {
-    name: "Adam Firmansyah",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/adam.png",
-  },
-  {
-    name: "Adi Sucipto",
-    role: "Guru Mata Pelajaran Produktif TJAT",
-    image: "/images/tentang-kami/profil-guru/adi.png",
-  },
-  {
-    name: "M. Arifin",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/arifin.png",
-  },
-  {
-    name: "Barnabas",
-    role: "Guru Bimbingan Konseling",
-    image: "/images/tentang-kami/profil-guru/barnabas.png",
-  },
-  {
-    name: "Dean Pratama",
-    role: "Guru Mata Pelajaran Produktif SIJA",
-    image: "/images/tentang-kami/profil-guru/dean.png",
-  },
-  {
-    name: "Efendi",
-    role: "Guru Mata Pelajaran Sejarah & PPKn",
-    image: "/images/tentang-kami/profil-guru/efendi.png",
-  },
-  {
-    name: "Eliza",
-    role: "Guru Mata Pelajaran Bahasa Inggris",
-    image: "/images/tentang-kami/profil-guru/eliza.png",
-  },
-  {
-    name: "Ellsa",
-    role: "Guru Mata Pelajaran Bahasa Indonesia",
-    image: "/images/tentang-kami/profil-guru/ellsa.png",
-  },
-  {
-    name: "Fajar",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/fajar.png",
-  },
-  {
-    name: "Faun",
-    role: "Guru Mata Pelajaran Matematika",
+    name: "Siti Sifaun Nadhiroh, S.Pd.",
+    role: "Waka Bid. Kurikulum",
     image: "/images/tentang-kami/profil-guru/faun.png",
   },
   {
-    name: "Ferina",
-    role: "Guru Mata Pelajaran Seni Budaya",
-    image: "/images/tentang-kami/profil-guru/ferina.png",
+    name: "Achmad Rifai, S.Pd., M.H.",
+    role: "Waka Bid. Sarana dan Prasarana",
+    image: "/images/tentang-kami/profil-guru/rifai.png",
   },
   {
-    name: "Galih",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/galih.png",
-  },
-  {
-    name: "Galuh",
-    role: "Guru Mata Pelajaran Matematika",
-    image: "/images/tentang-kami/profil-guru/galuh.png",
-  },
-  {
-    name: "Grisa",
-    role: "Guru Mata Pelajaran Bahasa Jepang",
-    image: "/images/tentang-kami/profil-guru/grisa.png",
-  },
-  {
-    name: "Habibi",
-    role: "Guru Mata Pelajaran Produktif SIJA",
-    image: "/images/tentang-kami/profil-guru/habibi.png",
-  },
-  {
-    name: "Hadi",
-    role: "Guru Mata Pelajaran Produktif TJAT",
-    image: "/images/tentang-kami/profil-guru/hadi.png",
-  },
-  {
-    name: "Haqi",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/haqi.png",
-  },
-  {
-    name: "Ike",
-    role: "Guru Mata Pelajaran IPA / Fisika",
-    image: "/images/tentang-kami/profil-guru/ike.png",
-  },
-  {
-    name: "Ilham",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/ilham.png",
-  },
-  {
-    name: "Kazu",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/kazu.png",
-  },
-  {
-    name: "Laila",
-    role: "Guru Mata Pelajaran Bimbingan Konseling",
-    image: "/images/tentang-kami/profil-guru/laila.png",
-  },
-  {
-    name: "Lia",
-    role: "Guru Mata Pelajaran Bahasa Indonesia",
-    image: "/images/tentang-kami/profil-guru/lia.png",
-  },
-  {
-    name: "Mayonk",
-    role: "Guru Mata Pelajaran Produktif TJAT",
-    image: "/images/tentang-kami/profil-guru/mayonk.png",
-  },
-  {
-    name: "Nafita",
-    role: "Guru Mata Pelajaran Bahasa Inggris",
-    image: "/images/tentang-kami/profil-guru/nafita.png",
-  },
-  {
-    name: "Novra",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/novra.png",
-  },
-  {
-    name: "Okky",
-    role: "Guru Mata Pelajaran Produktif SIJA",
-    image: "/images/tentang-kami/profil-guru/okky.png",
-  },
-  {
-    name: "Putri",
-    role: "Guru Mata Pelajaran Matematika",
-    image: "/images/tentang-kami/profil-guru/putri.png",
-  },
-  {
-    name: "Rachel",
-    role: "Guru Bimbingan Konseling",
+    name: "Rachel Apriliani, S.Pd.",
+    role: "Waka Bid. Kesiswaan",
     image: "/images/tentang-kami/profil-guru/rachel.png",
   },
   {
-    name: "Rina",
-    role: "Guru Mata Pelajaran Kimia / IPAS",
-    image: "/images/tentang-kami/profil-guru/rina.png",
+    name: "Maulana Alghofiqi, M.Pd.",
+    role: "Kepala Administrasi",
+    image: "/images/tentang-kami/profil-guru/maulana.png",
   },
   {
-    name: "Rio",
-    role: "Guru Mata Pelajaran Produktif",
-    image: "/images/tentang-kami/profil-guru/rio.png",
+    name: "Ike Yuliastuti, S.ST.",
+    role: "Kepala Program Studi",
+    image: "/images/tentang-kami/profil-guru/ike.png",
   },
   {
-    name: "Risma",
-    role: "Guru Mata Pelajaran Bahasa Daerah",
-    image: "/images/tentang-kami/profil-guru/risma.png",
+    name: "Muhammad Adi Riswanto, S.ST.",
+    role: "Kepala Program Studi",
+    image: "/images/tentang-kami/profil-guru/adi.png",
   },
   {
-    name: "Rizka",
-    role: "Guru Mata Pelajaran Informatika",
-    image: "/images/tentang-kami/profil-guru/rizka.png",
+    name: "Mokhammad Misbakhul Abid, S.Pd.",
+    role: "Kepala Urusan",
+    image: "/images/tentang-kami/profil-guru/abid.png",
   },
   {
-    name: "Sarah",
-    role: "Guru Mata Pelajaran Bahasa Inggris",
-    image: "/images/tentang-kami/profil-guru/sarah.png",
-  },
-  {
-    name: "Shandi",
-    role: "Guru Mata Pelajaran Produktif TJAT",
-    image: "/images/tentang-kami/profil-guru/shandi.png",
-  },
-  {
-    name: "Sinta",
-    role: "Guru Mata Pelajaran Bahasa Indonesia",
-    image: "/images/tentang-kami/profil-guru/sinta.png",
-  },
-  {
-    name: "Suhud",
-    role: "Guru Mata Pelajaran Pendidikan Agama Islam",
-    image: "/images/tentang-kami/profil-guru/suhud.png",
-  },
-  {
-    name: "M. Ulum",
-    role: "Guru Mata Pelajaran Pendidikan Agama Islam",
-    image: "/images/tentang-kami/profil-guru/ulum.png",
-  },
-  {
-    name: "Vina",
-    role: "Guru Bimbingan Konseling",
-    image: "/images/tentang-kami/profil-guru/vina.png",
-  },
-  {
-    name: "Yunia",
-    role: "Guru Mata Pelajaran Matematika",
+    name: "Yunia Vita, S.Pd.",
+    role: "Kepala Urusan",
     image: "/images/tentang-kami/profil-guru/yunia.png",
+  },
+  {
+    name: "Novra Edi Pratama, S.ST.",
+    role: "Kepala Urusan",
+    image: "/images/tentang-kami/profil-guru/novra.png",
+  },
+  {
+    name: "Galuh Rahmawati, S.Pd.",
+    role: "Kepala Urusan",
+    image: "/images/tentang-kami/profil-guru/galuh.png",
+  },
+  {
+    name: "Eka Prasetia Purnawati Iswardiani, M.T.",
+    role: "Kepala Urusan",
+    image: "/images/tentang-kami/profil-guru/eka.png",
+  },
+  {
+    name: "Muhammad Adam Nuh Ibrahim, M.Pd.",
+    role: "Kepala Urusan",
+    image: "/images/tentang-kami/profil-guru/adam.png",
+  },
+  {
+    name: "Guruh Mayonk Firmansyah, S.Sos.",
+    role: "Kepala Urusan",
+    image: "/images/tentang-kami/profil-guru/mayonk.png",
   },
 ];
 
+// Guru Mata Pelajaran (Produktif & Non Produktif)
+export const guruList: TeacherItem[] = [
+  {
+    name: "Lia Indriawati, S.Pd.I.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/lia.png",
+  },
+  {
+    name: "Rina Novia Wahyuningtyas, M.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/rina.png",
+  },
+  {
+    name: "Muhammad Syaiful Ulum, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/ulum.png",
+  },
+  {
+    name: "Fajar Trihadmoko, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/fajar.png",
+  },
+  {
+    name: "Amir Hamka, S.Pd.I., M.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/hamka.png",
+  },
+  {
+    name: "Chintia Trinanda Wijaya, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/chintia.png",
+  },
+  {
+    name: "Eliza Tyas Damayanti, S.Kom.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/eliza.png",
+  },
+  {
+    name: "Arganata Dian Amarullah, S.T.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/arga.png",
+  },
+  {
+    name: "Ferina Kumala Dewi, S.Hum., M.Li.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/ferina.png",
+  },
+  {
+    name: "Shandi Pratama, M.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/shandi.png",
+  },
+  {
+    name: "Rizka Rahayu Sasmita, M.Tr.Kom.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/rizka.png",
+  },
+  {
+    name: "David Wahyu Pratomo, S.T.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/david.png",
+  },
+  {
+    name: "Indra Hadi Pranata, S.Pd., M.M.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/indra hadi.png",
+  },
+  {
+    name: "Hadi Triyono, M.Th.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/hadi.png",
+  },
+  {
+    name: "Nafita Rahma, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/nafita.png",
+  },
+  {
+    name: "Sarah Aslamiyah, M.Li.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/sarah.png",
+  },
+  {
+    name: "Deyan Suprayogi, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/dean.png",
+  },
+  {
+    name: "Muhammad Habibi, S.Pd.I.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/habibi.png",
+  },
+  {
+    name: "Sinta Aura Rokhmatillah, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/sinta.png",
+  },
+  {
+    name: "Ilham Okta Alpriansyah, S.Tr.T.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/ilham.png",
+  },
+  {
+    name: "Lailatun Nikmah, S.Pd.I.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/laila.png",
+  },
+  {
+    name: "Ika Zuliana, S.Tr.T.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/kazu.png",
+  },
+  {
+    name: "M. Suhud Abdillah Akbar, S.ST.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/suhud.png",
+  },
+  {
+    name: "Putri Ayu Zartika, M.T.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/putri.png",
+  },
+  {
+    name: "Ellsa Christy Maharani, S.Tr.T.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/ellsa.png",
+  },
+  {
+    name: "Sheril Ghalih Servianto, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/galih.png",
+  },
+  {
+    name: "Grisa Fima Nurandika, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/grisa.png",
+  },
+  {
+    name: "Muhammad Maulana Baihaqi, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/haqi.png",
+  },
+  {
+    name: "Okky Arita Wahyu Nur Maharani, S.Pd.",
+    role: "Guru Mata Pelajaran",
+    image: "/images/tentang-kami/profil-guru/okky.png",
+  },
+];
+
+// Staff Administrasi, Keuangan, Kebersihan, dan Keamanan
 export const staffList: TeacherItem[] = [
   {
-    name: "Fanny Aditya Febriansyah",
-    role: "Staff Tata Usaha / IT Support",
+    name: "Pratama Rangsia Alamanda, S.E.",
+    role: "Staff HC, Logistik, dan Kesekretariatan",
+    image: "/images/tentang-kami/profil-guru/manda.png",
+  },
+  {
+    name: "Vina Rachmaya, S.Sos.",
+    role: "Staff Administrasi",
+    image: "/images/tentang-kami/profil-guru/vina.png",
+  },
+  {
+    name: "Hana Rachma Citra, S.T.",
+    role: "Staff Administrasi Bidang Hubin",
+    image: "/images/tentang-kami/profil-guru/hana.png",
+  },
+  {
+    name: "Risma Ayu Lukiswara, S.H.",
+    role: "Staff Keuangan",
+    image: "/images/tentang-kami/profil-guru/risma.png",
+  },
+  {
+    name: "Fany Aditya Febriansyah",
+    role: "Tenaga Kebersihan",
     image: "/images/tentang-kami/profil-guru/fanny.png",
   },
   {
@@ -286,13 +270,23 @@ export const staffList: TeacherItem[] = [
     image: "/images/tentang-kami/profil-guru/firman.png",
   },
   {
-    name: "Hana Rachma Citra",
-    role: "Staff Konten Kreator",
-    image: "/images/tentang-kami/profil-guru/hana.png",
+    name: "Mukhammad Efendi",
+    role: "Tenaga Kebersihan",
+    image: "/images/tentang-kami/profil-guru/efendi.png",
   },
   {
-    name: "Pratama Rangsia Alamanda",
-    role: "Kepala Urusan HC Logistic & Kesekretariat",
-    image: "/images/tentang-kami/profil-guru/manda.png",
+    name: "Misbakhul Arifin",
+    role: "Tenaga Keamanan",
+    image: "/images/tentang-kami/profil-guru/arifin.png",
+  },
+  {
+    name: "Rio Dany Wijaya",
+    role: "Tenaga Keamanan",
+    image: "/images/tentang-kami/profil-guru/rio.png",
+  },
+  {
+    name: "Indra Kurniawan",
+    role: "Tenaga Keamanan",
+    image: "/images/tentang-kami/profil-guru/indra kurniawan.png",
   },
 ];
