@@ -83,7 +83,7 @@ export default function TefaRequestModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-lg bg-white rounded-[25px] shadow-2xl border-2 border-dashed border-[#d1d5dc] max-h-[90vh] flex flex-col overflow-hidden"
+          className="relative w-full max-w-lg bg-white rounded-[28px] shadow-2xl border border-gray-200/90 max-h-[90vh] flex flex-col overflow-hidden"
         >
           {/* Close Button */}
           <button
@@ -211,7 +211,7 @@ export default function TefaRequestModal({
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Jelaskan gambaran umum kebutuhan project Anda..."
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-jakarta focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-jakarta focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all resize-none custom-scrollbar overflow-y-auto"
                   />
                 </div>
 

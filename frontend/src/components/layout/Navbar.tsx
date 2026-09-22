@@ -85,7 +85,7 @@ export default function Navbar() {
       ],
     },
     { label: t("nav.trialClass"), href: "/trial-class" },
-    { label: t("nav.ppdb"), href: "#ppdb" },
+    { label: t("nav.ppdb"), href: "/ppdb" },
   ];
 
   return (

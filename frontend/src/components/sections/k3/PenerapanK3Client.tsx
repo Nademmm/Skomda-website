@@ -2,9 +2,13 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeroSection from "@/components/sections/common/PageHeroSection";
+import K3SopLabsSection from "@/components/sections/k3/K3SopLabsSection";
+import K3DocumentsListSection from "@/components/sections/k3/K3DocumentsListSection";
+import K3ApdSection from "@/components/sections/k3/K3ApdSection";
+import K3EmergencySection from "@/components/sections/k3/K3EmergencySection";
 
 export default function PenerapanK3Client() {
-  const { t } = useLanguage();
+  const { isEn, t } = useLanguage();
 
   return (
     <>
@@ -15,24 +19,20 @@ export default function PenerapanK3Client() {
         ]}
         titlePrefix={t("informasi.k3Title1", "Penerapan")}
         titleHighlight={t("informasi.k3Title2", "K3 Lingkungan Sekolah")}
-        description={t("informasi.k3Desc")}
+        description={t(
+          "informasi.k3Desc",
+          "Menjaga keselamatan dan kesehatan seluruh warga sekolah melalui penerapan SOP K3 berstandar industri pada setiap aktivitas praktikum kabel fiber optik, server data center, dan kelistrikan."
+        )}
         studentImage="/images/informasi/penerapan-k3/hero-student-k3.png"
         studentAlt="Penerapan K3 SMK Telkom Sidoarjo"
-        ctaText={t("informasi.k3Cta", "Pelajari Standar K3")}
-        ctaHref="#standar-k3"
+        ctaText={isEn ? "Browse K3 Documents" : "Lihat Berkas K3"}
+        ctaHref="#berkas-k3"
       />
 
-      <section id="standar-k3" className="py-16 sm:py-20 bg-white scroll-mt-24">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828] mb-3">
-            {t("informasi.k3SopTitle", "Standard Operating Procedure (SOP) K3")}
-          </h2>
-          <div className="mx-auto h-1 w-12 rounded-full bg-[#bc0c11] mb-5" />
-          <p className="font-jakarta text-base text-[#4a5565] max-w-xl mx-auto leading-relaxed">
-            {t("informasi.k3SopDesc")}
-          </p>
-        </div>
-      </section>
+      <K3DocumentsListSection />
+      <K3SopLabsSection />
+      <K3ApdSection />
+      <K3EmergencySection />
     </>
   );
 }

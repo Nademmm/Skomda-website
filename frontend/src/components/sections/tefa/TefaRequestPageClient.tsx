@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Quote } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const SERVICE_OPTIONS = [
@@ -174,7 +175,7 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
 
               {/* Motto */}
               <div className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] tracking-tight mb-8">
-                {isEn ? "“ From ideas, to real creations”" : "“ Dari ide, menjadi karya nyata”"}
+                {isEn ? "“From ideas, to real creations”" : "“Dari ide, menjadi karya nyata”"}
               </div>
             </div>
 
@@ -208,18 +209,16 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
                 transition={{ duration: 0.6, delay: 0.25 }}
                 className="absolute right-0 sm:-right-4 top-16 sm:top-24 z-20 bg-white rounded-[24px] p-5 sm:p-6 shadow-xl border border-gray-100/90 max-w-[200px] sm:max-w-[230px]"
               >
-                <div
-                  className="text-[#bc0c11] text-4xl sm:text-5xl font-serif font-black leading-none select-none mb-1"
+                <Quote
+                  className="size-6 text-[#bc0c11] fill-[#bc0c11] mb-2 shrink-0"
                   aria-hidden="true"
-                >
-                  “
-                </div>
+                />
                 <p className="font-jakarta font-bold text-xs sm:text-sm text-[#101828] leading-snug">
                   {isEn
                     ? "Great ideas always start with a single request!"
                     : "Ide besar selalu berawal dari satu permintaan, lho!"}
                 </p>
-                <div className="w-12 h-1 bg-[#bc0c11] rounded-full mt-3" />
+                <div className="w-10 h-1 bg-[#bc0c11] rounded-full mt-3" />
               </motion.div>
             </div>
           </motion.div>
@@ -442,7 +441,7 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
                           ? "Explain project requirements, system overview, or target timeframe..."
                           : "Jelaskan kebutuhan, gambaran sistem, atau target waktu pengerjaan..."
                       }
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-jakarta text-[#101828] placeholder:text-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-jakarta text-[#101828] placeholder:text-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all resize-none custom-scrollbar overflow-y-auto"
                     />
                   </div>
 

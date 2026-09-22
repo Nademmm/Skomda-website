@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Quote } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function TefaAboutSection() {
@@ -75,18 +76,17 @@ export default function TefaAboutSection() {
             </div>
 
             {/* Overlapping Floating Quote Card */}
-            <div className="relative lg:absolute -mt-10 sm:-mt-14 lg:mt-0 lg:-top-6 lg:-left-6 z-10 mx-4 lg:mx-0 max-w-[280px] sm:max-w-[300px] bg-white rounded-[20px] p-5 sm:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] border border-gray-100">
-              <div
-                className="text-[#bc0c11] text-4xl sm:text-5xl font-serif font-black leading-none mb-2 select-none"
+            <div className="relative lg:absolute -mt-10 sm:-mt-14 lg:mt-0 lg:-top-6 lg:-left-6 z-10 mx-4 lg:mx-0 max-w-[280px] sm:max-w-[300px] bg-white rounded-[24px] p-5 sm:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] border border-gray-100">
+              <Quote
+                className="size-6 text-[#bc0c11] fill-[#bc0c11] mb-2 shrink-0"
                 aria-hidden="true"
-              >
-                “
-              </div>
-              <blockquote className="font-jakarta text-xs sm:text-sm font-medium text-[#4a5565] leading-relaxed">
+              />
+              <blockquote className="font-jakarta text-xs sm:text-sm font-medium text-[#364153] leading-relaxed">
                 {isEn
-                  ? "“TEFA shapes students into productive, competent, and career-ready professionals”"
-                  : "“TEFA membentuk siswa menjadi pribadi yang produktif, kompeten, dan siap kerja”"}
+                  ? "TEFA shapes students into productive, competent, and career-ready professionals."
+                  : "TEFA membentuk siswa menjadi pribadi yang produktif, kompeten, dan siap kerja."}
               </blockquote>
+              <div className="w-10 h-1 bg-[#bc0c11] rounded-full mt-3" />
             </div>
           </motion.div>
         </div>

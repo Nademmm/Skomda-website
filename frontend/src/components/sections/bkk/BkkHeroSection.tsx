@@ -31,7 +31,7 @@ export default function BkkHeroSection() {
             {/* Breadcrumb Path with consistent Chevron SVG */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-4 text-sm font-jakarta text-[#4a5565] flex-wrap">
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-                {t("common.home")}
+                {t("nav.home", "Beranda")}
               </Link>
               <span className="flex items-center gap-2">
                 <svg
@@ -51,7 +51,7 @@ export default function BkkHeroSection() {
                   />
                 </svg>
                 <Link href="/program/profil-jurusan" className="hover:text-[#bc0c11] transition-colors">
-                  {t("common.programs")}
+                  {t("nav.programs", "Program")}
                 </Link>
               </span>
               <span className="flex items-center gap-2">
@@ -71,7 +71,7 @@ export default function BkkHeroSection() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="font-medium text-[#101828]">{t("bkk.breadcrumb")}</span>
+                <span className="font-medium text-[#101828]">{t("bkk.breadcrumb", "BKK (Bursa Kerja Khusus)")}</span>
               </span>
             </nav>
 

@@ -4,12 +4,14 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { PELUANG_KARIER_ITEMS, PeluangKarierItem } from "@/data/bkkData";
 import { useLanguage } from "@/context/LanguageContext";
+import { Search, MapPin, Briefcase, ChevronRight, X, Copy, Check, Send } from "lucide-react";
 
 export default function BkkPeluangSection() {
   const { isEn } = useLanguage();
 
   const [activeFilter, setActiveFilter] = useState<string>("Semua");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showAll, setShowAll] = useState<boolean>(false);
   const [selectedJob, setSelectedJob] = useState<PeluangKarierItem | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -37,6 +39,16 @@ export default function BkkPeluangSection() {
     });
   }, [activeFilter, searchQuery]);
 
+  // Displayed jobs: show top 4 when not expanded and no active search/filter
+  const displayedJobs = useMemo(() => {
+    const isFiltered =
+      (activeFilter !== "Semua" && activeFilter !== "All") || searchQuery.trim() !== "";
+    if (isFiltered || showAll) {
+      return filteredJobs;
+    }
+    return filteredJobs.slice(0, 4);
+  }, [filteredJobs, activeFilter, searchQuery, showAll]);
+
   // Handle ESC key to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -60,20 +72,28 @@ export default function BkkPeluangSection() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleToggleViewAll = () => {
+    const isFiltered =
+      (activeFilter !== "Semua" && activeFilter !== "All") || searchQuery.trim() !== "";
+    if (isFiltered) {
+      setActiveFilter(isEn ? "All" : "Semua");
+      setSearchQuery("");
+      setShowAll(true);
+    } else {
+      setShowAll((prev) => !prev);
+    }
+    const el = document.getElementById("peluang-karier");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section id="peluang-karier" className="relative w-full py-20 lg:py-24 bg-[#f3f4f6] border-t border-gray-200/60 overflow-hidden scroll-mt-24">
+    <section id="peluang-karier" className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#f9fafb] border-t border-gray-200/60 overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         
-        {/* Eyebrow */}
-        <div className="flex items-center gap-2.5 mb-3">
-          <div className="h-[3px] w-6 bg-[#bc0c11] rounded-full" />
-          <span className="font-jakarta text-xs sm:text-sm font-bold tracking-wider uppercase text-[#bc0c11]">
-            {isEn ? "CAREER OPPORTUNITIES" : "PELUANG KARIER"}
-          </span>
-        </div>
-
         {/* Section Header with Search & Filter Bar */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div>
             <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-2">
               {isEn ? (
@@ -86,10 +106,13 @@ export default function BkkPeluangSection() {
                 </>
               )}
             </h2>
+
+            <div className="h-1 w-12 rounded-full bg-[#bc0c11] mb-3" />
+
             <p className="font-jakarta text-sm sm:text-base text-[#4a5565]">
               {isEn
-                ? "Find career opportunities and industrial internships matching your vocational skillset."
-                : "Temukan kesempatan karier dan magang industri yang sesuai dengan kompetensimu."}
+                ? "Find verified career openings and industrial internships matching your vocational competencies."
+                : "Temukan kesempatan karier dan magang industri terverifikasi yang sesuai dengan kompetensi keahlianmu."}
             </p>
           </div>
 
@@ -101,29 +124,24 @@ export default function BkkPeluangSection() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={isEn ? "Search position, company, or location..." : "Cari posisi atau perusahaan..."}
-                className="w-full h-[42px] pl-4 pr-10 rounded-full border border-gray-200 bg-white text-sm font-jakarta text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all shadow-xs"
+                placeholder={isEn ? "Search position or company..." : "Cari posisi atau perusahaan..."}
+                className="w-full h-[42px] pl-10 pr-4 rounded-xl border-2 border-dashed border-[#d1d5dc] bg-white text-sm font-jakarta text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] transition-all shadow-xs"
               />
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="M21 21L16.65 16.65" />
-                </svg>
-              </span>
+              <Search className="size-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
             {/* Filter Pills (Segmented Pill Container) */}
-            <div className="flex items-center gap-1 p-1 rounded-full bg-white border border-gray-200/80 shadow-xs overflow-x-auto scrollbar-none">
+            <div className="flex items-center gap-1 p-1 rounded-xl bg-white border-2 border-dashed border-[#d1d5dc] shadow-xs overflow-x-auto scrollbar-none">
               {filterOptions.map((filter) => {
                 const isActive = activeFilter === filter;
                 return (
                   <button
                     key={filter}
                     onClick={() => setActiveFilter(filter)}
-                    className={`h-[34px] px-4 rounded-full text-xs sm:text-sm font-jakarta transition-all whitespace-nowrap cursor-pointer ${
+                    className={`h-[32px] px-3.5 rounded-lg text-xs sm:text-sm font-jakarta transition-all whitespace-nowrap cursor-pointer ${
                       isActive
                         ? "bg-[#bc0c11] text-white font-semibold shadow-xs"
-                        : "text-[#364153] hover:text-[#bc0c11] font-medium"
+                        : "text-[#4a5565] hover:text-[#bc0c11] font-medium"
                     }`}
                   >
                     {filter}
@@ -135,12 +153,12 @@ export default function BkkPeluangSection() {
         </div>
 
         {/* Job Opportunity Cards List */}
-        <div className="flex flex-col gap-3.5 mb-8">
-          {filteredJobs.length > 0 ? (
-            filteredJobs.map((job) => (
+        <div className="flex flex-col gap-4 mb-8">
+          {displayedJobs.length > 0 ? (
+            displayedJobs.map((job) => (
               <div
                 key={job.id}
-                className="bg-white rounded-2xl border border-gray-200/80 px-5 sm:px-6 py-4 sm:py-5 hover:shadow-md hover:border-[#bc0c11]/40 transition-all duration-300"
+                className="bg-white rounded-[24px] border-2 border-dashed border-[#d1d5dc] px-5 sm:px-7 py-5 sm:py-6 hover:shadow-md hover:border-[#bc0c11] transition-all duration-300 group"
               >
                 {/* Desktop Aligned Row Layout (>= 1024px) */}
                 <div className="hidden lg:flex items-center justify-between gap-6">
@@ -158,7 +176,7 @@ export default function BkkPeluangSection() {
 
                   {/* Column 2: Job Title & Company Name */}
                   <div className="flex-1 min-w-[220px]">
-                    <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828] truncate hover:text-[#bc0c11] transition-colors">
+                    <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828] truncate group-hover:text-[#bc0c11] transition-colors">
                       {job.title}
                     </h3>
                     <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] truncate mt-0.5">
@@ -167,26 +185,20 @@ export default function BkkPeluangSection() {
                   </div>
 
                   {/* Column 3: Location */}
-                  <div className="w-28 shrink-0 flex items-center gap-1.5 text-xs sm:text-sm font-jakarta text-[#4a5565]">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2" className="shrink-0">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span>{job.location}</span>
+                  <div className="w-32 shrink-0 flex items-center gap-1.5 text-xs sm:text-sm font-jakarta text-[#4a5565]">
+                    <MapPin className="size-4 text-[#bc0c11] shrink-0" />
+                    <span className="truncate">{job.location}</span>
                   </div>
 
                   {/* Column 4: Job Type */}
                   <div className="w-28 shrink-0 flex items-center gap-1.5 text-xs sm:text-sm font-jakarta text-[#4a5565]">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2" className="shrink-0">
-                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                    </svg>
+                    <Briefcase className="size-4 text-[#bc0c11] shrink-0" />
                     <span>{job.type}</span>
                   </div>
 
                   {/* Column 5: Jurusan Badge */}
                   <div className="w-24 shrink-0 text-left">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-jakarta font-bold bg-[#bc0c11]/10 text-[#bc0c11]">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-jakarta font-semibold bg-red-50 text-[#bc0c11] border border-red-100">
                       {job.jurusan}
                     </span>
                   </div>
@@ -195,22 +207,10 @@ export default function BkkPeluangSection() {
                   <div className="w-32 shrink-0 text-right">
                     <button
                       onClick={() => setSelectedJob(job)}
-                      className="inline-flex items-center gap-1.5 text-sm font-jakarta font-semibold text-[#bc0c11] hover:text-[#990a0e] group cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-sm font-jakarta font-semibold text-[#bc0c11] hover:text-[#990a0e] group-hover:translate-x-0.5 transition-all cursor-pointer"
                     >
                       <span>{isEn ? "View Details" : "Lihat Detail"}</span>
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="transition-transform group-hover:translate-x-1"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
+                      <ChevronRight className="size-4 text-[#bc0c11]" />
                     </button>
                   </div>
 
@@ -228,13 +228,13 @@ export default function BkkPeluangSection() {
                         className="object-contain object-left max-h-9 max-w-[110px]"
                       />
                     </div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-jakarta font-bold bg-[#bc0c11]/10 text-[#bc0c11]">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-jakarta font-semibold bg-red-50 text-[#bc0c11] border border-red-100">
                       {job.jurusan}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="font-jakarta font-bold text-base text-[#101828]">
+                    <h3 className="font-jakarta font-bold text-base text-[#101828] group-hover:text-[#bc0c11] transition-colors">
                       {job.title}
                     </h3>
                     <p className="font-jakarta text-xs text-[#4a5565] mt-0.5">
@@ -242,21 +242,15 @@ export default function BkkPeluangSection() {
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-between pt-2 border-t border-gray-100 gap-2">
+                  <div className="flex flex-wrap items-center justify-between pt-3 border-t border-dashed border-gray-200 gap-2">
                     <div className="flex items-center gap-3 text-xs font-jakarta text-[#4a5565]">
                       <span className="flex items-center gap-1">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                          <circle cx="12" cy="10" r="3" />
-                        </svg>
+                        <MapPin className="size-3.5 text-[#bc0c11] shrink-0" />
                         {job.location}
                       </span>
                       <span className="text-gray-300">•</span>
                       <span className="flex items-center gap-1">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#bc0c11" strokeWidth="2">
-                          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                        </svg>
+                        <Briefcase className="size-3.5 text-[#bc0c11] shrink-0" />
                         {job.type}
                       </span>
                     </div>
@@ -266,9 +260,7 @@ export default function BkkPeluangSection() {
                       className="inline-flex items-center gap-1 text-xs font-jakarta font-semibold text-[#bc0c11] hover:text-[#990a0e] cursor-pointer"
                     >
                       <span>{isEn ? "View Details" : "Lihat Detail"}</span>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
+                      <ChevronRight className="size-3.5 text-[#bc0c11]" />
                     </button>
                   </div>
                 </div>
@@ -276,11 +268,11 @@ export default function BkkPeluangSection() {
               </div>
             ))
           ) : (
-            <div className="bg-white rounded-2xl p-10 text-center border border-gray-200">
+            <div className="bg-white rounded-[24px] p-10 text-center border-2 border-dashed border-[#d1d5dc]">
               <p className="font-jakarta font-semibold text-base text-[#101828] mb-1">
                 {isEn ? "No matching opportunities found" : "Tidak ada lowongan yang sesuai"}
               </p>
-              <p className="font-poppins text-sm text-[#4a5565] mb-4">
+              <p className="font-jakarta text-sm text-[#4a5565] mb-4">
                 {isEn
                   ? "Try adjusting your search terms or selecting another category filter."
                   : "Coba ubah kata kunci pencarian atau pilih filter kategori lainnya."}
@@ -290,7 +282,7 @@ export default function BkkPeluangSection() {
                   setActiveFilter(isEn ? "All" : "Semua");
                   setSearchQuery("");
                 }}
-                className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-gray-100 text-xs font-jakarta font-semibold text-[#101828] hover:bg-gray-200 transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center px-5 py-2 rounded-xl bg-gray-100 text-xs font-jakarta font-semibold text-[#101828] hover:bg-gray-200 transition-colors cursor-pointer"
               >
                 {isEn ? "Reset Filters" : "Reset Filter"}
               </button>
@@ -298,27 +290,32 @@ export default function BkkPeluangSection() {
           )}
         </div>
 
-        {/* Bottom Link */}
+        {/* Bottom Expand / View All Opportunities Link */}
         <div className="flex justify-center">
           <button
-            onClick={() => {
-              setActiveFilter(isEn ? "All" : "Semua");
-              setSearchQuery("");
-            }}
-            className="inline-flex items-center gap-2 text-sm font-jakarta font-bold text-[#bc0c11] hover:text-[#990a0e] transition-colors group cursor-pointer"
+            onClick={handleToggleViewAll}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-dashed border-[#bc0c11]/50 text-sm font-jakarta font-bold text-[#bc0c11] hover:border-[#bc0c11] hover:bg-red-50/60 transition-all group cursor-pointer shadow-xs"
           >
-            <span>{isEn ? "View All Opportunities" : "Lihat Semua Peluang"}</span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="transition-transform group-hover:translate-x-1"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <span>
+              {!showAll ||
+              (activeFilter !== "Semua" && activeFilter !== "All") ||
+              searchQuery.trim() !== ""
+                ? isEn
+                  ? `View All Opportunities (${PELUANG_KARIER_ITEMS.length})`
+                  : `Lihat Semua Peluang (${PELUANG_KARIER_ITEMS.length} Lowongan)`
+                : isEn
+                ? "Show Less"
+                : "Tampilkan Lebih Sedikit"}
+            </span>
+            <ChevronRight
+              className={`size-4 text-[#bc0c11] transition-transform ${
+                showAll &&
+                searchQuery.trim() === "" &&
+                (activeFilter === "Semua" || activeFilter === "All")
+                  ? "-rotate-90"
+                  : "rotate-90"
+              }`}
+            />
           </button>
         </div>
 
@@ -334,19 +331,20 @@ export default function BkkPeluangSection() {
           onClick={() => setSelectedJob(null)}
         >
           <div
-            className="relative w-full max-w-2xl bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-2xl bg-white rounded-[28px] border border-gray-200/90 shadow-2xl max-h-[90vh] flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedJob(null)}
               aria-label="Tutup Detail Lowongan"
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
+              <X className="size-5" />
             </button>
+
+            {/* Scrollable Modal Content */}
+            <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-6 sm:p-8">
 
             {/* Header Job Info */}
             <div className="flex items-start gap-4 mb-6 pr-8">
@@ -363,7 +361,7 @@ export default function BkkPeluangSection() {
                 <h3 id="modal-job-title" className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828]">
                   {selectedJob.title}
                 </h3>
-                <p className="font-poppins text-sm font-medium text-[#4a5565]">
+                <p className="font-jakarta text-sm font-medium text-[#4a5565]">
                   {selectedJob.company}
                 </p>
                 <div className="flex flex-wrap gap-2 mt-2 text-xs font-jakarta">
@@ -381,7 +379,7 @@ export default function BkkPeluangSection() {
             </div>
 
             {/* Timeline & Metadata */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-100 mb-6 text-xs font-jakarta">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-[#f9fafb] border-2 border-dashed border-[#d1d5dc] mb-6 text-xs font-jakarta">
               <div>
                 <span className="text-gray-400 block mb-0.5">{isEn ? "Deadline" : "Batas Lamaran"}</span>
                 <span className="font-semibold text-[#101828]">{selectedJob.deadline}</span>
@@ -403,7 +401,7 @@ export default function BkkPeluangSection() {
               <h4 className="font-jakarta font-bold text-sm text-[#101828] mb-2 uppercase tracking-wider">
                 {isEn ? "Job Description" : "Deskripsi Pekerjaan"}
               </h4>
-              <p className="font-poppins text-sm text-[#4a5565] leading-relaxed">
+              <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed">
                 {selectedJob.description}
               </p>
             </div>
@@ -413,7 +411,7 @@ export default function BkkPeluangSection() {
               <h4 className="font-jakarta font-bold text-sm text-[#101828] mb-2 uppercase tracking-wider">
                 {isEn ? "Key Responsibilities" : "Tanggung Jawab Utama"}
               </h4>
-              <ul className="space-y-1.5 list-disc list-inside font-poppins text-xs sm:text-sm text-[#4a5565] leading-relaxed">
+              <ul className="space-y-1.5 list-disc list-inside font-jakarta text-xs sm:text-sm text-[#4a5565] leading-relaxed">
                 {selectedJob.responsibilities.map((resp, idx) => (
                   <li key={idx}>{resp}</li>
                 ))}
@@ -425,7 +423,7 @@ export default function BkkPeluangSection() {
               <h4 className="font-jakarta font-bold text-sm text-[#101828] mb-2 uppercase tracking-wider">
                 {isEn ? "Qualifications & Requirements" : "Kualifikasi & Persyaratan"}
               </h4>
-              <ul className="space-y-1.5 list-disc list-inside font-poppins text-xs sm:text-sm text-[#4a5565] leading-relaxed">
+              <ul className="space-y-1.5 list-disc list-inside font-jakarta text-xs sm:text-sm text-[#4a5565] leading-relaxed">
                 {selectedJob.requirements.map((req, idx) => (
                   <li key={idx}>{req}</li>
                 ))}
@@ -433,7 +431,7 @@ export default function BkkPeluangSection() {
             </div>
 
             {/* Action Bar */}
-            <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="pt-4 border-t border-dashed border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
               <button
                 onClick={() => copyEmail(selectedJob.applyEmail)}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-xs sm:text-sm font-jakarta font-semibold text-[#4a5565] hover:border-[#bc0c11] hover:text-[#bc0c11] transition-colors cursor-pointer"
@@ -447,10 +445,7 @@ export default function BkkPeluangSection() {
                     ? "Copy Company Email"
                     : "Salin Email Perusahaan"}
                 </span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
+                {copied ? <Check className="size-4 text-emerald-600" /> : <Copy className="size-4" />}
               </button>
 
               <a
@@ -458,12 +453,11 @@ export default function BkkPeluangSection() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#bc0c11] text-xs sm:text-sm font-jakarta font-bold text-white hover:bg-[#990a0e] transition-colors shadow-sm cursor-pointer"
               >
                 <span>{isEn ? "Submit Application / CV" : "Kirim Lamaran / CV"}</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <Send className="size-4" />
               </a>
             </div>
 
+            </div>
           </div>
         </div>
       )}

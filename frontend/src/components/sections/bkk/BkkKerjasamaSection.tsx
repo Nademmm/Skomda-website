@@ -2,6 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  Handshake,
+  X,
+  CheckCircle2,
+  MessageSquare,
+  ArrowRight,
+  ChevronDown,
+  Building2,
+  User,
+  Mail,
+  Briefcase,
+  Layers,
+  FileText,
+} from "lucide-react";
 
 export default function BkkKerjasamaSection() {
   const { language } = useLanguage();
@@ -54,55 +68,39 @@ export default function BkkKerjasamaSection() {
   };
 
   return (
-    <section id="kerjasama-rekrutmen" className="relative w-full py-20 lg:py-24 bg-[#f3f4f6] border-t border-gray-200/60 overflow-hidden scroll-mt-24">
+    <section id="kerjasama-rekrutmen" className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#f9fafb] border-t border-gray-200/60 overflow-hidden scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-[32px] bg-white border border-gray-200/80 p-8 sm:p-12 lg:p-14 overflow-hidden shadow-xs">
+        
+        {/* Main Box with Signature Dashed Border */}
+        <div className="relative rounded-[32px] bg-white border-2 border-dashed border-[#d1d5dc] p-8 sm:p-12 lg:p-14 overflow-hidden transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 z-10">
-              {/* Eyebrow */}
-              <div className="flex items-center gap-2.5 mb-3">
-                <div className="h-[3px] w-6 bg-[#bc0c11] rounded-full" />
-                <span className="font-jakarta text-xs sm:text-sm font-bold tracking-wider uppercase text-[#bc0c11]">
-                  {isEn ? "LOOKING FOR TALENT?" : "MENCARI TALENTA?"}
-                </span>
-              </div>
-
               {/* Title */}
-              <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-4">
+              <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828] mb-3">
                 {isEn ? "Partner with " : "Bekerja Sama dengan "}
                 <span className="text-[#bc0c11]">SKOMDA</span>
               </h2>
+
+              <div className="h-1 w-12 rounded-full bg-[#bc0c11] mb-4" />
 
               {/* Description */}
               <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed max-w-xl mb-8">
                 {isEn
                   ? "BKK SMK Telkom Sidoarjo opens opportunities for companies to connect directly with highly competent students and alumni tailored to industry needs."
-                  : "BKK SMK Telkom Sidoarjo membuka kesempatan bagi perusahaan untuk terhubung langsung dengan siswa dan alumni berkompetensi tinggi sesuai kebutuhan industri."}
+                  : "BKK SMK Telkom Sidoarjo membuka kesempatan bagi perusahaan untuk terhubung langsung dengan talenta vokasi terbaik sesuai kebutuhan rekrutmen industri."}
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap items-center gap-3.5">
                 <button
                   onClick={() => setModalOpen(true)}
-                  className="group inline-flex items-center gap-2.5 rounded-full bg-[#bc0c11] px-7 py-3 text-sm font-jakarta font-bold text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-card-cta cursor-pointer"
+                  className="group inline-flex items-center gap-2 rounded-full bg-[#bc0c11] px-7 py-3 text-sm font-jakarta font-bold text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-card-cta cursor-pointer"
                 >
                   <span>{isEn ? "Post a Job" : "Pasang Lowongan"}</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+                  <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
                 </button>
 
                 <a
@@ -113,41 +111,22 @@ export default function BkkKerjasamaSection() {
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 rounded-full border-2 border-[#bc0c11] px-7 py-2.5 text-sm font-jakarta font-bold text-[#bc0c11] transition-all duration-300 hover:bg-[#bc0c11] hover:text-white active:scale-[0.98] cursor-pointer"
+                  className="group inline-flex items-center gap-2 rounded-full border-2 border-[#bc0c11] px-7 py-2.5 text-sm font-jakarta font-bold text-[#bc0c11] transition-all duration-300 hover:bg-[#bc0c11] hover:text-white active:scale-[0.98] cursor-pointer"
                 >
+                  <MessageSquare className="size-4" />
                   <span>{isEn ? "Contact BKK" : "Hubungi BKK"}</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
                 </a>
               </div>
             </div>
 
-            {/* Right Visual / Tagline Column */}
+            {/* Right Tagline Box with Unboxed Icon & Clean Quotes */}
             <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center text-center lg:text-right">
-              <div className="relative p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] border border-gray-200/70 shadow-xs max-w-sm">
-                <div className="w-12 h-12 rounded-full bg-red-50 text-[#bc0c11] flex items-center justify-center mx-auto lg:ml-auto lg:mr-0 mb-4">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </div>
-                <p className="font-jakarta italic text-base sm:text-lg font-medium text-[#101828] leading-snug mb-3">
+              <div className="relative p-6 sm:p-8 rounded-[24px] bg-[#f9fafb] border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] transition-all max-w-sm">
+                <Handshake className="size-9 text-[#bc0c11] mb-3 mx-auto lg:ml-auto lg:mr-0" />
+                <p className="font-jakarta italic text-base sm:text-lg font-semibold text-[#101828] leading-snug mb-3">
                   {isEn
-                    ? "“Collaborating for the Future of Indonesian Talents”"
-                    : "“Kolaborasi untuk Masa Depan Talenta Indonesia”"}
+                    ? "\u201CCollaborating for the Future of Indonesian Talents\u201D"
+                    : "\u201CKolaborasi untuk Masa Depan Talenta Indonesia\u201D"}
                 </p>
                 <span className="font-jakarta text-xs font-bold text-[#bc0c11] tracking-wide uppercase">
                   {isEn ? "SKOMDA Career Center (BKK)" : "Bursa Kerja Khusus SKOMDA"}
@@ -170,31 +149,27 @@ export default function BkkKerjasamaSection() {
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-lg bg-white rounded-[28px] border border-gray-200/90 shadow-2xl max-h-[90vh] flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setModalOpen(false)}
               aria-label={isEn ? "Close Job Form" : "Tutup Form Lowongan"}
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
+              <X className="size-5" />
             </button>
 
-            {submitted ? (
+            {/* Scrollable Modal Content */}
+            <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-6 sm:p-8">
+              {submitted ? (
               <div className="py-10 text-center">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                </div>
+                <CheckCircle2 className="size-14 text-emerald-600 mx-auto mb-4" />
                 <h3 className="font-jakarta font-bold text-xl text-[#101828] mb-2">
                   {isEn ? "Request Successfully Sent!" : "Permintaan Berhasil Terkirim!"}
                 </h3>
-                <p className="font-poppins text-sm text-[#4a5565]">
+                <p className="font-jakarta text-sm text-[#4a5565]">
                   {isEn
                     ? "The BKK SMK Telkom Sidoarjo team will contact your company shortly for verification and vacancy publication."
                     : "Tim BKK SMK Telkom Sidoarjo akan segera menghubungi perusahaan Anda untuk proses verifikasi dan publikasi lowongan."}
@@ -209,7 +184,8 @@ export default function BkkKerjasamaSection() {
                   <h3 id="modal-recruiter-title" className="font-jakarta font-bold text-xl text-[#101828]">
                     {isEn ? "Post Job / Internship Vacancy" : "Pasang Lowongan Kerja / Magang"}
                   </h3>
-                  <p className="font-poppins text-xs text-[#787878] mt-1">
+                  <div className="h-1 w-10 rounded-full bg-[#bc0c11] my-2" />
+                  <p className="font-jakarta text-xs text-gray-500 mt-1">
                     {isEn
                       ? "Please fill in your company recruitment requirements to be shared with SKOMDA students and alumni."
                       : "Silakan isi data kebutuhan rekrutmen perusahaan Anda untuk dipublikasikan ke siswa dan alumni SKOMDA."}
@@ -218,8 +194,9 @@ export default function BkkKerjasamaSection() {
 
                 <form onSubmit={handleSubmit} className="space-y-4 font-jakarta text-xs sm:text-sm">
                   <div>
-                    <label className="block font-semibold text-[#101828] mb-1">
-                      {isEn ? "Company / Institution Name *" : "Nama Perusahaan / Institusi *"}
+                    <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                      <Building2 className="size-4 text-[#bc0c11]" />
+                      <span>{isEn ? "Company / Institution Name *" : "Nama Perusahaan / Institusi *"}</span>
                     </label>
                     <input
                       required
@@ -227,14 +204,15 @@ export default function BkkKerjasamaSection() {
                       placeholder={isEn ? "e.g. PT Teknologi Inovasi Bersama" : "Contoh: PT Teknologi Inovasi Bersama"}
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all hover:border-gray-300"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block font-semibold text-[#101828] mb-1">
-                        {isEn ? "PIC / HR Name *" : "Nama PIC / HR *"}
+                      <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                        <User className="size-4 text-[#bc0c11]" />
+                        <span>{isEn ? "PIC / HR Name *" : "Nama PIC / HR *"}</span>
                       </label>
                       <input
                         required
@@ -242,12 +220,13 @@ export default function BkkKerjasamaSection() {
                         placeholder={isEn ? "Contact person name" : "Nama narahubung"}
                         value={formData.contactPerson}
                         onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all hover:border-gray-300"
                       />
                     </div>
                     <div>
-                      <label className="block font-semibold text-[#101828] mb-1">
-                        {isEn ? "WhatsApp No. / Email *" : "No. WhatsApp / Email *"}
+                      <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                        <Mail className="size-4 text-[#bc0c11]" />
+                        <span>{isEn ? "WhatsApp No. / Email *" : "No. WhatsApp / Email *"}</span>
                       </label>
                       <input
                         required
@@ -255,15 +234,16 @@ export default function BkkKerjasamaSection() {
                         placeholder="0812... / hr@perusahaan.com"
                         value={formData.emailOrWa}
                         onChange={(e) => setFormData({ ...formData, emailOrWa: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all hover:border-gray-300"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block font-semibold text-[#101828] mb-1">
-                        {isEn ? "Open Position *" : "Posisi yang Dibuka *"}
+                      <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                        <Briefcase className="size-4 text-[#bc0c11]" />
+                        <span>{isEn ? "Open Position *" : "Posisi yang Dibuka *"}</span>
                       </label>
                       <input
                         required
@@ -271,43 +251,52 @@ export default function BkkKerjasamaSection() {
                         placeholder={isEn ? "e.g. Network Technician" : "Contoh: Network Technician"}
                         value={formData.positionTitle}
                         onChange={(e) => setFormData({ ...formData, positionTitle: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all hover:border-gray-300"
                       />
                     </div>
                     <div>
-                      <label className="block font-semibold text-[#101828] mb-1">
-                        {isEn ? "Job Type" : "Tipe Pekerjaan"}
+                      <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                        <Layers className="size-4 text-[#bc0c11]" />
+                        <span>{isEn ? "Job Type" : "Tipe Pekerjaan"}</span>
                       </label>
-                      <select
-                        value={formData.jobType}
-                        onChange={(e) => setFormData({ ...formData, jobType: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
-                      >
-                        <option value="Full Time">Full Time</option>
-                        <option value="Internship">{isEn ? "Internship" : "Internship / Magang"}</option>
-                        <option value="Contract">{isEn ? "Project Contract" : "Kontrak Proyek"}</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={formData.jobType}
+                          onChange={(e) => setFormData({ ...formData, jobType: e.target.value })}
+                          className="w-full appearance-none px-3.5 py-2.5 pr-10 rounded-xl border border-gray-200 bg-white text-[#101828] focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all cursor-pointer hover:border-gray-300"
+                        >
+                          <option value="Full Time">Full Time</option>
+                          <option value="Internship">{isEn ? "Internship" : "Internship / Magang"}</option>
+                          <option value="Contract">{isEn ? "Project Contract" : "Kontrak Proyek"}</option>
+                        </select>
+                        <ChevronDown className="size-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      </div>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-[#101828] mb-1">
-                      {isEn ? "Target Major" : "Jurusan yang Dibutuhkan"}
+                    <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                      <Layers className="size-4 text-[#bc0c11]" />
+                      <span>{isEn ? "Target Major" : "Jurusan yang Dibutuhkan"}</span>
                     </label>
-                    <select
-                      value={formData.jurusanNeeded}
-                      onChange={(e) => setFormData({ ...formData, jurusanNeeded: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
-                    >
-                      <option value="SIJA">SIJA ({isEn ? "Information Systems, Networks, and Applications" : "Sistem Informasi Jaringan dan Aplikasi"})</option>
-                      <option value="TJAT">TJAT ({isEn ? "Telecommunications Access Network Engineering" : "Teknik Jaringan Akses Telekomunikasi"})</option>
-                      <option value="SIJA & TJAT">{isEn ? "Both (SIJA & TJAT)" : "Keduanya (SIJA & TJAT)"}</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={formData.jurusanNeeded}
+                        onChange={(e) => setFormData({ ...formData, jurusanNeeded: e.target.value })}
+                        className="w-full appearance-none px-3.5 py-2.5 pr-10 rounded-xl border border-gray-200 bg-white text-[#101828] focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all cursor-pointer hover:border-gray-300"
+                      >
+                        <option value="SIJA">SIJA ({isEn ? "Information Systems, Networks, and Applications" : "Sistem Informasi Jaringan dan Aplikasi"})</option>
+                        <option value="TJAT">TJAT ({isEn ? "Telecommunications Access Network Engineering" : "Teknik Jaringan Akses Telekomunikasi"})</option>
+                        <option value="SIJA & TJAT">{isEn ? "Both (SIJA & TJAT)" : "Keduanya (SIJA & TJAT)"}</option>
+                      </select>
+                      <ChevronDown className="size-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-[#101828] mb-1">
-                      {isEn ? "Brief Qualifications / Notes" : "Kualifikasi Ringkas / Catatan"}
+                    <label className="flex items-center gap-1.5 font-semibold text-[#101828] mb-1.5">
+                      <FileText className="size-4 text-[#bc0c11]" />
+                      <span>{isEn ? "Brief Qualifications / Notes" : "Kualifikasi Ringkas / Catatan"}</span>
                     </label>
                     <textarea
                       rows={3}
@@ -318,22 +307,23 @@ export default function BkkKerjasamaSection() {
                       }
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-200 bg-white text-[#101828] placeholder-gray-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-all hover:border-gray-300 custom-scrollbar"
                     />
                   </div>
 
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-3 rounded-full bg-[#bc0c11] font-bold text-white hover:bg-[#990a0e] transition-colors shadow-sm cursor-pointer"
+                      className="w-full py-3 rounded-full bg-[#bc0c11] font-bold text-white hover:bg-[#990a0e] transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2 group"
                     >
-                      {isEn ? "Submit Vacancy Details" : "Kirim Kebutuhan Lowongan"}
+                      <span>{isEn ? "Submit Vacancy Details" : "Kirim Kebutuhan Lowongan"}</span>
+                      <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   </div>
                 </form>
               </div>
             )}
-
+            </div>
           </div>
         </div>
       )}

@@ -32,16 +32,16 @@ export default function ProfilJurusanHeroSection() {
               className="flex items-center gap-2 text-xs sm:text-sm text-[#4a5565] mb-5 font-jakarta"
             >
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-                {t("common.home")}
+                {t("nav.home", "Beranda")}
               </Link>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>{t("common.programs")}</span>
+              <span>{t("nav.programs", "Program")}</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="font-semibold text-[#101828]">{t("profilJurusan.breadcrumb")}</span>
+              <span className="font-semibold text-[#101828]">{t("profilJurusan.breadcrumb", "Profil Jurusan")}</span>
             </nav>
 
             {/* Heading */}

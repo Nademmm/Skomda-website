@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { ChevronRight } from "lucide-react";
 
 export interface TefaProductItem {
   id: string;
@@ -133,27 +134,21 @@ export default function TefaCatalogSection({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            {/* Standard Red Accent Bar & Eyebrow */}
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-3">
-              <div className="w-10 h-[3px] bg-[#bc0c11] rounded-full shrink-0" />
-              <span className="font-jakarta font-bold text-xs sm:text-sm text-[#bc0c11] tracking-wider uppercase">
-                {t("tefa.catalogEyebrow")}
-              </span>
-            </div>
-
-            {/* Section Title */}
-            <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight text-[#101828] tracking-tight">
+            <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight text-[#101828] tracking-tight mb-2">
               {t("tefa.catalogTitle")}
             </h2>
 
+            {/* Signature Red Accent Bar */}
+            <div className="h-1 w-12 rounded-full bg-[#bc0c11] mb-3" />
+
             {/* Subtitle Description */}
-            <p className="mt-2.5 text-sm sm:text-base text-[#4a5565] font-jakarta max-w-xl">
+            <p className="text-sm sm:text-base text-[#4a5565] font-jakarta max-w-xl leading-relaxed">
               {t("tefa.catalogDesc")}
             </p>
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white border-2 border-dashed border-[#d1d5dc] shadow-xs overflow-x-auto scrollbar-none shrink-0">
             {categories.map((cat) => {
               const isActive = activeFilter === cat.value;
               return (
@@ -161,10 +156,10 @@ export default function TefaCatalogSection({
                   key={cat.value}
                   type="button"
                   onClick={() => setActiveFilter(cat.value)}
-                  className={`shrink-0 rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold font-jakarta transition-all duration-200 cursor-pointer select-none ${
+                  className={`h-[34px] px-4 rounded-lg text-xs sm:text-sm font-semibold font-jakarta transition-all whitespace-nowrap cursor-pointer select-none ${
                     isActive
-                      ? "bg-[#bc0c11] text-white shadow-sm"
-                      : "bg-white text-[#4a5565] border border-gray-200 hover:border-[#bc0c11] hover:text-[#bc0c11]"
+                      ? "bg-[#bc0c11] text-white shadow-xs"
+                      : "text-[#4a5565] hover:text-[#bc0c11] font-medium"
                   }`}
                 >
                   {cat.label}
@@ -196,12 +191,6 @@ export default function TefaCatalogSection({
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  {/* Category Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-jakarta font-bold uppercase tracking-wider bg-white/95 backdrop-blur-md text-[#364153] shadow-xs">
-                      {product.category}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Card Content */}
@@ -220,21 +209,10 @@ export default function TefaCatalogSection({
                     <button
                       type="button"
                       onClick={() => onSelectProduct(product)}
-                      className="text-xs sm:text-sm font-jakarta font-semibold text-[#364153] hover:text-[#bc0c11] transition-colors flex items-center gap-1.5 cursor-pointer"
+                      className="text-xs sm:text-sm font-jakarta font-semibold text-[#364153] hover:text-[#bc0c11] transition-colors flex items-center gap-1 cursor-pointer group/btn"
                     >
                       <span>{t("tefa.cardDetail")}</span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
+                      <ChevronRight className="size-4 text-[#bc0c11] group-hover/btn:translate-x-0.5 transition-transform" />
                     </button>
 
                     <Link

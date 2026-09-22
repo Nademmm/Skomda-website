@@ -38,6 +38,12 @@ func InitDB(cfg Config) *gorm.DB {
 		log.Fatalf("fatal: gagal auto migrate database: %v", err)
 	}
 
+	// Mengaktifkan Row Level Security (RLS) jika menggunakan Postgres
+	if DB.Dialector.Name() == "postgres" {
+		DB.Exec("ALTER TABLE IF EXISTS public.jurusans ENABLE ROW LEVEL SECURITY;")
+		DB.Exec("ALTER TABLE IF EXISTS public.news ENABLE ROW LEVEL SECURITY;")
+	}
+
 	// Seed data jika tabel masih kosong
 	SeedJurusanIfEmpty(DB, cfg.Env)
 	SeedNewsIfEmpty(DB, cfg.Env)

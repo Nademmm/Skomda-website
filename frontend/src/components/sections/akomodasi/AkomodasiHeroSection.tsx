@@ -29,16 +29,16 @@ export default function AkomodasiHeroSection() {
                 href="/"
                 className="hover:text-[#bc0c11] transition-colors"
               >
-                {t("common.home")}
+                {t("nav.home", "Beranda")}
               </Link>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>{t("common.about")}</span>
+              <span>{t("nav.aboutUs", "Tentang Kami")}</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#9ca3af]">
                 <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="font-semibold text-[#101828]">{t("akomodasi.breadcrumb")}</span>
+              <span className="font-semibold text-[#101828]">{t("akomodasi.breadcrumb", "Akomodasi")}</span>
             </nav>
 
             {/* Main Heading */}

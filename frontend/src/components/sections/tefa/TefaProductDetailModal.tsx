@@ -54,7 +54,7 @@ export default function TefaProductDetailModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-2xl bg-white rounded-[25px] overflow-hidden shadow-2xl border-2 border-dashed border-[#d1d5dc] max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-2xl bg-white rounded-[28px] overflow-hidden shadow-2xl border border-gray-200/90 max-h-[90vh] flex flex-col"
         >
           {/* Close Button */}
           <button
@@ -79,9 +79,6 @@ export default function TefaProductDetailModal({
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
             <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
               <div>
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-jakarta font-bold uppercase tracking-wider bg-[#bc0c11] text-white shadow-sm mb-2">
-                  {product.category}
-                </span>
                 <h3 id="detail-modal-title" className="font-jakarta font-bold text-2xl sm:text-3xl text-white">
                   {product.title}
                 </h3>

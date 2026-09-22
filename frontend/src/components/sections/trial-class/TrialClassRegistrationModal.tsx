@@ -1,8 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+
+const MAJOR_OPTIONS = [
+  {
+    id: "SIJA",
+    label: "Sistem Informasi, Jaringan, dan Aplikasi (SIJA - 4 Tahun)",
+  },
+  {
+    id: "TJKT",
+    label: "Teknik Komputer & Jaringan (TJKT - 3 Tahun)",
+  },
+  {
+    id: "RPL",
+    label: "Rekayasa Perangkat Lunak (RPL)",
+  },
+];
 
 interface TrialClassRegistrationModalProps {
   isOpen: boolean;
@@ -20,20 +35,43 @@ export default function TrialClassRegistrationModal({
   const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [major, setMajor] = useState("SIJA");
+  const [isMajorDropdownOpen, setIsMajorDropdownOpen] = useState(false);
+  const majorDropdownRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [ticketCode, setTicketCode] = useState("");
+
+  const selectedMajor =
+    MAJOR_OPTIONS.find((opt) => opt.id === major) || MAJOR_OPTIONS[0];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        majorDropdownRef.current &&
+        !majorDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsMajorDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Handle ESC key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
+        if (isMajorDropdownOpen) {
+          setIsMajorDropdownOpen(false);
+          return;
+        }
         onClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, isMajorDropdownOpen]);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -69,6 +107,7 @@ export default function TrialClassRegistrationModal({
     setWhatsapp("");
     setEmail("");
     setMajor("SIJA");
+    setIsMajorDropdownOpen(false);
     setIsSuccess(false);
     onClose();
   };
@@ -93,14 +132,14 @@ export default function TrialClassRegistrationModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative w-full max-w-lg bg-white rounded-[24px] shadow-2xl p-6 sm:p-8 z-10 my-8 overflow-hidden border border-gray-100"
+            className="relative w-full max-w-lg bg-white rounded-[24px] shadow-2xl p-6 sm:p-8 z-10 my-8 border border-gray-100"
             role="dialog"
             aria-modal="true"
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-all cursor-pointer"
+              className="absolute top-6 right-6 sm:top-8 sm:right-8 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer z-20"
               aria-label="Tutup formulir"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -111,14 +150,11 @@ export default function TrialClassRegistrationModal({
             {!isSuccess ? (
               <div>
                 {/* Header */}
-                <div className="mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-[#bc0c11] text-xs font-bold tracking-wider uppercase mb-2">
-                    {t("trialClassPage.upcomingBadge", "EVENT TERDEKAT")}
-                  </div>
-                  <h3 className="font-jakarta text-2xl font-bold text-[#101828]">
+                <div className="mb-6 pr-10 sm:pr-12">
+                  <h3 className="font-jakarta text-2xl font-bold text-[#101828] leading-tight">
                     {t("trialClassPage.modalTitle", "Pendaftaran Virtual Trial Class 2026")}
                   </h3>
-                  <p className="font-jakarta text-sm text-[#4a5565] mt-1.5 leading-relaxed">
+                  <p className="font-jakarta text-sm text-[#4a5565] mt-2 leading-relaxed">
                     {t(
                       "trialClassPage.modalSubtitle",
                       "Amankan kursi virtual kamu untuk merasakan pengalaman belajar digital di SMK Telkom Sidoarjo."
@@ -188,19 +224,111 @@ export default function TrialClassRegistrationModal({
                   </div>
 
                   {/* Major Choice */}
-                  <div>
-                    <label className="block font-jakarta text-xs font-semibold text-[#364153] mb-1.5">
+                  <div className="relative" ref={majorDropdownRef}>
+                    <label
+                      id="major-dropdown-label"
+                      className="block font-jakarta text-xs font-semibold text-[#364153] mb-1.5"
+                    >
                       {t("trialClassPage.majorChoice", "Pilihan Peminatan Jurusan")}
                     </label>
-                    <select
-                      value={major}
-                      onChange={(e) => setMajor(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-jakarta text-[#101828] bg-white focus:outline-none focus:ring-2 focus:ring-[#bc0c11]/20 focus:border-[#bc0c11] transition-all"
+
+                    {/* Custom Trigger Button */}
+                    <button
+                      type="button"
+                      id="major-dropdown-btn"
+                      aria-haspopup="listbox"
+                      aria-expanded={isMajorDropdownOpen}
+                      aria-labelledby="major-dropdown-label"
+                      onClick={() => setIsMajorDropdownOpen((prev) => !prev)}
+                      className={`w-full px-4 py-2.5 rounded-xl border bg-white text-left flex items-center justify-between transition-all cursor-pointer ${
+                        isMajorDropdownOpen
+                          ? "border-[#bc0c11] ring-2 ring-[#bc0c11]/15 shadow-sm"
+                          : "border-gray-200 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#bc0c11]/20 focus:border-[#bc0c11]"
+                      }`}
                     >
-                      <option value="SIJA">Sistem Informasi, Jaringan, dan Aplikasi (SIJA - 4 Tahun)</option>
-                      <option value="TJKT">Teknik Komputer & Jaringan (TJKT - 3 Tahun)</option>
-                      <option value="RPL">Rekayasa Perangkat Lunak (RPL)</option>
-                    </select>
+                      <span className="text-[#101828] font-normal text-xs sm:text-sm truncate pr-2">
+                        {selectedMajor.label}
+                      </span>
+
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`shrink-0 text-gray-400 transition-transform duration-200 ${
+                          isMajorDropdownOpen ? "rotate-180 text-[#bc0c11]" : ""
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </button>
+
+                    {/* Custom Dropdown Menu */}
+                    <AnimatePresence>
+                      {isMajorDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -4, scale: 0.99 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -4, scale: 0.99 }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
+                          role="listbox"
+                          aria-labelledby="major-dropdown-label"
+                          className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-white rounded-xl border border-gray-200 shadow-xl py-1.5 overflow-hidden"
+                        >
+                          {MAJOR_OPTIONS.map((item) => {
+                            const isSelected = major === item.id;
+                            return (
+                              <button
+                                key={item.id}
+                                type="button"
+                                role="option"
+                                aria-selected={isSelected}
+                                onClick={() => {
+                                  setMajor(item.id);
+                                  setIsMajorDropdownOpen(false);
+                                }}
+                                className={`w-full px-4 py-2.5 sm:py-3 text-left flex items-center justify-between gap-3 transition-colors cursor-pointer group ${
+                                  isSelected
+                                    ? "bg-red-50/70 text-[#bc0c11]"
+                                    : "hover:bg-gray-50 text-[#364153]"
+                                }`}
+                              >
+                                <span
+                                  className={`text-xs sm:text-sm font-jakarta truncate ${
+                                    isSelected
+                                      ? "font-semibold text-[#bc0c11]"
+                                      : "font-normal text-[#101828] group-hover:text-[#bc0c11] transition-colors"
+                                  }`}
+                                >
+                                  {item.label}
+                                </span>
+                                {isSelected && (
+                                  <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="text-[#bc0c11] shrink-0"
+                                    aria-hidden="true"
+                                  >
+                                    <polyline points="20 6 9 17 4 12" />
+                                  </svg>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Submit Button */}

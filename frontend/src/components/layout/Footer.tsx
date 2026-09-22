@@ -13,7 +13,7 @@ export default function Footer() {
     { label: t("nav.majorProfiles"), href: "/program/profil-jurusan" },
     { label: t("nav.news"), href: "/informasi/berita" },
     { label: t("nav.trialClass"), href: "/trial-class" },
-    { label: t("nav.ppdb"), href: "#ppdb" },
+    { label: t("nav.ppdb"), href: "/ppdb" },
   ];
 
   const aplikasiSiswa = [

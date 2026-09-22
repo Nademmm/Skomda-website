@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { Globe, Network, Lightbulb, Layers, ArrowRight } from "lucide-react";
 
 interface TefaNeedSectionProps {
   onSelectCategory?: (category: string) => void;
@@ -23,80 +24,69 @@ export default function TefaNeedSection({
       id: "01",
       titleKey: "tefa.need1Title",
       descKey: "tefa.need1Desc",
-      icon: "/images/tefa/icon-web-system.png",
+      icon: <Globe className="size-7 sm:size-8 text-[#bc0c11]" />,
       action: () => onSelectCategory?.("Web & Software"),
     },
     {
       id: "02",
       titleKey: "tefa.need2Title",
       descKey: "tefa.need2Desc",
-      icon: "/images/tefa/icon-network-infra.png",
+      icon: <Network className="size-7 sm:size-8 text-[#bc0c11]" />,
       action: () => onSelectCategory?.("Network"),
     },
     {
       id: "03",
       titleKey: "tefa.need3Title",
       descKey: "tefa.need3Desc",
-      icon: "/images/tefa/icon-project-idea.png",
+      icon: <Lightbulb className="size-7 sm:size-8 text-[#bc0c11]" />,
       href: "/tefa/request",
     },
     {
       id: "04",
       titleKey: "tefa.need4Title",
       descKey: "tefa.need4Desc",
-      icon: "/images/tefa/icon-all-services.png",
+      icon: <Layers className="size-7 sm:size-8 text-[#bc0c11]" />,
       action: onViewAllServices,
     },
   ];
 
   return (
-    <section id="layanan" className="relative w-full bg-white scroll-mt-24 overflow-hidden">
+    <section id="layanan" className="relative w-full bg-white scroll-mt-24 overflow-hidden border-t border-gray-200/60">
       <div className="w-full flex flex-col lg:flex-row items-stretch">
         {/* Left Column: Eyebrow, Title & 4 Numbered Rows */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:pl-[max(1.5rem,calc((100vw-1280px)/2+2rem))] lg:pr-10 xl:pr-14 z-10">
-          {/* Eyebrow Header */}
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-[3px] bg-[#bc0c11] rounded-full" />
-            <span className="font-jakarta font-bold text-xs sm:text-sm text-[#bc0c11] tracking-wider uppercase">
-              {t("tefa.needEyebrow")}
-            </span>
-          </div>
-
-          {/* Section Title */}
-          <div className="relative mb-6 sm:mb-8 lg:mb-10">
-            <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] lg:text-[40px] leading-[44px] text-[#101828]">
+          
+          {/* Section Title with Signature Red Accent Bar */}
+          <div className="mb-8">
+            <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] lg:text-[40px] leading-tight text-[#101828] mb-3 tracking-tight">
               {t("tefa.needTitle")}
             </h2>
+            <div className="h-1 w-12 rounded-full bg-[#bc0c11] mb-3" />
+            <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed max-w-lg">
+              {t("tefa.needEyebrow")}
+            </p>
           </div>
 
-          {/* 4 Numbered Rows */}
+          {/* 4 Numbered Rows with Unboxed Icons */}
           <div className="flex flex-col">
             {needs.map((item) => (
               <div key={item.id} className="w-full">
-                {/* Clean Solid Divider */}
-                <div className="w-full h-px bg-[#e5e7eb]" />
+                {/* Clean Dashed Divider */}
+                <div className="w-full border-t border-dashed border-gray-200" />
 
                 {item.href ? (
                   <Link
                     href={item.href}
-                    className="group w-full flex items-center gap-4 sm:gap-6 py-4 sm:py-4.5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-2 sm:px-3 -mx-2 sm:-mx-3 cursor-pointer"
+                    className="group w-full flex items-center gap-4 sm:gap-5 py-4 sm:py-5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-3 sm:px-4 -mx-3 sm:-mx-4 cursor-pointer"
                   >
-                    {/* Big Number from Figma */}
-                    <span className="font-jakarta font-bold text-3xl sm:text-[38px] text-[#747878] w-10 sm:w-14 shrink-0 text-left group-hover:text-[#bc0c11] transition-colors leading-none select-none">
+                    {/* Number */}
+                    <span className="font-jakarta font-extrabold text-2xl sm:text-3xl text-gray-300 w-9 sm:w-12 shrink-0 text-left group-hover:text-[#bc0c11]/40 transition-colors leading-none select-none">
                       {item.id}
                     </span>
 
-                    {/* Icon Container: Simple consistent circle matching other sections */}
-                    <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-full bg-[#ffebed] transition-transform duration-200 group-hover:scale-105 p-3">
-                      <div className="relative size-7 sm:size-8">
-                        <Image
-                          src={item.icon}
-                          alt=""
-                          fill
-                          className="object-contain"
-                          aria-hidden="true"
-                        />
-                      </div>
+                    {/* Unboxed Icon */}
+                    <div className="shrink-0 group-hover:scale-105 transition-transform duration-200">
+                      {item.icon}
                     </div>
 
                     {/* Text Details */}
@@ -104,33 +94,27 @@ export default function TefaNeedSection({
                       <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mb-1">
                         {t(item.titleKey)}
                       </h3>
-                      <p className="font-jakarta text-xs sm:text-[13px] text-[#787878] leading-relaxed font-normal">
+                      <p className="font-jakarta text-xs sm:text-[13px] text-[#4a5565] leading-relaxed font-normal">
                         {t(item.descKey)}
                       </p>
                     </div>
+
+                    <ArrowRight className="size-4 text-gray-300 group-hover:text-[#bc0c11] group-hover:translate-x-0.5 transition-all shrink-0" />
                   </Link>
                 ) : (
                   <button
                     type="button"
                     onClick={item.action}
-                    className="group w-full flex items-center gap-4 sm:gap-6 py-4 sm:py-4.5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-2 sm:px-3 -mx-2 sm:-mx-3 cursor-pointer"
+                    className="group w-full flex items-center gap-4 sm:gap-5 py-4 sm:py-5 text-left transition-all duration-200 hover:bg-gray-50/90 rounded-2xl px-3 sm:px-4 -mx-3 sm:-mx-4 cursor-pointer"
                   >
-                    {/* Big Number from Figma */}
-                    <span className="font-jakarta font-bold text-3xl sm:text-[38px] text-[#747878] w-10 sm:w-14 shrink-0 text-left group-hover:text-[#bc0c11] transition-colors leading-none select-none">
+                    {/* Number */}
+                    <span className="font-jakarta font-extrabold text-2xl sm:text-3xl text-gray-300 w-9 sm:w-12 shrink-0 text-left group-hover:text-[#bc0c11]/40 transition-colors leading-none select-none">
                       {item.id}
                     </span>
 
-                    {/* Icon Container: Simple consistent circle matching other sections */}
-                    <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-full bg-[#ffebed] transition-transform duration-200 group-hover:scale-105 p-3">
-                      <div className="relative size-7 sm:size-8">
-                        <Image
-                          src={item.icon}
-                          alt=""
-                          fill
-                          className="object-contain"
-                          aria-hidden="true"
-                        />
-                      </div>
+                    {/* Unboxed Icon */}
+                    <div className="shrink-0 group-hover:scale-105 transition-transform duration-200">
+                      {item.icon}
                     </div>
 
                     {/* Text Details */}
@@ -138,16 +122,18 @@ export default function TefaNeedSection({
                       <h3 className="font-jakarta font-bold text-base sm:text-[17px] text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug mb-1">
                         {t(item.titleKey)}
                       </h3>
-                      <p className="font-jakarta text-xs sm:text-[13px] text-[#787878] leading-relaxed font-normal">
+                      <p className="font-jakarta text-xs sm:text-[13px] text-[#4a5565] leading-relaxed font-normal">
                         {t(item.descKey)}
                       </p>
                     </div>
+
+                    <ArrowRight className="size-4 text-gray-300 group-hover:text-[#bc0c11] group-hover:translate-x-0.5 transition-all shrink-0" />
                   </button>
                 )}
               </div>
             ))}
-            {/* Bottom Closing Divider */}
-            <div className="w-full h-px bg-[#e5e7eb]" />
+            {/* Bottom Closing Dashed Divider */}
+            <div className="w-full border-t border-dashed border-gray-200" />
           </div>
         </div>
 
@@ -171,14 +157,14 @@ export default function TefaNeedSection({
             />
           </div>
 
-          {/* Overlay Text Content (Figma Frame 184) sitting seamlessly over the dark banner area */}
+          {/* Overlay Text Content sitting seamlessly over the dark banner area */}
           <div className="relative z-10 w-full h-[32%] min-h-[140px] sm:min-h-[160px] lg:min-h-[180px] flex flex-col justify-center pl-6 sm:pl-[24%] lg:pl-[22%] xl:pl-[20%] pr-6 sm:pr-8 lg:pr-10 xl:pr-14">
             <h4 className="font-jakarta font-bold text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] text-white leading-[1.25] mb-0 max-w-[360px] sm:max-w-[440px] lg:max-w-[480px] tracking-tight">
               {t("tefa.buildingCardTitle")}
             </h4>
-            {/* Red Accent Line matching Figma Rectangle 17 */}
-            <div className="w-40 sm:w-52 lg:w-60 h-[3.5px] lg:h-[4px] bg-[#bc0c11] rounded-full my-2.5 sm:my-3 lg:my-3.5" />
-            <p className="font-jakarta text-sm sm:text-base lg:text-[15px] xl:text-[16px] text-gray-200/95 font-normal leading-relaxed max-w-[340px] sm:max-w-[420px] lg:max-w-[460px]">
+            {/* Red Accent Line */}
+            <div className="w-24 sm:w-36 h-[3.5px] bg-[#bc0c11] rounded-full my-2.5 sm:my-3" />
+            <p className="font-jakarta text-sm sm:text-base text-gray-200/95 font-normal leading-relaxed max-w-[340px] sm:max-w-[420px] lg:max-w-[460px]">
               {t("tefa.buildingCardDesc")}
             </p>
           </div>

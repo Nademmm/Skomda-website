@@ -37,7 +37,7 @@ export default function TrialClassHero({ onOpenRegister }: TrialClassHeroProps) 
               className="flex items-center gap-2 mb-4 text-sm font-jakarta text-[#4a5565] flex-wrap"
             >
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
-                {t("common.home", "Beranda")}
+                {t("nav.home", "Beranda")}
               </Link>
               <svg
                 width="14"
