@@ -982,5 +982,179 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789211342/skomda/documents/thumbnails/thumb-sertifikat-iso-21001.jpg",
     "format": "jpg",
     "bytes": 938909
+  },
+  "berita/berita-billal-spiderman-darjo.png": {
+    "public_id": "skomda/berita/berita-billal-spiderman-darjo",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063596/skomda/berita/berita-billal-spiderman-darjo.png",
+    "format": "png",
+    "bytes": 639919
+  },
+  "berita/berita-bp3mi-korea-selatan.png": {
+    "public_id": "skomda/berita/berita-bp3mi-korea-selatan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063598/skomda/berita/berita-bp3mi-korea-selatan.png",
+    "format": "png",
+    "bytes": 799830
+  },
+  "berita/berita-dtp-9-keahlian.png": {
+    "public_id": "skomda/berita/berita-dtp-9-keahlian",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063599/skomda/berita/berita-dtp-9-keahlian.png",
+    "format": "png",
+    "bytes": 653874
+  },
+  "berita/berita-guru-ai-education.png": {
+    "public_id": "skomda/berita/berita-guru-ai-education",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063600/skomda/berita/berita-guru-ai-education.png",
+    "format": "png",
+    "bytes": 549759
+  },
+  "berita/berita-hut-ri-81.png": {
+    "public_id": "skomda/berita/berita-hut-ri-81",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063601/skomda/berita/berita-hut-ri-81.png",
+    "format": "png",
+    "bytes": 972582
+  },
+  "berita/berita-hut-telkom-61.png": {
+    "public_id": "skomda/berita/berita-hut-telkom-61",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063602/skomda/berita/berita-hut-telkom-61.png",
+    "format": "png",
+    "bytes": 986071
+  },
+  "berita/berita-kunjungan-industri-guru.png": {
+    "public_id": "skomda/berita/berita-kunjungan-industri-guru",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063603/skomda/berita/berita-kunjungan-industri-guru.png",
+    "format": "png",
+    "bytes": 655357
+  },
+  "berita/berita-lks-emas-revano.png": {
+    "public_id": "skomda/berita/berita-lks-emas-revano",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063604/skomda/berita/berita-lks-emas-revano.png",
+    "format": "png",
+    "bytes": 654734
+  },
+  "berita/berita-lomba-spectra.png": {
+    "public_id": "skomda/berita/berita-lomba-spectra",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063605/skomda/berita/berita-lomba-spectra.png",
+    "format": "png",
+    "bytes": 2138421
+  },
+  "berita/berita-pra-mpls-leadership.png": {
+    "public_id": "skomda/berita/berita-pra-mpls-leadership",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063606/skomda/berita/berita-pra-mpls-leadership.png",
+    "format": "png",
+    "bytes": 827319
+  },
+  "berita/berita-seminar-kebekerjaan.png": {
+    "public_id": "skomda/berita/berita-seminar-kebekerjaan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063608/skomda/berita/berita-seminar-kebekerjaan.png",
+    "format": "png",
+    "bytes": 712774
+  },
+  "berita/berita-spmb-inden-2027.png": {
+    "public_id": "skomda/berita/berita-spmb-inden-2027",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063609/skomda/berita/berita-spmb-inden-2027.png",
+    "format": "png",
+    "bytes": 829365
+  },
+  "ppdb/alur-student.png": {
+    "public_id": "skomda/ppdb/alur-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063611/skomda/ppdb/alur-student.png",
+    "format": "png",
+    "bytes": 1906935
+  },
+  "ppdb/hero-student.png": {
+    "public_id": "skomda/ppdb/hero-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063612/skomda/ppdb/hero-student.png",
+    "format": "png",
+    "bytes": 756408
+  },
+  "program/ekstrakurikuler/ekskul-esport.png": {
+    "public_id": "skomda/program/ekstrakurikuler/ekskul-esport",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063613/skomda/program/ekstrakurikuler/ekskul-esport.png",
+    "format": "png",
+    "bytes": 989437
+  },
+  "tentang-kami/fasilitas/fasilitas-gedung-utama.jpg": {
+    "public_id": "skomda/tentang-kami/fasilitas/fasilitas-gedung-utama",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063615/skomda/tentang-kami/fasilitas/fasilitas-gedung-utama.jpg",
+    "format": "jpg",
+    "bytes": 189381
+  },
+  "tentang-kami/fasilitas/fasilitas-outdoor-class.jpg": {
+    "public_id": "skomda/tentang-kami/fasilitas/fasilitas-outdoor-class",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063616/skomda/tentang-kami/fasilitas/fasilitas-outdoor-class.jpg",
+    "format": "jpg",
+    "bytes": 212675
+  },
+  "tentang-kami/fasilitas/fasilitas-rps.jpg": {
+    "public_id": "skomda/tentang-kami/fasilitas/fasilitas-rps",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063617/skomda/tentang-kami/fasilitas/fasilitas-rps.jpg",
+    "format": "jpg",
+    "bytes": 204526
+  },
+  "tentang-kami/prestasi/prestasi-beefest-sdlc-revano.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-beefest-sdlc-revano",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063618/skomda/tentang-kami/prestasi/prestasi-beefest-sdlc-revano.png",
+    "format": "png",
+    "bytes": 583898
+  },
+  "tentang-kami/prestasi/prestasi-content-creator-sidoarjo.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-content-creator-sidoarjo",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063619/skomda/tentang-kami/prestasi/prestasi-content-creator-sidoarjo.png",
+    "format": "png",
+    "bytes": 771448
+  },
+  "tentang-kami/prestasi/prestasi-ficpact-ai-storytelling.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-ficpact-ai-storytelling",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063620/skomda/tentang-kami/prestasi/prestasi-ficpact-ai-storytelling.png",
+    "format": "png",
+    "bytes": 741422
+  },
+  "tentang-kami/prestasi/prestasi-fls2n-film-pendek.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-fls2n-film-pendek",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063622/skomda/tentang-kami/prestasi/prestasi-fls2n-film-pendek.png",
+    "format": "png",
+    "bytes": 930401
+  },
+  "tentang-kami/prestasi/prestasi-iitc-gen-ai-agung-rayya.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-iitc-gen-ai-agung-rayya",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063623/skomda/tentang-kami/prestasi/prestasi-iitc-gen-ai-agung-rayya.png",
+    "format": "png",
+    "bytes": 349421
+  },
+  "tentang-kami/prestasi/prestasi-iitc-web-design-zaina.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-iitc-web-design-zaina",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063624/skomda/tentang-kami/prestasi/prestasi-iitc-web-design-zaina.png",
+    "format": "png",
+    "bytes": 300421
+  },
+  "tentang-kami/prestasi/prestasi-kejurprov-speed-billal.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-kejurprov-speed-billal",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063625/skomda/tentang-kami/prestasi/prestasi-kejurprov-speed-billal.png",
+    "format": "png",
+    "bytes": 500386
+  },
+  "tentang-kami/prestasi/prestasi-lafest-afgan.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-lafest-afgan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063626/skomda/tentang-kami/prestasi/prestasi-lafest-afgan.png",
+    "format": "png",
+    "bytes": 517975
+  },
+  "tentang-kami/prestasi/prestasi-lks-nasional-ai-revano.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-lks-nasional-ai-revano",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063627/skomda/tentang-kami/prestasi/prestasi-lks-nasional-ai-revano.png",
+    "format": "png",
+    "bytes": 685616
+  },
+  "tentang-kami/prestasi/prestasi-pelajar-pelopor-llaj-charen.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-pelajar-pelopor-llaj-charen",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063628/skomda/tentang-kami/prestasi/prestasi-pelajar-pelopor-llaj-charen.png",
+    "format": "png",
+    "bytes": 526771
+  },
+  "tentang-kami/prestasi/prestasi-porkab-renang-nabil.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-porkab-renang-nabil",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063629/skomda/tentang-kami/prestasi/prestasi-porkab-renang-nabil.png",
+    "format": "png",
+    "bytes": 663321
   }
 }

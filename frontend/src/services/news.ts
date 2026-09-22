@@ -52,6 +52,198 @@ export function normalizeNewsItem(item: NewsItem): NewsItem {
 
 export const MOCK_NEWS: NewsItem[] = [
   {
+    id: 101,
+    title: "Penuh Dedikasi! Siswa dan Guru SMK Telkom Sidoarjo Peringati Hari Kemerdekaan RI ke-81",
+    slug: "penuh-dedikasi-siswa-dan-guru-smk-telkom-sidoarjo-peringati-hari-kemerdekaan-ri-ke-81",
+    category: "Kegiatan Sekolah",
+    day: "17",
+    month: "AGT",
+    dateFormatted: "17 Agustus 2026",
+    time: "08.00",
+    image: "/images/berita/berita-hut-ri-81.png",
+    summary:
+      "Upacara peringatan Hari Kemerdekaan Republik Indonesia ke-81 di SMK Telkom Sidoarjo berlangsung dengan khidmat dan penuh semangat nasionalisme.",
+    content:
+      "Upacara peringatan Hari Kemerdekaan Republik Indonesia ke-81 di SMK Telkom Sidoarjo berlangsung dengan khidmat dan penuh semangat nasionalisme.\n\nBertindak sebagai Inspektur Upacara, Kepala SMK Telkom Sidoarjo, Bapak Abror, S.Hum., M.Pd.\n\nTerima kasih kepada seluruh petugas upacara yang telah menjalankan tugas dengan penuh tanggung jawab dan dedikasi. Mari terus kobarkan semangat kemerdekaan dan semangat berkarya untuk Indonesia!",
+    author: "Humas SKOMDA",
+  },
+  {
+    id: 102,
+    title: "Bikin Suasana 17-an Makin Pecah, Intip Keseruan Rangkaian Lomba di Kegiatan SPECTRA!",
+    slug: "bikin-suasana-17-an-makin-pecah-intip-keseruan-rangkaian-lomba-di-kegiatan-spectra",
+    category: "Kegiatan Sekolah",
+    day: "18",
+    month: "AGT",
+    dateFormatted: "18 Agustus 2026",
+    time: "13.30",
+    image: "/images/berita/berita-lomba-spectra.png",
+    summary:
+      "17-an di SKOMDA auto seru! Bukan cuma siswa, guru, karyawan, sampai seluruh warga sekolah ikut turun langsung meramaikan lomba 17 Agustus SPECTRA.",
+    content:
+      "17-an di SKOMDA auto seru!\n\nBukan cuma siswa, kali ini guru, karyawan, sampai seluruh warga sekolah ikut turun langsung meramaikan lomba 17 Agustus dalam rangkaian SPECTRA!\n\nMulai dari ketawa bareng, adu strategi, sampai momen-momen seru yang bikin susah move on. Karena di SKOMDA, kemerdekaan paling seru kalau dirayakan bersama-sama!",
+    author: "OSIS SKOMDA",
+  },
+  {
+    id: 103,
+    title: "Sabet Medali Emas LKS Nasional 2026, Siswa SMK Telkom Sidoarjo Raih Bantuan Pendidikan dari Gubernur Khofifah",
+    slug: "sabet-medali-emas-lks-nasional-2026-siswa-smk-telkom-sidoarjo-raih-bantuan-pendidikan-dari-gubernur-khofifah",
+    category: "Prestasi",
+    day: "12",
+    month: "AGT",
+    dateFormatted: "12 Agustus 2026",
+    time: "10.00",
+    image: "/images/berita/berita-lks-emas-revano.png",
+    summary:
+      "Setelah meraih Medali Emas Artificial Intelligence di LKS Dikmen Nasional 2026, Revano Satya Pandega menerima bantuan pendidikan dari Gubernur Jawa Timur.",
+    content:
+      "Setelah meraih Medali Emas Artificial Intelligence di LKS Dikmen Nasional 2026, Revano Satya Pandega kembali menerima bantuan pendidikan dari Gubernur Jawa Timur, Ibu Khofifah Indar Parawansa sebagai bentuk apresiasi atas prestasinya.\n\nMelalui Kepala Dinas Pendidikan Provinsi Jawa Timur, Dr. Aries Agung Paewai, S.STP., M.M., penghargaan ini diharapkan menjadi penyemangat agar Revano terus belajar, berkembang, dan meraih mimpi yang lebih tinggi.\n\nHari ini Revano. Besok, bisa jadi giliran kamu!",
+    author: "Tim Redaksi SKOMDA",
+  },
+  {
+    id: 104,
+    title: "Bentuk Talenta Siap Kerja, SMK Telkom Sidoarjo Bekali Siswa Pemahaman Industri Lewat Seminar Kebekerjaan",
+    slug: "bentuk-talenta-siap-kerja-smk-telkom-sidoarjo-bekali-siswa-pemahaman-industri-lewat-seminar-kebekerjaan",
+    category: "Karya & Inovasi Siswa",
+    day: "08",
+    month: "AGT",
+    dateFormatted: "8 Agustus 2026",
+    time: "09.15",
+    image: "/images/berita/berita-seminar-kebekerjaan.png",
+    summary:
+      "From Student to Professional: Menjadi profesional bukan dimulai saat lulus, tetapi sejak masih di bangku sekolah melalui Seminar Kebekerjaan SKOMDA.",
+    content:
+      "From Student to Professional: Menjadi profesional bukan dimulai saat lulus, tetapi sejak masih di bangku sekolah.\n\nMelalui Seminar Kebekerjaan, siswa belajar memahami dunia industri secara langsung, membangun keterampilan yang dibutuhkan, serta mempersiapkan diri menghadapi karier masa depan.\n\nDi SKOMDA, kami percaya bahwa pendidikan bukan sekadar menghasilkan lulusan, tetapi membentuk talenta terbaik yang siap berkarier di dunia industri.",
+    author: "BKK SKOMDA",
+  },
+  {
+    id: 105,
+    title: "Sesuaikan Kebutuhan Industri Masa Kini, SKOMDA Sediakan 9 Pilihan Keahlian Digital Talent Program",
+    slug: "sesuaikan-kebutuhan-industri-masa-kini-skomda-sediakan-9-pilihan-keahlian-digital-talent-program",
+    category: "Artikel & Edukasi",
+    day: "04",
+    month: "AGT",
+    dateFormatted: "4 Agustus 2026",
+    time: "11.00",
+    image: "/images/berita/berita-dtp-9-keahlian.png",
+    summary:
+      "SKOMDA sediakan 9 pilihan keahlian DTP mulai dari Software Developer, Network, IoT, Cloud, AI Specialist hingga Cyber Security.",
+    content:
+      "Kalau masa depanmu ada di dunia digital, kamu mau jadi apa?\n\nDi SKOMDA, kamu bisa mulai langkahmu lewat Digital Talent Program (DTP) yang dirancang sesuai kebutuhan industri masa kini. Sembilan pilihan peminatan DTP meliputi Software Developer, Network System Administrator, Network Infrastructure Engineer, Visual Communication Designer, IoT Engineer, Cloud Engineer, AI Specialist, Digital Marketing Specialist, dan Cyber Security Specialist.\n\nDi sini siswa belajar langsung lewat project riil industri dan mengasah portofolio nyata.",
+    author: "Tim Kurikulum SKOMDA",
+  },
+  {
+    id: 106,
+    title: "Sambut Siswa Baru, SMK Telkom Sidoarjo Tuntaskan Rangkaian Pra MPLS dan Leadership 2026",
+    slug: "sambut-siswa-baru-smk-telkom-sidoarjo-tuntaskan-rangkaian-pra-mpls-dan-leadership-2026",
+    category: "Kegiatan Sekolah",
+    day: "28",
+    month: "JUL",
+    dateFormatted: "28 Juli 2026",
+    time: "14.00",
+    image: "/images/berita/berita-pra-mpls-leadership.png",
+    summary:
+      "Rangkaian Pra MPLS dan Leadership 2026 selesai dengan lancar, mempersiapkan siswa baru untuk memasuki lingkungan belajar berkarakter.",
+    content:
+      "Pra MPLS dan Leadership 2026 telah tuntas dilaksanakan dengan lancar. Seluruh rangkaian pembekalan kedisiplinan, pengenalan budaya sekolah, dan kepemimpinan dasar diikuti dengan antusiasme tinggi oleh ratusan calon peserta didik baru.\n\nDengan semangat ini, siswa baru SKOMDA siap menapaki petualangan akademik dan vokasi dengan mentalitas pembelajar mandiri dan berintegritas.",
+    author: "Kesiswaan SKOMDA",
+  },
+  {
+    id: 107,
+    title: "SPMB INDEN 2027/2028 Resmi Dibuka: Bebas Biaya Pendaftaran Khusus Batch Inden",
+    slug: "spmb-inden-2027-2028-resmi-dibuka-bebas-biaya-pendaftaran-khusus-batch-inden",
+    category: "Pengumuman",
+    day: "20",
+    month: "JUL",
+    dateFormatted: "20 Juli 2026",
+    time: "08.30",
+    image: "/images/berita/berita-spmb-inden-2027.png",
+    summary:
+      "Penerimaan peserta didik baru Batch Inden dibuka resmi dengan benefit bebas biaya pendaftaran bagi calon siswa berprestasi.",
+    content:
+      "SPMB INDEN 2027/2028 resmi dibuka! Saatnya mengambil langkah pertama menuju masa depan cerah bersama SMK Telkom Sidoarjo.\n\nNikmati benefit spesial Free Biaya Pendaftaran khusus peserta Batch Inden sebelum batas waktu pendaftaran berakhir. Informasi lengkap dan pendaftaran online dapat diakses melalui portal resmi https://s.id/SPMBSKOMDA atau hotline 08113021919.",
+    author: "Panitia SPMB SKOMDA",
+  },
+  {
+    id: 108,
+    title: "61 Tahun Mengabdi, Telkom Indonesia Terus Dorong Kemajuan Ekosistem Digital Nasional",
+    slug: "61-tahun-mengabdi-telkom-indonesia-terus-dorong-kemajuan-ekosistem-digital-nasional",
+    category: "Kemitraan & Kerja Sama",
+    day: "06",
+    month: "JUL",
+    dateFormatted: "6 Juli 2026",
+    time: "09.00",
+    image: "/images/berita/berita-hut-telkom-61.png",
+    summary:
+      "Mengusung semangat Sinergi Transformasi, PT Telkom Indonesia terus memperkuat fondasi talenta digital melalui Telkom Schools.",
+    content:
+      "Selamat Ulang Tahun ke-61 Telkom Indonesia! Selama lebih dari enam dekade, Telkom Indonesia senantiasa menjadi penggerak utama transformasi digital di seluruh pelosok Nusantara.\n\nMelalui Yayasan Pendidikan Telkom dan SMK Telkom Sidoarjo, sinergi inovasi terus diakselerasi untuk mencetak generasi muda yang kompeten dan siap mengarungi era ekonomi digital global.",
+    author: "Yayasan Pendidikan Telkom",
+  },
+  {
+    id: 109,
+    title: "Upaya Tingkatkan Kualitas Pengajar, Guru SKOMDA Dalami Implementasi AI Bersama Telkom University",
+    slug: "upaya-tingkatkan-kualitas-pengajar-guru-skomda-dalami-implementasi-ai-bersama-telkom-university",
+    category: "Kegiatan Sekolah",
+    day: "24",
+    month: "JUN",
+    dateFormatted: "24 Juni 2026",
+    time: "11.30",
+    image: "/images/berita/berita-guru-ai-education.png",
+    summary:
+      "Bapak dan Ibu guru SMK Telkom Sidoarjo mengikuti pelatihan AI for Education bersama dosen Fakultas Ilmu Terapan Telkom University.",
+    content:
+      "Dalam semangat terus berinovasi, guru-guru SMK Telkom Sidoarjo mengikuti program intensif 'AI for Education' yang dipandu langsung oleh akademisi Telkom University.\n\nPelatihan ini memfokuskan integrasi teknologi kecerdasan artifisial dalam metode pengajaran di kelas, pemanfaatan AI dalam otomatisasi penilaian, serta etika penggunaan teknologi bagi siswa.",
+    author: "Tim Kurikulum SKOMDA",
+  },
+  {
+    id: 110,
+    title: "Julukan 'Spider-Man Darjo': Billal Habibulloh Siswa SKOMDA Sabet Juara 3 Kejurprov Jatim U17",
+    slug: "julukan-spider-man-darjo-billal-habibulloh-siswa-skomda-sabet-juara-3-kejurprov-jatim-u17",
+    category: "Prestasi",
+    day: "18",
+    month: "JUN",
+    dateFormatted: "18 Juni 2026",
+    time: "15.45",
+    image: "/images/berita/berita-billal-spiderman-darjo.png",
+    summary:
+      "Prestasi membanggakan dari cabang olahraga panjat dinding diraih oleh Billal Habibulloh Arrasyid pada Kejurprov Jatim U17 Speed KONI.",
+    content:
+      "Prestasi gemilang kembali ditorehkan oleh siswa SMK Telkom Sidoarjo. Billal Habibulloh Arrasyid, siswa kelas XI TJAT 3, sukses membawa pulang medali Juara 3 pada Kejurprov Jawa Timur kategori U17 Speed yang diadakan oleh KONI Jawa Timur.\n\nJulukan 'Spider-Man Darjo' disematkan atas kelincahan dan kecepatannya memanjat dinding vertikal dalam hitungan detik.",
+    author: "Ekstrakurikuler Panjat SKOMDA",
+  },
+  {
+    id: 111,
+    title: "Gak Mau Kalah Canggih! Guru SKOMDA Sambangi PT Hummatech Hingga Nortis AI",
+    slug: "gak-mau-kalah-canggih-guru-skomda-sambangi-pt-hummatech-hingga-nortis-ai",
+    category: "Kemitraan & Kerja Sama",
+    day: "10",
+    month: "JUN",
+    dateFormatted: "10 Juni 2026",
+    time: "14.20",
+    image: "/images/berita/berita-kunjungan-industri-guru.png",
+    summary:
+      "Para guru SMK Telkom Sidoarjo melaksanakan Kunjungan Industri ke PT Hummatech, Nortis AI, dan PT Radnet Digital Indonesia.",
+    content:
+      "Di balik siswa yang kompeten, ada guru yang selalu memperbarui wawasannya. Melalui kunjungan industri ke PT Hummatech, Nortis AI, dan PT Radnet Digital Indonesia, tenaga pendidik SKOMDA berdiskusi langsung mengenai kebutuhan riil industri teknologi masa kini.\n\nLangkah ini memastikan setiap materi ajar di kelas selalu seirama dengan perkembangan teknologi terbaru.",
+    author: "Hubungan Industri SKOMDA",
+  },
+  {
+    id: 112,
+    title: "Siap Go International: Siswa SKOMDA Dikenalkan Peluang Kerja ke Korea Selatan Lewat BP3MI Jatim",
+    slug: "siap-go-international-siswa-skomda-dikenalkan-peluang-kerja-ke-korea-selatan-lewat-bp3mi-jatim",
+    category: "Kemitraan & Kerja Sama",
+    day: "02",
+    month: "JUN",
+    dateFormatted: "2 Juni 2026",
+    time: "10.30",
+    image: "/images/berita/berita-bp3mi-korea-selatan.png",
+    summary:
+      "BP3MI Jawa Timur kenalkan skema kerja Government to Government (GtoG) ke Korea Selatan untuk membuka karier global lulusan vokasi.",
+    content:
+      "SMK Telkom Sidoarjo bekerja sama dengan BP3MI Jawa Timur menyelenggarakan sosialisasi peluang karier ke Korea Selatan melalui skema resmi Government to Government (GtoG).\n\nSiswa diberikan wawasan mendalam seputar persiapan bahasa, sertifikasi kejuruan, dan etos kerja internasional agar siap berkompetisi di tingkat global.",
+    author: "BKK SKOMDA",
+  },
+  {
     id: 1,
     title: "Tidak Sekadar Ziarah: Siswa SMK Telkom Sidoarjo Hidupkan Semangat Kepahlawanan di TMP",
     slug: "tidak-sekadar-ziarah-siswa-smk-telkom-sidoarjo-hidupkan-semangat-kepahlawanan-di-tmp",

@@ -8,9 +8,9 @@ export default function VisiMisiSection() {
   const { lang, t } = useLanguage();
 
   const misiList = [
-    t("profilSekolah.misi1", "Mengembangkan sistem pembinaan peserta didik untuk membentuk lulusan yang berkarakter tangguh, berakhlak, dan berwawasan digital."),
-    t("profilSekolah.misi2", "Menyelenggarakan pendidikan dengan kurikulum Link and Match di bidang Teknologi Informasi."),
-    t("profilSekolah.misi3", "Mewujudkan lulusan yang memiliki pengetahuan dan keterampilan siap untuk Bekerja, Melanjutkan, atau Wirausaha (BMW)."),
+    t("profilSekolah.misi1", "Menyelenggarakan pendidikan menengah kejuruan yang bermutu dan secara bertahap dikembangkan untuk memenuhi standard internasional"),
+    t("profilSekolah.misi2", "Mengembangkan sistem pembinaan peserta didik untuk membentuk lulusan yang berkarakter unggul"),
+    t("profilSekolah.misi3", "Mengembangkan unit produksi yang relevan dengan program studi untuk meningkatkan skill dan kemampuan kreativitas peserta didik"),
   ];
 
   return (
@@ -51,7 +51,7 @@ export default function VisiMisiSection() {
                   {t("profilSekolah.visiHeading", "Visi Sekolah")}
                 </h3>
                 <p className="font-jakarta text-base sm:text-[17px] text-[#364153] leading-relaxed">
-                  {t("profilSekolah.visiText", "Mewujudkan Lulusan Tangguh, Berakhlak, dan Berwawasan Digital.")}
+                  {t("profilSekolah.visiText", "Mewujudkan lembaga pendidikan menengah kejuruan yang bermutu dengan standar internasional sehingga mampu menghasilkan lulusan berkarakter unggul")}
                 </p>
               </div>
             </div>
