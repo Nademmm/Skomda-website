@@ -23,6 +23,7 @@ import {
   Cable,
   Wifi,
   Radio,
+  Clock,
   LucideIcon,
 } from "lucide-react";
 
@@ -168,14 +169,13 @@ export default function MembangunKompetensiSection() {
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Top Heading */}
         <div className="flex flex-col items-center text-center mb-12">
-          {/* Top Red Accent Bar */}
-          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
             {isEn ? "Building Competencies" : "Membangun Kompetensi"}
           </h2>
           <p className="font-jakarta font-semibold text-xl sm:text-2xl text-[#101828] mt-1">
             {isEn ? "Aligned with Student Passions & Talents." : "Sesuai Minat dan Bakat Siswa."}
           </p>
+          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mt-5" />
 
           {/* Segmented Pill Tabs with Animated Sliding Pill Indicator */}
           <div className="mt-8 relative inline-flex h-[52px] w-[340px] items-center rounded-full bg-[#f3f4f6] p-1 shadow-sm border border-gray-200/60">
@@ -269,30 +269,6 @@ export default function MembangunKompetensiSection() {
                       priority
                     />
                   </div>
-
-                  {/* 4. Floating Badge Top-Right */}
-                  <div className="absolute top-8 -right-3 sm:-right-4 z-20 flex size-[52px] items-center justify-center rounded-[12px] bg-white/95 shadow-[0px_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm">
-                    <div className="relative size-[30px]">
-                      <Image
-                        src={current.badgeIcon}
-                        alt="Icon badge"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-
-                  {/* 5. Floating Badge Bottom-Left */}
-                  <div className="absolute bottom-20 -left-3 sm:-left-4 z-20 flex size-[52px] items-center justify-center rounded-[12px] bg-white/95 shadow-[0px_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm">
-                    <div className="relative size-[30px]">
-                      <Image
-                        src={current.badgeIcon}
-                        alt="Icon badge"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -309,10 +285,11 @@ export default function MembangunKompetensiSection() {
                   {isEn ? current.descriptionEn : current.descriptionId}
                 </p>
 
-                {/* Duration Tag */}
+                {/* Duration Badge */}
                 <div className="pt-2">
-                  <span className="font-jakarta font-bold text-base text-[#101828] tracking-wide">
-                    {isEn ? current.durationEn : current.durationId}
+                  <span className="inline-flex items-center gap-2 rounded-full border border-gray-200/90 bg-gray-50/80 px-3.5 py-1.5 font-jakarta text-xs sm:text-sm font-semibold text-[#101828] shadow-2xs">
+                    <Clock className="size-4 text-[#bc0c11]" strokeWidth={2} />
+                    <span>{isEn ? current.durationEn : current.durationId}</span>
                   </span>
                 </div>
               </div>
@@ -335,22 +312,22 @@ export default function MembangunKompetensiSection() {
               </h3>
             </div>
 
-            {/* Subjects Grid with Dashed Border Cards & Lucide Icons */}
+            {/* Subjects Grid with Dashed Border Cards & Minimalist Professional Icons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {current.subjects.map((sub, idx) => {
                 const IconComponent = sub.icon;
                 return (
                   <div
                     key={`${activeJurusan}-${idx}-${sub.nameId}`}
-                    className="relative min-h-[74px] rounded-[16px] bg-white p-4 flex items-center gap-3.5 border-2 border-dashed border-[#d1d5dc] transition-colors duration-200 hover:border-[#bc0c11]"
+                    className="group relative min-h-[76px] rounded-[20px] bg-white p-4 flex items-center gap-3.5 border-2 border-dashed border-[#d1d5dc] transition-all duration-200 hover:border-[#bc0c11] hover:shadow-xs"
                   >
-                    {/* Red Icon Badge */}
-                    <div className="flex size-10 items-center justify-center rounded-[10px] bg-[#bc0c11] text-white shrink-0">
-                      <IconComponent className="size-5 text-white stroke-[2.2]" />
+                    {/* Minimalist Red Icon Container */}
+                    <div className="flex size-10 items-center justify-center rounded-xl bg-[#bc0c11]/10 text-[#bc0c11] group-hover:bg-[#bc0c11] group-hover:text-white transition-all duration-200 shrink-0">
+                      <IconComponent className="size-5 transition-colors" />
                     </div>
 
                     {/* Subject Name */}
-                    <p className="font-jakarta font-semibold text-xs sm:text-[13px] text-[#101828] leading-[1.3]">
+                    <p className="font-jakarta font-semibold text-xs sm:text-sm text-[#101828] group-hover:text-[#bc0c11] transition-colors leading-snug">
                       {isEn ? sub.nameEn : sub.nameId}
                     </p>
                   </div>

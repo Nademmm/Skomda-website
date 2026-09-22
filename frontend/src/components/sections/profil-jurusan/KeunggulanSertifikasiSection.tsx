@@ -27,7 +27,7 @@ const advantages: AdvantageItem[] = [
     titleEn: "Industry-Synchronized Curriculum",
     descId: "Materi pembelajaran diselaraskan langsung dengan standar kebutuhan Telkom Group, Wowrack, Weza Group, dan puluhan mitra IT ternama.",
     descEn: "Learning syllabus aligned directly with the workforce requirements of Telkom Group, Wowrack, Weza Group, and prominent IT partners.",
-    icon: <Users2 className="size-5" />,
+    icon: <Users2 className="size-7" aria-hidden="true" />,
   },
   {
     number: "02",
@@ -35,7 +35,7 @@ const advantages: AdvantageItem[] = [
     titleEn: "National Professional Certification (BNSP)",
     descId: "Setiap siswa mengikuti uji sertifikasi keahlian berstandar Badan Nasional Sertifikasi Profesi melalui Lembaga Sertifikasi Profesi (LSP-P1).",
     descEn: "Every student undergoes competency certification assessments under the National Professional Certification Board via LSP-P1.",
-    icon: <Award className="size-5" />,
+    icon: <Award className="size-7" aria-hidden="true" />,
   },
   {
     number: "03",
@@ -43,7 +43,7 @@ const advantages: AdvantageItem[] = [
     titleEn: "Global Vendor Certifications",
     descId: "Kesempatan meraih sertifikasi bertaraf internasional seperti Cisco (CCNA), MikroTik (MTCNA), AWS Cloud Practitioner, dan Oracle Academy.",
     descEn: "Opportunity to obtain international credentials such as Cisco (CCNA), MikroTik (MTCNA), AWS Cloud Practitioner, and Oracle Academy.",
-    icon: <Globe2 className="size-5" />,
+    icon: <Globe2 className="size-7" aria-hidden="true" />,
   },
   {
     number: "04",
@@ -51,7 +51,7 @@ const advantages: AdvantageItem[] = [
     titleEn: "Teaching Factory & Industrial Internships",
     descId: "Pembelajaran berbasis proyek riil industri (Project-Based Learning) serta program Praktik Kerja Lapangan intensif di ekosistem digital Indonesia.",
     descEn: "Project-based learning on authentic industry workflows combined with intensive digital ecosystem internships.",
-    icon: <Briefcase className="size-5" />,
+    icon: <Briefcase className="size-7" aria-hidden="true" />,
   },
 ];
 
@@ -82,41 +82,41 @@ export default function KeunggulanSertifikasiSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14"
         >
-          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
             {isEn ? (
               <>
-                Curriculum Excellence &{" "}
+                Curriculum Excellence &amp;{" "}
                 <span className="text-[#bc0c11]">Industry Certifications</span>
               </>
             ) : (
               <>
-                Keunggulan Kurikulum &{" "}
+                Keunggulan Kurikulum &amp;{" "}
                 <span className="text-[#bc0c11]">Sertifikasi Industri</span>
               </>
             )}
           </h2>
-          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-3">
+          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mt-4 mb-3" />
+          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed">
             {t("profilJurusan.sertifikasiDesc")}
           </p>
         </motion.div>
 
-        {/* 4 Cards Grid without badge pills */}
+        {/* 4 Cards Grid - Consistent with Prestasi & DTP Card Aesthetic */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {advantages.map((item) => (
             <div
               key={item.number}
-              className="group relative rounded-[24px] bg-white p-7 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md"
+              className="group relative rounded-[24px] bg-white p-7 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-xl hover:-translate-y-1"
             >
               <div>
-                {/* Top Number & Icon */}
+                {/* Top Header: Unboxed Icon & Large Gray Number */}
                 <div className="flex items-center justify-between mb-5">
-                  <span className="font-jakarta font-extrabold text-2xl text-[#bc0c11]/40 group-hover:text-[#bc0c11] transition-colors">
-                    {item.number}
-                  </span>
-                  <div className="flex size-11 items-center justify-center rounded-xl bg-[#bc0c11]/10 text-[#bc0c11] group-hover:bg-[#bc0c11] group-hover:text-white transition-all duration-300 shadow-xs">
+                  <div className="text-[#bc0c11] shrink-0">
                     {item.icon}
                   </div>
+                  <span className="font-jakarta font-extrabold text-2xl sm:text-3xl text-gray-300 group-hover:text-[#bc0c11]/40 transition-colors">
+                    {item.number}
+                  </span>
                 </div>
 
                 {/* Title */}
@@ -137,10 +137,7 @@ export default function KeunggulanSertifikasiSection() {
         <div className="rounded-[24px] bg-white p-7 sm:p-9 border-2 border-dashed border-[#d1d5dc]">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-gray-100">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#bc0c11] font-jakarta">
-                {isEn ? "Student Competency Portfolio" : "Portfolio Kompetensi Siswa"}
-              </span>
-              <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mt-1">
+              <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828]">
                 {isEn ? "Certification Programs Available for Students" : "Program Sertifikasi yang Dapat Diikuti Siswa"}
               </h3>
             </div>
@@ -155,13 +152,13 @@ export default function KeunggulanSertifikasiSection() {
             {certifications.map((cert) => (
               <div
                 key={cert.name}
-                className="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#f9fafb] border border-gray-200/70 hover:border-[#bc0c11] transition-colors"
+                className="group flex items-center gap-3.5 p-3.5 rounded-[18px] bg-[#f8f9fb] border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] transition-all duration-200"
               >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#bc0c11] text-white shadow-xs">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#bc0c11]/10 text-[#bc0c11] group-hover:bg-[#bc0c11] group-hover:text-white transition-all duration-200">
                   <CheckCircle2 className="size-5" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-jakarta font-bold text-xs sm:text-sm text-[#101828]">
+                  <span className="font-jakarta font-bold text-xs sm:text-sm text-[#101828] group-hover:text-[#bc0c11] transition-colors">
                     {cert.name}
                   </span>
                   <span className="font-jakarta text-[11px] text-[#6b7280]">

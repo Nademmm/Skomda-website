@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { TALENTA_SKOMDA_ITEMS, TalentaSkomdaItem } from "@/data/bkkData";
 import { useLanguage } from "@/context/LanguageContext";
-import { ChevronRight, X, Sparkles, Send } from "lucide-react";
+import { ChevronRight, X, Send } from "lucide-react";
 
 export default function BkkTalentaSection() {
   const { language } = useLanguage();

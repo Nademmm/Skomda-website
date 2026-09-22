@@ -133,7 +133,7 @@ const getBmwData = (isEn: boolean) => [
     desc: isEn
       ? "Directly absorbable into tech industries, telecom giants, startups, and state-owned enterprises with certified portfolios."
       : "Siap langsung terserap di industri teknologi, telekomunikasi, startup unicorn, maupun instansi BUMN berbekal sertifikasi resmi dan portofolio proyek riil.",
-    icon: <Briefcase className="size-5" />,
+    icon: <Briefcase className="size-7" aria-hidden="true" strokeWidth={1.75} />,
   },
   {
     letter: "M",
@@ -142,7 +142,7 @@ const getBmwData = (isEn: boolean) => [
     desc: isEn
       ? "Strong academic preparation and merit scholarship pathways for bachelor degree studies at top universities (ITB, ITS, Telkom University, etc.)."
       : "Kesiapan akademik unggul dan peluang beasiswa prestasi untuk melanjutkan studi sarjana ke PTN dan PTS favorit (ITB, ITS, Telkom University, dll.).",
-    icon: <GraduationCap className="size-5" />,
+    icon: <GraduationCap className="size-7" aria-hidden="true" strokeWidth={1.75} />,
   },
   {
     letter: "W",
@@ -151,7 +151,7 @@ const getBmwData = (isEn: boolean) => [
     desc: isEn
       ? "Establish independent tech ventures, software agencies, fiber optic network contracting, or innovative tech startups."
       : "Mendirikan bisnis teknologi mandiri, software house, agensi digital, jasa instalasi jaringan fiber optik, atau startup inovatif.",
-    icon: <Rocket className="size-5" />,
+    icon: <Rocket className="size-7" aria-hidden="true" strokeWidth={1.75} />,
   },
 ];
 
@@ -174,21 +174,21 @@ export default function ProspekKarirSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14"
         >
-          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-[#101828]">
             {isEn ? (
               <>
-                Career Opportunities &{" "}
+                Career Opportunities &amp;{" "}
                 <span className="text-[#bc0c11]">Graduate Prospects</span>
               </>
             ) : (
               <>
-                Peluang Karir &{" "}
+                Peluang Karir &amp;{" "}
                 <span className="text-[#bc0c11]">Prospek Kerja Lulusan</span>
               </>
             )}
           </h2>
-          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-3">
+          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mt-4 mb-3" />
+          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed">
             {t("profilJurusan.prospekDesc")}
           </p>
         </motion.div>
@@ -198,15 +198,29 @@ export default function ProspekKarirSection() {
           {careerData.map((item) => (
             <div
               key={item.code}
-              className="group relative rounded-[28px] bg-white p-7 sm:p-9 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md"
+              className="group relative rounded-[24px] bg-white p-7 sm:p-9 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-xl hover:-translate-y-1"
             >
               <div>
                 {/* Header */}
                 <div className="flex flex-col gap-2 pb-6 border-b border-gray-100">
-                  <h3 className="font-jakarta font-bold text-2xl text-[#101828] leading-snug mt-1">
-                    {isEn ? "Career Prospects" : "Prospek Karir"} <span className="text-[#bc0c11]">{item.code}</span> {item.scope}
+                  <div className="flex items-center justify-between">
+                    <span className="font-jakarta font-extrabold text-2xl sm:text-3xl text-[#bc0c11] tracking-tight">
+                      {item.code}
+                    </span>
+                    <span className="rounded-full bg-[#bc0c11]/10 px-3 py-1 text-xs font-semibold text-[#bc0c11] font-jakarta">
+                      {item.code === "SIJA"
+                        ? isEn
+                          ? "Program 4 Tahun"
+                          : "Program 4 Tahun"
+                        : isEn
+                        ? "Program 3 Tahun"
+                        : "Program 3 Tahun"}
+                    </span>
+                  </div>
+                  <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] leading-snug">
+                    {isEn ? "Career Prospects" : "Prospek Karir"}
                   </h3>
-                  <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed">
+                  <p className="font-jakarta text-xs sm:text-sm text-[#4a5565] leading-relaxed">
                     {isEn ? item.summaryEn : item.summaryId}
                   </p>
                 </div>
@@ -214,7 +228,7 @@ export default function ProspekKarirSection() {
                 {/* Career Roles Checklist */}
                 <div className="flex flex-col gap-4 py-6">
                   <span className="text-xs font-bold uppercase tracking-wider text-[#101828] font-jakarta">
-                    {isEn ? "Occupations & Job Roles:" : "Profesi & Bidang Pekerjaan:"}
+                    {isEn ? "Professions & Career Roles:" : "Profesi & Bidang Pekerjaan:"}
                   </span>
                   <div className="flex flex-col gap-3.5">
                     {item.careers.map((career) => (
@@ -240,7 +254,7 @@ export default function ProspekKarirSection() {
               </div>
 
               {/* Bottom Industry Tags */}
-              <div className="pt-6 border-t border-gray-100 flex flex-col gap-2">
+              <div className="pt-6 border-t border-gray-100 flex flex-col gap-2.5">
                 <span className="font-jakarta text-xs font-semibold text-[#6b7280]">
                   {isEn ? "Placement Industry Ecosystem:" : "Ekosistem Industri Penempatan:"}
                 </span>
@@ -248,7 +262,7 @@ export default function ProspekKarirSection() {
                   {(isEn ? item.popularCompaniesEn : item.popularCompaniesId).map((comp) => (
                     <span
                       key={comp}
-                      className="rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-medium text-[#374151] font-jakarta"
+                      className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-[#374151] font-jakarta transition-colors hover:border-[#bc0c11]/30 hover:bg-[#bc0c11]/5 hover:text-[#bc0c11]"
                     >
                       {comp}
                     </span>
@@ -260,7 +274,7 @@ export default function ProspekKarirSection() {
         </div>
 
         {/* BMW (Bekerja, Melanjutkan, Wirausaha) Redesigned Section */}
-        <div className="rounded-[28px] bg-[#f9fafb] p-8 sm:p-12 border-2 border-dashed border-[#d1d5dc]">
+        <div className="rounded-[24px] bg-[#f9fafb] p-7 sm:p-10 border-2 border-dashed border-[#d1d5dc]">
           {/* Top Header */}
           <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-10">
             <h3 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828]">
@@ -286,24 +300,24 @@ export default function ProspekKarirSection() {
             {bmwData.map((bmw) => (
               <div
                 key={bmw.letter}
-                className="group relative rounded-[24px] bg-white p-7 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md"
+                className="group relative rounded-[24px] bg-white p-7 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-xl hover:-translate-y-1"
               >
                 <div>
-                  {/* Top Letter & Icon */}
+                  {/* Top: Unboxed Icon on Left & Large Subtle Letter on Right */}
                   <div className="flex items-center justify-between mb-5">
-                    <span className="font-jakarta font-extrabold text-4xl text-[#bc0c11]">
-                      {bmw.letter}
-                    </span>
-                    <div className="flex size-11 items-center justify-center rounded-xl bg-[#bc0c11]/10 text-[#bc0c11] group-hover:bg-[#bc0c11] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <div className="text-[#bc0c11] shrink-0 transition-transform duration-300 group-hover:scale-110">
                       {bmw.icon}
                     </div>
+                    <span className="font-jakarta font-extrabold text-3xl sm:text-4xl text-gray-300 group-hover:text-[#bc0c11]/40 transition-colors">
+                      {bmw.letter}
+                    </span>
                   </div>
 
                   {/* Title & Subtitle */}
-                  <h4 className="font-jakarta font-bold text-xl text-[#101828] group-hover:text-[#bc0c11] transition-colors mb-1">
+                  <h4 className="font-jakarta font-bold text-lg sm:text-xl text-[#101828] group-hover:text-[#bc0c11] transition-colors mb-1 leading-snug">
                     {bmw.title}
                   </h4>
-                  <span className="text-xs font-semibold text-[#bc0c11] font-jakarta block mb-3">
+                  <span className="font-jakarta text-xs font-semibold text-[#bc0c11] block mb-3">
                     {bmw.subtitle}
                   </span>
 
@@ -320,3 +334,4 @@ export default function ProspekKarirSection() {
     </section>
   );
 }
+

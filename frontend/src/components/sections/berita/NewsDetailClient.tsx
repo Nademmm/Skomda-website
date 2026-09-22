@@ -46,40 +46,35 @@ export default function NewsDetailClient({ news, relatedNews }: NewsDetailClient
 
         {/* Article Header */}
         <header className="mb-8 sm:mb-10">
-          {/* Category & Date Badges */}
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="bg-[rgba(188,12,17,0.1)] text-[#bc0c11] font-jakarta font-semibold text-xs sm:text-sm px-3.5 py-1 rounded-full border border-[rgba(188,12,17,0.2)]">
-              {news.category}
+          {/* Date Badge / Meta */}
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-[#6a7282] mb-4">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 13 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-[#6a7282]"
+            >
+              <circle
+                cx="6.375"
+                cy="6.375"
+                r="5.625"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M5.75 3.875V7H8.875"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span>
+              {news.dateFormatted || (isEn ? "Latest" : "Terbaru")}{" "}
+              {news.time ? `• ${news.time} WIB` : ""}
             </span>
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-[#6a7282]">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 13 13"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="stroke-[#6a7282]"
-              >
-                <circle
-                  cx="6.375"
-                  cy="6.375"
-                  r="5.625"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M5.75 3.875V7H8.875"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>
-                {news.dateFormatted || (isEn ? "Latest" : "Terbaru")}{" "}
-                {news.time ? `• ${news.time} WIB` : ""}
-              </span>
-            </div>
           </div>
 
           {/* Title */}

@@ -107,7 +107,6 @@ export default function Ts21EnablerSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
             {isEn ? (
               <>
@@ -121,7 +120,8 @@ export default function Ts21EnablerSection() {
               </>
             )}
           </h2>
-          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-4">
+          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mt-5 mb-2" />
+          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-2">
             {isEn
               ? "An integrated digital ecosystem and educator skill acceleration underpinning the success of the TS.21 Program."
               : "Ekosistem teknologi digital terintegrasi serta akselerasi kompetensi guru yang menjadi pilar penopang keberhasilan implementasi Program TS.21."}

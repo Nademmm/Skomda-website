@@ -91,7 +91,6 @@ export default function Ts21FrameworkSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mb-5" />
           <h2 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-[#101828]">
             {isEn ? (
               <>
@@ -105,7 +104,8 @@ export default function Ts21FrameworkSection() {
               </>
             )}
           </h2>
-          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-4">
+          <div className="h-[3px] w-12 rounded-full bg-[#bc0c11] mt-5 mb-2" />
+          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed mt-2">
             {isEn
               ? "Implementing TS.21 Independent Curriculum with balanced weighting between Attitude/Character and Knowledge/Skills for holistic student development."
               : "Mengimplementasikan Kurikulum Merdeka TS.21 dengan alokasi bobot proporsional antara Attitude / Character dan Knowledge / Skill untuk memastikan perkembangan holistik pada setiap siswa."}

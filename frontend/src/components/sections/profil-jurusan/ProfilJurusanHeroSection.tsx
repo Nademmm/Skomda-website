@@ -62,13 +62,11 @@ export default function ProfilJurusanHeroSection() {
             <button
               type="button"
               onClick={scrollToKompetensi}
-              className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer"
-              style={{
-                boxShadow:
-                  "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
-              }}
+              className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer shadow-card-cta"
             >
-              <span className="font-jakarta font-medium">{t("profilJurusan.heroCta")}</span>
+              <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
+                {t("profilJurusan.heroCta", "Pelajari Jurusan")}
+              </span>
               <svg
                 width="18"
                 height="18"

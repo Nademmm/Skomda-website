@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, Download, ExternalLink, X, FileText } from "lucide-react";
+import { Download, ExternalLink, X, FileText } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface PpdbBrochureModalProps {

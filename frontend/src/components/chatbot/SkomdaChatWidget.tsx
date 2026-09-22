@@ -501,10 +501,10 @@ export default function SkomdaChatWidget() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="chatbot-heading"
-          className="flex flex-col w-full h-[100dvh] sm:w-[440px] sm:h-[600px] sm:max-h-[88vh] rounded-none sm:rounded-2xl bg-white border-0 sm:border border-slate-200/90 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+          className="relative flex flex-col w-full h-[100dvh] sm:w-[440px] sm:h-[600px] sm:max-h-[88vh] rounded-none sm:rounded-2xl bg-white border-0 sm:border border-slate-200/90 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
         >
           {/* Header Panel */}
-          <header className="relative flex items-center justify-between px-4 py-3.5 bg-[#bc0c11] text-white select-none shrink-0 pt-[max(0.875rem,env(safe-area-inset-top))]">
+          <header className="relative flex items-center justify-between px-4 py-3.5 bg-[#bc0c11] text-white select-none shrink-0 pt-[max(0.875rem,env(safe-area-inset-top))] rounded-t-none sm:rounded-t-2xl">
             <div className="flex items-center gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/15 backdrop-blur-xs border border-white/20">
                 <School className="size-5 text-white" />
@@ -544,7 +544,7 @@ export default function SkomdaChatWidget() {
           {/* Confirmation Warning Modal before Resetting Chat */}
           {showResetConfirm && (
             <div
-              className="absolute inset-0 bg-slate-900/50 backdrop-blur-xs z-30 flex items-center justify-center p-4 animate-in fade-in duration-150"
+              className="absolute inset-0 bg-black/60 backdrop-blur-xs z-30 flex items-center justify-center p-4 animate-in fade-in duration-150 rounded-none sm:rounded-2xl"
               onClick={() => setShowResetConfirm(false)}
             >
               <div
@@ -740,7 +740,7 @@ export default function SkomdaChatWidget() {
           )}
 
           {/* Input Form Section */}
-          <footer className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-white border-t border-slate-200 shrink-0">
+          <footer className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-white border-t border-slate-200 shrink-0 rounded-b-none sm:rounded-b-2xl">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
