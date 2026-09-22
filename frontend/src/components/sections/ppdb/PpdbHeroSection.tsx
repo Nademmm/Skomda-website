@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, Eye } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface PpdbHeroSectionProps {
@@ -53,19 +53,23 @@ export default function PpdbHeroSection({ onOpenBrochure }: PpdbHeroSectionProps
                 href="https://ppdb.telkomschools.sch.id/signup?lemdik=4"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-[#bc0c11] px-7 py-3.5 min-h-[48px] font-jakarta font-bold text-sm sm:text-base text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-md shadow-[#bc0c11]/25 cursor-pointer"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 sm:px-8 py-3.5 sm:py-4 min-h-[48px] font-jakarta font-semibold text-[15px] sm:text-base text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer shadow-card-cta"
+                style={{
+                  boxShadow:
+                    "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
+                }}
               >
                 <span>{isEn ? "Register Now" : "Daftar Sekarang"}</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
               </a>
 
               <button
                 type="button"
                 onClick={onOpenBrochure}
-                className="group inline-flex items-center gap-2.5 rounded-full border-2 border-[#444748] bg-transparent hover:bg-white/80 px-6 py-3.5 min-h-[48px] font-jakarta font-bold text-sm sm:text-base text-[#444748] transition-all duration-300 hover:border-[#bc0c11] hover:text-[#bc0c11] active:scale-[0.98] cursor-pointer"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-gray-300 bg-white hover:bg-gray-50 hover:border-[#bc0c11] hover:text-[#bc0c11] px-7 sm:px-8 py-3.5 sm:py-4 min-h-[48px] font-jakarta font-semibold text-[15px] sm:text-base text-[#364153] transition-all duration-300 active:scale-[0.98] cursor-pointer shadow-xs"
               >
-                <FileText className="w-4 h-4 text-current transition-transform duration-300 group-hover:scale-110" />
-                <span>{isEn ? "View Guide" : "Lihat Panduan"}</span>
+                <Eye className="w-4 h-4 text-current transition-transform duration-300 group-hover:scale-110 shrink-0" />
+                <span>{isEn ? "View Brochure" : "Lihat Brosur"}</span>
               </button>
             </div>
           </motion.div>

@@ -9,7 +9,7 @@ export interface PrestasiItem {
   year: string;
   studentName: string;
   studentClass: string;
-  image: string;
+  image?: string;
   description: string;
 }
 

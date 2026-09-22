@@ -5,8 +5,14 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { MOCK_NEWS } from "@/services/news";
+import { MOCK_NEWS, NewsItem, getNewsList } from "@/services/news";
 import { DOWNLOAD_DOCUMENTS } from "@/components/sections/unduh/UnduhInformasiClient";
+import { PRESTASI_LIST } from "@/data/prestasiData";
+import { FASILITAS_LIST } from "@/data/fasilitasData";
+import { K3_DOCUMENTS } from "@/data/k3Documents";
+import { EKSKUL_LIST } from "@/data/ekstrakurikulerData";
+import { PELUANG_KARIER_ITEMS } from "@/data/bkkData";
+import { kepalaSekolah, wakilKepalaList } from "@/data/teachers";
 
 /* ──────────────────────── Types ──────────────────────── */
 export interface SearchItem {
@@ -14,7 +20,7 @@ export interface SearchItem {
   title: string;
   description: string;
   href: string;
-  category: "Jurusan" | "Halaman" | "Section" | "Berita" | "Dokumen" | "Info";
+  category: "Jurusan" | "Halaman" | "Prestasi" | "Fasilitas" | "Ekskul" | "Karier" | "Dokumen" | "Berita" | "Section" | "Info";
   badge?: string;
   parentPage?: string;
   iconType: "major" | "page" | "section" | "news" | "doc" | "info" | "star" | "hub" | "facility";
@@ -26,25 +32,29 @@ interface NavbarSearchProps {
   onClose: () => void;
 }
 
-/* ──────────────────── Database ──────────────────── */
+/* ──────────────────── Static Database ──────────────────── */
 const STATIC_PAGES: SearchItem[] = [
   { id: "p-home", title: "Beranda", description: "Halaman utama SMK Telkom Sidoarjo", href: "/", category: "Halaman", iconType: "page" },
+  { id: "p-ppdb", title: "PPDB 2026/2027 (Penerimaan Siswa Baru)", description: "Alur pendaftaran online, seleksi, beasiswa, dan syarat masuk", href: "/ppdb", category: "Halaman", iconType: "doc", keywords: "daftar masuk pendaftaran sekolah biaya beasiswa ppdb formulir siswa baru" },
+  { id: "p-trial", title: "Virtual Trial Class 2026", description: "Simulasi kelas praktis gratis SIJA & TJAT bersertifikat resmi", href: "/trial-class", category: "Halaman", iconType: "major", keywords: "trial class workshop gratis kursus demo kelas virtual coding robotika" },
   { id: "p-profil", title: "Profil Sekolah", description: "Sejarah, visi misi, dan identitas SKOMDA", href: "/tentang-kami/profil-sekolah", category: "Halaman", iconType: "page" },
   { id: "p-hub", title: "Hub Industri", description: "Kerjasama dan jejaring mitra industri nasional", href: "/tentang-kami/hub-industri", category: "Halaman", iconType: "hub" },
-  { id: "p-prestasi", title: "Prestasi Siswa & Sekolah", description: "Pencapaian kejuaraan tingkat regional & nasional", href: "/tentang-kami/prestasi", category: "Halaman", iconType: "star" },
-  { id: "p-fasilitas", title: "Fasilitas & Lab", description: "Laboratorium komputer, IoT, fiber optic & sarana modern", href: "/tentang-kami/fasilitas", category: "Halaman", iconType: "facility" },
+  { id: "p-prestasi", title: "Prestasi Siswa & Sekolah", description: "Koleksi kejuaraan LKS AI, Web Design, SDLC & kompetisi nasional", href: "/tentang-kami/prestasi", category: "Halaman", iconType: "star", keywords: "prestasi juara kejuaraan lomba pemenang award lks amikom binus" },
+  { id: "p-fasilitas", title: "Fasilitas & Lab", description: "Laboratorium AI, IoT, fiber optic & sarana belajar modern", href: "/tentang-kami/fasilitas", category: "Halaman", iconType: "facility", keywords: "fasilitas lab sarana kelas rps gedung aula sarpras" },
   { id: "p-guru", title: "Profil Guru & Pendidik", description: "Tenaga pendidik & instruktur bersertifikasi industri", href: "/tentang-kami/profil-guru", category: "Halaman", iconType: "page" },
-  { id: "p-akomodasi", title: "Akomodasi & Asrama", description: "Asrama siswa dan lingkungan pendukung belajar", href: "/tentang-kami/akomodasi", category: "Halaman", iconType: "page" },
+  { id: "p-akomodasi", title: "Akomodasi & Kos Siswa", description: "Rekomendasi kos, asrama, dan panduan biaya hidup Sidoarjo", href: "/tentang-kami/akomodasi", category: "Halaman", iconType: "page" },
   { id: "p-jurusan", title: "Profil Jurusan", description: "Program keahlian unggulan SIJA & TJAT berstandar industri", href: "/program/profil-jurusan", category: "Halaman", iconType: "major" },
-  { id: "p-ekskul", title: "Ekstrakurikuler", description: "Wadah pengembangan minat, bakat, kepemimpinan siswa", href: "/program/ekstrakurikuler", category: "Halaman", iconType: "page" },
+  { id: "p-ekskul", title: "Ekstrakurikuler", description: "Wadah pengembangan minat, bakat, kepemimpinan & olahraga siswa", href: "/program/ekstrakurikuler", category: "Halaman", iconType: "page", keywords: "ekskul ekstrakurikuler futsal basket esport paskibra pramuka musik" },
   { id: "p-dtp", title: "Digital Talent Program (DTP)", description: "Akselerasi keahlian teknologi khusus dan startup digital", href: "/program/digital-talent", category: "Halaman", iconType: "star" },
   { id: "p-ts21", title: "Program TS21", description: "Telkom Schools 21st Century Learning Framework", href: "/program/ts21", category: "Halaman", iconType: "page" },
-  { id: "p-bkk", title: "BKK (Bursa Kerja Khusus)", description: "Peluang karier, lowongan kerja, magang & talenta alumni", href: "/program/bkk", category: "Halaman", iconType: "star", keywords: "bkk bursa kerja khusus lowongan karier magang internship alumni rekrutmen kerja" },
+  { id: "p-bkk", title: "BKK (Bursa Kerja Khusus)", description: "Peluang karier, lowongan kerja, magang & talenta alumni", href: "/program/bkk", category: "Halaman", iconType: "star", keywords: "bkk bursa kerja khusus lowongan karier magang internship alumni rekrutmen kerja loker" },
   { id: "p-berita", title: "Berita & Agenda", description: "Kabar terbaru, prestasi dan kegiatan civitas akademika", href: "/informasi/berita", category: "Halaman", iconType: "news" },
   { id: "p-kelulusan", title: "Pengumuman Kelulusan", description: "Informasi resmi status kelulusan peserta didik", href: "/informasi/pengumuman-kelulusan", category: "Halaman", iconType: "doc" },
-  { id: "p-k3", title: "Penerapan K3", description: "Keselamatan & Kesehatan Kerja di lingkungan sekolah", href: "/informasi/penerapan-k3", category: "Halaman", iconType: "info" },
+  { id: "p-k3", title: "Penerapan K3", description: "Keselamatan & Kesehatan Kerja serta 35 dokumen SOP resmi sekolah", href: "/informasi/penerapan-k3", category: "Halaman", iconType: "info", keywords: "k3 keselamatan kerja sop pedoman dokumen regulasi hiradc" },
   { id: "p-tefa", title: "Teaching Factory (TeFa)", description: "Konsep pembelajaran berbasis produksi nyata & kolaborasi industri", href: "/tefa", category: "Halaman", iconType: "page", keywords: "tefa teaching factory produk jasa karya siswa industri kolaborasi produksi" },
-  { id: "p-unduh", title: "Unduh Informasi & Dokumen", description: "Download brosur PPDB, sertifikat, dan file resmi", href: "/unduh-informasi", category: "Halaman", iconType: "doc" },
+  { id: "p-tefa-produk", title: "Katalog Produk & Jasa TeFa", description: "Layanan pembuatan web, software, instalasi fiber optic, dan IoT", href: "/tefa/produk", category: "Halaman", iconType: "hub", keywords: "produk jasa order tefa software website cctv jaringan iot" },
+  { id: "p-tefa-request", title: "Layanan Order & Konsultasi TeFa", description: "Formulir permohonan kerjasama proyek industri dan pemesanan jasa", href: "/tefa/request", category: "Halaman", iconType: "hub", keywords: "order request pesanan proyek kerjasama jasa tefa" },
+  { id: "p-unduh", title: "Unduh Informasi & Dokumen", description: "Download brosur PPDB, sertifikat akreditasi, dan regulasi resmi", href: "/unduh-informasi", category: "Halaman", iconType: "doc" },
 ];
 
 const JURUSAN_ITEMS: SearchItem[] = [
@@ -56,7 +66,7 @@ const JURUSAN_ITEMS: SearchItem[] = [
     category: "Jurusan",
     badge: "Program 4 Tahun",
     iconType: "major",
-    keywords: "sija software web fullstack cloud aws iot coding 4 tahun",
+    keywords: "sija software web fullstack cloud aws iot coding pemrograman 4 tahun",
   },
   {
     id: "j-tjat",
@@ -72,7 +82,7 @@ const JURUSAN_ITEMS: SearchItem[] = [
 
 /* ─── Page Section Headings & Subsections ─── */
 const PAGE_SECTIONS: SearchItem[] = [
-  // ── Beranda ──
+  // Beranda
   {
     id: "sec-sambutan",
     title: "Sambutan Kepala Sekolah",
@@ -124,7 +134,29 @@ const PAGE_SECTIONS: SearchItem[] = [
     keywords: "berita informasi kabar terkini agenda artikel pengumuman latest news",
   },
 
-  // ── Profil Sekolah ──
+  // PPDB
+  {
+    id: "sec-alur-ppdb",
+    title: "Alur Pendaftaran PPDB 2026/2027",
+    description: "4 langkah mudah: Pendaftaran Online, Seleksi TKD & Wawancara, Daftar Ulang, Penerimaan",
+    href: "/ppdb#alur-pendaftaran",
+    category: "Section",
+    parentPage: "PPDB",
+    iconType: "section",
+    keywords: "alur pendaftaran tahapan registrasi tes seleksi wawancara langkah ppdb",
+  },
+  {
+    id: "sec-jalur-ppdb",
+    title: "Jalur Pendaftaran & Beasiswa PPDB",
+    description: "Jalur Prestasi Akademik/Non-Akademik, Jalur Rapor, dan Jalur Reguler",
+    href: "/ppdb#jalur-masuk",
+    category: "Section",
+    parentPage: "PPDB",
+    iconType: "section",
+    keywords: "jalur masuk beasiswa prestasi beasiswa telkom potongan biaya rapor reguler",
+  },
+
+  // Profil Sekolah
   {
     id: "sec-visi-misi",
     title: "Visi & Misi Sekolah",
@@ -156,7 +188,7 @@ const PAGE_SECTIONS: SearchItem[] = [
     keywords: "struktur organisasi manajemen pimpinan susunan pengurus waka kaprodi kepsek bagan dewan guru",
   },
 
-  // ── Hub Industri ──
+  // Hub Industri
   {
     id: "sec-mitra-industri",
     title: "Daftar Mitra Industri & Kerjasama",
@@ -177,28 +209,8 @@ const PAGE_SECTIONS: SearchItem[] = [
     iconType: "section",
     keywords: "skema bentuk program kerjasama guru tamu magang tefa teaching factory kurikulum industri sinkronisasi",
   },
-  {
-    id: "sec-alur-kerjasama",
-    title: "Alur Prosedur Kerjasama Industri",
-    description: "Tahapan pengajuan kemitraan, penjajakan MoU, implementasi hingga evaluasi program",
-    href: "/tentang-kami/hub-industri#alur-kerjasama",
-    category: "Section",
-    parentPage: "Hub Industri",
-    iconType: "section",
-    keywords: "alur prosedur langkah proses pendaftaran kerjasama pengajuan mou dudi kemitraan mou signing",
-  },
-  {
-    id: "sec-kontak-kerjasama",
-    title: "Hubungi Hub Industri & Kemitraan",
-    description: "Kanal penghubung resmi konsultasi kemitraan dan tim Hubungan Industri (Hubin)",
-    href: "/tentang-kami/hub-industri#kontak-kerjasama",
-    category: "Section",
-    parentPage: "Hub Industri",
-    iconType: "section",
-    keywords: "kontak hubin kemitraan call center bkk bursa kerja khusus form pengajuan konsultasi email",
-  },
 
-  // ── Akomodasi ──
+  // Akomodasi
   {
     id: "sec-rekomendasi-kos",
     title: "Rekomendasi Kos & Tempat Tinggal",
@@ -219,106 +231,75 @@ const PAGE_SECTIONS: SearchItem[] = [
     iconType: "section",
     keywords: "biaya hidup pengeluaran estimasi makan kos transport laundry uang saku bulanan tarif living cost",
   },
+
+  // BKK
   {
-    id: "sec-lingkungan-fasilitas",
-    title: "Fasilitas Sekitar & Kemudahan Akses",
-    description: "Akses fasilitas umum, halte transportasi, minimarket, ATM, dan pusat kesehatan",
-    href: "/tentang-kami/akomodasi#lingkungan-fasilitas",
+    id: "sec-bkk-peluang",
+    title: "Peluang Karier & Rekrutmen BKK",
+    description: "Lowongan kerja eksklusif mitra industri bagi lulusan dan siswa magang SKOMDA",
+    href: "/program/bkk#peluang-karier",
     category: "Section",
-    parentPage: "Akomodasi",
+    parentPage: "BKK",
     iconType: "section",
-    keywords: "lingkungan fasilitas sekitar transportasi angkutan akses atm puskesmas jalan halte warung",
-  },
-  {
-    id: "sec-tips-akomodasi",
-    title: "Tips Memilih Kos & Helpdesk",
-    description: "Panduan praktis mencari kos yang aman, nyaman, dan layanan konsultasi akomodasi",
-    href: "/tentang-kami/akomodasi#tips-faq",
-    category: "Section",
-    parentPage: "Akomodasi",
-    iconType: "section",
-    keywords: "tips faq bantuan konsultasi survei memilih kos aman panduan orang tua helpdesk survey",
+    keywords: "loker bkk lowongan rekrutmen kerja magang bursa kerja",
   },
 
-  // ── Profil Jurusan ──
+  // K3
   {
-    id: "sec-kompetensi-sija",
-    title: "Kompetensi Keahlian SIJA (4 Tahun)",
-    description: "Fokus keahlian Software Development, Cloud AWS, Cyber Security, dan IoT Terapan",
-    href: "/program/profil-jurusan?jurusan=SIJA#kompetensi",
+    id: "sec-k3-dokumen",
+    title: "Dokumen & SOP Keselamatan Kerja (K3)",
+    description: "Pusat unduhan dan pratinjau 35 dokumen resmi panduan, HIRADC, dan regulasi K3",
+    href: "/informasi/penerapan-k3#k3-dokumen-section",
     category: "Section",
-    parentPage: "Profil Jurusan",
+    parentPage: "Penerapan K3",
     iconType: "section",
-    keywords: "kompetensi sija kurikulum software web fullstack cloud aws iot keamanan siber 4 tahun",
+    keywords: "k3 dokumen sop regulasi panduan keselamatan kerja unduh pdf",
   },
-  {
-    id: "sec-kompetensi-tjat",
-    title: "Kompetensi Keahlian TJAT (3 Tahun)",
-    description: "Fokus keahlian Fiber Optic FTTH, Jaringan Nirkabel Microwave, Transmisi 4G/5G, dan VSAT",
-    href: "/program/profil-jurusan?jurusan=TJAT#kompetensi",
-    category: "Section",
-    parentPage: "Profil Jurusan",
-    iconType: "section",
-    keywords: "kompetensi tjat kurikulum fiber optic ftth wireless bts seluler jaringan akses mikrotik",
-  },
-  {
-    id: "sec-sertifikasi-industri",
-    title: "Sertifikasi Industri SIJA & TJAT",
-    description: "Uji kompetensi global: Cisco CCNA, AWS Academy, Oracle Java, MikroTik MTCNA & BNSP",
-    href: "/program/profil-jurusan#keunggulan-sertifikasi",
-    category: "Section",
-    parentPage: "Profil Jurusan",
-    iconType: "section",
-    keywords: "sertifikasi cisco ccna aws cloud oracle mikrotik mtcna bnsp uji kompetensi keunggulan lisensi",
-  },
-  {
-    id: "sec-prospek-karir",
-    title: "Prospek Karir & Profesi Lulusan",
-    description: "Peluang kerja: Cloud Engineer, Network Specialist, Fiber Optic Tech, Full-Stack Dev",
-    href: "/program/profil-jurusan#prospek-karir",
-    category: "Section",
-    parentPage: "Profil Jurusan",
-    iconType: "section",
-    keywords: "prospek karir pekerjaan profesi gaji lulusan kerja bumn startup industri dudi peluang career",
-  },
+];
 
-  // ── Program TS21 ──
-  {
-    id: "sec-ts21-framework",
-    title: "Framework Pembelajaran TS21",
-    description: "Model pembelajaran abad 21 Telkom Schools: Character, Competence & Collaboration",
-    href: "/program/ts21#framework",
-    category: "Section",
-    parentPage: "Program TS21",
-    iconType: "section",
-    keywords: "framework ts21 telkom schools kurikulum abad 21 karakter kompetensi kolaborasi 4c",
-  },
-  {
-    id: "sec-ts21-metode",
-    title: "Metode Pembelajaran TS21",
-    description: "Project-Based Learning, Teaching Factory (TeFa), Magang Industri Bersertifikat & Dual System",
-    href: "/program/ts21#metode",
-    category: "Section",
-    parentPage: "Program TS21",
-    iconType: "section",
-    keywords: "metode pembelajaran project based learning pjbl teaching factory tefa dual system magang",
-  },
-  {
-    id: "sec-ts21-enabler",
-    title: "Digital Enabler TS21",
-    description: "Infrastruktur digital, smart classroom, Cloud LMS & ekosistem teknologi pendidikan",
-    href: "/program/ts21#enabler",
-    category: "Section",
-    parentPage: "Program TS21",
-    iconType: "section",
-    keywords: "digital enabler lms smart class teknologi ekosistem edutech google workspace laboratorium",
-  },
+const POPULAR_TAGS = [
+  "PPDB 2026",
+  "Trial Class",
+  "SIJA",
+  "TJAT",
+  "Prestasi",
+  "LKS AI",
+  "Fasilitas",
+  "Lab AI",
+  "Lowongan BKK",
+  "Dokumen K3",
+  "Mitra Industri",
+  "Ekstrakurikuler",
 ];
 
 const QUICK_FEATURED_ITEMS: SearchItem[] = [
   {
+    id: "q-ppdb",
+    title: "PPDB 2026/2027 (Penerimaan Siswa Baru)",
+    description: "Alur 4 tahap pendaftaran, seleksi, beasiswa, dan syarat masuk",
+    href: "/ppdb",
+    category: "Halaman",
+    iconType: "doc",
+  },
+  {
+    id: "q-trial",
+    title: "Virtual Trial Class 2026",
+    description: "Simulasi kelas praktis gratis SIJA & TJAT bersertifikat resmi",
+    href: "/trial-class",
+    category: "Halaman",
+    iconType: "major",
+  },
+  {
+    id: "q-prestasi",
+    title: "Prestasi Unggulan Siswa SKOMDA",
+    description: "Koleksi kejuaraan LKS AI, Web Design, SDLC & inovasi digital",
+    href: "/tentang-kami/prestasi",
+    category: "Halaman",
+    iconType: "star",
+  },
+  {
     id: "q-sija",
-    title: "Jurusan SIJA (4 Tahun)",
+    title: "Jurusan SIJA (Program 4 Tahun)",
     description: "Software engineering, cloud architecture, cybersecurity & IoT",
     href: "/program/profil-jurusan?jurusan=SIJA#kompetensi",
     category: "Jurusan",
@@ -326,60 +307,28 @@ const QUICK_FEATURED_ITEMS: SearchItem[] = [
   },
   {
     id: "q-tjat",
-    title: "Jurusan TJAT (3 Tahun)",
-    description: "Teknik jaringan fiber optic, wireless communication & seluler",
+    title: "Jurusan TJAT (Program 3 Tahun)",
+    description: "Teknik jaringan fiber optic, wireless microwave & seluler 5G",
     href: "/program/profil-jurusan?jurusan=TJAT#kompetensi",
     category: "Jurusan",
     iconType: "major",
   },
   {
-    id: "q-ppdb",
-    title: "Brosur & Info PPDB 2026/2027",
-    description: "Alur pendaftaran peserta didik baru, rincian biaya & beasiswa",
-    href: "/unduh-informasi",
-    category: "Info",
-    iconType: "doc",
+    id: "q-fasilitas",
+    title: "Fasilitas & Laboratorium Standar Industri",
+    description: "Lab AI & IoT, Fiber Optic FTTH, Smart Classroom, dan Gedung RPS",
+    href: "/tentang-kami/fasilitas",
+    category: "Halaman",
+    iconType: "facility",
   },
   {
-    id: "q-visi-misi",
-    title: "Visi & Misi Sekolah",
-    description: "Visi keunggulan vokasi dan 6 misi pembinaan karakter serta lulusan BMW",
-    href: "/tentang-kami/profil-sekolah#visi-misi",
-    category: "Section",
-    parentPage: "Profil Sekolah",
-    iconType: "section",
+    id: "q-bkk",
+    title: "BKK & Lowongan Kerja Industri",
+    description: "Loker Telkom, Indosat, Wowrack, dan jejaring magang kerja",
+    href: "/program/bkk",
+    category: "Halaman",
+    iconType: "star",
   },
-  {
-    id: "q-mitra",
-    title: "Hub Industri & Kerjasama Perusahaan",
-    description: "Kemitraan Telkom Group, Jagoan Hosting, Wowrack & magang industri",
-    href: "/tentang-kami/hub-industri#mitra-industri",
-    category: "Section",
-    parentPage: "Hub Industri",
-    iconType: "hub",
-  },
-  {
-    id: "q-biaya-hidup",
-    title: "Estimasi Biaya Hidup Sidoarjo",
-    description: "Perkiraan biaya makan, sewa kos, transport, dan kebutuhan siswa",
-    href: "/tentang-kami/akomodasi#biaya-hidup",
-    category: "Section",
-    parentPage: "Akomodasi",
-    iconType: "section",
-  },
-];
-
-const POPULAR_TAGS = [
-  "SIJA",
-  "TJAT",
-  "Visi Misi",
-  "Sambutan Kepsek",
-  "Mitra Industri",
-  "Biaya Hidup",
-  "Sertifikasi",
-  "PPDB 2026",
-  "Brosur",
-  "Fasilitas",
 ];
 
 /* ──────────────────── Clean Minimalist Icons ──────────────────── */
@@ -474,13 +423,89 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
 
+  const [liveNews, setLiveNews] = useState<NewsItem[]>(MOCK_NEWS);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Combine full dataset
+  // Fetch live news from backend when search modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      getNewsList()
+        .then((items) => {
+          if (items && items.length > 0) {
+            setLiveNews(items);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isOpen]);
+
+  // Combine full dataset across all school domains
   const dataset = useMemo<SearchItem[]>(() => {
-    const newsItems: SearchItem[] = MOCK_NEWS.map((n) => ({
+    // 1. Prestasi Siswa
+    const prestasiItems: SearchItem[] = PRESTASI_LIST.map((p): SearchItem => ({
+      id: `prestasi-${p.id}`,
+      title: `${p.award}: ${p.title}`,
+      description: `${p.competition} (${p.organizer}) • Siswa: ${p.studentName} (${p.studentClass})`,
+      href: `/tentang-kami/prestasi#daftar-prestasi`,
+      category: "Prestasi",
+      badge: p.badgeLevel,
+      iconType: "star",
+      keywords: `${p.studentName} ${p.studentClass} ${p.competition} ${p.organizer} ${p.award} ${p.category} ${p.year} juara pemenang lomba kejuaraan`,
+    }));
+
+    // 2. Fasilitas Sekolah
+    const fasilitasItems: SearchItem[] = FASILITAS_LIST.map((f): SearchItem => ({
+      id: `fasilitas-${f.id}`,
+      title: f.name,
+      description: f.description,
+      href: `/tentang-kami/fasilitas#daftar-fasilitas`,
+      category: "Fasilitas",
+      badge: f.category,
+      iconType: "facility",
+      keywords: `${f.specs ? f.specs.join(" ") : ""} lab sarana prasarana gedung ruangan kampus`,
+    }));
+
+    // 3. Dokumen K3 Resmi
+    const k3Items: SearchItem[] = K3_DOCUMENTS.map((k): SearchItem => ({
+      id: `k3-${k.id}`,
+      title: k.title,
+      description: `${k.category} • Dokumen Resmi Format ${k.format} (${k.fileSize})`,
+      href: `/informasi/penerapan-k3#k3-dokumen-section`,
+      category: "Dokumen",
+      badge: "K3 SKOMDA",
+      iconType: "doc",
+      keywords: `k3 keselamatan kerja kesehatan sop regulasi pedoman hiradc ${k.category}`,
+    }));
+
+    // 4. Ekstrakurikuler
+    const ekskulItems: SearchItem[] = EKSKUL_LIST.map((e): SearchItem => ({
+      id: `ekskul-${e.id}`,
+      title: `Ekstrakurikuler ${e.name}`,
+      description: e.description,
+      href: `/program/ekstrakurikuler#daftar-ekskul`,
+      category: "Ekskul",
+      badge: e.category,
+      iconType: "star",
+      keywords: `ekskul ekstrakurikuler minat bakat organisasi ${e.name} ${e.category}`,
+    }));
+
+    // 5. Lowongan & Peluang Karier BKK
+    const karierItems: SearchItem[] = PELUANG_KARIER_ITEMS.map((c): SearchItem => ({
+      id: `karier-${c.id}`,
+      title: `${c.title} - ${c.company}`,
+      description: `${c.type} (${c.jurusan}) • Lokasi: ${c.location} • Batas: ${c.deadline}`,
+      href: `/program/bkk#peluang-karier`,
+      category: "Karier",
+      badge: c.type,
+      iconType: "hub",
+      keywords: `loker lowongan kerja magang internship rekrutmen bkk ${c.title} ${c.company} ${c.jurusan} ${c.location}`,
+    }));
+
+    // 6. Berita & Agenda
+    const newsItems: SearchItem[] = liveNews.map((n): SearchItem => ({
       id: `news-${n.slug}`,
       title: n.title,
       description: n.summary || `Kategori: ${n.category}`,
@@ -488,9 +513,11 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
       category: "Berita",
       badge: n.category,
       iconType: "news",
+      keywords: `berita kabar informasi artikel pengumuman ${n.category} ${n.author || ""}`,
     }));
 
-    const docItems: SearchItem[] = DOWNLOAD_DOCUMENTS.map((d) => ({
+    // 7. Dokumen Unduh Informasi
+    const docItems: SearchItem[] = DOWNLOAD_DOCUMENTS.map((d): SearchItem => ({
       id: `doc-${d.id}`,
       title: d.title,
       description: d.description,
@@ -500,16 +527,54 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
       iconType: "doc",
     }));
 
+    // 8. Guru & Pimpinan
+    const guruItems: SearchItem[] = [
+      {
+        id: "guru-abror",
+        title: `${kepalaSekolah.name} (${kepalaSekolah.title})`,
+        description: kepalaSekolah.bio,
+        href: "/tentang-kami/profil-guru",
+        category: "Halaman",
+        badge: "Kepala Sekolah",
+        iconType: "page",
+        keywords: "kepala sekolah kepsek pimpinan abror profil guru manajemen",
+      },
+      ...wakilKepalaList.slice(0, 4).map((w, idx): SearchItem => ({
+        id: `guru-waka-${idx}`,
+        title: `${w.name} - ${w.role}`,
+        description: `Tenaga Pendidik & Manajemen SMK Telkom Sidoarjo (${w.role})`,
+        href: "/tentang-kami/profil-guru",
+        category: "Halaman",
+        badge: w.role,
+        iconType: "page",
+        keywords: `guru waka wakil kepala sekolah pimpinan pendidik ${w.name} ${w.role}`,
+      })),
+    ];
+
+    // 9. Quick Info PPDB & Sertifikasi
     const quickInfo: SearchItem[] = [
-      { id: "i-ppdb", title: "Brosur PPDB 2026/2027", description: "Alur pendaftaran, biaya, beasiswa dan persyaratan siswa baru", href: "/unduh-informasi", category: "Info", badge: "PPDB", iconType: "info", keywords: "daftar masuk pendaftaran sekolah biaya" },
+      { id: "i-ppdb", title: "Brosur PPDB 2026/2027", description: "Alur pendaftaran, biaya, beasiswa dan persyaratan siswa baru", href: "/unduh-informasi", category: "Info", badge: "PPDB", iconType: "info", keywords: "daftar masuk pendaftaran sekolah biaya brosur" },
       { id: "i-akreditasi", title: "Akreditasi A Unggul", description: "Sertifikasi BAN-SM nilai tertinggi sekolah vokasi (93)", href: "/unduh-informasi", category: "Info", badge: "Akreditasi", iconType: "info", keywords: "status sertifikat nilai unggul" },
       { id: "i-sertifikasi", title: "Sertifikasi Industri (Cisco, BNSP, AWS, MikroTik)", description: "Uji kompetensi internasional siap kerja di industri global", href: "/program/profil-jurusan#keunggulan-sertifikasi", category: "Info", badge: "Sertifikasi", iconType: "info", keywords: "lisensi keahlian sertifikasi dudi" },
     ];
 
-    return [...JURUSAN_ITEMS, ...PAGE_SECTIONS, ...STATIC_PAGES, ...newsItems, ...docItems, ...quickInfo];
-  }, []);
+    return [
+      ...JURUSAN_ITEMS,
+      ...STATIC_PAGES,
+      ...prestasiItems,
+      ...fasilitasItems,
+      ...PAGE_SECTIONS,
+      ...karierItems,
+      ...ekskulItems,
+      ...k3Items,
+      ...docItems,
+      ...newsItems,
+      ...guruItems,
+      ...quickInfo,
+    ];
+  }, [liveNews]);
 
-  // Filter with scoring
+  // Filter with smart scoring
   const filteredResults = useMemo<SearchItem[]>(() => {
     if (!query.trim()) return [];
 
@@ -525,15 +590,18 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
         const catLower = item.category.toLowerCase();
         const parentLower = (item.parentPage || "").toLowerCase();
         const kwLower = (item.keywords || "").toLowerCase();
+        const badgeLower = (item.badge || "").toLowerCase();
         let score = 0;
 
         for (const t of terms) {
           if (titleLower.includes(t)) {
-            score += 5;
-            if (titleLower.startsWith(t)) score += 3;
-          } else if (parentLower.includes(t)) {
-            score += 3;
+            score += 8;
+            if (titleLower.startsWith(t)) score += 4;
           } else if (kwLower.includes(t)) {
+            score += 5;
+          } else if (parentLower.includes(t)) {
+            score += 4;
+          } else if (badgeLower.includes(t)) {
             score += 3;
           } else if (descLower.includes(t)) {
             score += 2;
@@ -548,23 +616,28 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score)
       .map((r) => r.item)
-      .slice(0, 12);
+      .slice(0, 16);
   }, [query, dataset]);
 
-  // Group filtered results: Section, Jurusan, Halaman, Berita, Dokumen, Info
+  // Group filtered results logically
   const groupedResults = useMemo(() => {
-    const order = ["Jurusan", "Section", "Halaman", "Berita", "Dokumen", "Info"];
+    const order = ["Jurusan", "Prestasi", "Fasilitas", "Ekskul", "Karier", "Halaman", "Dokumen", "Berita", "Section", "Info"];
     const map = new Map<string, SearchItem[]>();
     
     for (const cat of order) {
       const matched = filteredResults.filter((r) => r.category === cat);
       if (matched.length > 0) {
         let label = cat;
-        if (cat === "Section") label = lang === "EN" ? "Page Section" : "Bagian Halaman (Section)";
-        else if (cat === "Jurusan") label = lang === "EN" ? "Majors" : "Jurusan";
+        if (cat === "Jurusan") label = lang === "EN" ? "Majors & Programs" : "Jurusan & Keahlian";
+        else if (cat === "Prestasi") label = lang === "EN" ? "Student Achievements" : "Prestasi Siswa";
+        else if (cat === "Fasilitas") label = lang === "EN" ? "Campus Facilities" : "Fasilitas & Sarana";
+        else if (cat === "Ekskul") label = lang === "EN" ? "Extracurriculars" : "Ekstrakurikuler";
+        else if (cat === "Karier") label = lang === "EN" ? "Career & BKK Jobs" : "Peluang Karier & BKK";
+        else if (cat === "Dokumen") label = lang === "EN" ? "Official Documents & K3" : "Dokumen & Panduan K3";
         else if (cat === "Halaman") label = lang === "EN" ? "Pages" : "Halaman";
-        else if (cat === "Berita") label = lang === "EN" ? "News" : "Berita";
-        else if (cat === "Dokumen") label = lang === "EN" ? "Documents" : "Dokumen";
+        else if (cat === "Berita") label = lang === "EN" ? "News & Updates" : "Berita & Agenda";
+        else if (cat === "Section") label = lang === "EN" ? "Page Sections" : "Bagian Halaman (Section)";
+        else if (cat === "Info") label = lang === "EN" ? "Information" : "Informasi Cepat";
         map.set(label, matched);
       }
     }
@@ -639,7 +712,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
 
   return (
     <>
-      {/* ─── Solid Dark Backdrop Dimmer with Smooth Entrance & Exit ─── */}
+      {/* Solid Dark Backdrop Dimmer */}
       {mounted &&
         createPortal(
           <AnimatePresence>
@@ -658,7 +731,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
           document.body
         )}
 
-      {/* ─── Inline Expanded Search Header Bar with Smooth Entrance & Exit ─── */}
+      {/* Inline Expanded Search Header Bar */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -687,7 +760,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                 setSelectedIndex(0);
               }}
               onKeyDown={handleKeyDown}
-              placeholder={t("searchModal.inputPlaceholder", "Cari section, halaman, jurusan, berita, dokumen...")}
+              placeholder={t("searchModal.inputPlaceholder", "Cari prestasi, fasilitas, PPDB, K3, jurusan, berita...")}
               className="flex-1 bg-transparent font-jakarta text-[14px] sm:text-[15px] font-semibold text-slate-900 placeholder-slate-400 outline-none min-w-0"
               autoComplete="off"
               spellCheck={false}
@@ -723,7 +796,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
         )}
       </AnimatePresence>
 
-      {/* ─── Results & Quick Access Dropdown with Smooth Entrance & Exit ─── */}
+      {/* Results & Quick Access Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -737,7 +810,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
           >
             {/* Inner Scroll Container */}
             <div className="max-h-[68vh] overflow-y-auto custom-scrollbar p-3 sm:p-4 flex flex-col gap-4">
-              {/* ─── Default State: Clean Quick Access Menu ─── */}
+              {/* Default State: Clean Quick Access Menu */}
               {!query.trim() ? (
                 <div className="flex flex-col gap-4">
                   {/* Popular Search Tags */}
@@ -768,7 +841,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                   {/* Clean List Quick Access Links */}
                   <div>
                     <p className="font-jakarta text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-                      {lang === "EN" ? "Quick Access Pages & Sections" : "Akses Cepat Halaman & Section"}
+                      {lang === "EN" ? "Quick Access Pages & Programs" : "Akses Cepat Halaman & Program"}
                     </p>
                     <div className="flex flex-col gap-1">
                       {QUICK_FEATURED_ITEMS.map((item, idx) => {
@@ -824,7 +897,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                   </div>
                 </div>
               ) : filteredResults.length > 0 ? (
-                /* ─── Search Results State ─── */
+                /* Search Results State */
                 <div className="flex flex-col gap-3.5">
                   {Array.from(groupedResults.entries()).map(([category, items]) => (
                     <div key={category} className="flex flex-col">
@@ -895,7 +968,7 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                   ))}
                 </div>
               ) : (
-                /* ─── Empty Result State ─── */
+                /* Empty Result State */
                 <div className="py-12 text-center flex flex-col items-center justify-center">
                   <div className="size-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
                     <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
@@ -906,7 +979,9 @@ export default function NavbarSearch({ isOpen, onClose }: NavbarSearchProps) {
                     {lang === "EN" ? `No results for "${query}"` : `Tidak ada hasil untuk "${query}"`}
                   </p>
                   <p className="font-jakarta text-xs text-slate-500 mt-1">
-                    {lang === "EN" ? "Try keywords like 'Vision Mission', 'Living Cost', 'SIJA', 'Partners', or 'Certification'" : "Coba kata kunci seperti 'Visi Misi', 'Biaya Hidup', 'SIJA', 'Mitra', atau 'Sertifikasi'"}
+                    {lang === "EN"
+                      ? "Try keywords like 'PPDB', 'LKS AI', 'Fiber Optic', 'SIJA', 'TJAT', or 'BKK'"
+                      : "Coba kata kunci seperti 'PPDB', 'LKS AI', 'Fiber Optic', 'SIJA', 'TJAT', atau 'BKK'"}
                   </p>
                 </div>
               )}
