@@ -154,12 +154,6 @@ export default function PpdbLearningJourneySection() {
                   : "Kurikulum terstruktur 3 hingga 4 tahun yang dirancang membentuk talenta digital siap kerja di setiap jenjangnya."}
               </p>
             </div>
-            {/* SMK badge */}
-            <div className="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 shadow-xs">
-              <span className="font-jakarta text-xs text-[#4a5565]">SMK Telkom Sidoarjo</span>
-              <span className="w-px h-3 bg-gray-300" />
-              <span className="font-jakarta text-xs font-bold text-[#bc0c11]">SIJA / TJKT / RPL</span>
-            </div>
           </div>
         </motion.div>
 

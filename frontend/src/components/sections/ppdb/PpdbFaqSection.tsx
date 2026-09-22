@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, ChevronDown, Clock, HelpCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface FaqItem {
@@ -60,162 +59,127 @@ const PPDB_FAQS: FaqItem[] = [
 
 export default function PpdbFaqSection() {
   const { isEn } = useLanguage();
-  const [openId, setOpenId] = useState<string | null>(PPDB_FAQS[0].id);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleAccordion = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id));
+  const toggleFAQ = (idx: number) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
   };
 
   return (
     <section
       id="faq-ppdb"
-      className="relative w-full py-20 lg:py-28 bg-white border-y border-gray-200/60 overflow-hidden scroll-mt-24"
+      className="relative w-full py-20 lg:py-28 bg-[#f9fafb] border-t border-gray-200/60 overflow-hidden scroll-mt-24"
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="text-center max-w-3xl mx-auto mb-14 sm:mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-[#bc0c11] text-xs font-semibold uppercase tracking-wider mb-3">
-            <HelpCircle className="w-3.5 h-3.5 shrink-0" />
-            <span>{isEn ? "Questions & Answers" : "Tanya Jawab PPDB"}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left: Helpdesk Card (Identical to Tips Akomodasi signature style) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="rounded-[28px] bg-white p-8 sm:p-9 border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md">
+              <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight text-[#101828] mb-3">
+                {isEn ? "Need Direct Guidance from the Admission Team?" : "Butuh Panduan Langsung dari Panitia PPDB?"}
+              </h3>
+              <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed mb-6">
+                {isEn
+                  ? "The admission and counseling team of SMK Telkom Sidoarjo is ready to guide parents and students in choosing majors, verifying documents, and navigating online registration."
+                  : "Tim Admisi dan Konseling SMK Telkom Sidoarjo siap mendampingi orang tua dan calon siswa untuk konsultasi jurusan, verifikasi berkas, serta panduan pendaftaran online."}
+              </p>
+
+              <div className="flex flex-col gap-3">
+                <a
+                  href="https://wa.me/6281234567899?text=Halo%20Panitia%20PPDB%20SMK%20Telkom%20Sidoarjo,%20saya%20calon%20wali%20murid/siswa%20ingin%20berkonsultasi%20mengenai%20informasi%20pendaftaran%20siswa%20baru."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#bc0c11] px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-[#990a0e] shadow-card-cta font-jakarta cursor-pointer active:scale-[0.98]"
+                >
+                  <span>{isEn ? "Chat Admission on WhatsApp" : "Hubungi WhatsApp Panitia"}</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12H19M19 12L12 5M19 12L12 19"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
 
-          <h2 className="font-jakarta font-bold text-3xl sm:text-4xl text-[#101828] tracking-tight">
-            {isEn ? (
-              <>Frequently Asked <span className="text-[#bc0c11]">Questions</span></>
-            ) : (
-              <>Pertanyaan yang Sering <span className="text-[#bc0c11]">Diajukan</span></>
-            )}
-          </h2>
-
-          <div className="mt-3 h-[3px] w-14 bg-[#bc0c11] rounded-full mx-auto mb-3" />
-
-          <p className="font-jakarta text-sm sm:text-base text-[#4a5565] leading-relaxed">
-            {isEn
-              ? "Find clear, complete answers regarding admission tracks, learning programs, entry tests, and student facilities."
-              : "Temukan jawaban lengkap dan informatif seputar jalur pendaftaran, program studi, tahapan seleksi masuk, serta fasilitas pendidikan."}
-          </p>
-        </motion.div>
-
-        {/* Content Layout: Helpdesk Card + Accordion List */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
-          {/* Left: Helpdesk Card (5 Cols) */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
-            className="lg:col-span-5"
-          >
-            <div className="rounded-[24px] bg-[#f9fafb] p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between h-full">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#bc0c11] flex items-center justify-center mb-5">
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-
-                <h3 className="font-jakarta font-bold text-xl sm:text-2xl text-[#101828] mb-3 leading-snug">
-                  {isEn ? "Need Consultation with Admission Officers?" : "Butuh Panduan Langsung dari Panitia PPDB?"}
-                </h3>
-
-                <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed mb-6">
-                  {isEn
-                    ? "Our admission team is ready to guide parents and prospective students through major selection, document preparation, and online registration."
-                    : "Tim Admisi SMK Telkom Sidoarjo siap mendampingi orang tua dan calon siswa dalam berkonsultasi seputar pilihan jurusan, verifikasi berkas, maupun panduan pendaftaran online."}
-                </p>
-
-                <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white border border-gray-200/60 mb-6">
-                  <Clock className="w-5 h-5 text-[#bc0c11] shrink-0" />
-                  <div className="text-xs font-jakarta">
-                    <span className="font-semibold text-[#101828] block">
-                      {isEn ? "Operating Hours" : "Jam Pelayanan Admisi"}
-                    </span>
-                    <span className="text-[#4a5565]">
-                      {isEn ? "Monday to Friday (08:00 - 15:00 WIB)" : "Senin - Jumat (08.00 - 15.00 WIB)"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <a
-                href="https://wa.me/6281234567899?text=Halo%20Panitia%20PPDB%20SMK%20Telkom%20Sidoarjo,%20saya%20ingin%20berkonsultasi%20mengenai%20informasi%20pendaftaran%20siswa%20baru."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#bc0c11] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-md shadow-[#bc0c11]/20 font-jakarta cursor-pointer min-h-[44px]"
-              >
-                <MessageCircle className="w-4 h-4 shrink-0" />
-                <span>{isEn ? "Chat Admission via WhatsApp" : "Hubungi WhatsApp Panitia"}</span>
-              </a>
+          {/* Right: FAQ Accordion (Identical dashed cards & chevron circle) */}
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            <div className="mb-4">
+              <h3 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828] leading-tight">
+                {isEn ? "Frequently Asked Questions" : "Tanya Jawab Seputar PPDB"}
+              </h3>
+              <p className="font-jakarta text-sm text-[#4a5565] mt-1">
+                {isEn
+                  ? "Find answers to key questions about admission tracks, programs, selection, and facilities"
+                  : "Temukan jawaban lengkap seputar jalur seleksi, program keahlian, dan proses pendaftaran"}
+              </p>
             </div>
-          </motion.div>
 
-          {/* Right: Accordion Items (7 Cols) */}
-          <div className="lg:col-span-7 flex flex-col gap-3.5">
-            {PPDB_FAQS.map((faq, idx) => {
-              const isOpen = openId === faq.id;
-              const question = isEn ? faq.qEn : faq.qId;
-              const answer = isEn ? faq.aEn : faq.aId;
+            <div className="flex flex-col gap-3">
+              {PPDB_FAQS.map((faq, idx) => {
+                const isOpen = openIndex === idx;
+                const question = isEn ? faq.qEn : faq.qId;
+                const answer = isEn ? faq.aEn : faq.aId;
 
-              return (
-                <motion.div
-                  key={faq.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.4, delay: idx * 0.06, ease: "easeOut" }}
-                  className={`rounded-[18px] bg-white border transition-all duration-200 overflow-hidden ${
-                    isOpen
-                      ? "border-[#bc0c11]/60 shadow-sm"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleAccordion(faq.id)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${faq.id}`}
-                    className="w-full px-5 sm:px-6 py-4 sm:py-4.5 text-left flex items-center justify-between gap-4 font-jakarta font-bold text-sm sm:text-[15px] text-[#101828] cursor-pointer min-h-[44px]"
+                return (
+                  <div
+                    key={faq.id}
+                    className="rounded-[20px] bg-white border-2 border-dashed border-[#d1d5dc] overflow-hidden transition-colors hover:border-[#bc0c11]"
                   >
-                    <span className="leading-snug">{question}</span>
-                    <div
-                      className={`size-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                        isOpen
-                          ? "bg-red-50 text-[#bc0c11] rotate-180"
-                          : "bg-gray-100 text-[#4a5565]"
-                      }`}
+                    <button
+                      type="button"
+                      onClick={() => toggleFAQ(idx)}
+                      className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-jakarta font-bold text-sm sm:text-base text-[#101828] cursor-pointer"
                     >
-                      <ChevronDown className="w-4 h-4" />
-                    </div>
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        id={`faq-answer-${faq.id}`}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                      <span>{question}</span>
+                      <div
+                        className={`size-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                          isOpen
+                            ? "bg-[#bc0c11] text-white rotate-180 shadow-xs"
+                            : "bg-gray-100 text-[#4a5565] hover:bg-gray-200"
+                        }`}
                       >
-                        <div className="px-5 sm:px-6 pb-5 pt-1 text-sm text-[#4a5565] font-jakarta leading-relaxed border-t border-gray-100/80">
-                          {answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#4a5565] font-jakarta leading-relaxed border-t border-gray-100">
+                            {answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
         </div>
-
       </div>
     </section>
   );
