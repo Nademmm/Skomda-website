@@ -1,4 +1,8 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { getBKKPartners } from "@/services/bkk";
 
 const partners = [
   {
@@ -92,8 +96,30 @@ const partners = [
 ];
 
 export default function PartnersSection() {
+  const [partnerList, setPartnerList] = useState<{ name: string; src: string }[]>(partners);
+
+  useEffect(() => {
+    let isMounted = true;
+    getBKKPartners()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setPartnerList(
+            data.map((p) => ({
+              name: p.name,
+              src: p.logo && p.logo.trim() ? p.logo.trim() : "/images/partners/pens.webp",
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   // Duplicate array for seamless infinite marquee loop
-  const marqueeItems = [...partners, ...partners];
+  const marqueeItems = [...partnerList, ...partnerList];
 
   return (
     <section id="mitra" className="relative w-full bg-[#f3f4f6] py-8 overflow-hidden scroll-mt-24" data-node-id="95:312">
@@ -116,6 +142,7 @@ export default function PartnersSection() {
                     fill
                     className="object-contain"
                     sizes="150px"
+                    unoptimized={Boolean(p.src?.startsWith("http") && !p.src?.includes("res.cloudinary.com"))}
                   />
                 </div>
               </div>

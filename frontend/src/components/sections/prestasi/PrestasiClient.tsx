@@ -1,23 +1,55 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { PRESTASI_LIST, PrestasiItem } from "@/data/prestasiData";
+import { getPrestasiList } from "@/services/prestasi";
 import PrestasiHeroSection from "./PrestasiHeroSection";
 import PrestasiCard from "./PrestasiCard";
 import PrestasiDetailModal from "./PrestasiDetailModal";
 
 export default function PrestasiClient() {
   const { isEn } = useLanguage();
+  const [prestasiItems, setPrestasiItems] = useState<PrestasiItem[]>(PRESTASI_LIST);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeModalItem, setActiveModalItem] = useState<PrestasiItem | null>(null);
 
+  useEffect(() => {
+    let isMounted = true;
+    getPrestasiList()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setPrestasiItems(
+            data.map((p) => ({
+              id: p.slug || String(p.id),
+              title: p.title,
+              category: (p.category || "IT & AI") as any,
+              award: p.award,
+              badgeLevel: (p.badgeLevel || "Juara 1") as any,
+              competition: p.competition,
+              organizer: p.organizer,
+              year: p.year,
+              studentName: p.studentName,
+              studentClass: p.studentClass,
+              image: p.image || "/images/tentang-kami/prestasi/prestasi-iitc-web-design-zaina.png",
+              description: p.description || "",
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const filteredItems = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return PRESTASI_LIST;
-    return PRESTASI_LIST.filter((item) => {
+    if (!q) return prestasiItems;
+    return prestasiItems.filter((item) => {
       return (
         item.title.toLowerCase().includes(q) ||
         item.studentName.toLowerCase().includes(q) ||
@@ -26,7 +58,7 @@ export default function PrestasiClient() {
         item.award.toLowerCase().includes(q)
       );
     });
-  }, [searchQuery]);
+  }, [searchQuery, prestasiItems]);
 
   return (
     <div className="w-full">

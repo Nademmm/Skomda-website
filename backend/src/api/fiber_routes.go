@@ -10,6 +10,8 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
@@ -17,10 +19,13 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"gorm.io/gorm"
 
+	"github.com/nademmm/smktelkom-web/backend/src/api/auth"
+	"github.com/nademmm/smktelkom-web/backend/src/api/middleware"
 	"github.com/nademmm/smktelkom-web/backend/src/client/cloudinary"
 	"github.com/nademmm/smktelkom-web/backend/src/config"
 	"github.com/nademmm/smktelkom-web/backend/src/models"
@@ -54,6 +59,85 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 			"service": "smktelkom-web-backend",
 			"engine":  "fiber-v2",
 		})
+	})
+
+	// 1.1 Auth Routes
+	authGroup := api.Group("/auth")
+	loginLimiter := limiter.New(limiter.Config{
+		Max:        5,
+		Expiration: 1 * time.Minute,
+		LimitReached: func(c *fiber.Ctx) error {
+			return c.Status(fiber.StatusTooManyRequests).JSON(fiber.Map{
+				"error": "Batas frekuensi percobaan masuk terlampaui. Silakan tunggu 1 menit sebelum mencoba kembali.",
+			})
+		},
+	})
+	authGroup.Post("/login", loginLimiter, auth.LoginHandler(cfg))
+	authGroup.Get("/me", middleware.AuthMiddleware(cfg.JWTSecret), auth.MeHandler())
+	authGroup.Post("/logout", auth.LogoutHandler())
+
+	// 1.2 Admin Protected Routes
+	adminGroup := api.Group("/admin", middleware.AuthMiddleware(cfg.JWTSecret))
+	adminGroup.Get("/dashboard/stats", func(c *fiber.Ctx) error {
+		var totalNews int64
+		var publishedNews int64
+		var draftNews int64
+		var totalUsers int64
+		var totalTeachers int64
+		var totalPrestasi int64
+		var totalEkskul int64
+		var totalFasilitas int64
+		var totalJobs int64
+		var totalPartners int64
+		var totalDocuments int64
+		var recentLogs []models.AuditLog
+		var recentNews []models.News
+
+		config.DB.Model(&models.News{}).Count(&totalNews)
+		config.DB.Model(&models.News{}).Where("status = ?", "published").Count(&publishedNews)
+		config.DB.Model(&models.News{}).Where("status = ?", "draft").Count(&draftNews)
+		config.DB.Model(&models.User{}).Count(&totalUsers)
+
+		config.DB.Model(&models.Teacher{}).Count(&totalTeachers)
+		config.DB.Model(&models.Prestasi{}).Count(&totalPrestasi)
+		config.DB.Model(&models.Ekstrakurikuler{}).Count(&totalEkskul)
+		config.DB.Model(&models.Fasilitas{}).Count(&totalFasilitas)
+		config.DB.Model(&models.BKKJob{}).Count(&totalJobs)
+		config.DB.Model(&models.BKKPartner{}).Count(&totalPartners)
+		config.DB.Model(&models.Document{}).Count(&totalDocuments)
+
+		config.DB.Order("created_at DESC").Limit(10).Find(&recentLogs)
+		config.DB.Order("id DESC").Limit(5).Find(&recentNews)
+
+		return c.JSON(fiber.Map{
+			"totalNews":      totalNews,
+			"publishedNews":  publishedNews,
+			"draftNews":      draftNews,
+			"totalUsers":     totalUsers,
+			"totalTeachers":  totalTeachers,
+			"totalPrestasi":  totalPrestasi,
+			"totalEkskul":    totalEkskul,
+			"totalFasilitas": totalFasilitas,
+			"totalJobs":      totalJobs,
+			"totalPartners":  totalPartners,
+			"totalDocuments": totalDocuments,
+			"recentLogs":     recentLogs,
+			"recentNews":     recentNews,
+		})
+	})
+
+	adminGroup.Get("/audit-logs", middleware.RequireRole("super_admin"), func(c *fiber.Ctx) error {
+		var logs []models.AuditLog
+		limit, _ := strconv.Atoi(c.Query("limit", "50"))
+		if limit <= 0 || limit > 100 {
+			limit = 50
+		}
+		if err := config.DB.Order("id DESC").Limit(limit).Find(&logs).Error; err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal mengambil audit log",
+			})
+		}
+		return c.JSON(fiber.Map{"data": logs})
 	})
 
 	// 2. Jurusan routes
@@ -96,14 +180,36 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 	newsGroup.Get("", func(c *fiber.Ctx) error {
 		category := strings.TrimSpace(c.Query("category"))
 		search := strings.TrimSpace(c.Query("search"))
+		status := strings.TrimSpace(c.Query("status"))
 
 		query := config.DB.Model(&models.News{}).Order("id DESC")
+
+		if status != "" && !strings.EqualFold(status, "semua") {
+			query = query.Where("LOWER(status) = ?", strings.ToLower(status))
+		}
 		if category != "" && !strings.EqualFold(category, "semua") {
 			query = query.Where("LOWER(category) = ?", strings.ToLower(category))
 		}
 		if search != "" {
 			searchTerm := "%" + strings.ToLower(search) + "%"
 			query = query.Where("LOWER(title) LIKE ? OR LOWER(summary) LIKE ? OR LOWER(content) LIKE ?", searchTerm, searchTerm, searchTerm)
+		}
+
+		var total int64
+		query.Count(&total)
+
+		// Pagination opsional
+		if pageStr := c.Query("page"); pageStr != "" {
+			page, _ := strconv.Atoi(pageStr)
+			limit, _ := strconv.Atoi(c.Query("limit", "10"))
+			if page < 1 {
+				page = 1
+			}
+			if limit < 1 || limit > 100 {
+				limit = 10
+			}
+			offset := (page - 1) * limit
+			query = query.Offset(offset).Limit(limit)
 		}
 
 		var newsList []models.News
@@ -114,7 +220,7 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 		}
 		return c.JSON(fiber.Map{
 			"data":  newsList,
-			"total": len(newsList),
+			"total": total,
 		})
 	})
 
@@ -135,25 +241,32 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 		return c.JSON(fiber.Map{"data": item})
 	})
 
-	newsGroup.Post("", func(c *fiber.Ctx) error {
-		type NewsInput struct {
-			Title         string `json:"title"`
-			Slug          string `json:"slug"`
-			Category      string `json:"category"`
-			Day           string `json:"day"`
-			Month         string `json:"month"`
-			DateFormatted string `json:"dateFormatted"`
-			Time          string `json:"time"`
-			Image         string `json:"image"`
-			Summary       string `json:"summary"`
-			Content       string `json:"content"`
-			Author        string `json:"author"`
-		}
+	type NewsPayload struct {
+		Title         string `json:"title"`
+		Slug          string `json:"slug"`
+		Category      string `json:"category"`
+		Day           string `json:"day"`
+		Month         string `json:"month"`
+		DateFormatted string `json:"dateFormatted"`
+		Time          string `json:"time"`
+		Image         string `json:"image"`
+		Summary       string `json:"summary"`
+		Content       string `json:"content"`
+		Author        string `json:"author"`
+		Status        string `json:"status"`
+	}
 
-		var input NewsInput
+	newsGroup.Post("", middleware.AuthMiddleware(cfg.JWTSecret), func(c *fiber.Ctx) error {
+		var input NewsPayload
 		if err := c.BodyParser(&input); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": "Payload tidak valid",
+			})
+		}
+
+		if strings.TrimSpace(input.Title) == "" {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Judul berita wajib diisi",
 			})
 		}
 
@@ -189,6 +302,10 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 		if author == "" {
 			author = "Humas SKOMDA"
 		}
+		status := input.Status
+		if status == "" {
+			status = "published"
+		}
 
 		news := models.News{
 			Title:         input.Title,
@@ -202,6 +319,7 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 			Summary:       input.Summary,
 			Content:       input.Content,
 			Author:        author,
+			Status:        status,
 		}
 
 		if err := config.DB.Create(&news).Error; err != nil {
@@ -209,13 +327,29 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 				"error": "Gagal menyimpan berita",
 			})
 		}
+
+		userName, _ := c.Locals("user_name").(string)
+		userID, _ := c.Locals("user_id").(uint)
+		go func(uid uint, uname, ip string) {
+			config.DB.Create(&models.AuditLog{
+				UserID:    uid,
+				UserName:  uname,
+				Action:    "CREATE",
+				Entity:    "news",
+				EntityID:  fmt.Sprint(news.ID),
+				Details:   fmt.Sprintf("Membuat berita: %s (%s)", news.Title, news.Status),
+				IPAddress: ip,
+				CreatedAt: time.Now(),
+			})
+		}(userID, userName, c.IP())
+
 		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 			"message": "Berita berhasil diterbitkan",
 			"data":    news,
 		})
 	})
 
-	newsGroup.Delete("/:id", func(c *fiber.Ctx) error {
+	newsGroup.Put("/:id", middleware.AuthMiddleware(cfg.JWTSecret), func(c *fiber.Ctx) error {
 		idParam := c.Params("id")
 		id, err := strconv.ParseUint(idParam, 10, 32)
 		if err != nil {
@@ -223,12 +357,112 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 				"error": "ID berita tidak valid",
 			})
 		}
-		result := config.DB.Delete(&models.News{}, uint(id))
-		if result.Error != nil || result.RowsAffected == 0 {
+
+		var existing models.News
+		if err := config.DB.First(&existing, uint(id)).Error; err != nil {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"error": "Berita tidak ditemukan",
 			})
 		}
+
+		var input NewsPayload
+		if err := c.BodyParser(&input); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Payload tidak valid",
+			})
+		}
+
+		if strings.TrimSpace(input.Title) != "" {
+			existing.Title = input.Title
+			if strings.TrimSpace(input.Slug) != "" {
+				existing.Slug = input.Slug
+			} else {
+				existing.Slug = slugify(input.Title)
+			}
+		}
+		if input.Category != "" {
+			existing.Category = input.Category
+		}
+		if input.Summary != "" {
+			existing.Summary = input.Summary
+		}
+		if input.Content != "" {
+			existing.Content = input.Content
+		}
+		if input.Image != "" {
+			existing.Image = input.Image
+		}
+		if input.Author != "" {
+			existing.Author = input.Author
+		}
+		if input.Status != "" {
+			existing.Status = input.Status
+		}
+
+		if err := config.DB.Save(&existing).Error; err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal memperbarui berita",
+			})
+		}
+
+		userName, _ := c.Locals("user_name").(string)
+		userID, _ := c.Locals("user_id").(uint)
+		go func(uid uint, uname, ip string) {
+			config.DB.Create(&models.AuditLog{
+				UserID:    uid,
+				UserName:  uname,
+				Action:    "UPDATE",
+				Entity:    "news",
+				EntityID:  fmt.Sprint(existing.ID),
+				Details:   fmt.Sprintf("Memperbarui berita: %s (%s)", existing.Title, existing.Status),
+				IPAddress: ip,
+				CreatedAt: time.Now(),
+			})
+		}(userID, userName, c.IP())
+
+		return c.JSON(fiber.Map{
+			"message": "Berita berhasil diperbarui",
+			"data":    existing,
+		})
+	})
+
+	newsGroup.Delete("/:id", middleware.AuthMiddleware(cfg.JWTSecret), func(c *fiber.Ctx) error {
+		idParam := c.Params("id")
+		id, err := strconv.ParseUint(idParam, 10, 32)
+		if err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "ID berita tidak valid",
+			})
+		}
+
+		var existing models.News
+		if err := config.DB.First(&existing, uint(id)).Error; err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"error": "Berita tidak ditemukan",
+			})
+		}
+
+		if err := config.DB.Delete(&existing).Error; err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal menghapus berita",
+			})
+		}
+
+		userName, _ := c.Locals("user_name").(string)
+		userID, _ := c.Locals("user_id").(uint)
+		go func(uid uint, uname, ip string) {
+			config.DB.Create(&models.AuditLog{
+				UserID:    uid,
+				UserName:  uname,
+				Action:    "DELETE",
+				Entity:    "news",
+				EntityID:  fmt.Sprint(existing.ID),
+				Details:   fmt.Sprintf("Menghapus berita: %s", existing.Title),
+				IPAddress: ip,
+				CreatedAt: time.Now(),
+			})
+		}(userID, userName, c.IP())
+
 		return c.JSON(fiber.Map{"message": "Berita berhasil dihapus"})
 	})
 
@@ -353,7 +587,7 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 		return c.Send(body)
 	})
 
-	// 5. Cloudinary Signed Upload
+	// 5. Cloudinary Signed Upload & Direct Image Upload
 	api.Get("/cloudinary/sign", func(c *fiber.Ctx) error {
 		if cldClient == nil || cldClient.CloudName == "" {
 			return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
@@ -366,6 +600,159 @@ func NewFiberApp(cfg config.Config) *fiber.App {
 			"data": params,
 		})
 	})
+
+	api.Post("/upload/image", middleware.AuthMiddleware(cfg.JWTSecret), func(c *fiber.Ctx) error {
+		fileHeader, err := c.FormFile("image")
+		if err != nil {
+			fileHeader, err = c.FormFile("file")
+		}
+		if err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Berkas gambar tidak ditemukan. Silakan pilih file gambar.",
+			})
+		}
+
+		// Validasi tipe berkas harus gambar
+		contentType := fileHeader.Header.Get("Content-Type")
+		if !strings.HasPrefix(contentType, "image/") {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Format berkas harus berupa gambar (JPG, PNG, WebP, atau GIF).",
+			})
+		}
+
+		file, err := fileHeader.Open()
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal membaca berkas gambar yang diunggah.",
+			})
+		}
+		defer file.Close()
+
+		folder := c.FormValue("folder", "skomda/admin-uploads")
+		if cldClient != nil && cldClient.CloudName != "" && cldClient.APIKey != "" {
+			uploadRes, err := cldClient.UploadImage(c.Context(), file, fileHeader.Filename, folder)
+			if err == nil && uploadRes != nil && uploadRes.SecureURL != "" {
+				return c.JSON(fiber.Map{
+					"success":   true,
+					"url":       uploadRes.SecureURL,
+					"public_id": uploadRes.PublicID,
+					"format":    uploadRes.Format,
+				})
+			}
+			log.Printf("peringatan: upload langsung Cloudinary gagal: %v, beralih ke penyimpanan lokal...", err)
+		}
+
+		// Fallback simpan lokal jika koneksi Cloudinary offline
+		ext := filepath.Ext(fileHeader.Filename)
+		uniqueName := fmt.Sprintf("%d_%s%s", time.Now().UnixNano(), slugify(strings.TrimSuffix(fileHeader.Filename, ext)), ext)
+		localDir := "../frontend/public/uploads"
+		_ = os.MkdirAll(localDir, 0755)
+		destPath := filepath.Join(localDir, uniqueName)
+		if err := c.SaveFile(fileHeader, destPath); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal menyimpan berkas gambar ke server.",
+			})
+		}
+
+		return c.JSON(fiber.Map{
+			"success": true,
+			"url":     "/uploads/" + uniqueName,
+		})
+	})
+
+	api.Post("/upload/document", middleware.AuthMiddleware(cfg.JWTSecret), func(c *fiber.Ctx) error {
+		fileHeader, err := c.FormFile("file")
+		if err != nil {
+			fileHeader, err = c.FormFile("document")
+		}
+		if err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Berkas dokumen tidak ditemukan. Silakan pilih berkas dokumen.",
+			})
+		}
+
+		// Validasi format berkas dokumen
+		ext := strings.ToLower(filepath.Ext(fileHeader.Filename))
+		allowedExts := map[string]bool{
+			".pdf":  true,
+			".doc":  true,
+			".docx": true,
+			".xls":  true,
+			".xlsx": true,
+			".ppt":  true,
+			".pptx": true,
+			".zip":  true,
+			".rar":  true,
+			".txt":  true,
+			".csv":  true,
+		}
+		if !allowedExts[ext] {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Format berkas tidak didukung. Format yang diizinkan: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RAR, TXT, CSV.",
+			})
+		}
+
+		fileType := strings.ToUpper(strings.TrimPrefix(ext, "."))
+		var fileSize string
+		bytes := fileHeader.Size
+		if bytes < 1024 {
+			fileSize = fmt.Sprintf("%d B", bytes)
+		} else if bytes < 1024*1024 {
+			fileSize = fmt.Sprintf("%.1f KB", float64(bytes)/1024)
+		} else {
+			fileSize = fmt.Sprintf("%.1f MB", float64(bytes)/(1024*1024))
+		}
+
+		file, err := fileHeader.Open()
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal membaca berkas dokumen yang diunggah.",
+			})
+		}
+		defer file.Close()
+
+		folder := c.FormValue("folder", "skomda/documents")
+		if cldClient != nil && cldClient.CloudName != "" && cldClient.APIKey != "" {
+			uploadRes, err := cldClient.UploadRaw(c.Context(), file, fileHeader.Filename, folder)
+			if err == nil && uploadRes != nil && uploadRes.SecureURL != "" {
+				return c.JSON(fiber.Map{
+					"success":      true,
+					"url":          uploadRes.SecureURL,
+					"public_id":    uploadRes.PublicID,
+					"format":       fileType,
+					"fileSize":     fileSize,
+					"originalName": fileHeader.Filename,
+				})
+			}
+			log.Printf("peringatan: upload dokumen Cloudinary gagal: %v, beralih ke penyimpanan lokal...", err)
+		}
+
+		// Fallback simpan lokal di folder frontend/public/documents
+		cleanBase := slugify(strings.TrimSuffix(fileHeader.Filename, ext))
+		if cleanBase == "" {
+			cleanBase = "dokumen"
+		}
+		uniqueName := fmt.Sprintf("%s-%d%s", cleanBase, time.Now().Unix(), ext)
+		localDir := "../frontend/public/documents"
+		_ = os.MkdirAll(localDir, 0755)
+		destPath := filepath.Join(localDir, uniqueName)
+		if err := c.SaveFile(fileHeader, destPath); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Gagal menyimpan berkas dokumen ke server.",
+			})
+		}
+
+		return c.JSON(fiber.Map{
+			"success":      true,
+			"url":          "/documents/" + uniqueName,
+			"format":       fileType,
+			"fileSize":     fileSize,
+			"originalName": fileHeader.Filename,
+		})
+	})
+
+	// 6. Entitas Tambahan Panel Admin (Guru, Prestasi, BKK, Ekskul, Fasilitas, Dokumen, Settings)
+	registerCrudRoutes(api, cfg)
 
 	return app
 }

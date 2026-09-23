@@ -1,12 +1,35 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { MITRA_BKK_LOGOS } from "@/data/bkkData";
+import { getBKKPartners } from "@/services/bkk";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function BkkMitraSection() {
   const { language } = useLanguage();
   const isEn = language === "en";
+  const [partnerLogos, setPartnerLogos] = useState<{ name: string; src: string }[]>(MITRA_BKK_LOGOS);
+
+  useEffect(() => {
+    let isMounted = true;
+    getBKKPartners()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setPartnerLogos(
+            data.map((p) => ({
+              name: p.name,
+              src: p.logo || "/images/partners/logo-telkom-indonesia.jpg",
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-white border-t border-gray-200/60 overflow-hidden scroll-mt-24">
@@ -32,7 +55,7 @@ export default function BkkMitraSection() {
 
         {/* Partner Logos Grid with Signature Dashed Border Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-3 sm:gap-4 items-center">
-          {MITRA_BKK_LOGOS.map((mitra) => (
+          {partnerLogos.map((mitra) => (
             <div
               key={mitra.name}
               title={mitra.name}

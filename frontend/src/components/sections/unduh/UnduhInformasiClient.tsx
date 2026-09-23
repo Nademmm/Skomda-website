@@ -16,6 +16,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { getDocumentList } from "@/services/documents";
 
 export interface DownloadDoc {
   id: string;
@@ -120,9 +121,41 @@ const CATEGORIES = [
 
 export default function UnduhInformasiClient() {
   const { lang, t } = useLanguage();
+  const [docsList, setDocsList] = useState<DownloadDoc[]>(DOWNLOAD_DOCUMENTS);
   const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [previewDoc, setPreviewDoc] = useState<DownloadDoc | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    getDocumentList("Unduh Informasi")
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setDocsList(
+            data.map((d) => {
+              const existing = DOWNLOAD_DOCUMENTS.find((ex) => ex.title.toLowerCase() === d.title.toLowerCase());
+              return {
+                id: String(d.id),
+                title: d.title,
+                category: existing?.category || "Regulasi & Standar",
+                group: existing?.group || "Dokumen Resmi Sekolah",
+                uploadDate: existing?.uploadDate || "04 Mei 2026",
+                fileSize: d.fileSize || existing?.fileSize || "1.0 MB",
+                fileUrl: d.fileUrl,
+                thumbnailUrl: existing?.thumbnailUrl || "/documents/thumbnails/thumb-brosur-ppdb.jpg",
+                description: d.description || existing?.description || "",
+                pageCount: existing?.pageCount || 1,
+              };
+            })
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const categories = useMemo(() => [
     lang === "EN" ? "All" : "Semua",
@@ -147,7 +180,7 @@ export default function UnduhInformasiClient() {
   }, [previewDoc]);
 
   const filteredDocs = useMemo(() => {
-    let list = [...DOWNLOAD_DOCUMENTS];
+    let list = [...docsList];
     if (selectedCategory !== "Semua" && selectedCategory !== "All") {
       list = list.filter((d) => d.category === selectedCategory);
     }

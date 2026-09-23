@@ -1,9 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { getBKKPartners } from "@/services/bkk";
 
 interface MitraPartner {
   name: string;
@@ -278,8 +280,45 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
+function getSafeUrl(url?: string): string {
+  if (!url || url === "#") return "#";
+  const trimmed = url.trim();
+  if (
+    trimmed.startsWith("http://") ||
+    trimmed.startsWith("https://") ||
+    trimmed.startsWith("mailto:")
+  ) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
+
 export default function MitraIndustriSection() {
   const { t } = useLanguage();
+  const [partnerItems, setPartnerItems] = useState<MitraPartner[]>(mitraList);
+
+  useEffect(() => {
+    let isMounted = true;
+    getBKKPartners()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setPartnerItems(
+            data.map((p) => ({
+              name: p.name,
+              logo: p.logo && p.logo.trim() ? p.logo.trim() : "/images/partners/pens.webp",
+              focus: p.category || "Mitra Industri",
+              description: p.description || "",
+              url: p.website || "#",
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section
@@ -303,7 +342,7 @@ export default function MitraIndustriSection() {
           </p>
         </motion.div>
 
-        {/* 30 Partner Cards Grid (100% with Active HD Logos) */}
+        {/* Dynamic Partner Cards Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -311,66 +350,72 @@ export default function MitraIndustriSection() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {mitraList.map((mitra) => (
-            <motion.div key={mitra.name} variants={cardVariants}>
-              <Link
-                href={mitra.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative h-full rounded-[24px] bg-white p-6 sm:p-7 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md"
-              >
-                <div className="flex flex-col gap-4">
-                  {/* Top Bar: Logo + External Link Button */}
-                  <div className="relative flex items-center justify-between gap-3">
-                    <div className="relative h-14 w-44 sm:w-48 flex items-center">
-                      <Image
-                        src={mitra.logo}
-                        alt={`Logo ${mitra.name}`}
-                        fill
-                        className="object-contain object-left"
-                        sizes="192px"
-                      />
+          {partnerItems.map((mitra, idx) => {
+            const targetUrl = getSafeUrl(mitra.url);
+            const isExternal = targetUrl !== "#" && targetUrl !== "https://";
+
+            return (
+              <motion.div key={`${mitra.name}-${idx}`} variants={cardVariants}>
+                <Link
+                  href={targetUrl}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="group relative h-full rounded-[24px] bg-white p-6 sm:p-7 flex flex-col justify-between border-2 border-dashed border-[#d1d5dc] transition-all duration-300 hover:border-[#bc0c11] hover:shadow-md"
+                >
+                  <div className="flex flex-col gap-4">
+                    {/* Top Bar: Logo + External Link Button */}
+                    <div className="relative flex items-center justify-between gap-3">
+                      <div className="relative h-14 w-44 sm:w-48 flex items-center">
+                        <Image
+                          src={mitra.logo}
+                          alt={`Logo ${mitra.name}`}
+                          fill
+                          className="object-contain object-left"
+                          sizes="192px"
+                          unoptimized={Boolean(mitra.logo?.startsWith("http") && !mitra.logo?.includes("res.cloudinary.com"))}
+                        />
+                      </div>
+                      {/* Visit Link Action Button */}
+                      <div className="flex size-9 items-center justify-center rounded-full bg-[#f3f4f6] text-[#6b7280] transition-all duration-300 group-hover:bg-[#bc0c11] group-hover:text-white shrink-0 shadow-xs">
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </div>
                     </div>
-                    {/* Visit Link Action Button */}
-                    <div className="flex size-9 items-center justify-center rounded-full bg-[#f3f4f6] text-[#6b7280] transition-all duration-300 group-hover:bg-[#bc0c11] group-hover:text-white shrink-0 shadow-xs">
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
+
+                    {/* Content Body */}
+                    <div className="flex flex-col gap-1 pt-1">
+                      {/* Subtitle / Focus */}
+                      <span className="text-xs font-semibold text-[#bc0c11] tracking-wide font-jakarta">
+                        {mitra.focus}
+                      </span>
+
+                      {/* Company Name */}
+                      <h3 className="font-jakarta font-bold text-lg text-[#101828] leading-snug group-hover:text-[#bc0c11] transition-colors mt-0.5">
+                        {mitra.name}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed mt-2">
+                        {mitra.description}
+                      </p>
                     </div>
                   </div>
-
-                  {/* Content Body */}
-                  <div className="flex flex-col gap-1 pt-1">
-                    {/* Subtitle / Focus */}
-                    <span className="text-xs font-semibold text-[#bc0c11] tracking-wide font-jakarta">
-                      {mitra.focus}
-                    </span>
-
-                    {/* Company Name */}
-                    <h3 className="font-jakarta font-bold text-lg text-[#101828] leading-snug group-hover:text-[#bc0c11] transition-colors mt-0.5">
-                      {mitra.name}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="font-jakarta text-sm text-[#4a5565] leading-relaxed mt-2">
-                      {mitra.description}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                </Link>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

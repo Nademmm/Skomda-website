@@ -1,0 +1,14 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function GateInternalRedirectPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/gate-internal-skomda");
+  }, [router]);
+
+  return null;
+}

@@ -2,6 +2,8 @@ package models
 
 import (
 	"time"
+
+	"gorm.io/gorm"
 )
 
 // News merepresentasikan skema data berita/artikel di database.
@@ -17,7 +19,9 @@ type News struct {
 	Image         string    `gorm:"size:500" json:"image"`
 	Summary       string    `gorm:"type:text" json:"summary"`
 	Content       string    `gorm:"type:text" json:"content"`
-	Author        string    `gorm:"size:100;default:'Humas SKOMDA'" json:"author"`
-	CreatedAt     time.Time `json:"created_at"`
-	UpdatedAt     time.Time `json:"updated_at"`
+	Author        string         `gorm:"size:100;default:'Humas SKOMDA'" json:"author"`
+	Status        string         `gorm:"size:20;not null;default:'published'" json:"status"` // published | draft
+	CreatedAt     time.Time      `json:"created_at"`
+	UpdatedAt     time.Time      `json:"updated_at"`
+	DeletedAt     gorm.DeletedAt `gorm:"index" json:"-"`
 }

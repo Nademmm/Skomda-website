@@ -11,6 +11,7 @@ export interface NewsItem {
   summary?: string;
   content?: string;
   author?: string;
+  status?: "published" | "draft";
   created_at?: string;
   updated_at?: string;
 }
@@ -272,6 +273,9 @@ function filterMockNews(category?: string, search?: string): NewsItem[] {
 export async function getNewsList(params?: {
   category?: string;
   search?: string;
+  status?: string;
+  page?: number;
+  limit?: number;
 }): Promise<NewsItem[]> {
   const queryParams = new URLSearchParams();
   if (params?.category && params.category !== "Semua") {
@@ -279,6 +283,15 @@ export async function getNewsList(params?: {
   }
   if (params?.search && params.search.trim() !== "") {
     queryParams.set("search", params.search.trim());
+  }
+  if (params?.status && params.status !== "semua") {
+    queryParams.set("status", params.status);
+  }
+  if (params?.page) {
+    queryParams.set("page", String(params.page));
+  }
+  if (params?.limit) {
+    queryParams.set("limit", String(params.limit));
   }
 
   const queryString = queryParams.toString();
@@ -367,6 +380,7 @@ export async function createNews(
     const res = await fetch(`${API_BASE_URL}/news`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(data),
     });
 
@@ -394,6 +408,7 @@ export async function updateNews(
     const res = await fetch(`${API_BASE_URL}/news/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(data),
     });
 
@@ -419,6 +434,7 @@ export async function deleteNews(
   try {
     const res = await fetch(`${API_BASE_URL}/news/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
 
     const json = await res.json();

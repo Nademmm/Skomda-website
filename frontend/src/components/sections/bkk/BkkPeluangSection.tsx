@@ -3,17 +3,55 @@
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { PELUANG_KARIER_ITEMS, PeluangKarierItem } from "@/data/bkkData";
+import { getBKKJobs } from "@/services/bkk";
 import { useLanguage } from "@/context/LanguageContext";
 import { Search, MapPin, Briefcase, ChevronRight, X, Copy, Check, Send } from "lucide-react";
 
 export default function BkkPeluangSection() {
   const { isEn } = useLanguage();
 
+  const [jobsList, setJobsList] = useState<PeluangKarierItem[]>(PELUANG_KARIER_ITEMS);
   const [activeFilter, setActiveFilter] = useState<string>("Semua");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showAll, setShowAll] = useState<boolean>(false);
   const [selectedJob, setSelectedJob] = useState<PeluangKarierItem | null>(null);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    getBKKJobs("active")
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setJobsList(
+            data.map((j) => {
+              // find matching item in PELUANG_KARIER_ITEMS if any for rich details
+              const existing = PELUANG_KARIER_ITEMS.find((e) => e.title.toLowerCase() === j.title.toLowerCase() || e.company.toLowerCase() === j.company.toLowerCase());
+              return {
+                id: String(j.id),
+                title: j.title,
+                company: j.company,
+                logo: j.companyLogo || existing?.logo || "/images/partners/logo-telkom-indonesia.jpg",
+                location: j.location,
+                type: (j.jobType === "Internship" ? "Internship" : "Full Time") as any,
+                jurusan: existing?.jurusan || "SIJA & TJAT",
+                postedDate: existing?.postedDate || "September 2026",
+                deadline: j.deadline || "Segera",
+                salaryRange: j.salary || existing?.salaryRange,
+                description: j.description || existing?.description || "",
+                responsibilities: existing?.responsibilities || [],
+                requirements: existing?.requirements || (j.requirements ? j.requirements.split(".").map(s => s.trim()).filter(Boolean) : []),
+                applyEmail: existing?.applyEmail || (j.applyUrl ? j.applyUrl.replace("mailto:", "") : "karir@smktelkom-sda.sch.id"),
+              };
+            })
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filterOptions = isEn
     ? ["All", "SIJA", "TJAT", "Internship", "Full Time"]
@@ -21,7 +59,7 @@ export default function BkkPeluangSection() {
 
   // Filter jobs based on active category & search query
   const filteredJobs = useMemo(() => {
-    return PELUANG_KARIER_ITEMS.filter((job) => {
+    return jobsList.filter((job) => {
       const matchSearch =
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||

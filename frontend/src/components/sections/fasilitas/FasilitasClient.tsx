@@ -1,28 +1,55 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Search, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeroSection from "@/components/sections/common/PageHeroSection";
-import { FASILITAS_LIST } from "@/data/fasilitasData";
+import { FASILITAS_LIST, FasilitasItem } from "@/data/fasilitasData";
+import { getFasilitasList } from "@/services/fasilitas";
 
 export default function FasilitasClient() {
   const { t } = useLanguage();
+  const [items, setItems] = useState<FasilitasItem[]>(FASILITAS_LIST);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  useEffect(() => {
+    let isMounted = true;
+    getFasilitasList()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setItems(
+            data.map((f) => ({
+              id: String(f.id),
+              name: f.name,
+              category: (f.category || "Sarana Umum & Olahraga") as any,
+              description: f.description || "",
+              specs: f.features ? f.features.split(",").map((s) => s.trim()) : [],
+              image: f.image || "/images/tentang-kami/fasilitas/fasilitas-gedung-utama.jpg",
+              badge: f.capacity || "Kampus Modern",
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filteredItems = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return FASILITAS_LIST;
-    return FASILITAS_LIST.filter((item) => {
+    if (!q) return items;
+    return items.filter((item) => {
       return (
         item.name.toLowerCase().includes(q) ||
         item.description.toLowerCase().includes(q) ||
         (item.specs && item.specs.some((s) => s.toLowerCase().includes(q)))
       );
     });
-  }, [searchQuery]);
+  }, [searchQuery, items]);
 
   return (
     <>

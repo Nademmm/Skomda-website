@@ -1,0 +1,164 @@
+export interface BKKJobItem {
+  id?: number | string;
+  title: string;
+  company: string;
+  location: string;
+  jobType: string;
+  deadline?: string;
+  salary?: string;
+  requirements?: string;
+  description?: string;
+  companyLogo?: string;
+  applyUrl?: string;
+  status?: string;
+  created_at?: string;
+}
+
+export interface BKKPartnerItem {
+  id?: number | string;
+  name: string;
+  category: string;
+  logo: string;
+  description?: string;
+  website?: string;
+  orderIndex?: number;
+}
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api";
+
+export async function getBKKJobs(status?: string): Promise<BKKJobItem[]> {
+  try {
+    const url = new URL(`${API_BASE_URL}/bkk/jobs`);
+    if (status && status !== "semua") {
+      url.searchParams.set("status", status);
+    }
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (res.ok) {
+      const json = await res.json();
+      return json.data || [];
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+export async function createBKKJob(
+  data: Partial<BKKJobItem>
+): Promise<{ success: boolean; data?: BKKJobItem; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/jobs`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal membuat lowongan" };
+    return { success: true, data: json.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}
+
+export async function updateBKKJob(
+  id: number | string,
+  data: Partial<BKKJobItem>
+): Promise<{ success: boolean; data?: BKKJobItem; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/jobs/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal memperbarui lowongan" };
+    return { success: true, data: json.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}
+
+export async function deleteBKKJob(
+  id: number | string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/jobs/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal menghapus lowongan" };
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}
+
+export async function getBKKPartners(): Promise<BKKPartnerItem[]> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/partners`, { cache: "no-store" });
+    if (res.ok) {
+      const json = await res.json();
+      return json.data || [];
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+export async function createBKKPartner(
+  data: Partial<BKKPartnerItem>
+): Promise<{ success: boolean; data?: BKKPartnerItem; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/partners`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal menambah mitra" };
+    return { success: true, data: json.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}
+
+export async function updateBKKPartner(
+  id: number | string,
+  data: Partial<BKKPartnerItem>
+): Promise<{ success: boolean; data?: BKKPartnerItem; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/partners/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal memperbarui mitra" };
+    return { success: true, data: json.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}
+
+export async function deleteBKKPartner(
+  id: number | string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/bkk/partners/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal menghapus mitra" };
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}

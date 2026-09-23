@@ -1,27 +1,52 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeroSection from "@/components/sections/common/PageHeroSection";
-import { EKSKUL_LIST } from "@/data/ekstrakurikulerData";
+import { EKSKUL_LIST, EkstrakurikulerItem } from "@/data/ekstrakurikulerData";
+import { getEkskulList } from "@/services/ekskul";
 
 export default function EkstrakurikulerClient() {
   const { t } = useLanguage();
+  const [items, setItems] = useState<EkstrakurikulerItem[]>(EKSKUL_LIST);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  useEffect(() => {
+    let isMounted = true;
+    getEkskulList()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setItems(
+            data.map((e) => ({
+              id: e.slug || String(e.id),
+              name: e.name,
+              category: (e.category || "Olahraga & Bela Diri") as any,
+              description: e.description || "",
+              image: e.image,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filteredItems = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return EKSKUL_LIST;
-    return EKSKUL_LIST.filter((item) => {
+    if (!q) return items;
+    return items.filter((item) => {
       return (
         item.name.toLowerCase().includes(q) ||
         item.description.toLowerCase().includes(q)
       );
     });
-  }, [searchQuery]);
+  }, [searchQuery, items]);
 
   return (
     <>

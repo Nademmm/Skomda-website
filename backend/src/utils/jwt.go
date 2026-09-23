@@ -1,0 +1,67 @@
+package utils
+
+import (
+	"errors"
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/nademmm/smktelkom-web/backend/src/models"
+)
+
+// JWTClaims merepresentasikan payload claims untuk otentikasi admin.
+type JWTClaims struct {
+	UserID uint   `json:"user_id"`
+	Email  string `json:"email"`
+	Name   string `json:"name"`
+	Role   string `json:"role"`
+	jwt.RegisteredClaims
+}
+
+// GenerateToken membuat token JWT yang ditandatangani dengan secret key.
+func GenerateToken(user *models.User, secret string, duration time.Duration) (string, error) {
+	if secret == "" {
+		secret = "skomda-super-secret-jwt-key-2026-production"
+	}
+
+	claims := JWTClaims{
+		UserID: user.ID,
+		Email:  user.Email,
+		Name:   user.Name,
+		Role:   user.Role,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(duration)),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			NotBefore: jwt.NewNumericDate(time.Now()),
+			Issuer:    "skomda-backend",
+			Subject:   user.Email,
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString([]byte(secret))
+}
+
+// ValidateToken memvalidasi string JWT dan mengembalikan claims terurai jika valid.
+func ValidateToken(tokenStr, secret string) (*JWTClaims, error) {
+	if secret == "" {
+		secret = "skomda-super-secret-jwt-key-2026-production"
+	}
+
+	token, err := jwt.ParseWithClaims(tokenStr, &JWTClaims{}, func(t *jwt.Token) (interface{}, error) {
+		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("metode penandatanganan token tidak valid")
+		}
+		return []byte(secret), nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	claims, ok := token.Claims.(*JWTClaims)
+	if !ok || !token.Valid {
+		return nil, errors.New("token tidak valid atau telah kedaluwarsa")
+	}
+
+	return claims, nil
+}

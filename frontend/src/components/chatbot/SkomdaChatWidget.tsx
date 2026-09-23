@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
@@ -100,6 +101,7 @@ function ThinkingState() {
 }
 
 export default function SkomdaChatWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([INITIAL_WELCOME]);
@@ -464,6 +466,10 @@ export default function SkomdaChatWidget() {
       localStorage.removeItem("skomda_chat_messages");
     } catch {}
   };
+
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/gate-internal-skomda")) {
+    return null;
+  }
 
   return (
     <aside

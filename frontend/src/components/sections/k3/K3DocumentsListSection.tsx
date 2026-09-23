@@ -15,6 +15,7 @@ import {
   K3_DOCUMENTS,
   type K3Document,
 } from "@/data/k3Documents";
+import { getDocumentList } from "@/services/documents";
 
 const CATEGORIES = [
   "Semua",
@@ -29,10 +30,40 @@ const ITEMS_PER_PAGE = 10;
 
 export default function K3DocumentsListSection() {
   const { isEn } = useLanguage();
+  const [k3Docs, setK3Docs] = useState<K3Document[]>(K3_DOCUMENTS);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [currentPage, setCurrentPage] = useState(1);
   const [previewDoc, setPreviewDoc] = useState<K3Document | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    getDocumentList("Dokumen K3")
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setK3Docs(
+            data.map((d) => {
+              const existing = K3_DOCUMENTS.find((ex) => ex.title.toLowerCase() === d.title.toLowerCase());
+              return {
+                id: String(d.id),
+                driveId: existing?.driveId || "",
+                title: d.title,
+                category: existing?.category || "SOP & Pedoman",
+                fileSize: d.fileSize || existing?.fileSize || "1.0 MB",
+                format: "PDF",
+                viewUrl: existing?.viewUrl || d.fileUrl,
+                driveUrl: d.fileUrl,
+              };
+            })
+          );
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Close preview modal on ESC key
   useEffect(() => {
@@ -47,7 +78,7 @@ export default function K3DocumentsListSection() {
 
   // Filter documents
   const filteredDocs = useMemo(() => {
-    return K3_DOCUMENTS.filter((doc) => {
+    return k3Docs.filter((doc) => {
       const matchesSearch = doc.title
         .toLowerCase()
         .includes(searchQuery.toLowerCase().trim());
@@ -55,7 +86,7 @@ export default function K3DocumentsListSection() {
         selectedCategory === "Semua" || doc.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, k3Docs]);
 
   // Reset to page 1 on filter change
   useEffect(() => {

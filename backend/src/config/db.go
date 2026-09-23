@@ -34,7 +34,21 @@ func InitDB(cfg Config) *gorm.DB {
 	}
 
 	// Migration tabel
-	if err := DB.AutoMigrate(&models.Jurusan{}, &models.News{}); err != nil {
+	if err := DB.AutoMigrate(
+		&models.Jurusan{},
+		&models.News{},
+		&models.User{},
+		&models.AuditLog{},
+		&models.Teacher{},
+		&models.Prestasi{},
+		&models.BKKJob{},
+		&models.BKKPartner{},
+		&models.BKKAlumni{},
+		&models.Ekstrakurikuler{},
+		&models.Fasilitas{},
+		&models.Document{},
+		&models.SiteSetting{},
+	); err != nil {
 		log.Fatalf("fatal: gagal auto migrate database: %v", err)
 	}
 
@@ -42,11 +56,16 @@ func InitDB(cfg Config) *gorm.DB {
 	if DB.Dialector.Name() == "postgres" {
 		DB.Exec("ALTER TABLE IF EXISTS public.jurusans ENABLE ROW LEVEL SECURITY;")
 		DB.Exec("ALTER TABLE IF EXISTS public.news ENABLE ROW LEVEL SECURITY;")
+		DB.Exec("ALTER TABLE IF EXISTS public.users ENABLE ROW LEVEL SECURITY;")
+		DB.Exec("ALTER TABLE IF EXISTS public.audit_logs ENABLE ROW LEVEL SECURITY;")
 	}
 
-	// Seed data jika tabel masih kosong
-	SeedJurusanIfEmpty(DB, cfg.Env)
-	SeedNewsIfEmpty(DB, cfg.Env)
+	// Inisialisasi akun Super Admin default hanya jika tabel users kosong (0 user)
+	SeedDefaultAdminIfEmpty(DB)
+
+	// CATATAN: Seluruh seeder konten otomatis telah dinonaktifkan permanen sesuai instruksi.
+	// Seluruh data (Jurusan, Berita, Guru, Prestasi, Ekskul, Fasilitas, BKK, Dokumen)
+	// kini 100% bersumber dari dan dikelola melalui Panel Admin tanpa overwrite seeder.
 
 	return DB
 }
@@ -295,4 +314,33 @@ func SeedNewsIfEmpty(db *gorm.DB, env string) {
 		}
 	}
 	log.Println("berhasil seed 12 data awal berita resmi ke database.")
+}
+
+// SeedDefaultAdminIfEmpty membuat akun Super Admin default jika tabel users masih kosong.
+func SeedDefaultAdminIfEmpty(db *gorm.DB) {
+	var count int64
+	db.Model(&models.User{}).Count(&count)
+	if count > 0 {
+		return
+	}
+
+	admin := models.User{
+		Name:   "Super Admin SKOMDA",
+		Email:  "admin@smktelkom-sda.sch.id",
+		Role:   "super_admin",
+		Avatar: "/images/common/telkom-schools-icon.png",
+	}
+
+	// Password default pengembang aman di-hash dengan bcrypt
+	if err := admin.SetPassword("SkomdaAdmin2026!"); err != nil {
+		log.Printf("peringatan: gagal mengenkripsi password admin seeder: %v", err)
+		return
+	}
+
+	if err := db.Create(&admin).Error; err != nil {
+		log.Printf("peringatan: gagal seed akun admin default: %v", err)
+		return
+	}
+
+	log.Println("berhasil seed akun default Super Admin (admin@smktelkom-sda.sch.id) ke database.")
 }

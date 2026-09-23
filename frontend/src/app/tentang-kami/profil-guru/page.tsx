@@ -1,9 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import ProfilGuruHeroSection from "@/components/sections/profil-guru/ProfilGuruHeroSection";
-import KepalaSekolahSection from "@/components/sections/profil-guru/KepalaSekolahSection";
-import TeacherCarouselSection from "@/components/sections/profil-guru/TeacherCarouselSection";
-import { wakilKepalaList, guruList, staffList } from "@/data/teachers";
+import ProfilGuruClient from "@/components/sections/profil-guru/ProfilGuruClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -33,41 +30,7 @@ export default function ProfilGuruPage() {
       
       {/* Main Page Content */}
       <main className="flex-1">
-        {/* 1. Top Hero Section */}
-        <ProfilGuruHeroSection />
-
-        {/* 2. Kepala Sekolah Featured Section */}
-        <KepalaSekolahSection />
-
-        {/* 3. Wakil Kepala & Manajemen Sekolah Carousel */}
-        <TeacherCarouselSection
-          title="Pimpinan & Manajemen Sekolah"
-          titleEn="School Management & Vice Principals"
-          subtitle="SMK Telkom Sidoarjo"
-          items={wakilKepalaList}
-          itemsPerPage={4}
-          bgWhite={false}
-        />
-
-        {/* 4. Guru Mata Pelajaran Carousel */}
-        <TeacherCarouselSection
-          title="Guru Mata Pelajaran"
-          titleEn="Subject Teachers"
-          subtitle="SMK Telkom Sidoarjo"
-          items={guruList}
-          itemsPerPage={4}
-          bgWhite={true}
-        />
-
-        {/* 5. Staff dan Karyawan Carousel */}
-        <TeacherCarouselSection
-          title="Staff dan Karyawan"
-          titleEn="Administrative & Support Staff"
-          subtitle="SMK Telkom Sidoarjo"
-          items={staffList}
-          itemsPerPage={4}
-          bgWhite={false}
-        />
+        <ProfilGuruClient />
       </main>
 
       {/* 4-Column Footer */}

@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { kepalaSekolah } from "@/data/teachers";
+import { kepalaSekolah as defaultKepalaSekolah } from "@/data/teachers";
 import { Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function KepalaSekolahSection() {
+export default function KepalaSekolahSection({ data = defaultKepalaSekolah }: { data?: any }) {
+  const kepalaSekolah = data;
   const { lang } = useLanguage();
 
   return (

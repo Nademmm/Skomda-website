@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 };
 
 import { LanguageProvider } from "@/context/LanguageContext";
+import { AdminAuthProvider } from "@/context/AdminAuthContext";
 import SkomdaChatWidget from "@/components/chatbot/SkomdaChatWidget";
 
 export default function RootLayout({
@@ -43,9 +44,11 @@ export default function RootLayout({
     <html lang="id" className={`${jakarta.variable} ${poppins.variable}`}>
       <body className="font-jakarta antialiased bg-[#f3f4f6] text-[#101828] overflow-x-hidden">
         <LanguageProvider>
-          {children}
-          {/* Floating AI Chatbot Widget (Skomda Intelligence via NexusRouter) */}
-          <SkomdaChatWidget />
+          <AdminAuthProvider>
+            {children}
+            {/* Floating AI Chatbot Widget (Skomda Intelligence via NexusRouter) */}
+            <SkomdaChatWidget />
+          </AdminAuthProvider>
         </LanguageProvider>
       </body>
     </html>

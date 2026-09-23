@@ -1,8 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import {
+  Plus,
+  Search,
+  Filter,
+  Pencil,
+  Trash2,
+  ExternalLink,
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+  X,
+  FileText,
+} from "lucide-react";
+import AdminLayout from "@/components/admin/AdminLayout";
+import ImageUploadField from "@/components/admin/ImageUploadField";
+import AdminSelect from "@/components/admin/AdminSelect";
 import {
   NewsItem,
   NEWS_CATEGORIES,
@@ -16,6 +32,9 @@ export default function AdminBeritaPage() {
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
+  const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft">("all");
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingItem, setEditingItem] = useState<NewsItem | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -32,6 +51,7 @@ export default function AdminBeritaPage() {
     content: "",
     image: "/images/berita/news-thumb-1.png",
     author: "Humas SKOMDA",
+    status: "published" as "published" | "draft",
   });
 
   const showToast = (text: string, type: "success" | "error" = "success") => {
@@ -44,9 +64,9 @@ export default function AdminBeritaPage() {
   const loadNews = async () => {
     setIsLoading(true);
     try {
-      const data = await getNewsList();
+      const data = await getNewsList({ status: "semua" });
       setNewsList(data);
-    } catch (err) {
+    } catch {
       showToast("Gagal memuat daftar berita dari backend", "error");
     } finally {
       setIsLoading(false);
@@ -66,6 +86,7 @@ export default function AdminBeritaPage() {
       content: "",
       image: "/images/berita/news-thumb-1.png",
       author: "Humas SKOMDA",
+      status: "published",
     });
     setIsModalOpen(true);
   };
@@ -79,6 +100,7 @@ export default function AdminBeritaPage() {
       content: item.content || "",
       image: item.image || "/images/berita/news-thumb-1.png",
       author: item.author || "Humas SKOMDA",
+      status: (item.status as "published" | "draft") || "published",
     });
     setIsModalOpen(true);
   };
@@ -93,27 +115,25 @@ export default function AdminBeritaPage() {
     setIsSubmitting(true);
     try {
       if (editingItem && editingItem.id) {
-        // UPDATE (PUT)
         const res = await updateNews(editingItem.id, formData);
         if (res.success) {
-          showToast("Berita berhasil diperbarui di database Supabase!");
+          showToast("Berita berhasil diperbarui di database!");
           setIsModalOpen(false);
           await loadNews();
         } else {
           showToast(res.error || "Gagal memperbarui berita", "error");
         }
       } else {
-        // CREATE (POST)
         const res = await createNews(formData);
         if (res.success) {
-          showToast("Berita baru berhasil ditambahkan ke database Supabase!");
+          showToast("Berita baru berhasil ditambahkan ke database!");
           setIsModalOpen(false);
           await loadNews();
         } else {
           showToast(res.error || "Gagal membuat berita", "error");
         }
       }
-    } catch (err) {
+    } catch {
       showToast("Terjadi kesalahan saat menyimpan berita", "error");
     } finally {
       setIsSubmitting(false);
@@ -127,229 +147,268 @@ export default function AdminBeritaPage() {
     }
 
     const confirmed = window.confirm(
-      `Apakah Anda yakin ingin menghapus berita:\n"${item.title}"?\n\nData akan dihapus permanen dari database Supabase.`
+      `Apakah Anda yakin ingin menghapus berita:\n"${item.title}"?\n\nData akan dihapus dari sistem.`
     );
     if (!confirmed) return;
 
     try {
       const res = await deleteNews(item.id);
       if (res.success) {
-        showToast("Berita berhasil dihapus dari database!");
+        showToast("Berita berhasil dihapus!");
         await loadNews();
       } else {
         showToast(res.error || "Gagal menghapus berita", "error");
       }
-    } catch (err) {
+    } catch {
       showToast("Terjadi kesalahan saat menghapus berita", "error");
     }
   };
 
+  // Filter list
   const filteredList = newsList.filter((item) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
-    return (
-      item.title.toLowerCase().includes(q) ||
-      item.category.toLowerCase().includes(q) ||
-      (item.author && item.author.toLowerCase().includes(q))
-    );
+    // Search filter
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const match =
+        item.title.toLowerCase().includes(q) ||
+        (item.summary && item.summary.toLowerCase().includes(q)) ||
+        (item.author && item.author.toLowerCase().includes(q));
+      if (!match) return false;
+    }
+    // Category filter
+    if (selectedCategory !== "Semua") {
+      if (item.category !== selectedCategory) return false;
+    }
+    // Status filter
+    if (statusFilter === "published" && item.status === "draft") return false;
+    if (statusFilter === "draft" && item.status !== "draft") return false;
+
+    return true;
   });
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-[#101828] font-jakarta">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div
-          className={`fixed top-5 right-5 z-50 px-5 py-3.5 rounded-xl shadow-xl text-white font-medium text-sm transition-all duration-300 flex items-center gap-2 ${
-            toastMessage.type === "success" ? "bg-emerald-600" : "bg-red-600"
-          }`}
+    <AdminLayout
+      title="Manajemen Berita & Artikel"
+      subtitle="Kelola publikasi berita, pengumuman, dan artikel resmi sekolah"
+      actions={
+        <button
+          type="button"
+          onClick={handleOpenAddModal}
+          className="inline-flex items-center gap-2 rounded-xl bg-[#bc0c11] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#990a0e] transition-colors cursor-pointer"
         >
-          <span>
-            {toastMessage.type === "success" ? "✓" : "⚠"} {toastMessage.text}
-          </span>
-        </div>
-      )}
-
-      {/* Top Navbar Admin */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="bg-[#bc0c11] text-white font-bold text-base px-2.5 py-1 rounded-lg">
-                SKOMDA
-              </span>
-              <span className="font-bold text-base text-[#101828]">
-                Panel Admin Berita
-              </span>
-            </Link>
-            <span className="hidden sm:inline-block px-2.5 py-0.5 text-xs font-semibold bg-emerald-100 text-emerald-800 rounded-full">
-              Live DB (Supabase)
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/berita"
-              target="_blank"
-              className="text-xs sm:text-sm font-medium text-[#6a7282] hover:text-[#bc0c11] transition-colors"
-            >
-              Lihat Website ↗
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        {/* Header Action Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#101828]">
-              Kelola Berita &amp; Artikel
-            </h1>
-            <p className="text-sm text-[#6a7282] mt-1">
-              Buat, edit, dan hapus artikel berita secara langsung ke database online.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleOpenAddModal}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#bc0c11] text-white font-semibold text-sm rounded-xl shadow-sm hover:bg-[#990a0e] active:scale-95 transition-all cursor-pointer"
+          <Plus className="size-4" />
+          <span>Tulis Berita Baru</span>
+        </button>
+      }
+    >
+      <div className="space-y-6">
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div
+            className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-2xl px-5 py-3.5 shadow-xl transition-all ${
+              toastMessage.type === "success"
+                ? "bg-slate-900 text-white"
+                : "bg-red-600 text-white"
+            }`}
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="stroke-white"
-            >
-              <path
-                d="M12 5V19M5 12H19"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>Tambah Berita Baru</span>
-          </button>
-        </div>
+            {toastMessage.type === "success" ? (
+              <CheckCircle2 className="size-5 text-emerald-400" />
+            ) : (
+              <AlertCircle className="size-5 text-white" />
+            )}
+            <span className="text-xs font-bold">{toastMessage.text}</span>
+          </div>
+        )}
 
-        {/* Search & Filter Bar */}
-        <div className="bg-white p-4 rounded-2xl border border-gray-200/80 shadow-xs mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="relative w-full sm:w-80">
-            <input
-              type="text"
-              placeholder="Cari judul, kategori, penulis..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#bc0c11]"
-            />
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="absolute left-3.5 top-3 stroke-gray-400"
+        {/* Filter & Actions Bar */}
+        <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3.5 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs">
+          {/* Status Tabs */}
+          <div className="flex items-center gap-1.5 rounded-xl bg-slate-100/90 p-1 shrink-0 overflow-x-auto scrollbar-none">
+            <button
+              type="button"
+              onClick={() => setStatusFilter("all")}
+              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                statusFilter === "all"
+                  ? "bg-white text-slate-900 shadow-2xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
             >
-              <circle cx="11" cy="11" r="8" strokeWidth="2" />
-              <path d="M21 21L16.65 16.65" strokeWidth="2" strokeLinecap="round" />
-            </svg>
+              Semua ({newsList.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setStatusFilter("published")}
+              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                statusFilter === "published"
+                  ? "bg-white text-emerald-700 shadow-2xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Terbit ({newsList.filter((n) => n.status !== "draft").length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setStatusFilter("draft")}
+              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                statusFilter === "draft"
+                  ? "bg-white text-amber-700 shadow-2xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Draf ({newsList.filter((n) => n.status === "draft").length})
+            </button>
           </div>
 
-          <div className="text-xs text-[#6a7282] font-medium self-end sm:self-center">
-            Menampilkan <strong className="text-[#101828]">{filteredList.length}</strong> berita
+          {/* Search, Category, and Action Button */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 flex-1 xl:justify-end">
+            <div className="relative w-full sm:max-w-xs">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Cari judul, ringkasan, atau penulis..."
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-[#bc0c11] focus:bg-white focus:outline-none"
+              />
+            </div>
+
+            <div className="w-full sm:w-48">
+              <AdminSelect
+                value={selectedCategory}
+                onChange={setSelectedCategory}
+                options={NEWS_CATEGORIES}
+                icon={Filter}
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={handleOpenAddModal}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#bc0c11] px-5 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#990a0e] hover:shadow-md active:scale-[0.98] transition-all cursor-pointer shrink-0 whitespace-nowrap"
+            >
+              <Plus className="size-4" />
+              <span>Tulis Berita Baru</span>
+            </button>
           </div>
         </div>
 
         {/* News Table */}
-        <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xs">
           {isLoading ? (
-            <div className="p-16 text-center text-gray-500 text-sm">
-              <div className="inline-block size-8 border-3 border-gray-200 border-t-[#bc0c11] rounded-full animate-spin mb-3"></div>
-              <p>Memuat data berita dari Supabase...</p>
+            <div className="space-y-4 p-6">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="h-16 rounded-xl bg-slate-100 animate-pulse" />
+              ))}
             </div>
           ) : filteredList.length === 0 ? (
-            <div className="p-16 text-center text-gray-500">
-              <p className="text-base font-semibold text-gray-700 mb-1">
-                Tidak ada berita ditemukan
+            <div className="py-16 text-center">
+              <FileText className="mx-auto size-12 text-slate-300" />
+              <h3 className="mt-3 text-sm font-bold text-slate-800">
+                Tidak ada berita yang ditemukan
+              </h3>
+              <p className="mt-1 text-xs text-slate-500">
+                Coba sesuaikan kata kunci pencarian atau saringan kategori Anda.
               </p>
-              <p className="text-sm">Silakan buat berita baru atau ubah kata kunci pencarian.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-gray-50/80 text-gray-600 font-semibold border-b border-gray-200">
-                  <tr>
-                    <th className="py-3.5 px-4 w-16 text-center">ID</th>
-                    <th className="py-3.5 px-4 w-20">Foto</th>
-                    <th className="py-3.5 px-4">Judul &amp; Ringkasan</th>
-                    <th className="py-3.5 px-4 w-36">Kategori</th>
-                    <th className="py-3.5 px-4 w-36">Tanggal Rilis</th>
-                    <th className="py-3.5 px-4 w-32 text-right">Aksi</th>
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-100 bg-slate-50/75 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <th className="py-3.5 pl-6 pr-3">Berita</th>
+                    <th className="px-3 py-3.5">Kategori</th>
+                    <th className="px-3 py-3.5">Status</th>
+                    <th className="px-3 py-3.5">Tanggal & Penulis</th>
+                    <th className="py-3.5 pl-3 pr-6 text-right">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-slate-100 text-xs">
                   {filteredList.map((item) => (
-                    <tr key={item.id || item.slug} className="hover:bg-gray-50/60 transition-colors">
-                      <td className="py-4 px-4 text-center font-mono text-xs text-gray-500">
-                        {item.id || "-"}
-                      </td>
-                      <td className="py-4 px-4">
-                        <div className="relative size-12 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
-                          <Image
-                            src={item.image || "/images/berita/news-thumb-1.png"}
-                            alt={item.title}
-                            fill
-                            className="object-cover"
-                          />
+                    <tr
+                      key={item.id || item.slug}
+                      className="group hover:bg-slate-50/60 transition-colors"
+                    >
+                      {/* Image & Title */}
+                      <td className="py-4 pl-6 pr-3 min-w-[280px] max-w-[400px]">
+                        <div className="flex items-center gap-3">
+                          <div className="relative size-12 shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200/80">
+                            <Image
+                              src={item.image || "/images/berita/news-thumb-1.png"}
+                              alt={item.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="font-bold text-slate-900 line-clamp-2 leading-snug">
+                              {item.title}
+                            </p>
+                            <p className="text-[11px] text-slate-400 mt-0.5 font-mono">
+                              /{item.slug}
+                            </p>
+                          </div>
                         </div>
                       </td>
-                      <td className="py-4 px-4">
-                        <Link
-                          href={`/berita/${item.slug}`}
-                          target="_blank"
-                          className="font-bold text-[#101828] hover:text-[#bc0c11] transition-colors line-clamp-1"
-                        >
-                          {item.title}
-                        </Link>
-                        <p className="text-xs text-[#6a7282] line-clamp-1 mt-0.5">
-                          {item.summary || item.slug}
-                        </p>
+
+                      {/* Category */}
+                      <td className="px-3 py-4 whitespace-nowrap text-slate-700 font-medium">
+                        {item.category}
                       </td>
-                      <td className="py-4 px-4">
-                        <span className="inline-block px-2.5 py-1 text-xs font-semibold bg-red-50 text-[#bc0c11] rounded-md border border-red-100">
-                          {item.category}
+
+                      {/* Status */}
+                      <td className="px-3 py-4 whitespace-nowrap">
+                        <span
+                          className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                            item.status === "draft"
+                              ? "bg-amber-100 text-amber-800 border border-amber-200"
+                              : "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                          }`}
+                        >
+                          {item.status === "draft" ? "Draf" : "Terbit"}
                         </span>
                       </td>
-                      <td className="py-4 px-4 text-xs text-[#6a7282]">
-                        <p className="font-medium text-gray-700">{item.dateFormatted || "-"}</p>
-                        <p>{item.time ? `${item.time} WIB` : ""}</p>
+
+                      {/* Date & Author */}
+                      <td className="px-3 py-4 whitespace-nowrap text-slate-500">
+                        <p className="font-semibold text-slate-700">
+                          {item.dateFormatted || "Hari ini"}
+                        </p>
+                        <p className="text-[11px] text-slate-400">
+                          Oleh {item.author || "Humas SKOMDA"}
+                        </p>
                       </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="inline-flex items-center gap-1.5">
+
+                      {/* Actions */}
+                      <td className="py-4 pl-3 pr-6 whitespace-nowrap text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          {/* View public link */}
+                          <Link
+                            href={`/berita/${item.slug}`}
+                            target="_blank"
+                            title="Lihat Halaman Publik"
+                            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
+                          >
+                            <ExternalLink className="size-4" />
+                          </Link>
+
+                          {/* Edit button */}
                           <button
                             type="button"
                             onClick={() => handleOpenEditModal(item)}
-                            className="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
-                            title="Edit Berita"
+                            title="Sunting Berita"
+                            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                           >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                            </svg>
+                            <Pencil className="size-4" />
                           </button>
+
+                          {/* Delete button */}
                           <button
                             type="button"
                             onClick={() => handleDelete(item)}
-                            className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                             title="Hapus Berita"
+                            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition-colors"
                           >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="3 6 5 6 21 6" />
-                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                            </svg>
+                            <Trash2 className="size-4" />
                           </button>
                         </div>
                       </td>
@@ -360,123 +419,134 @@ export default function AdminBeritaPage() {
             </div>
           )}
         </div>
-      </main>
+      </div>
 
       {/* Modal Form Tambah / Edit Berita */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
-              <h2 className="text-xl font-bold text-[#101828]">
-                {editingItem ? "Edit Berita" : "Tambah Berita Baru"}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 sm:p-6">
+          <div className="relative flex flex-col w-full max-w-2xl max-h-[90vh] rounded-3xl bg-white shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            {/* Pinned Modal Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 px-6 sm:px-8 py-5 shrink-0 bg-white">
+              <h2 className="text-lg font-bold text-slate-900 font-poppins">
+                {editingItem ? "Sunting Data Berita" : "Tulis Berita Baru"}
               </h2>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 size-8 flex items-center justify-center rounded-full hover:bg-gray-100"
+                className="flex size-8 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors cursor-pointer"
               >
-                ✕
+                <X className="size-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5">
-                  Judul Berita *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Masukkan judul berita lengkap..."
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Scrollable Form Body with Custom Scrollbar */}
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto admin-modal-scrollbar px-6 sm:px-8 py-6 space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5">
-                    Kategori *
-                  </label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11] bg-white"
-                  >
-                    {NEWS_CATEGORIES.filter((c) => c !== "Semua").map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5">
-                    Penulis / Redaksi
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Judul Berita *
                   </label>
                   <input
                     type="text"
-                    placeholder="Contoh: Humas SKOMDA"
-                    value={formData.author}
-                    onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
+                    required
+                    placeholder="Masukkan judul berita lengkap..."
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:border-[#bc0c11] focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-100"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  <div>
+                    <AdminSelect
+                      label="Kategori *"
+                      value={formData.category}
+                      onChange={(cat) => setFormData({ ...formData, category: cat })}
+                      options={NEWS_CATEGORIES.filter((c) => c !== "Semua")}
+                    />
+                  </div>
+
+                  <div>
+                    <AdminSelect
+                      label="Status Publikasi"
+                      value={formData.status}
+                      onChange={(st) =>
+                        setFormData({
+                          ...formData,
+                          status: st as "published" | "draft",
+                        })
+                      }
+                      options={[
+                        { value: "published", label: "Terbit (Publik)" },
+                        { value: "draft", label: "Draf (Tersimpan)" },
+                      ]}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Penulis / Redaksi
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Humas SKOMDA"
+                      value={formData.author}
+                      onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                      className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:border-[#bc0c11] focus:bg-white focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <ImageUploadField
+                    label="Foto Thumbnail / Cover Berita"
+                    value={formData.image || ""}
+                    onChange={(url) => setFormData({ ...formData, image: url })}
+                    folder="skomda/news"
+                    recommendedSize="Format JPG, PNG, atau WebP (Maks 5MB). Rasio foto 16:9 disarankan."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Ringkasan Singkat (Lead Paragraph)
+                  </label>
+                  <textarea
+                    rows={2}
+                    placeholder="Ringkasan 1-2 kalimat untuk preview card..."
+                    value={formData.summary}
+                    onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:border-[#bc0c11] focus:bg-white focus:outline-none custom-scrollbar"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Isi Konten Artikel Lengkap
+                  </label>
+                  <textarea
+                    rows={6}
+                    placeholder="Tuliskan isi berita lengkap di sini (pisahkan paragraf dengan enter ganda)..."
+                    value={formData.content}
+                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:border-[#bc0c11] focus:bg-white focus:outline-none custom-scrollbar"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5">
-                  URL / Path Foto Thumbnail
-                </label>
-                <input
-                  type="text"
-                  placeholder="/images/berita/news-thumb-1.png atau URL eksternal"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5">
-                  Ringkasan Singkat (Lead Paragraph)
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="Ringkasan 1-2 kalimat untuk preview card..."
-                  value={formData.summary}
-                  onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5">
-                  Isi Konten Artikel Lengkap
-                </label>
-                <textarea
-                  rows={6}
-                  placeholder="Tuliskan isi berita lengkap di sini (pisahkan paragraf dengan enter ganda)..."
-                  value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#bc0c11]"
-                />
-              </div>
-
-              <div className="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
+              {/* Pinned Modal Footer */}
+              <div className="flex items-center justify-end gap-3 px-6 sm:px-8 py-4 border-t border-slate-100 bg-slate-50/70 shrink-0">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
+                  className="rounded-xl px-5 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2.5 text-sm font-semibold bg-[#bc0c11] text-white rounded-xl hover:bg-[#990a0e] transition-colors shadow-sm disabled:opacity-50"
+                  className="rounded-xl bg-[#bc0c11] px-6 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#990a0e] transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isSubmitting
                     ? "Menyimpan ke Database..."
@@ -489,6 +559,6 @@ export default function AdminBeritaPage() {
           </div>
         </div>
       )}
-    </div>
+    </AdminLayout>
   );
 }
