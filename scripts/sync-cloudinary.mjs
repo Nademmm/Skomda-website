@@ -62,8 +62,9 @@ const allFiles = [
 const totalBytes = allFiles.reduce((acc, f) => acc + f.size, 0);
 const totalMB = (totalBytes / (1024 * 1024)).toFixed(2);
 
+const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp", ".ico"]);
 const svgs = allFiles.filter((f) => f.ext === ".svg");
-const heavyPhotos = allFiles.filter((f) => f.ext !== ".svg");
+const heavyPhotos = allFiles.filter((f) => IMAGE_EXTS.has(f.ext));
 
 const svgBytes = svgs.reduce((acc, f) => acc + f.size, 0);
 const heavyBytes = heavyPhotos.reduce((acc, f) => acc + f.size, 0);

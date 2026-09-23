@@ -1156,5 +1156,293 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063629/skomda/tentang-kami/prestasi/prestasi-porkab-renang-nabil.png",
     "format": "png",
     "bytes": 663321
+  },
+  "berita/berita-bp3mi-kerja-korea.png": {
+    "public_id": "skomda/berita/berita-bp3mi-kerja-korea",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140128/skomda/berita/berita-bp3mi-kerja-korea.png",
+    "format": "png",
+    "bytes": 799830
+  },
+  "berita/berita-guru-kunjungan-hummatech.png": {
+    "public_id": "skomda/berita/berita-guru-kunjungan-hummatech",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140131/skomda/berita/berita-guru-kunjungan-hummatech.png",
+    "format": "png",
+    "bytes": 655357
+  },
+  "berita/berita-hut-61-telkom.png": {
+    "public_id": "skomda/berita/berita-hut-61-telkom",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140132/skomda/berita/berita-hut-61-telkom.png",
+    "format": "png",
+    "bytes": 986071
+  },
+  "berita/berita-levelup-guru-ai.png": {
+    "public_id": "skomda/berita/berita-levelup-guru-ai",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140132/skomda/berita/berita-levelup-guru-ai.png",
+    "format": "png",
+    "bytes": 549759
+  },
+  "berita/berita-spiderman-darjo-billal.png": {
+    "public_id": "skomda/berita/berita-spiderman-darjo-billal",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140133/skomda/berita/berita-spiderman-darjo-billal.png",
+    "format": "png",
+    "bytes": 639919
+  },
+  "gdocs/images/image1.png": {
+    "public_id": "skomda/gdocs/images/image1",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140134/skomda/gdocs/images/image1.png",
+    "format": "png",
+    "bytes": 799830
+  },
+  "gdocs/images/image10.png": {
+    "public_id": "skomda/gdocs/images/image10",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140135/skomda/gdocs/images/image10.png",
+    "format": "png",
+    "bytes": 653874
+  },
+  "gdocs/images/image11.png": {
+    "public_id": "skomda/gdocs/images/image11",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140137/skomda/gdocs/images/image11.png",
+    "format": "png",
+    "bytes": 685616
+  },
+  "gdocs/images/image12.png": {
+    "public_id": "skomda/gdocs/images/image12",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140138/skomda/gdocs/images/image12.png",
+    "format": "png",
+    "bytes": 655357
+  },
+  "gdocs/images/image13.png": {
+    "public_id": "skomda/gdocs/images/image13",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140139/skomda/gdocs/images/image13.png",
+    "format": "png",
+    "bytes": 517975
+  },
+  "gdocs/images/image14.jpg": {
+    "public_id": "skomda/gdocs/images/image14",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140140/skomda/gdocs/images/image14.jpg",
+    "format": "jpg",
+    "bytes": 189381
+  },
+  "gdocs/images/image15.png": {
+    "public_id": "skomda/gdocs/images/image15",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140141/skomda/gdocs/images/image15.png",
+    "format": "png",
+    "bytes": 300421
+  },
+  "gdocs/images/image16.jpg": {
+    "public_id": "skomda/gdocs/images/image16",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140142/skomda/gdocs/images/image16.jpg",
+    "format": "jpg",
+    "bytes": 204526
+  },
+  "gdocs/images/image17.png": {
+    "public_id": "skomda/gdocs/images/image17",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140143/skomda/gdocs/images/image17.png",
+    "format": "png",
+    "bytes": 526771
+  },
+  "gdocs/images/image18.png": {
+    "public_id": "skomda/gdocs/images/image18",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140144/skomda/gdocs/images/image18.png",
+    "format": "png",
+    "bytes": 639919
+  },
+  "gdocs/images/image19.png": {
+    "public_id": "skomda/gdocs/images/image19",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140145/skomda/gdocs/images/image19.png",
+    "format": "png",
+    "bytes": 663321
+  },
+  "gdocs/images/image2.png": {
+    "public_id": "skomda/gdocs/images/image2",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140146/skomda/gdocs/images/image2.png",
+    "format": "png",
+    "bytes": 930401
+  },
+  "gdocs/images/image20.png": {
+    "public_id": "skomda/gdocs/images/image20",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140147/skomda/gdocs/images/image20.png",
+    "format": "png",
+    "bytes": 2138421
+  },
+  "gdocs/images/image21.jpg": {
+    "public_id": "skomda/gdocs/images/image21",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140148/skomda/gdocs/images/image21.jpg",
+    "format": "jpg",
+    "bytes": 212675
+  },
+  "gdocs/images/image22.png": {
+    "public_id": "skomda/gdocs/images/image22",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140149/skomda/gdocs/images/image22.png",
+    "format": "png",
+    "bytes": 583898
+  },
+  "gdocs/images/image23.png": {
+    "public_id": "skomda/gdocs/images/image23",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140150/skomda/gdocs/images/image23.png",
+    "format": "png",
+    "bytes": 989437
+  },
+  "gdocs/images/image24.png": {
+    "public_id": "skomda/gdocs/images/image24",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140151/skomda/gdocs/images/image24.png",
+    "format": "png",
+    "bytes": 500386
+  },
+  "gdocs/images/image25.png": {
+    "public_id": "skomda/gdocs/images/image25",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140153/skomda/gdocs/images/image25.png",
+    "format": "png",
+    "bytes": 827319
+  },
+  "gdocs/images/image26.png": {
+    "public_id": "skomda/gdocs/images/image26",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140154/skomda/gdocs/images/image26.png",
+    "format": "png",
+    "bytes": 549759
+  },
+  "gdocs/images/image27.png": {
+    "public_id": "skomda/gdocs/images/image27",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140155/skomda/gdocs/images/image27.png",
+    "format": "png",
+    "bytes": 829365
+  },
+  "gdocs/images/image3.png": {
+    "public_id": "skomda/gdocs/images/image3",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140156/skomda/gdocs/images/image3.png",
+    "format": "png",
+    "bytes": 771448
+  },
+  "gdocs/images/image4.png": {
+    "public_id": "skomda/gdocs/images/image4",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140157/skomda/gdocs/images/image4.png",
+    "format": "png",
+    "bytes": 654734
+  },
+  "gdocs/images/image5.png": {
+    "public_id": "skomda/gdocs/images/image5",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140158/skomda/gdocs/images/image5.png",
+    "format": "png",
+    "bytes": 741422
+  },
+  "gdocs/images/image6.png": {
+    "public_id": "skomda/gdocs/images/image6",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140160/skomda/gdocs/images/image6.png",
+    "format": "png",
+    "bytes": 712774
+  },
+  "gdocs/images/image7.png": {
+    "public_id": "skomda/gdocs/images/image7",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140161/skomda/gdocs/images/image7.png",
+    "format": "png",
+    "bytes": 972582
+  },
+  "gdocs/images/image8.png": {
+    "public_id": "skomda/gdocs/images/image8",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140162/skomda/gdocs/images/image8.png",
+    "format": "png",
+    "bytes": 986071
+  },
+  "gdocs/images/image9.png": {
+    "public_id": "skomda/gdocs/images/image9",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140162/skomda/gdocs/images/image9.png",
+    "format": "png",
+    "bytes": 349421
+  },
+  "partners/partner-alfath.png": {
+    "public_id": "skomda/partners/partner-alfath",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140163/skomda/partners/partner-alfath.png",
+    "format": "png",
+    "bytes": 601314
+  },
+  "partners/partner-efortech.png": {
+    "public_id": "skomda/partners/partner-efortech",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140165/skomda/partners/partner-efortech.png",
+    "format": "png",
+    "bytes": 379514
+  },
+  "partners/partner-hai.png": {
+    "public_id": "skomda/partners/partner-hai",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140166/skomda/partners/partner-hai.png",
+    "format": "png",
+    "bytes": 1108501
+  },
+  "partners/partner-purnama_hotel.png": {
+    "public_id": "skomda/partners/partner-purnama_hotel",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140167/skomda/partners/partner-purnama_hotel.png",
+    "format": "png",
+    "bytes": 756977
+  },
+  "partners/partner-saka_global_perkasa.png": {
+    "public_id": "skomda/partners/partner-saka_global_perkasa",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140169/skomda/partners/partner-saka_global_perkasa.png",
+    "format": "png",
+    "bytes": 812457
+  },
+  "partners/partner-sana_sini.png": {
+    "public_id": "skomda/partners/partner-sana_sini",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140171/skomda/partners/partner-sana_sini.png",
+    "format": "png",
+    "bytes": 973773
+  },
+  "partners/partner-slash.png": {
+    "public_id": "skomda/partners/partner-slash",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140172/skomda/partners/partner-slash.png",
+    "format": "png",
+    "bytes": 258283
+  },
+  "partners/partner-ubig.png": {
+    "public_id": "skomda/partners/partner-ubig",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140173/skomda/partners/partner-ubig.png",
+    "format": "png",
+    "bytes": 366856
+  },
+  "partners/partner-widatra.png": {
+    "public_id": "skomda/partners/partner-widatra",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140174/skomda/partners/partner-widatra.png",
+    "format": "png",
+    "bytes": 876441
+  },
+  "tentang-kami/prestasi/hero-prestasi-figma.png": {
+    "public_id": "skomda/tentang-kami/prestasi/hero-prestasi-figma",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140177/skomda/tentang-kami/prestasi/hero-prestasi-figma.png",
+    "format": "png",
+    "bytes": 2196633
+  },
+  "tentang-kami/prestasi/prestasi-ai-video-storytelling-ficpact.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-ai-video-storytelling-ficpact",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140178/skomda/tentang-kami/prestasi/prestasi-ai-video-storytelling-ficpact.png",
+    "format": "png",
+    "bytes": 741422
+  },
+  "tentang-kami/prestasi/prestasi-film-pendek-fls2n.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-film-pendek-fls2n",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140180/skomda/tentang-kami/prestasi/prestasi-film-pendek-fls2n.png",
+    "format": "png",
+    "bytes": 930401
+  },
+  "tentang-kami/prestasi/prestasi-iitc-generative-ai.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-iitc-generative-ai",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140180/skomda/tentang-kami/prestasi/prestasi-iitc-generative-ai.png",
+    "format": "png",
+    "bytes": 349421
+  },
+  "tentang-kami/prestasi/prestasi-lafest-telkom-afgan.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-lafest-telkom-afgan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140182/skomda/tentang-kami/prestasi/prestasi-lafest-telkom-afgan.png",
+    "format": "png",
+    "bytes": 517975
+  },
+  "tentang-kami/prestasi/prestasi-lks-ai-nasional.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-lks-ai-nasional",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140183/skomda/tentang-kami/prestasi/prestasi-lks-ai-nasional.png",
+    "format": "png",
+    "bytes": 685616
+  },
+  "tentang-kami/prestasi/prestasi-sdlc-binus-revano.png": {
+    "public_id": "skomda/tentang-kami/prestasi/prestasi-sdlc-binus-revano",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140184/skomda/tentang-kami/prestasi/prestasi-sdlc-binus-revano.png",
+    "format": "png",
+    "bytes": 583898
   }
 }

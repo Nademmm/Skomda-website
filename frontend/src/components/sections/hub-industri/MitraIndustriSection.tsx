@@ -77,7 +77,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Slash (/. SLASH)",
-    logo: "/images/partners/partner-slash-v2.png",
+    logo: "/images/partners/partner-slash.png",
     focus: "Digital Product Agency & Software Engineering",
     description:
       "Inkubasi proyek web application, mentoring agile development, dan implementasi teknologi front-end/back-end modern industri.",
@@ -100,12 +100,12 @@ const mitraList: MitraPartner[] = [
     url: "https://www.jagoanhosting.com",
   },
   {
-    name: "Sans Souci Creative Studio",
-    logo: "/images/partners/partner-sanssouci-v2.png",
-    focus: "Creative Media Production & Multimedia",
+    name: "Sana Sini Creative Space",
+    logo: "/images/partners/partner-sana_sini.png",
+    focus: "Creative Space & Multimedia Production",
     description:
-      "Pelatihan produksi multimedia digital, motion graphics, video komersial kreatif, dan perancangan strategi visual marketing modern.",
-    url: "https://instagram.com/sanssouci.creative",
+      "Studio kreatif produksi multimedia digital, motion graphics, video komersial kreatif, dan perancangan strategi visual marketing modern.",
+    url: "https://instagram.com/sanasini.space",
   },
   {
     name: "PT Digdaya Olah Teknologi (DOT Indonesia)",
@@ -126,12 +126,12 @@ const mitraList: MitraPartner[] = [
     url: "https://bnsp.go.id",
   },
   {
-    name: "PT. Saha Global Perkasa (SGP)",
-    logo: "/images/partners/partner-sgp-v2.png",
+    name: "PT. Saka Global Perkasa (SGP)",
+    logo: "/images/partners/partner-saka_global_perkasa.png",
     focus: "Engineering & IT Infrastructure",
     description:
       "Dukungan pengadaan perangkat pendukung laboratorium kejuruan, instalasi jaringan pabrik, dan pengenalan rantai pasok industri modern.",
-    url: "https://sahaglobalperkasa.com",
+    url: "https://sakaglobalperkasa.com",
   },
   {
     name: "Jobnation IT Outsource",
@@ -166,12 +166,12 @@ const mitraList: MitraPartner[] = [
     url: "https://weza.co.id",
   },
   {
-    name: "PT. Infratra Telekomunikasi (INFRATRA)",
-    logo: "/images/partners/partner-infratra-v2.png",
-    focus: "Infrastruktur Jaringan & Pemeliharaan Fiber",
+    name: "PT. Widatra Bhakti",
+    logo: "/images/partners/partner-widatra.png",
+    focus: "Industri Farmasi & Otomasi Manufaktur",
     description:
-      "Pemeliharaan jaringan kabel fiber optik udara dan tanah, pengukuran redaman sinyal optik, serta pengawasan keselamatan kerja K3 telekomunikasi.",
-    url: "https://infratra.co.id",
+      "Penerapan sistem otomasi manufaktur berstandar internasional, pemeliharaan instrumen digital produksi, dan penempatan PKL/magang industri siswa.",
+    url: "https://widatra.com",
   },
 
   // ─── Row 4 ───
@@ -201,7 +201,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "Purnama Hotel Batu",
-    logo: "/images/partners/partner-purnamahotel-v2.png",
+    logo: "/images/partners/partner-purnama_hotel.png",
     focus: "Hospitality IT & Smart Hotel Systems",
     description:
       "Pengelolaan infrastruktur jaringan Wi-Fi perhotelan skala luas, implementasi sistem reservasi digital, dan integrasi IoT fasilitas kamar.",
@@ -217,7 +217,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "PT. Efortech (Technology for Solver)",
-    logo: "/images/partners/partner-efortech-v2.png",
+    logo: "/images/partners/partner-efortech.png",
     focus: "Industrial IoT & Embedded Systems",
     description:
       "Riset terapan Internet of Things (IoT), integrasi mikrokontroler sensor industri, dan sistem kendali otomatisasi telemetri cerdas.",
@@ -227,7 +227,7 @@ const mitraList: MitraPartner[] = [
   // ─── Row 5 ───
   {
     name: "Alfath Corp",
-    logo: "/images/partners/partner-alfath-v2.png",
+    logo: "/images/partners/partner-alfath.png",
     focus: "Corporate Business & Digital Services",
     description:
       "Penyelenggaraan event teknologi korporasi, manajemen kemitraan strategis, dan pembekalan kewirausahaan digital modern bagi siswa.",
@@ -235,7 +235,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "UBIG.CO.ID",
-    logo: "/images/partners/ubig.png",
+    logo: "/images/partners/partner-ubig.png",
     focus: "Software Development & SaaS Platform",
     description:
       "Inkubasi produk Software as a Service (SaaS), arsitektur cloud microservices, dan pembinaan startup digital siswa berprestasi.",
@@ -259,7 +259,7 @@ const mitraList: MitraPartner[] = [
   },
   {
     name: "HAI (Himpunan Ahli Informatika)",
-    logo: "/images/partners/partner-hai-v2.png",
+    logo: "/images/partners/partner-hai.png",
     focus: "Asosiasi Profesi & Standardisasi IT",
     description:
       "Standardisasi kurikulum kompetensi lulusan IT nasional, seminar keilmuan teknologi terkini, dan pengakuan sertifikasi keahlian profesional.",

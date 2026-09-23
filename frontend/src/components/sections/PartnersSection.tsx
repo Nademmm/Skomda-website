@@ -83,7 +83,7 @@ const partners = [
   },
   {
     name: "UBIG.CO.ID",
-    src: "/images/partners/ubig.png",
+    src: "/images/partners/partner-ubig.png",
   },
   {
     name: "PT Javacreatiox Network Intermedia",
