@@ -4,12 +4,12 @@ import PengumumanKelulusanClient from "@/components/sections/kelulusan/Pengumuma
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SMK Telkom Sidoarjo",
+  title: "Pengumuman Resmi Kelulusan | SMK Telkom Sidoarjo",
   description:
-    "Portal resmi informasi pengumuman kelulusan, jadwal pengambilan surat keterangan lulus (SKL), dan ijazah siswa SMK Telkom Sidoarjo.",
+    "Portal resmi informasi pengumuman kelulusan siswa Tahun Ajaran 2023/2024, penelusuran tamatan (Tracer Study), serta jadwal pengambilan SKL dan ijazah SMK Telkom Sidoarjo.",
   openGraph: {
-    title: "SMK Telkom Sidoarjo",
-    description: "Informasi resmi kelulusan siswa SMK Telkom Sidoarjo.",
+    title: "Pengumuman Resmi Kelulusan - SMK Telkom Sidoarjo",
+    description: "Informasi resmi kelulusan siswa dan tracer study SMK Telkom Sidoarjo.",
     images: [
       {
         url: "/images/informasi/pengumuman-kelulusan/hero-student-megaphone.png",

@@ -1,38 +1,450 @@
 "use client";
 
+import { useState, useMemo, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, X, ChevronLeft, ChevronRight, FileText, GraduationCap } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeroSection from "@/components/sections/common/PageHeroSection";
+import alumniData from "@/data/alumni-angkatan-6.json";
+
+interface AlumniItem {
+  id: number;
+  nisn: string;
+  name: string;
+  angkatan: string;
+  tahunLulus: string;
+  tahunAjaran: string;
+  statusKelulusan: string;
+  kategori: string;
+  statusAktivitas: string;
+  keterangan: string;
+  institusi?: string;
+  jurusan?: string;
+}
+
+const ITEMS_PER_PAGE = 15;
 
 export default function PengumumanKelulusanClient() {
   const { t } = useLanguage();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedAlumni, setSelectedAlumni] = useState<AlumniItem | null>(null);
+
+  const categories = useMemo(() => {
+    return [
+      { key: "Semua", label: "Semua Siswa", count: alumniData.length },
+      { key: "Melanjutkan Studi", label: "Melanjutkan Kuliah", count: alumniData.filter((a) => a.kategori === "Melanjutkan Studi").length },
+      { key: "Bekerja", label: "Bekerja", count: alumniData.filter((a) => a.kategori === "Bekerja").length },
+      { key: "Wirausaha", label: "Wirausaha", count: alumniData.filter((a) => a.kategori === "Wirausaha").length },
+      { key: "Mencari Kerja", label: "Persiapan Karir", count: alumniData.filter((a) => a.kategori === "Mencari Kerja").length },
+      { key: "Alumni", label: "Alumni Terdaftar", count: alumniData.filter((a) => a.kategori === "Alumni").length },
+    ];
+  }, []);
+
+  // Filter alumni based on search query and category
+  const filteredAlumni = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return (alumniData as AlumniItem[]).filter((item) => {
+      const matchCategory = selectedCategory === "Semua" || item.kategori === selectedCategory;
+      if (!matchCategory) return false;
+
+      if (!q) return true;
+      const matchName = item.name.toLowerCase().includes(q);
+      const matchInstitusi = item.institusi ? item.institusi.toLowerCase().includes(q) : false;
+      const matchKeterangan = item.keterangan.toLowerCase().includes(q);
+      return matchName || matchInstitusi || matchKeterangan;
+    });
+  }, [searchQuery, selectedCategory]);
+
+  // Read search query from URL parameter if available (e.g. from Global Navbar Search)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get("q") || params.get("nama") || params.get("search");
+      if (q) {
+        setSearchQuery(q);
+        setTimeout(() => {
+          const el = document.getElementById("portal-kelulusan");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    }
+  }, []);
+
+  // Reset to first page when search or category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory]);
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedAlumni(null);
+      }
+    };
+    if (selectedAlumni) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedAlumni]);
+
+  // Pagination calculation
+  const totalPages = Math.ceil(filteredAlumni.length / ITEMS_PER_PAGE) || 1;
+  const paginatedAlumni = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredAlumni.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredAlumni, currentPage]);
 
   return (
     <>
+      {/* ── 1. Hero Section ── */}
       <PageHeroSection
         breadcrumbs={[
+          { label: t("nav.home", "Beranda"), href: "/" },
           { label: t("nav.information", "Informasi"), href: "/informasi/berita" },
-          { label: t("informasi.kelulusanBreadcrumb", "Pengumuman Kelulusan"), href: "/informasi/pengumuman-kelulusan" },
+          { label: "Pengumuman Kelulusan", href: "/informasi/pengumuman-kelulusan" },
         ]}
-        titlePrefix={t("informasi.kelulusanTitle1", "Pengumuman")}
-        titleHighlight={t("informasi.kelulusanTitle2", "Kelulusan Resmi")}
-        description={t("informasi.kelulusanDesc")}
+        titlePrefix="Pengumuman Resmi"
+        titleHighlight="Kelulusan Siswa"
+        description="Selamat atas keberhasilan seluruh siswa-siswi SMK Telkom Sidoarjo Tahun Ajaran 2023/2024. Telusuri pangkalan data kelulusan resmi serta pencapaian studi dan karir para lulusan."
         studentImage="/images/informasi/pengumuman-kelulusan/hero-student-megaphone.png"
         studentAlt="Pengumuman Kelulusan SMK Telkom Sidoarjo"
-        ctaText={t("informasi.kelulusanCta", "Cek Status Kelulusan")}
+        ctaText="Cek Data Kelulusan"
         ctaHref="#portal-kelulusan"
       />
 
-      <section id="portal-kelulusan" className="py-16 sm:py-20 bg-white scroll-mt-24">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-jakarta font-bold text-2xl sm:text-3xl text-[#101828] mb-3">
-            {t("informasi.kelulusanPortalTitle", "Portal Pengecekan Nilai & Surat Keterangan Lulus (SKL)")}
-          </h2>
-          <div className="mx-auto h-1 w-12 rounded-full bg-[#bc0c11] mb-5" />
-          <p className="font-jakarta text-base text-[#4a5565] max-w-xl mx-auto leading-relaxed">
-            {t("informasi.kelulusanPortalDesc")}
-          </p>
+      {/* ── 2. Main Portal & Search Section ── */}
+      <section id="portal-kelulusan" className="py-16 sm:py-20 bg-[#f3f4f6] scroll-mt-24">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          
+          {/* Header */}
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="font-jakarta font-bold text-2xl sm:text-3xl lg:text-[34px] text-[#101828] leading-tight">
+              Pencarian Status Kelulusan Siswa
+            </h2>
+            <div className="mx-auto h-1 w-12 rounded-full bg-[#bc0c11] my-3" />
+            <p className="font-jakarta text-sm sm:text-base text-[#4b5563]">
+              Masukkan nama siswa atau pilih kategori status untuk melihat informasi kelulusan resmi dan detail Surat Keterangan Lulus (SKL).
+            </p>
+          </div>
+
+          {/* ── Search & Filter Controls (Minimalist & Consistent with Berita / Prestasi pages) ── */}
+          <div className="mb-8 flex flex-col gap-4">
+            {/* Search Input Bar */}
+            <div className="relative w-full">
+              <div className="absolute left-5 sm:left-6 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                <Search className="size-5" />
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Cari nama siswa, perguruan tinggi, atau perusahaan..."
+                className="w-full rounded-full bg-white pl-14 sm:pl-16 pr-12 sm:pr-14 py-3.5 sm:py-4 text-sm sm:text-base font-jakarta text-[#101828] placeholder-gray-400 border border-gray-200/90 focus:border-[#bc0c11] focus:outline-none shadow-xs transition-all"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 size-7 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Hapus pencarian"
+                >
+                  <X className="size-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {categories.map((cat) => {
+                const isActive = selectedCategory === cat.key;
+                return (
+                  <button
+                    key={cat.key}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat.key)}
+                    className={`group shrink-0 rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold font-jakarta transition-all duration-200 cursor-pointer flex items-center gap-2 select-none ${
+                      isActive
+                        ? "bg-[#bc0c11] text-white shadow-xs"
+                        : "bg-white text-[#4a5565] border border-gray-200/80 hover:border-[#bc0c11] hover:text-[#bc0c11]"
+                    }`}
+                  >
+                    <span>{cat.label}</span>
+                    <span
+                      className={`text-[11px] rounded-full px-2 py-0.5 font-bold transition-colors ${
+                        isActive
+                          ? "bg-white/20 text-white"
+                          : "bg-gray-100 text-[#4a5565] group-hover:bg-red-50 group-hover:text-[#bc0c11]"
+                      }`}
+                    >
+                      {cat.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Results Summary Bar */}
+          <div className="flex items-center justify-between mb-6 px-1">
+            <p className="font-jakarta text-xs sm:text-sm text-[#4b5563]">
+              Ditemukan <span className="font-bold text-[#101828]">{filteredAlumni.length}</span> siswa
+              {selectedCategory !== "Semua" && <span> pada kategori <span className="font-semibold text-[#bc0c11]">{selectedCategory}</span></span>}
+              {searchQuery.trim() && <span> dengan kata kunci &quot;<span className="font-semibold text-[#101828]">{searchQuery}</span>&quot;</span>}
+            </p>
+            <span className="text-xs text-[#4b5563] hidden sm:block">
+              Halaman {currentPage} dari {totalPages}
+            </span>
+          </div>
+
+          {/* ── Table List Siswa Kelulusan (Per Baris) ── */}
+          <div className="rounded-[24px] bg-white border-2 border-dashed border-[#d1d5dc] shadow-xs overflow-hidden">
+            {paginatedAlumni.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left font-jakarta border-collapse">
+                  <thead>
+                    <tr className="bg-[#f9fafb] border-b border-gray-200 text-xs font-bold text-[#101828] uppercase tracking-wider">
+                      <th className="py-4 px-4 sm:px-6 w-16 text-center">No</th>
+                      <th className="py-4 px-4 sm:px-6">Nama Siswa</th>
+                      <th className="py-4 px-4 hidden sm:table-cell w-36">Status</th>
+                      <th className="py-4 px-4 hidden md:table-cell">Aktivitas & Penempatan</th>
+                      <th className="py-4 px-4 sm:px-6 text-center w-28 sm:w-36">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 text-xs sm:text-sm text-[#364153]">
+                    {paginatedAlumni.map((item, idx) => {
+                      const globalIndex = (currentPage - 1) * ITEMS_PER_PAGE + idx + 1;
+                      return (
+                        <tr
+                          key={item.id}
+                          onClick={() => setSelectedAlumni(item)}
+                          className="hover:bg-red-50/30 transition-colors group cursor-pointer"
+                        >
+                          <td className="py-4 px-4 sm:px-6 font-semibold text-gray-400 text-center text-xs sm:text-sm">
+                            {globalIndex}
+                          </td>
+                          <td className="py-4 px-4 sm:px-6 font-bold text-[#101828]">
+                            <p className="font-semibold text-sm sm:text-base text-[#101828] group-hover:text-[#bc0c11] transition-colors">
+                              {item.name}
+                            </p>
+                            <p className="text-xs text-[#6a7282] md:hidden mt-0.5 truncate font-normal">
+                              {item.keterangan}
+                            </p>
+                          </td>
+                          <td className="py-4 px-4 hidden sm:table-cell">
+                            <span className="text-xs sm:text-sm font-semibold text-emerald-600">
+                              Lulus
+                            </span>
+                          </td>
+                          <td className="py-4 px-4 hidden md:table-cell text-xs sm:text-sm text-[#364153]">
+                            <p className="line-clamp-1 font-medium text-[#364153]">
+                              {item.keterangan}
+                            </p>
+                          </td>
+                          <td className="py-4 px-4 sm:px-6 text-center" onClick={(e) => e.stopPropagation()}>
+                            <button
+                              type="button"
+                              onClick={() => setSelectedAlumni(item)}
+                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 hover:text-[#bc0c11] hover:border-[#bc0c11] border border-gray-200/90 rounded-full px-3.5 py-1.5 bg-white transition-all cursor-pointer shadow-2xs hover:bg-red-50/40"
+                              title="Lihat Surat Keterangan Lulus"
+                            >
+                              <FileText className="size-3.5 shrink-0 text-[#bc0c11]" />
+                              <span className="hidden sm:inline">Lihat SKL</span>
+                              <span className="sm:hidden">SKL</span>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="text-center py-16 p-8 max-w-xl mx-auto">
+                <p className="font-jakarta text-sm sm:text-base text-[#4a5565] mb-4">
+                  Tidak ada data kelulusan siswa yang sesuai dengan pencarian{" "}
+                  {searchQuery && (
+                    <>
+                      kata kunci &ldquo;<strong className="text-[#101828]">{searchQuery}</strong>&rdquo;
+                    </>
+                  )}
+                  {selectedCategory !== "Semua" && (
+                    <>
+                      {searchQuery ? " pada" : ""} kategori &ldquo;<strong className="text-[#101828]">{selectedCategory}</strong>&rdquo;
+                    </>
+                  )}
+                  .
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedCategory("Semua");
+                  }}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white px-6 py-2.5 text-xs sm:text-sm font-semibold font-jakarta transition-all duration-200 cursor-pointer shadow-xs"
+                >
+                  <span>Atur Ulang Pencarian</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* ── Pagination Bar ── */}
+          {totalPages > 1 && (
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="h-10 px-4 rounded-full border border-gray-200 bg-white text-xs sm:text-sm font-semibold font-jakarta text-[#4a5565] hover:border-[#bc0c11] hover:text-[#bc0c11] disabled:opacity-40 disabled:pointer-events-none cursor-pointer flex items-center gap-1.5 transition-all shadow-xs"
+              >
+                <ChevronLeft className="size-4" />
+                <span>Sebelumnya</span>
+              </button>
+
+              <div className="flex items-center gap-1 sm:gap-1.5">
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((p) => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
+                  .map((p, idx, arr) => {
+                    const prev = arr[idx - 1];
+                    const showEllipsis = prev && p - prev > 1;
+                    return (
+                      <div key={p} className="flex items-center">
+                        {showEllipsis && <span className="px-2 text-xs text-gray-400">...</span>}
+                        <button
+                          type="button"
+                          onClick={() => setCurrentPage(p)}
+                          className={`size-10 rounded-full text-xs sm:text-sm font-semibold font-jakarta transition-all cursor-pointer flex items-center justify-center ${
+                            currentPage === p
+                              ? "bg-[#bc0c11] text-white shadow-xs font-bold"
+                              : "border border-gray-200 bg-white text-[#4a5565] hover:border-[#bc0c11] hover:text-[#bc0c11] shadow-xs"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      </div>
+                    );
+                  })}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="h-10 px-4 rounded-full border border-gray-200 bg-white text-xs sm:text-sm font-semibold font-jakarta text-[#4a5565] hover:border-[#bc0c11] hover:text-[#bc0c11] disabled:opacity-40 disabled:pointer-events-none cursor-pointer flex items-center gap-1.5 transition-all shadow-xs"
+              >
+                <span>Berikutnya</span>
+                <ChevronRight className="size-4" />
+              </button>
+            </div>
+          )}
+
         </div>
       </section>
+
+      {/* ── 3. Modal SKL Digital Pop-up (Minimalist & Professional) ── */}
+      <AnimatePresence>
+        {selectedAlumni && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/75 backdrop-blur-sm"
+            onClick={() => setSelectedAlumni(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`SKL ${selectedAlumni.name}`}
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0, y: 12 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.94, opacity: 0, y: 12 }}
+              transition={{ type: "spring", damping: 25, stiffness: 320 }}
+              className="relative max-w-xl w-full bg-white rounded-[24px] sm:rounded-[28px] p-5 sm:p-7 shadow-2xl flex flex-col border border-gray-200/90 overflow-hidden max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-start justify-between pb-4 border-b border-gray-100 gap-3">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-red-50 text-[#bc0c11] shrink-0 border border-red-100">
+                    <GraduationCap className="size-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold text-[#bc0c11] uppercase tracking-wider">
+                      Surat Keterangan Lulus (SKL)
+                    </p>
+                    <h3 className="font-jakarta font-bold text-base sm:text-lg text-[#101828] leading-tight truncate">
+                      SMK Telkom Sidoarjo
+                    </h3>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedAlumni(null)}
+                  className="size-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                  aria-label="Tutup modal"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+
+              {/* Modal Body / Certificate Content (Scrollable) */}
+              <div className="flex-1 overflow-y-auto mt-5 space-y-5 pr-1">
+                {/* Certificate Sub-Header */}
+                <div className="text-center pb-2">
+                  <span className="text-[11px] font-semibold tracking-wider text-gray-400 uppercase">
+                    Pangkalan Data Resmi Kelulusan
+                  </span>
+                  <h4 className="font-jakarta font-bold text-lg sm:text-xl text-[#101828] mt-0.5">
+                    {selectedAlumni.name}
+                  </h4>
+                  <p className="text-xs text-gray-500 mt-1">
+                    No. Verifikasi: SKL/2024/{String(selectedAlumni.id).padStart(4, "0")}
+                  </p>
+                </div>
+
+                {/* Data List (Clean & Minimalist Definition List) */}
+                <div className="rounded-2xl bg-gray-50/70 border border-gray-100 p-4 sm:p-5 space-y-3 font-jakarta text-xs sm:text-sm">
+                  <div className="flex justify-between items-center py-1.5 border-b border-gray-200/60">
+                    <span className="text-gray-500">Satuan Pendidikan</span>
+                    <span className="font-semibold text-[#101828]">SMK Telkom Sidoarjo</span>
+                  </div>
+                  <div className="flex justify-between items-center py-1.5 border-b border-gray-200/60">
+                    <span className="text-gray-500">Tahun Ajaran</span>
+                    <span className="font-medium text-[#101828]">{selectedAlumni.tahunAjaran}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-1.5 border-b border-gray-200/60">
+                    <span className="text-gray-500">Status Kelulusan</span>
+                    <span className="font-bold text-emerald-600">Lulus Memenuhi Syarat</span>
+                  </div>
+                  <div className="flex justify-between items-start py-1.5">
+                    <span className="text-gray-500 shrink-0">Aktivitas & Penempatan</span>
+                    <span className="font-semibold text-[#101828] text-right ml-4">
+                      {selectedAlumni.keterangan}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Actions Footer */}
+              <div className="pt-4 mt-4 border-t border-gray-100 flex items-center justify-end">
+                <button
+                  type="button"
+                  onClick={() => setSelectedAlumni(null)}
+                  className="rounded-full border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 px-5 py-2 text-xs sm:text-sm font-semibold font-jakarta transition-colors cursor-pointer"
+                >
+                  Tutup
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

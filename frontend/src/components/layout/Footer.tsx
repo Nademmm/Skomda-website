@@ -33,6 +33,7 @@ export default function Footer() {
     { label: t("nav.trialClass"), href: "/trial-class" },
     { label: t("nav.ppdb"), href: "/ppdb" },
     { label: t("nav.tefa", "TeFa"), href: "/tefa" },
+    { label: "Pengumuman Kelulusan", href: "/informasi/pengumuman-kelulusan" },
     { label: t("nav.downloadInfo", "Unduh Informasi"), href: "/unduh-informasi" },
   ];
 
