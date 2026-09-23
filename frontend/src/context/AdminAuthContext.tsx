@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { SECRET_ADMIN_LOGIN_PATH } from "@/config/adminPath";
 
 export interface AdminUser {
@@ -31,6 +31,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AdminUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   const refreshUser = useCallback(async () => {
     try {
@@ -60,8 +61,13 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    refreshUser();
-  }, [refreshUser]);
+    // Only check admin authentication if accessing internal admin routes
+    if (pathname && (pathname.startsWith("/admin") || pathname.startsWith("/gate-internal-skomda"))) {
+      refreshUser();
+    } else {
+      setIsLoading(false);
+    }
+  }, [pathname, refreshUser]);
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {

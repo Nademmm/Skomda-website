@@ -118,8 +118,9 @@ export default function PartnersSection() {
     };
   }, []);
 
-  // Duplicate array for seamless infinite marquee loop
-  const marqueeItems = [...partnerList, ...partnerList];
+  // Slice to 12 diverse partners duplicated to 24 for a lightweight, performant infinite marquee
+  const displayPartners = partnerList.slice(0, 12);
+  const marqueeItems = [...displayPartners, ...displayPartners];
 
   return (
     <section id="mitra" className="relative w-full bg-[#f3f4f6] py-8 overflow-hidden scroll-mt-24" data-node-id="95:312">

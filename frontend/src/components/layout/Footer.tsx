@@ -1,11 +1,29 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const { t } = useLanguage();
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setMapLoaded(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    observer.observe(mapContainerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const menuUtama = [
     { label: t("nav.home"), href: "/" },
@@ -270,15 +288,37 @@ export default function Footer() {
               {t("footer.location")}
             </h3>
 
-            {/* Embedded Google Map */}
-            <div className="relative h-[256px] w-full rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-              <iframe
-                title="Lokasi SMK Telkom Sidoarjo"
-                src="https://maps.google.com/maps?q=SMK%20Telkom%20Sidoarjo&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                className="w-full h-full border-0"
-                loading="lazy"
-              />
-              <div className="absolute top-2 left-2 rounded bg-white/95 px-2.5 py-1 text-xs font-medium text-[#1a73e8] shadow-sm backdrop-blur-sm">
+            {/* Embedded Google Map with Lazy Loading */}
+            <div
+              ref={mapContainerRef}
+              className="relative h-[256px] w-full rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-slate-100"
+            >
+              {mapLoaded ? (
+                <iframe
+                  title="Lokasi SMK Telkom Sidoarjo"
+                  src="https://maps.google.com/maps?q=SMK%20Telkom%20Sidoarjo&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-red-100 text-[#bc0c11]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <span className="font-jakarta text-xs font-medium text-slate-600">SMK Telkom Sidoarjo</span>
+                  <button
+                    type="button"
+                    onClick={() => setMapLoaded(true)}
+                    className="mt-1 text-[11px] font-semibold text-[#bc0c11] hover:underline cursor-pointer"
+                  >
+                    Muat Peta Interaktif
+                  </button>
+                </div>
+              )}
+              <div className="absolute top-2 left-2 rounded bg-white/95 px-2.5 py-1 text-xs font-medium text-[#1557b0] shadow-sm backdrop-blur-sm z-10">
                 <a
                   href="https://maps.google.com/maps?q=SMK+Telkom+Sidoarjo"
                   target="_blank"

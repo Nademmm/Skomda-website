@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import NavbarSearch from "./NavbarSearch";
 
@@ -26,6 +25,17 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+  const mobileMenuTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      setMobileMenuVisible(true);
+    } else {
+      mobileMenuTimer.current = setTimeout(() => setMobileMenuVisible(false), 200);
+    }
+    return () => { if (mobileMenuTimer.current) clearTimeout(mobileMenuTimer.current); };
+  }, [mobileOpen]);
 
   // Check if a nav item (or any of its submenu children) matches the current path
   const isActive = (item: NavItem): boolean => {
@@ -289,14 +299,13 @@ export default function Navbar() {
         </header>
 
         {/* Mobile Dropdown Menu with Expandable Accordions */}
-        <AnimatePresence>
-        {!searchOpen && mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-gray-100 xl:hidden">
+        {!searchOpen && mobileMenuVisible && (
+          <div
+            className={`pointer-events-auto mt-2 w-full max-h-[80vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-gray-100 xl:hidden transition-all duration-200 ease-out origin-top ${
+              mobileOpen
+                ? "opacity-100 translate-y-0 scale-100"
+                : "opacity-0 -translate-y-2 scale-[0.98]"
+            }`}>
             <nav className="flex flex-col gap-1.5">
               {navItems.map((item) => {
                 if (item.submenu) {
@@ -380,9 +389,8 @@ export default function Navbar() {
                 </Link>
               </div>
             </nav>
-          </motion.div>
+          </div>
         )}
-        </AnimatePresence>
       </div>
     </div>
   );

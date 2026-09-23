@@ -40,7 +40,6 @@ export default function PrincipalSection() {
                   fill
                   sizes="(max-width: 640px) 340px, 410px"
                   className="object-contain"
-                  priority
                 />
               </div>
 
@@ -57,7 +56,6 @@ export default function PrincipalSection() {
                     fill
                     sizes="(max-width: 640px) 300px, 400px"
                     className="object-contain object-bottom drop-shadow-2xl"
-                    priority
                   />
                 </div>
               </div>
@@ -69,7 +67,7 @@ export default function PrincipalSection() {
               <h3 className="font-poppins text-lg font-semibold text-[#101828]">
                 Abror S.Hum., M.Pd.
               </h3>
-              <p className="font-poppins text-sm text-[#787878]">
+              <p className="font-poppins text-sm text-[#4b5563]">
                 {t("principal.role")}
               </p>
             </div>

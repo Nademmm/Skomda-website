@@ -206,7 +206,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                 <h3 className="font-jakarta font-bold text-lg text-[#101828]">
                   Kategori Berita
                 </h3>
-                <span className="text-xs text-[#6a7282] font-medium">
+                <span className="text-xs text-[#4b5563] font-medium">
                   {filteredNews.length} Berita
                 </span>
               </div>
@@ -295,7 +295,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
 
                       {/* Date & Time */}
                       <div
-                        className="p-[10px] pt-1 flex items-center gap-[6px] text-[#6a7282]"
+                        className="p-[10px] pt-1 flex items-center gap-[6px] text-[#4b5563]"
                         data-node-id="125:312"
                       >
                         <div className="shrink-0 size-[12px] flex items-center justify-center">
@@ -305,7 +305,7 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
                             viewBox="0 0 13 13"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
-                            className="stroke-[#6a7282]"
+                            className="stroke-[#4b5563]"
                           >
                             <circle
                               cx="6.375"
