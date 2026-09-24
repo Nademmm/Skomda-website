@@ -83,3 +83,35 @@ export async function deleteDocument(
     return { success: false, error: err.message || "Gagal terhubung ke backend" };
   }
 }
+
+export async function getActiveBrochure(): Promise<DocumentItem | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/documents/active-brochure`, { cache: "no-store" });
+    if (res.ok) {
+      const json = await res.json();
+      return json.data || null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export async function setActiveBrochure(
+  documentId: number | string
+): Promise<{ success: boolean; data?: DocumentItem; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/documents/active-brochure`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ documentId: Number(documentId) }),
+    });
+    const json = await res.json();
+    if (!res.ok) return { success: false, error: json.error || "Gagal menetapkan brosur aktif" };
+    return { success: true, data: json.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Gagal terhubung ke backend" };
+  }
+}
+

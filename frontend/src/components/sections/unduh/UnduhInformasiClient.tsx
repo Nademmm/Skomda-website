@@ -128,26 +128,61 @@ export default function UnduhInformasiClient() {
 
   useEffect(() => {
     let isMounted = true;
-    getDocumentList("Unduh Informasi")
+    getDocumentList()
       .then((data) => {
         if (isMounted && data && data.length > 0) {
-          setDocsList(
-            data.map((d) => {
-              const existing = DOWNLOAD_DOCUMENTS.find((ex) => ex.title.toLowerCase() === d.title.toLowerCase());
-              return {
-                id: String(d.id),
-                title: d.title,
-                category: existing?.category || "Regulasi & Standar",
-                group: existing?.group || "Dokumen Resmi Sekolah",
-                uploadDate: existing?.uploadDate || "04 Mei 2026",
-                fileSize: d.fileSize || existing?.fileSize || "1.0 MB",
-                fileUrl: d.fileUrl,
-                thumbnailUrl: existing?.thumbnailUrl || "/documents/thumbnails/thumb-brosur-ppdb.jpg",
-                description: d.description || existing?.description || "",
-                pageCount: existing?.pageCount || 1,
-              };
-            })
+          const publicDocs = data.filter(
+            (d) =>
+              d.isPublic !== false &&
+              d.category !== "Dokumen K3" &&
+              d.category !== "Kurikulum"
           );
+          if (publicDocs.length > 0) {
+            setDocsList(
+              publicDocs.map((d) => {
+                const existing = DOWNLOAD_DOCUMENTS.find(
+                  (ex) => ex.title.toLowerCase() === d.title.toLowerCase()
+                );
+                const isBrochure =
+                  d.category === "Brosur PPDB" ||
+                  d.title.toLowerCase().includes("brosur");
+                const isCert =
+                  d.category === "Sertifikasi & Akreditasi" ||
+                  d.title.toLowerCase().includes("sertifikat") ||
+                  d.title.toLowerCase().includes("akreditasi") ||
+                  d.title.toLowerCase().includes("iso");
+
+                const detectedCategory: DownloadDoc["category"] = isBrochure
+                  ? "Brosur PPDB"
+                  : isCert
+                  ? "Sertifikasi & Akreditasi"
+                  : existing?.category || "Regulasi & Standar";
+
+                const detectedGroup = isBrochure
+                  ? "Brosur & Informasi PPDB"
+                  : isCert
+                  ? "Sertifikat & Akreditasi Sekolah"
+                  : existing?.group || "Dokumen Regulasi Resmi";
+
+                return {
+                  id: String(d.id),
+                  title: d.title,
+                  category: detectedCategory,
+                  group: detectedGroup,
+                  uploadDate: existing?.uploadDate || "Terbaru",
+                  fileSize: d.fileSize || existing?.fileSize || "1.0 MB",
+                  fileUrl: d.fileUrl,
+                  thumbnailUrl:
+                    existing?.thumbnailUrl ||
+                    (isBrochure
+                      ? "/documents/thumbnails/thumb-brosur-ppdb.jpg"
+                      : "/documents/thumbnails/thumb-persekjen-17-2022.jpg"),
+                  description: d.description || existing?.description || "",
+                  pageCount: existing?.pageCount || 2,
+                };
+              })
+            );
+          }
         }
       })
       .catch(() => {});

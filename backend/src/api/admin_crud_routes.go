@@ -310,6 +310,94 @@ func registerCrudRoutes(api fiber.Router, cfg config.Config) {
 		return c.JSON(fiber.Map{"data": list, "total": len(list)})
 	})
 
+	// Endpoint publik: Mendapatkan dokumen Brosur PPDB aktif
+	docGroup.Get("/active-brochure", func(c *fiber.Ctx) error {
+		var activeDoc models.Document
+
+		// 1. Cek konfigurasi ppdb_active_brochure_id di SiteSetting
+		var setting models.SiteSetting
+		err := config.DB.Where("key = ?", "ppdb_active_brochure_id").First(&setting).Error
+		if err == nil && setting.Value != "" {
+			if docID, errParse := strconv.ParseUint(setting.Value, 10, 32); errParse == nil && docID > 0 {
+				if errDoc := config.DB.Where("id = ? AND is_public = ?", uint(docID), true).First(&activeDoc).Error; errDoc == nil {
+					return c.JSON(fiber.Map{
+						"success": true,
+						"data":    activeDoc,
+						"source":  "setting",
+					})
+				}
+			}
+		}
+
+		// 2. Jika belum ditentukan, cari berkas publik berkategori Brosur PPDB atau yang judulnya mengandung Brosur
+		err = config.DB.Where("is_public = ? AND (LOWER(category) = ? OR LOWER(title) LIKE ?)", true, "brosur ppdb", "%brosur%").
+			Order("order_index ASC, id DESC").
+			First(&activeDoc).Error
+		if err == nil {
+			return c.JSON(fiber.Map{
+				"success": true,
+				"data":    activeDoc,
+				"source":  "auto",
+			})
+		}
+
+		// 3. Fallback default jika database kosong
+		fallback := models.Document{
+			ID:          0,
+			Title:       "Brosur PPDB SMK Telkom Sidoarjo 2026/2027",
+			Category:    "Brosur PPDB",
+			FileURL:     "/documents/brosur-ppdb-smk-telkom-sidoarjo-2026-2027.pdf",
+			FileSize:    "8.0 MB",
+			FileType:    "PDF",
+			Description: "Informasi lengkap alur Penerimaan Peserta Didik Baru (PPDB), profil keahlian SIJA & TJAT, beasiswa, rincian biaya pendidikan, serta fasilitas unggulan.",
+			IsPublic:    true,
+		}
+		return c.JSON(fiber.Map{
+			"success": true,
+			"data":    fallback,
+			"source":  "fallback",
+		})
+	})
+
+	// Endpoint terproteksi: Menetapkan dokumen tertentu sebagai Brosur PPDB aktif
+	docGroup.Post("/active-brochure", authGuard, func(c *fiber.Ctx) error {
+		var payload struct {
+			DocumentID uint `json:"documentId"`
+		}
+		if err := c.BodyParser(&payload); err != nil || payload.DocumentID == 0 {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "ID Dokumen tidak valid"})
+		}
+
+		var targetDoc models.Document
+		if err := config.DB.First(&targetDoc, payload.DocumentID).Error; err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Dokumen tidak ditemukan"})
+		}
+
+		var setting models.SiteSetting
+		err := config.DB.Where("key = ?", "ppdb_active_brochure_id").First(&setting).Error
+		valStr := fmt.Sprint(payload.DocumentID)
+		if err != nil {
+			setting = models.SiteSetting{
+				Key:         "ppdb_active_brochure_id",
+				Value:       valStr,
+				Category:    "ppdb",
+				Description: "ID Dokumen brosur PPDB resmi yang aktif tampil di halaman PPDB",
+				UpdatedAt:   time.Now(),
+			}
+			config.DB.Create(&setting)
+		} else {
+			setting.Value = valStr
+			setting.UpdatedAt = time.Now()
+			config.DB.Save(&setting)
+		}
+
+		recordAudit(c, "UPDATE", "setting", "ppdb_active_brochure_id", fmt.Sprintf("Menetapkan brosur PPDB aktif: %s (ID: %d)", targetDoc.Title, targetDoc.ID))
+		return c.JSON(fiber.Map{
+			"message": "Brosur PPDB aktif berhasil diperbarui",
+			"data":    targetDoc,
+		})
+	})
+
 	docGroup.Post("", authGuard, func(c *fiber.Ctx) error {
 		var item models.Document
 		c.BodyParser(&item)
@@ -367,6 +455,111 @@ func registerCrudRoutes(api fiber.Router, cfg config.Config) {
 		}
 		recordAudit(c, "UPDATE", "setting", key, fmt.Sprintf("Mengubah pengaturan %s: %s", key, payload.Value))
 		return c.JSON(fiber.Map{"message": "Pengaturan berhasil diperbarui", "data": item})
+	})
+
+	// ==================== 8. ALUMNI / DATA KELULUSAN ====================
+	alumniGroup := api.Group("/alumni")
+	alumniGroup.Get("", func(c *fiber.Ctx) error {
+		category := strings.TrimSpace(c.Query("category"))
+		q := strings.TrimSpace(c.Query("q"))
+		limitStr := strings.TrimSpace(c.Query("limit"))
+		offsetStr := strings.TrimSpace(c.Query("offset"))
+
+		query := config.DB.Model(&models.Alumni{}).Order("id ASC")
+
+		if category != "" && !strings.EqualFold(category, "semua") {
+			query = query.Where("LOWER(kategori) = ?", strings.ToLower(category))
+		}
+		if q != "" {
+			query = query.Where("LOWER(name) LIKE ? OR LOWER(nisn) LIKE ? OR LOWER(institusi) LIKE ? OR LOWER(keterangan) LIKE ?",
+				"%"+strings.ToLower(q)+"%", "%"+strings.ToLower(q)+"%", "%"+strings.ToLower(q)+"%", "%"+strings.ToLower(q)+"%")
+		}
+
+		var total int64
+		query.Count(&total)
+
+		if limitStr != "" {
+			if limit, err := strconv.Atoi(limitStr); err == nil && limit > 0 {
+				query = query.Limit(limit)
+			}
+		}
+		if offsetStr != "" {
+			if offset, err := strconv.Atoi(offsetStr); err == nil && offset >= 0 {
+				query = query.Offset(offset)
+			}
+		}
+
+		var list []models.Alumni
+		if err := query.Find(&list).Error; err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Gagal mengambil data alumni"})
+		}
+		return c.JSON(fiber.Map{"data": list, "total": total})
+	})
+
+	alumniGroup.Get("/:id", func(c *fiber.Ctx) error {
+		id, _ := strconv.ParseUint(c.Params("id"), 10, 32)
+		var item models.Alumni
+		if err := config.DB.First(&item, uint(id)).Error; err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Data siswa kelulusan tidak ditemukan"})
+		}
+		return c.JSON(fiber.Map{"data": item})
+	})
+
+	alumniGroup.Post("", authGuard, func(c *fiber.Ctx) error {
+		var item models.Alumni
+		if err := c.BodyParser(&item); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Payload tidak valid"})
+		}
+		if strings.TrimSpace(item.Name) == "" {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Nama siswa wajib diisi"})
+		}
+		if strings.TrimSpace(item.StatusKelulusan) == "" {
+			item.StatusKelulusan = "LULUS"
+		}
+		if strings.TrimSpace(item.TahunLulus) == "" {
+			item.TahunLulus = "2024"
+		}
+		if strings.TrimSpace(item.TahunAjaran) == "" {
+			item.TahunAjaran = "2023/2024"
+		}
+		if strings.TrimSpace(item.Angkatan) == "" {
+			item.Angkatan = "6"
+		}
+		if strings.TrimSpace(item.Kategori) == "" {
+			item.Kategori = "Alumni"
+		}
+
+		if err := config.DB.Create(&item).Error; err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Gagal menyimpan data siswa"})
+		}
+		recordAudit(c, "CREATE", "alumni", fmt.Sprint(item.ID), fmt.Sprintf("Menambahkan siswa kelulusan: %s (NISN: %s)", item.Name, item.NISN))
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{"message": "Data kelulusan siswa berhasil ditambahkan", "data": item})
+	})
+
+	alumniGroup.Put("/:id", authGuard, func(c *fiber.Ctx) error {
+		id, _ := strconv.ParseUint(c.Params("id"), 10, 32)
+		var existing models.Alumni
+		if err := config.DB.First(&existing, uint(id)).Error; err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Data siswa tidak ditemukan"})
+		}
+		if err := c.BodyParser(&existing); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Payload tidak valid"})
+		}
+		existing.ID = uint(id)
+		config.DB.Save(&existing)
+		recordAudit(c, "UPDATE", "alumni", fmt.Sprint(existing.ID), fmt.Sprintf("Memperbarui data siswa kelulusan: %s", existing.Name))
+		return c.JSON(fiber.Map{"message": "Data siswa kelulusan berhasil diperbarui", "data": existing})
+	})
+
+	alumniGroup.Delete("/:id", authGuard, func(c *fiber.Ctx) error {
+		id, _ := strconv.ParseUint(c.Params("id"), 10, 32)
+		var existing models.Alumni
+		if err := config.DB.First(&existing, uint(id)).Error; err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Data siswa tidak ditemukan"})
+		}
+		config.DB.Delete(&existing)
+		recordAudit(c, "DELETE", "alumni", fmt.Sprint(id), fmt.Sprintf("Menghapus data siswa kelulusan: %s", existing.Name))
+		return c.JSON(fiber.Map{"message": "Data siswa kelulusan berhasil dihapus"})
 	})
 }
 

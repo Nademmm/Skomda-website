@@ -1,15 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PpdbHeroSection from "./PpdbHeroSection";
 import PpdbAlurSection from "./PpdbAlurSection";
 import PpdbLearningJourneySection from "./PpdbLearningJourneySection";
 import PpdbFaqSection from "./PpdbFaqSection";
 import PpdbCtaSection from "./PpdbCtaSection";
 import PpdbBrochureModal from "./PpdbBrochureModal";
+import { DocumentItem, getActiveBrochure } from "@/services/documents";
 
 export default function PpdbClient() {
   const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+  const [activeBrochure, setActiveBrochure] = useState<DocumentItem | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    getActiveBrochure()
+      .then((data) => {
+        if (isMounted && data) {
+          setActiveBrochure(data);
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div className="w-full">
@@ -22,6 +39,7 @@ export default function PpdbClient() {
       <PpdbBrochureModal
         isOpen={isBrochureOpen}
         onClose={() => setIsBrochureOpen(false)}
+        brochure={activeBrochure}
       />
     </div>
   );

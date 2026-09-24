@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Newspaper,
   GraduationCap,
+  Users,
   Trophy,
   Briefcase,
   Activity,
@@ -43,7 +44,8 @@ const NAV_GROUPS: NavGroup[] = [
   {
     group: "Akademik & Siswa",
     items: [
-      { title: "Guru & Tenaga Kependidikan", href: "/admin/guru", icon: GraduationCap },
+      { title: "Kelulusan & Alumni", href: "/admin/kelulusan", icon: GraduationCap },
+      { title: "Guru & Tenaga Kependidikan", href: "/admin/guru", icon: Users },
       { title: "Prestasi Siswa", href: "/admin/prestasi", icon: Trophy },
       { title: "Bursa Kerja & BKK", href: "/admin/bkk", icon: Briefcase },
     ],

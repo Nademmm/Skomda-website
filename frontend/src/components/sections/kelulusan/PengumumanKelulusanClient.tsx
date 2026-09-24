@@ -5,57 +5,55 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, ChevronLeft, ChevronRight, FileText, GraduationCap } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeroSection from "@/components/sections/common/PageHeroSection";
-import alumniData from "@/data/alumni-angkatan-6.json";
-
-interface AlumniItem {
-  id: number;
-  nisn: string;
-  name: string;
-  angkatan: string;
-  tahunLulus: string;
-  tahunAjaran: string;
-  statusKelulusan: string;
-  kategori: string;
-  statusAktivitas: string;
-  keterangan: string;
-  institusi?: string;
-  jurusan?: string;
-}
+import initialAlumniData from "@/data/alumni-angkatan-6.json";
+import { AlumniItem, getAlumniList } from "@/services/alumni";
 
 const ITEMS_PER_PAGE = 15;
 
 export default function PengumumanKelulusanClient() {
   const { t } = useLanguage();
+  const [alumniList, setAlumniList] = useState<AlumniItem[]>(initialAlumniData as AlumniItem[]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedAlumni, setSelectedAlumni] = useState<AlumniItem | null>(null);
 
+  // Fetch dynamic data from API on mount
+  useEffect(() => {
+    getAlumniList()
+      .then((res) => {
+        if (res.data && res.data.length > 0) {
+          setAlumniList(res.data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const categories = useMemo(() => {
     return [
-      { key: "Semua", label: "Semua Siswa", count: alumniData.length },
-      { key: "Melanjutkan Studi", label: "Melanjutkan Kuliah", count: alumniData.filter((a) => a.kategori === "Melanjutkan Studi").length },
-      { key: "Bekerja", label: "Bekerja", count: alumniData.filter((a) => a.kategori === "Bekerja").length },
-      { key: "Wirausaha", label: "Wirausaha", count: alumniData.filter((a) => a.kategori === "Wirausaha").length },
-      { key: "Mencari Kerja", label: "Persiapan Karir", count: alumniData.filter((a) => a.kategori === "Mencari Kerja").length },
-      { key: "Alumni", label: "Alumni Terdaftar", count: alumniData.filter((a) => a.kategori === "Alumni").length },
+      { key: "Semua", label: "Semua Siswa", count: alumniList.length },
+      { key: "Melanjutkan Studi", label: "Melanjutkan Kuliah", count: alumniList.filter((a) => a.kategori === "Melanjutkan Studi").length },
+      { key: "Bekerja", label: "Bekerja", count: alumniList.filter((a) => a.kategori === "Bekerja").length },
+      { key: "Wirausaha", label: "Wirausaha", count: alumniList.filter((a) => a.kategori === "Wirausaha").length },
+      { key: "Mencari Kerja", label: "Persiapan Karir", count: alumniList.filter((a) => a.kategori === "Mencari Kerja").length },
+      { key: "Alumni", label: "Alumni Terdaftar", count: alumniList.filter((a) => a.kategori === "Alumni").length },
     ];
-  }, []);
+  }, [alumniList]);
 
   // Filter alumni based on search query and category
   const filteredAlumni = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    return (alumniData as AlumniItem[]).filter((item) => {
+    return alumniList.filter((item) => {
       const matchCategory = selectedCategory === "Semua" || item.kategori === selectedCategory;
       if (!matchCategory) return false;
 
       if (!q) return true;
       const matchName = item.name.toLowerCase().includes(q);
       const matchInstitusi = item.institusi ? item.institusi.toLowerCase().includes(q) : false;
-      const matchKeterangan = item.keterangan.toLowerCase().includes(q);
+      const matchKeterangan = item.keterangan ? item.keterangan.toLowerCase().includes(q) : false;
       return matchName || matchInstitusi || matchKeterangan;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, alumniList]);
 
   // Read search query from URL parameter if available (e.g. from Global Navbar Search)
   useEffect(() => {

@@ -265,12 +265,32 @@ export default function AdminPrestasiPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs">
                   {filtered.map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="py-4 pl-6 pr-3 min-w-[240px]">
-                        <p className="font-bold text-slate-900 line-clamp-1">{item.title}</p>
-                        <p className="text-[11px] text-slate-500 mt-0.5">
-                          {item.studentName} ({item.studentClass || "Siswa"})
-                        </p>
+                    <tr key={item.id} className="group hover:bg-slate-50/60 transition-colors">
+                      <td className="py-4 pl-6 pr-3 min-w-[280px] max-w-[420px]">
+                        <div className="flex items-center gap-3">
+                          <div className="relative size-12 shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200/80">
+                            {item.image ? (
+                              <Image
+                                src={item.image}
+                                alt={item.title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            ) : (
+                              <div className="flex size-full items-center justify-center text-slate-300">
+                                <Trophy className="size-5" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="font-bold text-slate-900 line-clamp-1 leading-snug">
+                              {item.title}
+                            </p>
+                            <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
+                              {item.studentName} ({item.studentClass || "Siswa"})
+                            </p>
+                          </div>
+                        </div>
                       </td>
                       <td className="px-3 py-4 whitespace-nowrap">
                         <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold text-amber-800 border border-amber-200">

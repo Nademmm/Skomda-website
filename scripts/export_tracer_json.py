@@ -83,7 +83,7 @@ for i, r in enumerate(rows[1:], 1):
         keterangan = "Menunggu Penempatan / Persiapan Karir"
     else:
         kategori = "Alumni"
-        status_label = "Lulus Resmi"
+        status_label = ""
         keterangan = "Alumni Angkatan 6 (2023/2024)"
 
     student_data = {

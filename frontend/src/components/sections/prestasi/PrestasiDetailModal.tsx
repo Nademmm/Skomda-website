@@ -2,9 +2,8 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Trophy, User, School, Building, Award, ArrowRight } from "lucide-react";
+import { X, Trophy, User, School, Building, Award } from "lucide-react";
 import { PrestasiItem } from "@/data/prestasiData";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -165,28 +164,15 @@ export default function PrestasiDetailModal({
               </div>
             </div>
 
-            {/* Modal Footer with Consistent Action Buttons */}
-            <div className="mt-4 pt-4 border-t border-dashed border-gray-200 flex items-center justify-between gap-3 bg-white">
+            {/* Modal Footer with Clean Action Buttons */}
+            <div className="mt-4 pt-4 border-t border-dashed border-gray-200 flex items-center justify-end bg-white">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-full border border-gray-300 text-sm font-jakarta font-medium text-[#4a5565] hover:bg-gray-50 hover:border-gray-400 transition-colors cursor-pointer"
+                className="px-6 py-2 rounded-full border border-gray-200 hover:border-gray-300 text-sm font-jakarta font-medium text-[#4a5565] hover:bg-gray-50 transition-colors cursor-pointer"
               >
-                {isEn ? "Back" : "Kembali"}
+                {isEn ? "Close" : "Tutup"}
               </button>
-
-              <Link
-                href="/ppdb"
-                onClick={onClose}
-                className="inline-flex items-center gap-2 rounded-full bg-[#bc0c11] hover:bg-[#990a0e] text-white px-6 py-2.5 text-sm font-semibold font-jakarta shadow-md transition-all active:scale-95 cursor-pointer"
-                style={{
-                  boxShadow:
-                    "0px 6px 10px -2px rgba(188,12,17,0.25), inset 0px -2px 1px 0px rgba(0,0,0,0.2)",
-                }}
-              >
-                <span>{isEn ? "Join PPDB" : "Daftar PPDB"}</span>
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
             </div>
           </motion.div>
         </motion.div>

@@ -1,7 +1,9 @@
 package config
 
 import (
+	"encoding/json"
 	"log"
+	"os"
 	"strings"
 
 	"gorm.io/driver/postgres"
@@ -48,6 +50,7 @@ func InitDB(cfg Config) *gorm.DB {
 		&models.Fasilitas{},
 		&models.Document{},
 		&models.SiteSetting{},
+		&models.Alumni{},
 	); err != nil {
 		log.Fatalf("fatal: gagal auto migrate database: %v", err)
 	}
@@ -58,10 +61,15 @@ func InitDB(cfg Config) *gorm.DB {
 		DB.Exec("ALTER TABLE IF EXISTS public.news ENABLE ROW LEVEL SECURITY;")
 		DB.Exec("ALTER TABLE IF EXISTS public.users ENABLE ROW LEVEL SECURITY;")
 		DB.Exec("ALTER TABLE IF EXISTS public.audit_logs ENABLE ROW LEVEL SECURITY;")
+		DB.Exec("ALTER TABLE IF EXISTS public.alumnis ENABLE ROW LEVEL SECURITY;")
 	}
 
 	// Inisialisasi akun Super Admin default hanya jika tabel users kosong (0 user)
 	SeedDefaultAdminIfEmpty(DB)
+
+	// Inisialisasi data alumni kelulusan jika tabel alumnis kosong
+	SeedAlumniIfEmpty(DB)
+	DB.Model(&models.Alumni{}).Where("status_aktivitas = ?", "Lulus Resmi").Update("status_aktivitas", "")
 
 	// CATATAN: Seluruh seeder konten otomatis telah dinonaktifkan permanen sesuai instruksi.
 	// Seluruh data (Jurusan, Berita, Guru, Prestasi, Ekskul, Fasilitas, BKK, Dokumen)
@@ -344,3 +352,80 @@ func SeedDefaultAdminIfEmpty(db *gorm.DB) {
 
 	log.Println("berhasil seed akun default Super Admin (admin@smktelkom-sda.sch.id) ke database.")
 }
+
+// SeedAlumniIfEmpty mengimpor 255 data alumni awal dari alumni-angkatan-6.json jika tabel alumnis kosong.
+func SeedAlumniIfEmpty(db *gorm.DB) {
+	var count int64
+	db.Model(&models.Alumni{}).Count(&count)
+	if count > 0 {
+		return
+	}
+
+	paths := []string{
+		"../frontend/src/data/alumni-angkatan-6.json",
+		"frontend/src/data/alumni-angkatan-6.json",
+		"src/data/alumni-angkatan-6.json",
+		"./alumni-angkatan-6.json",
+	}
+
+	var data []byte
+	var err error
+	for _, p := range paths {
+		data, err = os.ReadFile(p)
+		if err == nil && len(data) > 0 {
+			break
+		}
+	}
+
+	if err != nil || len(data) == 0 {
+		log.Printf("info seeder: file alumni-angkatan-6.json belum ditemukan di path standar, seeding alumni dilewati.")
+		return
+	}
+
+	type jsonAlumni struct {
+		ID              uint   `json:"id"`
+		NISN            string `json:"nisn"`
+		Name            string `json:"name"`
+		Angkatan        string `json:"angkatan"`
+		TahunLulus      string `json:"tahunLulus"`
+		TahunAjaran     string `json:"tahunAjaran"`
+		StatusKelulusan string `json:"statusKelulusan"`
+		Kategori        string `json:"kategori"`
+		StatusAktivitas string `json:"statusAktivitas"`
+		Keterangan      string `json:"keterangan"`
+		Institusi       string `json:"institusi"`
+		Jurusan         string `json:"jurusan"`
+	}
+
+	var items []jsonAlumni
+	if err := json.Unmarshal(data, &items); err != nil {
+		log.Printf("peringatan: gagal parse alumni-angkatan-6.json: %v", err)
+		return
+	}
+
+	var records []models.Alumni
+	for _, item := range items {
+		records = append(records, models.Alumni{
+			NISN:            item.NISN,
+			Name:            item.Name,
+			Angkatan:        item.Angkatan,
+			TahunLulus:      item.TahunLulus,
+			TahunAjaran:     item.TahunAjaran,
+			StatusKelulusan: item.StatusKelulusan,
+			Kategori:        item.Kategori,
+			StatusAktivitas: item.StatusAktivitas,
+			Keterangan:      item.Keterangan,
+			Institusi:       item.Institusi,
+			Jurusan:         item.Jurusan,
+		})
+	}
+
+	if len(records) > 0 {
+		if err := db.CreateInBatches(records, 100).Error; err != nil {
+			log.Printf("peringatan: gagal batch insert alumni: %v", err)
+			return
+		}
+		log.Printf("berhasil seed %d data alumni ke database.", len(records))
+	}
+}
+

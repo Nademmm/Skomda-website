@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Settings,
   Save,
@@ -11,19 +12,31 @@ import {
   GraduationCap,
   Megaphone,
   Shield,
+  FileText,
+  ExternalLink,
+  ArrowRight,
 } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { getSiteSettings, updateSiteSetting } from "@/services/settings";
+import {
+  DocumentItem,
+  getDocumentList,
+  getActiveBrochure,
+  setActiveBrochure,
+} from "@/services/documents";
 
 export default function AdminPengaturanPage() {
   const [settings, setSettings] = useState<Record<string, string>>({
     contact_phone: "0811-3021-919",
     contact_email: "info@smktelkom-sda.sch.id",
     ppdb_status: "Buka - Gelombang 1",
+    ppdb_active_brochure_id: "",
     announcement_banner_enabled: "false",
-    announcement_banner_text: "Pendaftaran PPDB 2026/2027 Gelombang Khusus Telah Dibuka! Dapatkan beasiswa prestasi.",
+    announcement_banner_text: "Pendaftaran PPDB 2026/2027 Gelombang Khusus Telhat Dibuka! Dapatkan beasiswa prestasi.",
   });
 
+  const [documents, setDocuments] = useState<DocumentItem[]>([]);
+  const [activeBrochure, setActiveBrochureState] = useState<DocumentItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<{
@@ -40,10 +53,16 @@ export default function AdminPengaturanPage() {
     const loadSettings = async () => {
       setIsLoading(true);
       try {
-        const res = await getSiteSettings();
-        if (res.map && Object.keys(res.map).length > 0) {
-          setSettings((prev) => ({ ...prev, ...res.map }));
+        const [resSettings, docList, brochure] = await Promise.all([
+          getSiteSettings(),
+          getDocumentList(),
+          getActiveBrochure(),
+        ]);
+        if (resSettings.map && Object.keys(resSettings.map).length > 0) {
+          setSettings((prev) => ({ ...prev, ...resSettings.map }));
         }
+        setDocuments(docList);
+        setActiveBrochureState(brochure);
       } catch {
         showToast("Gagal memuat pengaturan situs", "error");
       } finally {
@@ -66,6 +85,11 @@ export default function AdminPengaturanPage() {
       for (const k of keys) {
         await updateSiteSetting(k, settings[k]);
       }
+      if (settings.ppdb_active_brochure_id) {
+        await setActiveBrochure(settings.ppdb_active_brochure_id);
+      }
+      const updatedBrochure = await getActiveBrochure();
+      setActiveBrochureState(updatedBrochure);
       showToast("Seluruh pengaturan berhasil disimpan ke database!");
     } catch {
       showToast("Gagal menyimpan beberapa pengaturan", "error");
@@ -158,25 +182,87 @@ export default function AdminPengaturanPage() {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-slate-900">
-                  Status Penerimaan Siswa Baru (PPDB)
+                  Status Penerimaan Siswa Baru (PPDB) & Brosur Resmi
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Menentukan label status PPDB yang tampil di halaman beranda dan navigasi
+                  Menentukan label status PPDB berjalan serta dokumen brosur yang tampil di tombol &quot;Lihat Brosur&quot;
                 </p>
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Status Pendaftaran Berjalan
-              </label>
-              <input
-                type="text"
-                value={settings.ppdb_status || ""}
-                onChange={(e) => handleChange("ppdb_status", e.target.value)}
-                placeholder="Contoh: Buka - Gelombang 1"
-                className="w-full sm:max-w-md rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
-              />
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Status Pendaftaran Berjalan
+                </label>
+                <input
+                  type="text"
+                  value={settings.ppdb_status || ""}
+                  onChange={(e) => handleChange("ppdb_status", e.target.value)}
+                  placeholder="Contoh: Buka - Gelombang 1"
+                  className="w-full sm:max-w-md rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                />
+              </div>
+
+              {/* Brosur PPDB Aktif */}
+              <div className="pt-3 border-t border-slate-100">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Pilih Dokumen Brosur PPDB Aktif
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                  <div className="sm:col-span-8">
+                    <select
+                      value={settings.ppdb_active_brochure_id || (activeBrochure?.id ? String(activeBrochure.id) : "")}
+                      onChange={(e) => handleChange("ppdb_active_brochure_id", e.target.value)}
+                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11] cursor-pointer"
+                    >
+                      <option value="">-- Otomatis (Brosur Terbaru) --</option>
+                      {documents
+                        .filter(
+                          (d) =>
+                            d.category === "Brosur PPDB" ||
+                            d.category === "Unduh Informasi" ||
+                            d.title.toLowerCase().includes("brosur")
+                        )
+                        .map((d) => (
+                          <option key={d.id} value={String(d.id)}>
+                            {d.title} ({d.fileType || "PDF"} • {d.fileSize || "Berkas"})
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <div className="sm:col-span-4 flex items-center gap-2">
+                    <Link
+                      href="/admin/dokumen"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-[#bc0c11] bg-red-50 hover:bg-red-100 transition-colors"
+                    >
+                      <FileText className="size-3.5" />
+                      <span>Kelola di Dokumen</span>
+                      <ArrowRight className="size-3" />
+                    </Link>
+                  </div>
+                </div>
+
+                {activeBrochure && (
+                  <div className="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+                    <div className="min-w-0 pr-2">
+                      <span className="text-[10px] font-bold uppercase text-slate-500 block">Brosur Aktif Terdeteksi</span>
+                      <p className="font-semibold text-slate-800 truncate">{activeBrochure.title}</p>
+                    </div>
+                    {activeBrochure.fileUrl && (
+                      <a
+                        href={activeBrochure.fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:underline shrink-0"
+                      >
+                        <span>Pratinjau</span>
+                        <ExternalLink className="size-3" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

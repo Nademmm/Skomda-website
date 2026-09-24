@@ -13,6 +13,7 @@ import {
   FileCheck,
   Search,
   Filter,
+  Eye,
 } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import AdminSelect from "@/components/admin/AdminSelect";
@@ -23,10 +24,13 @@ import {
   createDocument,
   updateDocument,
   deleteDocument,
+  getActiveBrochure,
+  setActiveBrochure,
 } from "@/services/documents";
 
 const DOCUMENT_CATEGORIES = [
   "Semua",
+  "Brosur PPDB",
   "Unduh Informasi",
   "Dokumen K3",
   "Kurikulum",
@@ -42,6 +46,9 @@ const FILE_FORMATS = [
 
 export default function AdminDokumenPage() {
   const [list, setList] = useState<DocumentItem[]>([]);
+  const [activeBrochure, setActiveBrochureState] = useState<DocumentItem | null>(null);
+  const [isSettingActive, setIsSettingActive] = useState(false);
+  const [setAsActiveBrochure, setSetAsActiveBrochure] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
@@ -73,8 +80,12 @@ export default function AdminDokumenPage() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const data = await getDocumentList();
+      const [data, brochure] = await Promise.all([
+        getDocumentList(),
+        getActiveBrochure(),
+      ]);
       setList(data);
+      setActiveBrochureState(brochure);
     } catch {
       showToast("Gagal memuat dokumen", "error");
     } finally {
@@ -86,25 +97,49 @@ export default function AdminDokumenPage() {
     loadData();
   }, []);
 
-  const handleOpenAdd = () => {
+  const handleOpenAdd = (categoryDefault = "Unduh Informasi", makeActive = false) => {
     setEditingItem(null);
     setForm({
-      title: "",
-      category: "Unduh Informasi",
+      title: categoryDefault === "Brosur PPDB" ? "Brosur Resmi PPDB SMK Telkom Sidoarjo" : "",
+      category: categoryDefault,
       fileUrl: "",
       fileSize: "",
       fileType: "PDF",
-      description: "",
+      description: categoryDefault === "Brosur PPDB" ? "Informasi lengkap alur pendaftaran, program keahlian, beasiswa, dan rincian biaya PPDB." : "",
       isPublic: true,
       orderIndex: list.length + 1,
     });
+    setSetAsActiveBrochure(makeActive);
     setIsModalOpen(true);
   };
 
   const handleOpenEdit = (item: DocumentItem) => {
     setEditingItem(item);
     setForm({ ...item });
+    const isCurrentActive =
+      activeBrochure &&
+      ((item.id && activeBrochure.id && String(item.id) === String(activeBrochure.id)) ||
+        item.fileUrl === activeBrochure.fileUrl);
+    setSetAsActiveBrochure(!!isCurrentActive);
     setIsModalOpen(true);
+  };
+
+  const handleMakeActiveBrochure = async (item: DocumentItem) => {
+    if (!item.id) return;
+    setIsSettingActive(true);
+    try {
+      const res = await setActiveBrochure(item.id);
+      if (res.success) {
+        showToast(`"${item.title}" berhasil dijadikan Brosur Utama PPDB!`);
+        await loadData();
+      } else {
+        showToast(res.error || "Gagal menetapkan brosur utama", "error");
+      }
+    } catch {
+      showToast("Terjadi gangguan server", "error");
+    } finally {
+      setIsSettingActive(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -116,25 +151,34 @@ export default function AdminDokumenPage() {
 
     setIsSubmitting(true);
     try {
+      let savedDocId: number | string | undefined;
       if (editingItem && editingItem.id) {
         const res = await updateDocument(editingItem.id, form);
         if (res.success) {
+          savedDocId = editingItem.id;
           showToast("Dokumen berhasil diperbarui");
-          setIsModalOpen(false);
-          await loadData();
         } else {
           showToast(res.error || "Gagal memperbarui", "error");
+          return;
         }
       } else {
         const res = await createDocument(form);
         if (res.success) {
+          savedDocId = res.data?.id;
           showToast("Dokumen baru berhasil disimpan");
-          setIsModalOpen(false);
-          await loadData();
         } else {
           showToast(res.error || "Gagal menambahkan", "error");
+          return;
         }
       }
+
+      // Jika dicentang untuk dijadikan brosur utama PPDB
+      if (setAsActiveBrochure && savedDocId) {
+        await setActiveBrochure(savedDocId);
+      }
+
+      setIsModalOpen(false);
+      await loadData();
     } catch {
       showToast("Terjadi gangguan server", "error");
     } finally {
@@ -179,7 +223,7 @@ export default function AdminDokumenPage() {
       actions={
         <button
           type="button"
-          onClick={handleOpenAdd}
+          onClick={() => handleOpenAdd()}
           className="inline-flex items-center gap-2 rounded-xl bg-[#bc0c11] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#990a0e] transition-colors cursor-pointer"
         >
           <Plus className="size-4" />
@@ -202,6 +246,7 @@ export default function AdminDokumenPage() {
             <span className="text-xs font-bold">{toastMessage.text}</span>
           </div>
         )}
+
 
         {/* Filter & Actions Bar */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs">
@@ -228,7 +273,7 @@ export default function AdminDokumenPage() {
 
             <button
               type="button"
-              onClick={handleOpenAdd}
+              onClick={() => handleOpenAdd()}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#bc0c11] px-5 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#990a0e] hover:shadow-md active:scale-[0.98] transition-all cursor-pointer shrink-0 whitespace-nowrap"
             >
               <Plus className="size-4" />
@@ -268,47 +313,76 @@ export default function AdminDokumenPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filtered.map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="py-4 pl-6 pr-3 min-w-[240px]">
-                        <p className="font-bold text-slate-900">{item.title}</p>
-                        <p className="text-[11px] text-slate-400 font-mono mt-0.5 truncate max-w-sm">
-                          {item.fileUrl}
-                        </p>
-                      </td>
-                      <td className="px-3 py-4 whitespace-nowrap text-slate-700 font-medium">
-                        {item.category}
-                      </td>
-                      <td className="px-3 py-4 whitespace-nowrap text-slate-600 font-semibold">
-                        {item.fileType || "PDF"} • {item.fileSize || "1.5 MB"}
-                      </td>
-                      <td className="px-3 py-4 whitespace-nowrap">
-                        <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-bold uppercase text-emerald-800">
-                          Publik
-                        </span>
-                      </td>
-                      <td className="py-4 pl-3 pr-6 whitespace-nowrap text-right">
-                        <div className="flex items-center justify-end gap-1.5">
-                          <button
-                            type="button"
-                            onClick={() => handleOpenEdit(item)}
-                            title="Sunting"
-                            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer"
-                          >
-                            <Pencil className="size-4" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(item)}
-                            title="Hapus"
-                            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
-                          >
-                            <Trash2 className="size-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {filtered.map((item) => {
+                    const isCurrentActive =
+                      activeBrochure &&
+                      ((item.id && activeBrochure.id && String(item.id) === String(activeBrochure.id)) ||
+                        item.fileUrl === activeBrochure.fileUrl);
+                    const isBrochureLike =
+                      item.category === "Brosur PPDB" ||
+                      item.title.toLowerCase().includes("brosur") ||
+                      item.category === "Unduh Informasi";
+
+                    return (
+                      <tr key={item.id} className="hover:bg-slate-50/60 transition-colors">
+                        <td className="py-4 pl-6 pr-3 min-w-[240px]">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <p className="font-bold text-slate-900">{item.title}</p>
+                            {isCurrentActive && (
+                              <span className="inline-flex items-center rounded-full bg-red-100 border border-red-200 px-2.5 py-0.5 text-[10px] font-bold text-[#bc0c11]">
+                                Brosur Utama PPDB
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-slate-400 font-mono mt-0.5 truncate max-w-sm">
+                            {item.fileUrl}
+                          </p>
+                        </td>
+                        <td className="px-3 py-4 whitespace-nowrap text-slate-700 font-medium">
+                          {item.category}
+                        </td>
+                        <td className="px-3 py-4 whitespace-nowrap text-slate-600 font-semibold">
+                          {item.fileType || "PDF"} • {item.fileSize || "1.5 MB"}
+                        </td>
+                        <td className="px-3 py-4 whitespace-nowrap">
+                          <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-bold uppercase text-emerald-800">
+                            Publik
+                          </span>
+                        </td>
+                        <td className="py-4 pl-3 pr-6 whitespace-nowrap text-right">
+                          <div className="flex items-center justify-end gap-1.5">
+                            {isBrochureLike && !isCurrentActive && (
+                              <button
+                                type="button"
+                                onClick={() => handleMakeActiveBrochure(item)}
+                                disabled={isSettingActive}
+                                title="Jadikan Brosur Utama PPDB"
+                                className="inline-flex items-center px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-700 bg-slate-100 hover:bg-red-50 hover:text-[#bc0c11] transition-colors cursor-pointer"
+                              >
+                                <span>Jadikan Brosur Utama</span>
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => handleOpenEdit(item)}
+                              title="Sunting"
+                              className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer"
+                            >
+                              <Pencil className="size-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDelete(item)}
+                              title="Hapus"
+                              className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
+                            >
+                              <Trash2 className="size-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -442,6 +516,21 @@ export default function AdminDokumenPage() {
                     onChange={(e) => setForm({ ...form, description: e.target.value })}
                     className="w-full custom-scrollbar rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
                   />
+                </div>
+
+                {/* Opsi Tetapkan Sebagai Brosur Utama PPDB */}
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-red-50/60 border border-red-200">
+                  <input
+                    type="checkbox"
+                    id="set-as-active-brochure"
+                    checked={setAsActiveBrochure}
+                    onChange={(e) => setSetAsActiveBrochure(e.target.checked)}
+                    className="mt-0.5 size-4 rounded text-[#bc0c11] focus:ring-red-500 cursor-pointer"
+                  />
+                  <label htmlFor="set-as-active-brochure" className="text-xs text-slate-700 cursor-pointer select-none">
+                    <span className="font-bold block text-slate-900">Tetapkan sebagai Brosur Utama PPDB</span>
+                    Berkas ini akan otomatis tampil saat pengunjung mengklik tombol &quot;Lihat Brosur&quot; di halaman PPDB.
+                  </label>
                 </div>
               </div>
 

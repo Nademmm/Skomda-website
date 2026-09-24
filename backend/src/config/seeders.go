@@ -1774,6 +1774,12 @@ func SeedSiteSettingsIfEmpty(db *gorm.DB) {
 			Description: "Status penerimaan peserta didik baru berjalan",
 		},
 		{
+			Key:         "ppdb_active_brochure_id",
+			Value:       "1",
+			Category:    "ppdb",
+			Description: "ID Dokumen brosur PPDB resmi yang aktif tampil di website",
+		},
+		{
 			Key:         "announcement_banner_enabled",
 			Value:       "false",
 			Category:    "announcement",
