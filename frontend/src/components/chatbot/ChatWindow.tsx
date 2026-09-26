@@ -315,12 +315,13 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
           pendingFrame = true;
           rafId = requestAnimationFrame(() => {
             pendingFrame = false;
+            const displayContent = accumulatedText.replace(/<think>[\s\S]*?(<\/think>|$)/gi, "").trimStart();
             setMessages((prev) =>
               prev.map((msg) =>
                 msg.id === botMsgId
                   ? {
                       ...msg,
-                      content: accumulatedText,
+                      content: displayContent,
                       sources: collectedSources,
                       isStreaming: true,
                     }
@@ -352,14 +353,32 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
 
                 try {
                   const parsed = JSON.parse(dataStr);
-                  if (parsed.chunk) {
-                    accumulatedText += parsed.chunk;
-                    scheduleRender();
-                  } else if (parsed.content) {
-                    accumulatedText += parsed.content;
-                    scheduleRender();
-                  } else if (parsed.sources) {
+                  if (parsed.sources && Array.isArray(parsed.sources)) {
                     collectedSources = parsed.sources;
+                    scheduleRender();
+                  }
+
+                  const textChunk =
+                    typeof parsed.delta === "string"
+                      ? parsed.delta
+                      : typeof parsed.delta?.content === "string"
+                      ? parsed.delta.content
+                      : typeof parsed.choices?.[0]?.delta?.content === "string"
+                      ? parsed.choices[0].delta.content
+                      : typeof parsed.chunk === "string"
+                      ? parsed.chunk
+                      : typeof parsed.content === "string"
+                      ? parsed.content
+                      : typeof parsed.text === "string"
+                      ? parsed.text
+                      : typeof parsed.response === "string"
+                      ? parsed.response
+                      : typeof parsed.message === "string"
+                      ? parsed.message
+                      : null;
+
+                  if (textChunk) {
+                    accumulatedText += textChunk;
                     scheduleRender();
                   }
                 } catch {
@@ -380,7 +399,7 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
             msg.id === botMsgId
               ? {
                   ...msg,
-                  content: cleanFinal || accumulatedText || "Maaf, respon tidak dapat diproses.",
+                  content: cleanFinal || accumulatedText || "Halo! Ada yang bisa saya bantu seputar informasi SMK Telkom Sidoarjo?",
                   sources: collectedSources,
                   isStreaming: false,
                 }
@@ -389,7 +408,16 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
         );
       } else {
         const data = await response.json();
-        const rawContent = data.response || data.message || "Maaf, tidak ada respon dari sistem.";
+        const rawContent =
+          typeof data.response === "string"
+            ? data.response
+            : typeof data.message === "string"
+            ? data.message
+            : typeof data.delta === "string"
+            ? data.delta
+            : typeof data.content === "string"
+            ? data.content
+            : "Maaf, tidak ada respon dari sistem.";
         const cleanContent = rawContent.replace(/<think>[\s\S]*?(<\/think>|$)/gi, "").trim();
 
         setMessages((prev) =>
