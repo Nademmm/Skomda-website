@@ -29,7 +29,7 @@ export default function PrestasiHeroSection() {
           >
             <div className="relative w-full max-w-[580px] aspect-[601/400] flex items-center justify-center">
               <Image
-                src="/images/tentang-kami/prestasi/hero-prestasi-figma.png"
+                src="/images/tentang-kami/prestasi/hero-prestasi-lks.png"
                 alt={isEn ? "SMK Telkom Sidoarjo Student Achievements" : "Prestasi Siswa SMK Telkom Sidoarjo"}
                 fill
                 sizes="(max-width: 768px) 100vw, 580px"
@@ -78,12 +78,12 @@ export default function PrestasiHeroSection() {
               </span>
             </nav>
 
-            {/* Main Heading from Figma */}
+            {/* Main Heading from */}
             <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[58px] leading-[1.15] tracking-tight text-[#101828] mb-4">
               {isEn ? "Achievements" : "Prestasi"}
             </h1>
 
-            {/* Description Paragraph from Figma */}
+            {/* Description Paragraph from */}
             <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-xl mb-8">
               {isEn
                 ? "Every student has the potential to grow and excel. Through relevant learning, teacher mentoring, and diverse competition opportunities, SMK Telkom Sidoarjo encourages students to continuously explore, innovate, and produce tangible achievements in both academic and non-academic domains."

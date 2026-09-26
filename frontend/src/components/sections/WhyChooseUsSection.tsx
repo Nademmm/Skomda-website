@@ -26,7 +26,7 @@ const whyCards: WhyCard[] = [
     titleKey: "why.card2Title",
     descKey: "why.card2Desc",
     iconSrc: "/images/home/why-us/why-icon-2.svg",
-    isHighlight: true, // Red card (Figma 67:235 & 23:119)
+    isHighlight: true, // Red card highlight
     href: "/program/digital-talent",
   },
   {
@@ -66,7 +66,7 @@ export default function WhyChooseUsSection() {
     <section id="keunggulan" className="w-full bg-[#f3f4f6] py-20 lg:py-24 scroll-mt-24">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
-        {/* Header Row (Figma 67:126 & 67:140) */}
+        {/* Header Row 67:126 & 67:140) */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-12">
           <div className="flex flex-col gap-1">
             <h2 className="font-jakarta font-bold text-3xl sm:text-[36px] leading-[40px] text-[#101828]">
@@ -77,7 +77,7 @@ export default function WhyChooseUsSection() {
             </span>
           </div>
 
-          {/* CTA Daftar Sekarang Button (Figma 67:140) */}
+          {/* CTA Daftar Sekarang Button 67:140) */}
           <div className="shrink-0">
             <Link
               href="#ppdb"
@@ -107,7 +107,7 @@ export default function WhyChooseUsSection() {
           </div>
         </div>
 
-        {/* 6 Feature Cards Grid (Figma nodes 67:180, 67:235, 67:214, 67:248, 67:261, 67:274) */}
+        {/* 6 Feature Cards Grid nodes 67:180, 67:235, 67:214, 67:248, 67:261, 67:274) */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {whyCards.map((card) => {
             if (card.isHighlight) {
@@ -118,7 +118,7 @@ export default function WhyChooseUsSection() {
                   data-node-id={card.id}
                   className="group relative rounded-[25px] bg-[#bc0c11] px-6 sm:px-7 py-6 text-white shadow-[0px_4px_9px_0px_rgba(0,0,0,0.1)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer border-2 border-dashed border-white/50 hover:border-white min-h-[120px]"
                 >
-                  {/* White circle icon (Figma 23:120 / 67:237) */}
+                  {/* White circle icon 23:120 / 67:237) */}
                   <div className="flex size-[64px] sm:size-[70px] shrink-0 items-center justify-center rounded-full bg-white shadow-sm p-3 transition-transform duration-300 group-hover:scale-105">
                     <div className="relative size-[36px] sm:size-[40px]">
                       <Image
@@ -130,7 +130,7 @@ export default function WhyChooseUsSection() {
                     </div>
                   </div>
 
-                  {/* Text column (Figma 67:242) */}
+                  {/* Text column 67:242) */}
                   <div className="flex flex-col items-start min-w-0">
                     <h3 className="font-jakarta font-bold text-base sm:text-[18px] lg:text-[20px] text-white leading-[26px] sm:leading-[28px] relative inline-flex items-center gap-1.5">
                       <span className="relative pb-0.5">
@@ -167,7 +167,7 @@ export default function WhyChooseUsSection() {
                 data-node-id={card.id}
                 className="group relative rounded-[25px] bg-white px-6 sm:px-7 py-6 shadow-[0px_4px_4.5px_rgba(0,0,0,0.08)] flex items-center gap-4 sm:gap-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md border-2 border-dashed border-[#d1d5dc] hover:border-[#bc0c11] min-h-[120px]"
               >
-                {/* Light pink/red circle icon (Figma 67:145) */}
+                {/* Light pink/red circle icon 67:145) */}
                 <div className="flex size-[64px] sm:size-[70px] shrink-0 items-center justify-center rounded-full bg-[#ffebed] p-3 transition-transform duration-300 group-hover:scale-105">
                   <div className="relative size-[36px] sm:size-[40px]">
                     <Image
@@ -179,7 +179,7 @@ export default function WhyChooseUsSection() {
                   </div>
                 </div>
 
-                {/* Text column (Figma 67:177) */}
+                {/* Text column 67:177) */}
                 <div className="flex flex-col items-start min-w-0">
                   <h3 className="font-jakarta font-bold text-base sm:text-[18px] lg:text-[20px] text-[#101828] leading-[26px] sm:leading-[28px]">
                     {t(card.titleKey)}

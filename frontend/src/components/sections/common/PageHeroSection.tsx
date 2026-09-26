@@ -11,9 +11,10 @@ export interface BreadcrumbItem {
 
 export interface PageHeroSectionProps {
   breadcrumbs: BreadcrumbItem[];
-  titlePrefix: string;
-  titleHighlight: string;
+  titlePrefix?: string;
+  titleHighlight?: string;
   titleSuffix?: string;
+  titleHighlightColor?: string;
   description: string;
   ctaText?: string;
   ctaHref?: string;
@@ -22,62 +23,121 @@ export interface PageHeroSectionProps {
   studentAlt: string;
   bgShape?: string;
   imagePosition?: "left" | "right";
+  isIntegratedArtwork?: boolean;
 }
 
 export default function PageHeroSection({
   breadcrumbs,
-  titlePrefix,
-  titleHighlight,
+  titlePrefix = "",
+  titleHighlight = "",
   titleSuffix = "",
+  titleHighlightColor = "text-[#e7000b]",
   description,
   ctaText = "Jelajahi",
   ctaHref,
   onCtaClick,
   studentImage,
   studentAlt,
-  bgShape = "/images/common/hero-bg-shapes.svg",
+  bgShape,
   imagePosition = "right",
+  isIntegratedArtwork = true,
 }: PageHeroSectionProps) {
   const isImageRight = imagePosition === "right";
 
+  const handleScrollToHash = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    if (hash.startsWith("#")) {
+      e.preventDefault();
+      const targetId = hash.replace("#", "");
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  const ctaButtonClasses =
+    "group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3.5 min-h-[48px] text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer select-none";
+
+  const ctaButtonStyle = {
+    boxShadow:
+      "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1), inset 0px -4px 2px 0px rgba(0,0,0,0.25)",
+  };
+
+  const ctaButtonInner = (
+    <>
+      <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
+        {ctaText}
+      </span>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        className="transition-transform duration-300 group-hover:translate-x-1 shrink-0"
+        aria-hidden="true"
+      >
+        <path
+          d="M5 12H19M19 12L12 5M19 12L12 19"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </>
+  );
+
   return (
-    <section className="relative w-full pt-32 pb-16 lg:pt-40 lg:pb-24 bg-[#f3f4f6] overflow-hidden">
+    <section className="relative w-full pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 bg-[#f8f9fb] overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
           
           {/* Visual Artwork Column */}
           <motion.div
             initial={{ opacity: 0, x: isImageRight ? 30 : -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className={`lg:col-span-5 flex justify-center ${
+            className={`${isIntegratedArtwork ? "lg:col-span-6" : "lg:col-span-5"} flex justify-center ${
               isImageRight ? "lg:justify-end order-2" : "lg:justify-start order-2 lg:order-1"
             }`}
           >
-            <div className="relative w-full max-w-[460px] aspect-[500/470] select-none">
-              {/* Background Geometric Shapes (Telkom red arch & circles) */}
-              <div className="absolute left-0 top-[17.23%] w-[99.6%] h-[83%] pointer-events-none z-0">
-                <Image
-                  src={bgShape}
-                  alt=""
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-
-              {/* Student Real Photo Cutout */}
-              <div className="absolute left-[20%] sm:left-[24%] top-0 w-[70%] sm:w-[66%] h-[99.57%] z-10">
+            {isIntegratedArtwork || !bgShape ? (
+              <div className="relative w-full max-w-[480px] sm:max-w-[540px] lg:max-w-[580px] aspect-[16/10] select-none flex items-center justify-center">
                 <Image
                   src={studentImage}
                   alt={studentAlt}
                   fill
-                  className="object-contain object-bottom drop-shadow-xl"
+                  className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)]"
                   priority
-                  sizes="(max-width: 768px) 300px, 460px"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 580px"
                 />
               </div>
-            </div>
+            ) : (
+              <div className="relative w-full max-w-[420px] sm:max-w-[460px] aspect-[500/470] select-none">
+                {/* Background Geometric Shape */}
+                <div className="absolute left-0 top-[17.23%] w-[99.6%] h-[83%] pointer-events-none z-0">
+                  <Image
+                    src={bgShape}
+                    alt=""
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+
+                {/* Student Photo Cutout */}
+                <div className="absolute left-[20%] sm:left-[24%] top-0 w-[70%] sm:w-[66%] h-[99.57%] z-10">
+                  <Image
+                    src={studentImage}
+                    alt={studentAlt}
+                    fill
+                    className="object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)]"
+                    priority
+                    sizes="(max-width: 768px) 300px, 460px"
+                  />
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Text Content Column */}
@@ -85,12 +145,15 @@ export default function PageHeroSection({
             initial={{ opacity: 0, x: isImageRight ? -30 : 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className={`lg:col-span-7 flex flex-col items-start ${
+            className={`${isIntegratedArtwork ? "lg:col-span-6" : "lg:col-span-7"} flex flex-col items-start ${
               isImageRight ? "order-1" : "order-1 lg:order-2"
             }`}
           >
-            {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-4 text-sm font-jakarta text-[#4a5565] flex-wrap">
+            {/* Breadcrumb Navigation */}
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 mb-5 text-xs sm:text-sm font-jakarta text-[#64748b] flex-wrap"
+            >
               <Link href="/" className="hover:text-[#bc0c11] transition-colors">
                 Beranda
               </Link>
@@ -101,7 +164,8 @@ export default function PageHeroSection({
                     height="14"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="text-[#4a5565] shrink-0"
+                    className="text-[#94a3b8] shrink-0"
+                    aria-hidden="true"
                   >
                     <path
                       d="M6 12L10 8L6 4"
@@ -112,7 +176,9 @@ export default function PageHeroSection({
                     />
                   </svg>
                   {idx === breadcrumbs.length - 1 ? (
-                    <span className="font-medium text-[#101828]">{crumb.label}</span>
+                    <span className="font-medium text-[#101828]" aria-current="page">
+                      {crumb.label}
+                    </span>
                   ) : (
                     <Link href={crumb.href} className="hover:text-[#bc0c11] transition-colors">
                       {crumb.label}
@@ -122,67 +188,46 @@ export default function PageHeroSection({
               ))}
             </nav>
 
-            {/* Title & Red Underline Accent Bar */}
-            <div className="relative mb-6">
-              <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[54px] leading-tight tracking-tight text-[#101828]">
-                {titlePrefix} <span className="text-[#e7000b]">{titleHighlight}</span> {titleSuffix}
+            {/* Title */}
+            <div className="relative mb-5">
+              <h1 className="font-jakarta font-bold text-3xl sm:text-4xl lg:text-[52px] xl:text-[56px] leading-tight sm:leading-[1.2] lg:leading-[1.18] xl:leading-[1.16] tracking-tight text-[#101828]">
+                {titlePrefix && <span className="text-[#101828]">{titlePrefix} </span>}
+                {titleHighlight && (
+                  <span className={titleHighlightColor}>{titleHighlight}</span>
+                )}
+                {titleSuffix && <span className="text-[#101828]"> {titleSuffix}</span>}
               </h1>
-              <div className="mt-3.5 h-[3px] w-14 bg-[#bc0c11] rounded-full" />
             </div>
 
             {/* Description */}
-            <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-2xl mb-8">
+            <p className="font-jakarta text-base sm:text-lg text-[#364153] leading-relaxed max-w-2xl mb-8 font-normal">
               {description}
             </p>
 
             {/* CTA Button */}
             {ctaHref ? (
-              <Link
-                href={ctaHref}
-                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] shadow-card-cta"
-              >
-                <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                  {ctaText}
-                </span>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
+              ctaHref.startsWith("#") ? (
+                <a
+                  href={ctaHref}
+                  onClick={(e) => handleScrollToHash(e, ctaHref)}
+                  className={ctaButtonClasses}
+                  style={ctaButtonStyle}
                 >
-                  <path
-                    d="M5 12H19M19 12L12 5M19 12L12 19"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
+                  {ctaButtonInner}
+                </a>
+              ) : (
+                <Link href={ctaHref} className={ctaButtonClasses} style={ctaButtonStyle}>
+                  {ctaButtonInner}
+                </Link>
+              )
             ) : onCtaClick ? (
               <button
+                type="button"
                 onClick={onCtaClick}
-                className="group inline-flex items-center gap-3 rounded-full bg-[#bc0c11] px-7 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-[#990a0e] active:scale-[0.98] cursor-pointer shadow-card-cta"
+                className={ctaButtonClasses}
+                style={ctaButtonStyle}
               >
-                <span className="font-jakarta font-medium text-[15px] leading-none whitespace-nowrap">
-                  {ctaText}
-                </span>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  <path
-                    d="M5 12H19M19 12L12 5M19 12L12 19"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                {ctaButtonInner}
               </button>
             ) : null}
 

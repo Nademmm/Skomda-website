@@ -83,7 +83,7 @@ export default function PpdbAlurSection() {
               </p>
             </div>
 
-            {/* Student Illustration from Figma (touching the bottom edge) */}
+            {/* Student Illustration from (touching the bottom edge) */}
             <div className="relative w-full max-w-[380px] sm:max-w-[430px] aspect-[441/499] mx-auto lg:mx-0 mt-auto -mb-px">
               <Image
                 src="/images/ppdb/alur-student.png"

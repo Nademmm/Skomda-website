@@ -294,21 +294,21 @@ export default function AdminKelulusanPage() {
         <div className="flex flex-col sm:flex-row gap-3 flex-1 items-stretch sm:items-center">
           {/* Search Input */}
           <div className="relative flex-1">
-            <Search className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari nama siswa, NISN, atau perguruan tinggi..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11] transition-colors"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50/80 py-2.5 pl-9 pr-8 text-xs font-medium text-slate-800 placeholder:text-slate-400 transition-all focus:border-[#bc0c11] focus:bg-white focus:ring-2 focus:ring-red-100 focus:outline-none"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
               >
-                <X className="size-4" />
+                <X className="size-3.5" />
               </button>
             )}
           </div>
@@ -329,7 +329,7 @@ export default function AdminKelulusanPage() {
         <button
           type="button"
           onClick={handleOpenAdd}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#bc0c11] hover:bg-[#990a0e] text-white text-sm font-semibold font-jakarta shadow-xs transition-colors shrink-0 cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#bc0c11] px-4 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#990a0e] transition-colors shrink-0 cursor-pointer"
         >
           <Plus className="size-4" />
           <span>Tambah Siswa</span>
@@ -492,8 +492,8 @@ export default function AdminKelulusanPage() {
             {/* Modal Form Body */}
             <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Nama Lengkap Siswa <span className="text-red-500">*</span>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  Nama Lengkap Siswa <span className="text-[#bc0c11]">*</span>
                 </label>
                 <input
                   type="text"
@@ -501,13 +501,13 @@ export default function AdminKelulusanPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value.toUpperCase() })}
                   placeholder="Contoh: AHMAD FADHIL FATHI"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     NISN Siswa
                   </label>
                   <input
@@ -515,12 +515,12 @@ export default function AdminKelulusanPage() {
                     value={formData.nisn}
                     onChange={(e) => setFormData({ ...formData, nisn: e.target.value })}
                     placeholder="Contoh: 0060001"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     Tahun Ajaran
                   </label>
                   <input
@@ -528,13 +528,13 @@ export default function AdminKelulusanPage() {
                     value={formData.tahunAjaran}
                     onChange={(e) => setFormData({ ...formData, tahunAjaran: e.target.value })}
                     placeholder="2023/2024"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Kategori Kelulusan
                 </label>
                 <AdminSelect
@@ -546,7 +546,7 @@ export default function AdminKelulusanPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     Nama Institusi / Perusahaan
                   </label>
                   <input
@@ -554,12 +554,12 @@ export default function AdminKelulusanPage() {
                     value={formData.institusi || ""}
                     onChange={(e) => setFormData({ ...formData, institusi: e.target.value })}
                     placeholder="Contoh: ITS Surabaya / Telkom"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     Jurusan / Posisi Pekerjaan
                   </label>
                   <input
@@ -567,13 +567,13 @@ export default function AdminKelulusanPage() {
                     value={formData.jurusan || ""}
                     onChange={(e) => setFormData({ ...formData, jurusan: e.target.value })}
                     placeholder="Contoh: S1 Teknik Informatika"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Keterangan / Aktivitas Ringkas
                 </label>
                 <input
@@ -581,7 +581,7 @@ export default function AdminKelulusanPage() {
                   value={formData.keterangan || ""}
                   onChange={(e) => setFormData({ ...formData, keterangan: e.target.value })}
                   placeholder="Kosongkan jika ingin dibuat otomatis dari institusi & jurusan"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-jakarta text-slate-900 focus:outline-none focus:border-[#bc0c11] focus:ring-1 focus:ring-[#bc0c11]"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                 />
               </div>
 
@@ -591,14 +591,14 @@ export default function AdminKelulusanPage() {
                   type="button"
                   onClick={() => setIsModalOpen(false)}
                   disabled={isSubmitting}
-                  className="px-5 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors cursor-pointer"
+                  className="rounded-xl px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2 rounded-xl bg-[#bc0c11] hover:bg-[#990a0e] text-white text-sm font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                  className="rounded-xl bg-[#bc0c11] px-5 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#990a0e] transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isSubmitting ? "Menyimpan..." : "Simpan Data"}
                 </button>
@@ -619,21 +619,21 @@ export default function AdminKelulusanPage() {
               <Trash2 className="size-6" />
             </div>
 
-            <h3 className="font-jakarta font-bold text-lg text-slate-900 mb-1">
+            <h3 className="font-bold text-base text-slate-900 mb-1">
               Hapus Data Siswa Kelulusan?
             </h3>
-            <p className="text-sm text-slate-500 font-jakarta leading-relaxed mb-6">
+            <p className="text-xs text-slate-500 leading-relaxed mb-6">
               Apakah Anda yakin ingin menghapus data kelulusan untuk siswa{" "}
               <strong className="text-slate-900">{deletingItem.name}</strong>? Tindakan ini tidak dapat
               dibatalkan.
             </p>
 
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2.5">
               <button
                 type="button"
                 onClick={() => setDeletingItem(null)}
                 disabled={isSubmitting}
-                className="px-5 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors cursor-pointer"
+                className="rounded-xl px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
               >
                 Batal
               </button>
@@ -641,7 +641,7 @@ export default function AdminKelulusanPage() {
                 type="button"
                 onClick={handleDelete}
                 disabled={isSubmitting}
-                className="px-6 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold transition-colors cursor-pointer disabled:opacity-50"
+                className="rounded-xl bg-red-600 px-5 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-red-700 transition-colors cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? "Menghapus..." : "Ya, Hapus Siswa"}
               </button>

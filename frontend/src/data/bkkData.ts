@@ -243,7 +243,7 @@ export const TALENTA_SKOMDA_ITEMS: TalentaSkomdaItem[] = [
     role: "Web Developer",
     major: "SIJA",
     status: "SIJA · Alumni 2026",
-    avatar: "/images/program/profil-jurusan/charen.png",
+    avatar: "/images/program/profil-jurusan/student-sija.png",
     skills: ["HTML", "CSS", "JavaScript"],
     bio: "Pengembang aplikasi web yang menyukai arsitektur modern TypeScript, React, dan API backend, aktif membangun solusi digital sekolah.",
     achievements: [

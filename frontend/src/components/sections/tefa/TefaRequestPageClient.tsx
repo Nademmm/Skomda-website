@@ -92,7 +92,7 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
   return (
     <section className="relative w-full overflow-hidden bg-[#f3f4f6] pt-32 sm:pt-36 lg:pt-40 pb-0">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb matching Figma */}
+        {/* Breadcrumb matching */}
         <nav
           aria-label="Breadcrumb"
           className="flex items-center gap-2 text-xs sm:text-sm font-jakarta text-[#4a5565] mb-8"
@@ -149,7 +149,7 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
             className="lg:col-span-5 flex flex-col items-start justify-between h-full"
           >
             <div className="w-full flex flex-col items-start">
-              {/* Main Title matching Figma 271:43 */}
+              {/* Main Title matching 271:43 */}
               <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-[52px] leading-[1.12] tracking-tight text-[#101828] mb-6">
                 {isEn ? (
                   <>
@@ -190,7 +190,7 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
               {/* Angled Red Rectangle / Card */}
               <div className="absolute w-[260px] h-[330px] sm:w-[320px] sm:h-[400px] bg-[#bc0c11] rounded-[32px] sm:rounded-[42px] -rotate-12 shadow-2xl shadow-red-950/25 bottom-0 left-4 sm:left-8" />
 
-              {/* Student Cutout Image (Exact from Figma node 287:66 - bottom rests directly on footer) */}
+              {/* Student Cutout Image (Exact from - bottom rests directly on footer) */}
               <div className="relative z-10 w-[300px] sm:w-[380px] lg:w-[430px] h-[460px] sm:h-[540px] lg:h-[600px] flex items-end">
                 <Image
                   src="/images/tefa/request-student-thinking.png"
@@ -230,7 +230,7 @@ Mohon informasi ketersediaan jadwal konsultasi dan alur kerja samanya. Terima ka
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             className="lg:col-span-7 w-full flex flex-col items-center pb-16 sm:pb-20 lg:pb-28"
           >
-            {/* Top 3 Students Image from Figma (node 278:407: 3 students in batik looking at tablet) */}
+            {/* Top 3 Students Image from (node 278:407: 3 students in batik looking at tablet) */}
             <div className="relative w-full max-w-[460px] sm:max-w-[500px] h-[260px] sm:h-[320px] -mb-10 sm:-mb-14 z-0 pointer-events-none select-none">
               <Image
                 src="/images/tefa/request-students-three.png"

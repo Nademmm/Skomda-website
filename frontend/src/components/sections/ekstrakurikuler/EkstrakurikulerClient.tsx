@@ -55,13 +55,15 @@ export default function EkstrakurikulerClient() {
           { label: t("nav.programs", "Program"), href: "/program/profil-jurusan" },
           { label: t("ekstrakurikuler.breadcrumb", "Ekstrakurikuler"), href: "/program/ekstrakurikuler" },
         ]}
-        titlePrefix={t("ekstrakurikuler.heroTitle1", "Program")}
-        titleHighlight={t("ekstrakurikuler.heroTitle2", "Ekstrakurikuler")}
-        description="Wadah pengembangan potensi, minat, dan bakat siswa SMK Telkom Sidoarjo di bidang kepemimpinan, kepramukaan, riset karya ilmiah, olahraga, seni musik, bahasa, dan kejuaraan kompetitif."
-        studentImage="/images/program/ekstrakurikuler/hero-student-guitar.png"
+        titleHighlight="Ekstrakurikuler"
+        titleHighlightColor="text-[#101828]"
+        description="SMK Telkom Sidoarjo menyediakan beragam pilihan ekstrakurikuler yang mencakup bidang kepemimpinan, olahraga, seni budaya, riset ilmiah, hingga teknologi dan robotika. Seluruh kegiatan dirancang untuk menyalurkan minat dan bakat siswa, melatih karakter kepemimpinan, serta mengukir prestasi gemilang di tingkat regional maupun nasional."
+        studentImage="/images/program/ekstrakurikuler/hero-student-ekskul.png"
         studentAlt="Ekstrakurikuler SMK Telkom Sidoarjo"
-        ctaText="Jelajahi Ekskul"
+        ctaText="Jelajahi"
         ctaHref="#daftar-ekskul"
+        imagePosition="right"
+        isIntegratedArtwork={true}
       />
 
       {/* Main Catalog Section */}

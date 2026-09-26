@@ -374,7 +374,7 @@ export default function AdminBKKPage() {
                     ? "Cari posisi, perusahaan, atau lokasi..."
                     : "Cari nama mitra atau industri..."
                 }
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-[#bc0c11] focus:bg-white focus:outline-none"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/80 py-2.5 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 font-medium focus:border-[#bc0c11] focus:bg-white focus:ring-2 focus:ring-red-100 focus:outline-none transition-all"
               />
             </div>
 
@@ -590,8 +590,8 @@ export default function AdminBKKPage() {
             <form onSubmit={handleJobSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
               <div className="flex-1 overflow-y-auto admin-modal-scrollbar px-6 sm:px-8 py-6 space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Posisi Pekerjaan *
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Posisi Pekerjaan <span className="text-[#bc0c11]">*</span>
                   </label>
                   <input
                     type="text"
@@ -599,14 +599,14 @@ export default function AdminBKKPage() {
                     placeholder="Contoh: Junior Network Engineer"
                     value={jobForm.title}
                     onChange={(e) => setJobForm({ ...jobForm, title: e.target.value })}
-                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Nama Perusahaan *
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Nama Perusahaan <span className="text-[#bc0c11]">*</span>
                     </label>
                     <input
                       type="text"
@@ -614,12 +614,12 @@ export default function AdminBKKPage() {
                       placeholder="Contoh: PT Telkom Akses"
                       value={jobForm.company}
                       onChange={(e) => setJobForm({ ...jobForm, company: e.target.value })}
-                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Lokasi Penempatan
                     </label>
                     <input
@@ -627,7 +627,7 @@ export default function AdminBKKPage() {
                       placeholder="Contoh: Sidoarjo / Surabaya"
                       value={jobForm.location}
                       onChange={(e) => setJobForm({ ...jobForm, location: e.target.value })}
-                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -654,7 +654,7 @@ export default function AdminBKKPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Batas Pendaftaran
                     </label>
                     <input
@@ -662,12 +662,12 @@ export default function AdminBKKPage() {
                       placeholder="Contoh: 31 Desember 2026"
                       value={jobForm.deadline || ""}
                       onChange={(e) => setJobForm({ ...jobForm, deadline: e.target.value })}
-                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Estimasi Gaji / Benefit
                     </label>
                     <input
@@ -675,13 +675,13 @@ export default function AdminBKKPage() {
                       placeholder="Contoh: Standar Industri / UMR"
                       value={jobForm.salary || ""}
                       onChange={(e) => setJobForm({ ...jobForm, salary: e.target.value })}
-                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Email / Tautan Melamar
                   </label>
                   <input
@@ -689,12 +689,12 @@ export default function AdminBKKPage() {
                     placeholder="mailto:karir@perusahaan.com atau https://..."
                     value={jobForm.applyUrl || ""}
                     onChange={(e) => setJobForm({ ...jobForm, applyUrl: e.target.value })}
-                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Kualifikasi & Persyaratan
                   </label>
                   <textarea
@@ -702,12 +702,12 @@ export default function AdminBKKPage() {
                     placeholder="Tuliskan persyaratan keahlian, jurusan yang dicari, sertifikasi, dan kualifikasi lainnya..."
                     value={jobForm.requirements || ""}
                     onChange={(e) => setJobForm({ ...jobForm, requirements: e.target.value })}
-                    className="w-full custom-scrollbar rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full custom-scrollbar resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Deskripsi Pekerjaan
                   </label>
                   <textarea
@@ -715,7 +715,7 @@ export default function AdminBKKPage() {
                     placeholder="Uraian tugas dan tanggung jawab harian pada posisi ini..."
                     value={jobForm.description || ""}
                     onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
-                    className="w-full custom-scrollbar rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full custom-scrollbar resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
@@ -735,7 +735,7 @@ export default function AdminBKKPage() {
                 <button
                   type="button"
                   onClick={() => setIsJobModalOpen(false)}
-                  className="rounded-xl px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                  className="rounded-xl px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
                 >
                   Batal
                 </button>
@@ -774,8 +774,8 @@ export default function AdminBKKPage() {
             <form onSubmit={handlePartnerSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
               <div className="flex-1 overflow-y-auto admin-modal-scrollbar px-6 sm:px-8 py-6 space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Nama Perusahaan Mitra *
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Nama Perusahaan Mitra <span className="text-[#bc0c11]">*</span>
                   </label>
                   <input
                     type="text"
@@ -783,7 +783,7 @@ export default function AdminBKKPage() {
                     placeholder="Contoh: PT Telkom Indonesia"
                     value={partnerForm.name}
                     onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })}
-                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
@@ -797,7 +797,7 @@ export default function AdminBKKPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Tautan Website Resmi
                   </label>
                   <input
@@ -805,12 +805,12 @@ export default function AdminBKKPage() {
                     placeholder="https://..."
                     value={partnerForm.website || ""}
                     onChange={(e) => setPartnerForm({ ...partnerForm, website: e.target.value })}
-                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Keterangan Kerjasama
                   </label>
                   <textarea
@@ -818,7 +818,7 @@ export default function AdminBKKPage() {
                     placeholder="Bentuk kemitraan, penyaluran magang PKL, kelas industri..."
                     value={partnerForm.description || ""}
                     onChange={(e) => setPartnerForm({ ...partnerForm, description: e.target.value })}
-                    className="w-full custom-scrollbar rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                    className="w-full custom-scrollbar resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 font-medium shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                   />
                 </div>
 
@@ -838,7 +838,7 @@ export default function AdminBKKPage() {
                 <button
                   type="button"
                   onClick={() => setIsPartnerModalOpen(false)}
-                  className="rounded-xl px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                  className="rounded-xl px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
                 >
                   Batal
                 </button>

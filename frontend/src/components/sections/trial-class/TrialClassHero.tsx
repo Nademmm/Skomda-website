@@ -60,7 +60,7 @@ export default function TrialClassHero({ onOpenRegister }: TrialClassHeroProps) 
               </span>
             </nav>
 
-            {/* Main Heading (Pure bold Title matching Figma) */}
+            {/* Main Heading (Pure bold Title matching */}
             <h1 className="font-jakarta text-4xl sm:text-5xl lg:text-[56px] font-bold text-[#101828] leading-[1.15] tracking-tight mb-4 sm:mb-5">
               Trial Class
             </h1>
@@ -142,7 +142,7 @@ export default function TrialClassHero({ onOpenRegister }: TrialClassHeroProps) 
           </motion.div>
         </div>
 
-        {/* Integrated Upcoming Event Card (Combined in Hero as in Figma) */}
+        {/* Integrated Upcoming Event Card (Combined in Hero as in */}
         <div id="event-terdekat" className="w-full relative z-20 mt-6 sm:mt-8 lg:-mt-8 scroll-mt-28">
           <motion.div
             initial={{ opacity: 0, y: 24 }}

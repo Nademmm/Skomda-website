@@ -17,6 +17,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import AdminSelect from "@/components/admin/AdminSelect";
 import { getSiteSettings, updateSiteSetting } from "@/services/settings";
 import {
   DocumentItem,
@@ -149,26 +150,28 @@ export default function AdminPengaturanPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Nomor WhatsApp Humas Resmi
                 </label>
                 <input
                   type="text"
                   value={settings.contact_phone || ""}
                   onChange={(e) => handleChange("contact_phone", e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                  placeholder="Contoh: 0811-3021-919"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Alamat Email Resmi Sekolah
                 </label>
                 <input
                   type="email"
                   value={settings.contact_email || ""}
                   onChange={(e) => handleChange("contact_email", e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                  placeholder="Contoh: info@smktelkom-sda.sch.id"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                 />
               </div>
             </div>
@@ -192,7 +195,7 @@ export default function AdminPengaturanPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Status Pendaftaran Berjalan
                 </label>
                 <input
@@ -200,36 +203,36 @@ export default function AdminPengaturanPage() {
                   value={settings.ppdb_status || ""}
                   onChange={(e) => handleChange("ppdb_status", e.target.value)}
                   placeholder="Contoh: Buka - Gelombang 1"
-                  className="w-full sm:max-w-md rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                  className="w-full sm:max-w-md rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
                 />
               </div>
 
               {/* Brosur PPDB Aktif */}
               <div className="pt-3 border-t border-slate-100">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Pilih Dokumen Brosur PPDB Aktif
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                   <div className="sm:col-span-8">
-                    <select
+                    <AdminSelect
                       value={settings.ppdb_active_brochure_id || (activeBrochure?.id ? String(activeBrochure.id) : "")}
-                      onChange={(e) => handleChange("ppdb_active_brochure_id", e.target.value)}
-                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11] cursor-pointer"
-                    >
-                      <option value="">-- Otomatis (Brosur Terbaru) --</option>
-                      {documents
-                        .filter(
-                          (d) =>
-                            d.category === "Brosur PPDB" ||
-                            d.category === "Unduh Informasi" ||
-                            d.title.toLowerCase().includes("brosur")
-                        )
-                        .map((d) => (
-                          <option key={d.id} value={String(d.id)}>
-                            {d.title} ({d.fileType || "PDF"} • {d.fileSize || "Berkas"})
-                          </option>
-                        ))}
-                    </select>
+                      onChange={(val) => handleChange("ppdb_active_brochure_id", val)}
+                      options={[
+                        { label: "-- Otomatis (Brosur Terbaru) --", value: "" },
+                        ...documents
+                          .filter(
+                            (d) =>
+                              d.category === "Brosur PPDB" ||
+                              d.category === "Unduh Informasi" ||
+                              d.title.toLowerCase().includes("brosur")
+                          )
+                          .map((d) => ({
+                            label: `${d.title} (${d.fileType || "PDF"} • ${d.fileSize || "Berkas"})`,
+                            value: String(d.id),
+                          })),
+                      ]}
+                      placeholder="Pilih Dokumen Brosur"
+                    />
                   </div>
                   <div className="sm:col-span-4 flex items-center gap-2">
                     <Link
@@ -291,22 +294,23 @@ export default function AdminPengaturanPage() {
                   onChange={(e) =>
                     handleChange("announcement_banner_enabled", e.target.checked ? "true" : "false")
                   }
-                  className="size-4 rounded-md text-[#bc0c11] focus:ring-red-500"
+                  className="size-4 rounded-md border-slate-300 text-[#bc0c11] focus:ring-red-500 accent-[#bc0c11] cursor-pointer"
                 />
-                <label htmlFor="banner-toggle" className="text-xs font-bold text-slate-700">
+                <label htmlFor="banner-toggle" className="text-xs font-bold text-slate-700 cursor-pointer">
                   Aktifkan Banner Pengumuman Darurat di Website
                 </label>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Teks Pengumuman
                 </label>
                 <textarea
                   rows={2}
                   value={settings.announcement_banner_text || ""}
                   onChange={(e) => handleChange("announcement_banner_text", e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+                  placeholder="Ketik teks pengumuman penting..."
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none resize-y custom-scrollbar"
                 />
               </div>
             </div>
@@ -316,7 +320,7 @@ export default function AdminPengaturanPage() {
             <button
               type="submit"
               disabled={isSaving}
-              className="rounded-xl bg-[#bc0c11] px-6 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#990a0e] transition-colors disabled:opacity-50 cursor-pointer"
+              className="rounded-xl bg-[#bc0c11] px-6 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#990a0e] transition-colors disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? "Menyimpan ke Server..." : "Simpan Semua Pengaturan"}
             </button>

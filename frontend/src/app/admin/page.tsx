@@ -68,7 +68,7 @@ export default function AdminDashboardPage() {
           setStats(data);
         }
       } catch (err) {
-        console.error("Gagal memuat statistik dashboard:", err);
+        console.warn("Statistik dashboard menggunakan data cadangan:", (err as Error)?.message);
       } finally {
         setIsLoading(false);
       }

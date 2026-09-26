@@ -15,18 +15,17 @@ export default function PenerapanK3Client() {
       <PageHeroSection
         breadcrumbs={[
           { label: t("nav.information", "Informasi"), href: "/informasi/berita" },
-          { label: t("informasi.k3Breadcrumb", "Penerapan K3"), href: "/informasi/penerapan-k3" },
+          { label: "Penerapan K3", href: "/informasi/penerapan-k3" },
         ]}
-        titlePrefix={t("informasi.k3Title1", "Penerapan")}
-        titleHighlight={t("informasi.k3Title2", "K3 Lingkungan Sekolah")}
-        description={t(
-          "informasi.k3Desc",
-          "Menjaga keselamatan dan kesehatan seluruh warga sekolah melalui penerapan SOP K3 berstandar industri pada setiap aktivitas praktikum kabel fiber optik, server data center, dan kelistrikan."
-        )}
+        titleHighlight="Penerapan K3"
+        titleHighlightColor="text-[#101828]"
+        description="SMK Telkom Sidoarjo berkomitmen menerapkan standar Keselamatan dan Kesehatan Kerja (K3) secara menyeluruh di setiap ruang belajar, laboratorium, dan bengkel praktik. Melalui kepatuhan SOP resmi, penyediaan Alat Pelindung Diri (APD), serta simulasi tanggap darurat berkala, kami membentuk budaya kerja yang aman, disiplin, dan berstandar industri bagi seluruh siswa."
         studentImage="/images/informasi/penerapan-k3/hero-student-k3.png"
         studentAlt="Penerapan K3 SMK Telkom Sidoarjo"
-        ctaText={isEn ? "Browse K3 Documents" : "Lihat Berkas K3"}
+        ctaText="Jelajahi"
         ctaHref="#berkas-k3"
+        imagePosition="right"
+        isIntegratedArtwork={true}
       />
 
       <K3DocumentsListSection />

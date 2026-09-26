@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Informasi resmi kelulusan siswa dan tracer study SMK Telkom Sidoarjo.",
     images: [
       {
-        url: "/images/informasi/pengumuman-kelulusan/hero-student-megaphone.png",
+        url: "/images/informasi/pengumuman-kelulusan/hero-student-kelulusan.png",
         width: 1200,
         height: 630,
         alt: "Pengumuman Kelulusan SMK Telkom Sidoarjo",

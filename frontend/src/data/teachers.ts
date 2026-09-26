@@ -153,7 +153,7 @@ export const guruList: TeacherItem[] = [
   {
     name: "Indra Hadi Pranata, S.Pd., M.M.",
     role: "Guru Mata Pelajaran",
-    image: "/images/tentang-kami/profil-guru/indra hadi.png",
+    image: "/images/tentang-kami/profil-guru/indra-hadi.png",
   },
   {
     name: "Hadi Triyono, M.Th.",
@@ -287,6 +287,6 @@ export const staffList: TeacherItem[] = [
   {
     name: "Indra Kurniawan",
     role: "Tenaga Keamanan",
-    image: "/images/tentang-kami/profil-guru/indra kurniawan.png",
+    image: "/images/tentang-kami/profil-guru/indra-kurniawan.png",
   },
 ];

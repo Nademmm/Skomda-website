@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Fasilitas dan infrastruktur modern berstandar industri di SMK Telkom Sidoarjo.",
     images: [
       {
-        url: "/images/tentang-kami/fasilitas/hero-student-fasilitas.png",
+        url: "/images/tentang-kami/fasilitas/hero-fasilitas-terpadu.png",
         width: 1200,
         height: 630,
         alt: "Fasilitas SMK Telkom Sidoarjo",

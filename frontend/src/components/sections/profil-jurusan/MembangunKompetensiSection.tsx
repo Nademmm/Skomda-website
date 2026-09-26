@@ -70,7 +70,7 @@ const jurusanContent: Record<JurusanKey, JurusanData> = {
       "A forward-looking IT competency within Computer and Informatics Engineering introduced in 2017/2018 for a comprehensive Four (4) Year vocational program, tailored to equip students with enterprise cloud, cybersecurity, and software skills.",
     durationId: "Masa pendidikan 4 tahun",
     durationEn: "4-Year Education Program",
-    studentImage: "/images/program/profil-jurusan/charen.png",
+    studentImage: "/images/program/profil-jurusan/student-sija.png",
     studentAlt: "Siswi SIJA SMK Telkom Sidoarjo",
     badgeIcon: "/images/common/icons/ph-code-fill.svg",
     subjects: [
@@ -260,7 +260,7 @@ export default function MembangunKompetensiSection() {
                   </div>
 
                   {/* 3. Student Photo */}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[445px] sm:h-[460px] w-[500px] pointer-events-none flex items-end justify-center overflow-visible">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[450px] sm:h-[470px] w-[314px] sm:w-[330px] pointer-events-none flex items-end justify-center overflow-visible">
                     <Image
                       src={current.studentImage}
                       alt={current.studentAlt}

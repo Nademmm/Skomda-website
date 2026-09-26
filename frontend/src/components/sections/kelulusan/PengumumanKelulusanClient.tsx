@@ -102,17 +102,18 @@ export default function PengumumanKelulusanClient() {
       {/* ── 1. Hero Section ── */}
       <PageHeroSection
         breadcrumbs={[
-          { label: t("nav.home", "Beranda"), href: "/" },
           { label: t("nav.information", "Informasi"), href: "/informasi/berita" },
           { label: "Pengumuman Kelulusan", href: "/informasi/pengumuman-kelulusan" },
         ]}
-        titlePrefix="Pengumuman Resmi"
-        titleHighlight="Kelulusan Siswa"
-        description="Selamat atas keberhasilan seluruh siswa-siswi SMK Telkom Sidoarjo Tahun Ajaran 2023/2024. Telusuri pangkalan data kelulusan resmi serta pencapaian studi dan karir para lulusan."
-        studentImage="/images/informasi/pengumuman-kelulusan/hero-student-megaphone.png"
+        titleHighlight="Pengumuman Kelulusan"
+        titleHighlightColor="text-[#101828]"
+        description="Portal resmi pengumuman kelulusan siswa SMK Telkom Sidoarjo yang menyajikan hasil verifikasi akademik secara transparan dan akurat. Siswa dan orang tua dapat mengecek status kelulusan berdasarkan keputusan rapat pleno dewan guru, melihat rekam jejak penyaluran lulusan, serta mengunduh dokumen Surat Keterangan Lulus (SKL) secara mandiri."
+        studentImage="/images/informasi/pengumuman-kelulusan/hero-student-kelulusan.png"
         studentAlt="Pengumuman Kelulusan SMK Telkom Sidoarjo"
-        ctaText="Cek Data Kelulusan"
+        ctaText="Jelajahi"
         ctaHref="#portal-kelulusan"
+        imagePosition="right"
+        isIntegratedArtwork={true}
       />
 
       {/* ── 2. Main Portal & Search Section ── */}

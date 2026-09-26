@@ -56,15 +56,17 @@ export default function FasilitasClient() {
       <PageHeroSection
         breadcrumbs={[
           { label: t("nav.aboutUs", "Tentang Kami"), href: "/tentang-kami/profil-sekolah" },
-          { label: t("fasilitas.breadcrumb", "Fasilitas"), href: "/tentang-kami/fasilitas" },
+          { label: "Fasilitas", href: "/tentang-kami/fasilitas" },
         ]}
-        titlePrefix={t("fasilitas.heroTitle1", "Fasilitas &")}
-        titleHighlight={t("fasilitas.heroTitle2", "Infrastruktur")}
-        description="Fasilitas modern berstandar internasional ISO 21001:2018 di SMK Telkom Sidoarjo dirancang untuk memberikan pengalaman belajar praktis, inovatif, dan relevan dengan industri telekomunikasi masa kini."
-        studentImage="/images/tentang-kami/fasilitas/hero-student-fasilitas.png"
+        titleHighlight="Fasilitas"
+        titleHighlightColor="text-[#101828]"
+        description="Untuk mendukung pembelajaran kejuruan yang optimal, SMK Telkom Sidoarjo dilengkapi fasilitas modern berstandar industri. Mulai dari Gedung Ruang Praktik Siswa (RPS) dua lantai, ruang kelas ber-AC dengan layar interaktif, hingga laboratorium komputer dan jaringan serat optik yang siap menunjang praktik teknologi siswa setiap hari."
+        studentImage="/images/tentang-kami/fasilitas/hero-fasilitas-terpadu.png"
         studentAlt="Fasilitas SMK Telkom Sidoarjo"
-        ctaText="Jelajahi Sarana"
+        ctaText="Jelajahi"
         ctaHref="#daftar-fasilitas"
+        imagePosition="right"
+        isIntegratedArtwork={true}
       />
 
       {/* Main Facilities Catalog */}

@@ -55,7 +55,7 @@ export default function ProgramsSection() {
                   : "text-[#364153] hover:text-[#bc0c11]"
               }`}
             >
-              {/* Exact TJAT vector icon from Figma (node 96:378) */}
+              {/* Exact TJAT vector icon from (node 96:378) */}
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M13.54 6.47a5 5 0 0 1 0 7.06" />
                 <path d="M15.9 4.11a8.33 8.33 0 0 1 0 11.78" />
@@ -71,7 +71,7 @@ export default function ProgramsSection() {
         {/* Tab Content: SIJA */}
         {activeTab === "SIJA" && (
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: Student Image with Double Frames (Figma 67:112, 104:463, 105:467, 105:468) */}
+            {/* Left Column: Student Image with Double Frames 67:112, 104:463, 105:467, 105:468) */}
             <div className="lg:col-span-5 flex items-center justify-center relative">
               <div className="relative flex items-center justify-center" data-node-id="67:112">
 
@@ -91,22 +91,21 @@ export default function ProgramsSection() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#990a0e] to-[#bc0c11] opacity-90" />
                 </div>
 
-                {/* 3. Student Photo - charen (SIJA) precisely height-matched to TJAT */}
+                {/* 3. Student Photo - SIJA precisely height-matched to TJAT */}
                 <div
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[445px] w-[668px] pointer-events-none flex items-end justify-center overflow-visible"
-                  data-node-id="104:463"
-                  data-name="charen"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[470px] w-[314px] pointer-events-none flex items-end justify-center overflow-visible"
+                  data-name="student-sija"
                 >
                   <Image
-                    src="/images/program/profil-jurusan/charen.png"
+                    src="/images/program/profil-jurusan/student-sija.png"
                     alt="Siswa SIJA SMK Telkom Sidoarjo"
                     fill
-                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 500px, 668px"
+                    sizes="(max-width: 640px) 300px, 314px"
                     className="object-contain object-bottom drop-shadow-2xl"
                   />
                 </div>
 
-                {/* 4. Floating Code Badge Top-Right (Figma 105:467) */}
+                {/* 4. Floating Code Badge Top-Right 105:467) */}
                 <div
                   className="absolute top-8 -right-3 sm:-right-4 z-20 flex size-[52px] items-center justify-center rounded-[12px] bg-white/95 shadow-[0px_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform hover:scale-110"
                   data-node-id="105:467"
@@ -122,7 +121,7 @@ export default function ProgramsSection() {
                   </div>
                 </div>
 
-                {/* 5. Floating Code Badge Bottom-Left (Figma 105:468) */}
+                {/* 5. Floating Code Badge Bottom-Left 105:468) */}
                 <div
                   className="absolute bottom-20 -left-3 sm:-left-4 z-20 flex size-[52px] items-center justify-center rounded-[12px] bg-white/95 shadow-[0px_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform hover:scale-110"
                   data-node-id="105:468"
@@ -141,7 +140,7 @@ export default function ProgramsSection() {
               </div>
             </div>
 
-            {/* Right Column: Program Details (Figma 96:391) */}
+            {/* Right Column: Program Details 96:391) */}
             <div className="lg:col-span-7 flex flex-col gap-6" data-node-id="96:391">
               <div>
                 <h3 className="font-jakarta font-bold text-2xl sm:text-3xl leading-tight">

@@ -151,16 +151,16 @@ export default function TefaHeroSection({
             </div>
           </motion.div>
 
-          {/* Right Column: Visual Artwork Collage (Figma Nodes 261:7, 262:26, 262:27, 262:9, 262:25, 262:28) */}
+          {/* Right Column: Visual Artwork Collage */}
           <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end select-none">
             <div className="relative w-full max-w-[500px] sm:max-w-[540px] h-[450px] sm:h-[490px]">
-              {/* Layer 1: Gray Card Backdrop (Figma Rectangle 30: 438x189, bg-[#dfdfe0], rounded-[20px]) */}
+              {/* Layer 1: Gray Card Backdrop */}
               <div
                 className="absolute top-6 sm:top-8 left-8 sm:left-10 w-[72%] sm:w-[74%] h-[175px] sm:h-[190px] rounded-[24px] bg-[#dfdfe0] z-0"
                 aria-hidden="true"
               />
 
-              {/* Layer 2: Right Light Gray Card with Stylized Motto (Figma Rectangle 31 & Text 262:28) */}
+              {/* Layer 2: Right Light Gray Card with Stylized Motto */}
               <div
                 className="absolute top-20 sm:top-24 -right-6 sm:-right-12 w-[58%] sm:w-[60%] h-[165px] sm:h-[185px] rounded-[22px] bg-[#ebebeb] z-10 flex flex-col justify-center pl-28 sm:pl-32 pr-3 select-none pointer-events-none shadow-xs"
               >
@@ -177,17 +177,17 @@ export default function TefaHeroSection({
                 </div>
               </div>
 
-              {/* Layer 3: Solid Telkom Red Card behind student (Figma Rectangle 28: 333x333, bg-[#bc0c11], rounded-tl-[40px] rounded-tr-[40px]) */}
+              {/* Layer 3: Solid Telkom Red Card behind student */}
               <div
                 className="absolute bottom-0 left-[14%] sm:left-[15%] w-[58%] sm:w-[56%] h-[320px] sm:h-[350px] rounded-t-[36px] sm:rounded-t-[40px] bg-[#bc0c11] z-10 shadow-sm"
                 aria-hidden="true"
               />
 
-              {/* Layer 4: Student Cutout Photo (Aligned to center on red card with left arm overlap) */}
+              {/* Layer 4: Student Cutout Photo */}
               <div className="absolute bottom-0 left-[5%] sm:left-[6%] w-[70%] sm:w-[68%] h-[435px] sm:h-[480px] z-20 pointer-events-none flex items-end justify-center">
                 <div className="relative w-full h-full">
                   <Image
-                    src="/images/tefa/figma-hero-student.png"
+                    src="/images/tefa/tefa-hero-student.png"
                     alt="Siswa Teaching Factory SMK Telkom Sidoarjo"
                     fill
                     sizes="(max-width: 640px) 320px, 360px"
@@ -197,7 +197,7 @@ export default function TefaHeroSection({
                 </div>
               </div>
 
-              {/* Layer 5: Left Floating White Card (Figma Rectangle 29 & Frame 179) */}
+              {/* Layer 5: Left Floating White Card */}
               <div
                 className="absolute top-36 sm:top-40 -left-2 sm:-left-4 bg-white rounded-[20px] p-3.5 sm:p-4 shadow-[0_12px_28px_-6px_rgba(0,0,0,0.12)] border border-gray-100 z-30 max-w-[155px] sm:max-w-[170px]"
               >

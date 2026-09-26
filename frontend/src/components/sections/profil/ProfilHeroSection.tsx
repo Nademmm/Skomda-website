@@ -20,7 +20,7 @@ export default function ProfilHeroSection() {
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Visual Artwork (Exact Figma proportions & layering) */}
+          {/* Left Column: Visual Artwork */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}

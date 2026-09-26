@@ -11,7 +11,7 @@ export default function TrialClassClient() {
 
   return (
     <div className="w-full">
-      {/* Unified Hero & Upcoming Event Section matching Figma */}
+      {/* Unified Hero & Upcoming Event Section matching */}
       <TrialClassHero onOpenRegister={() => setIsModalOpen(true)} />
       <TrialClassFeelingsSection />
       <TrialClassStepsSection />

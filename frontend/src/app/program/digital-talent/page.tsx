@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Pembekalan talenta digital berstandar industri internasional di SMK Telkom Sidoarjo.",
     images: [
       {
-        url: "/images/program/digital-talent/hero-student-talent.png",
+        url: "/images/program/digital-talent/hero-student-digital-talent.png",
         width: 1200,
         height: 630,
         alt: "Talenta Digital Siswa SMK Telkom Sidoarjo",

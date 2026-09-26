@@ -95,7 +95,7 @@ export default function ImageUploadField({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label className="block text-xs font-semibold text-slate-700">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
           {label} {required && <span className="text-[#bc0c11]">*</span>}
         </label>
         <button
@@ -214,7 +214,7 @@ export default function ImageUploadField({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="https://... atau /images/..."
-            className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg bg-white focus:outline-none focus:border-[#bc0c11]"
+            className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
           />
         </div>
       )}

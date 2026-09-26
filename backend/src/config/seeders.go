@@ -221,7 +221,7 @@ func SeedTeachersIfEmpty(db *gorm.DB) {
 			Name:       "Indra Hadi Pranata, S.Pd., M.M.",
 			Role:       "Guru Mata Pelajaran",
 			Category:   "Guru",
-			Image:      "/images/tentang-kami/profil-guru/indra hadi.png",
+			Image:      "/images/tentang-kami/profil-guru/indra-hadi.png",
 			OrderIndex: 27,
 		},
 		{
@@ -404,7 +404,7 @@ func SeedTeachersIfEmpty(db *gorm.DB) {
 			Name:       "Indra Kurniawan",
 			Role:       "Tenaga Keamanan",
 			Category:   "Staf",
-			Image:      "/images/tentang-kami/profil-guru/indra kurniawan.png",
+			Image:      "/images/tentang-kami/profil-guru/indra-kurniawan.png",
 			OrderIndex: 53,
 		},
 	}

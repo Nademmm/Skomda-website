@@ -28,7 +28,7 @@ export default function PrincipalSection() {
           {/* Left Column: Graphic */}
           <div className="flex flex-col items-center justify-center shrink-0 pt-4 sm:pt-10 lg:pt-12">
             <div className="relative h-[293px] sm:h-[353px] w-[340px] sm:w-[409px] flex items-center justify-center transition-transform duration-300 hover:scale-105">
-              {/* 1. Background Art from Figma (Node 96:350 / image 6) */}
+              {/* 1. Background Art from (Node 96:350 / image 6) */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 data-node-id="96:350"

@@ -46,15 +46,19 @@ export default function DigitalTalentClient() {
       <PageHeroSection
         breadcrumbs={[
           { label: t("nav.programs", "Program"), href: "/program/profil-jurusan" },
-          { label: "Digital Talent Program (DTP)", href: "/program/digital-talent" },
+          { label: "Digital Talent Program", href: "/program/digital-talent" },
         ]}
-        titlePrefix="Digital Talent"
-        titleHighlight="Program (DTP)"
-        description="Program pembinaan dan percepatan keahlian digital unggulan SMK Telkom Sidoarjo untuk siswa kelas XI jurusan SIJA dan TJAT. Berbasis kurikulum industri, pendampingan mentor praktisi, dan portofolio proyek riil."
-        studentImage="/images/program/digital-talent/hero-student-talent.png"
+        titlePrefix="Digital"
+        titleHighlight="Talent"
+        titleSuffix="Program"
+        titleHighlightColor="text-[#e7000b]"
+        description="Digital Talent Program merupakan inisiatif unggulan SMK Telkom Sidoarjo untuk membekali siswa dengan keahlian teknologi masa depan melalui model pembelajaran khusus setiap pekan. Siswa mendalami salah satu dari sembilan bidang spesialisasi digital, mengerjakan studi kasus nyata, dan membangun portofolio profesional yang siap bersaing di industri global."
+        studentImage="/images/program/digital-talent/hero-student-digital-talent.png"
         studentAlt="Digital Talent Program SMK Telkom Sidoarjo"
-        ctaText="Jelajahi 9 Spesialisasi"
+        ctaText="Jelajahi"
         ctaHref="#spesialisasi-dtp"
+        imagePosition="right"
+        isIntegratedArtwork={true}
       />
 
       {/* ─── 2. Background & Weekly Learning Model ─── */}

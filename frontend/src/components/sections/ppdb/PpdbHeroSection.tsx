@@ -74,7 +74,7 @@ export default function PpdbHeroSection({ onOpenBrochure }: PpdbHeroSectionProps
             </div>
           </motion.div>
 
-          {/* Right Column: Hero Visual from Figma (Col 5) */}
+          {/* Right Column: Hero Visual from (Col 5) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

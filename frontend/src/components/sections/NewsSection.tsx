@@ -101,45 +101,27 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
       className="w-full bg-[#f3f4f6] pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-28 scroll-mt-24"
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        {/* 1. Header (Figma Node 123:277) */}
+        {/* 1. Header */}
         {showTitle && (
-          <div
-            className="flex flex-col items-center text-center gap-[9px] mb-6 sm:mb-8 lg:mb-10"
-            data-node-id="123:277"
-          >
-            <div
-              className="flex flex-col items-center gap-1 sm:gap-2 w-full"
-              data-node-id="123:276"
-            >
-              <h2
-                className="font-jakarta font-bold text-2xl sm:text-[32px] leading-tight sm:leading-[40px] text-[#101828]"
-                data-node-id="123:5"
-              >
+          <div className="flex flex-col items-center text-center gap-[9px] mb-6 sm:mb-8 lg:mb-10">
+            <div className="flex flex-col items-center gap-1 sm:gap-2 w-full">
+              <h2 className="font-jakarta font-bold text-2xl sm:text-[32px] leading-tight sm:leading-[40px] text-[#101828]">
                 {t("news.title1")}
               </h2>
-              <h3
-                className="font-jakarta font-bold text-3xl sm:text-[46px] leading-tight sm:leading-[40px] text-[#bc0c11]"
-                data-node-id="123:7"
-              >
+              <h3 className="font-jakarta font-bold text-3xl sm:text-[46px] leading-tight sm:leading-[40px] text-[#bc0c11]">
                 {t("news.title2")}
               </h3>
             </div>
-            <p
-              className="font-jakarta font-medium text-sm sm:text-[14px] leading-relaxed sm:leading-[28px] text-[#515151] max-w-[434px]"
-              data-node-id="123:274"
-            >
+            <p className="font-jakarta font-medium text-sm sm:text-[14px] leading-relaxed sm:leading-[28px] text-[#515151] max-w-[434px]">
               {t("news.subtitle")}
             </p>
           </div>
         )}
 
-        {/* Two-Column Layout: Sidebar (125:457) + News Grid & Pagination (125:468) */}
+        {/* Two-Column Layout: Sidebar + News Grid & Pagination */}
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-          {/* 2. Category Filter (Figma Node 125:457) */}
-          <aside
-            className="w-full lg:w-[280px] shrink-0"
-            data-node-id="125:457"
-          >
+          {/* 2. Category Filter */}
+          <aside className="w-full lg:w-[280px] shrink-0">
             {/* Desktop Vertical Sidebar */}
             <div className="hidden lg:flex flex-col gap-1 w-full">
               <div className="px-2.5 py-2 mb-1" data-node-id="125:456">
@@ -232,11 +214,8 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
             </div>
           </aside>
 
-          {/* 3. News Grid & Pagination (Figma Node 125:468) */}
-          <div
-            className="flex-1 w-full flex flex-col gap-10"
-            data-node-id="125:468"
-          >
+          {/* 3. News Grid & Pagination */}
+          <div className="flex-1 w-full flex flex-col gap-10">
             {/* 3x2 News Cards Grid */}
             <div
               className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-5 gap-y-6 lg:gap-y-7 transition-opacity duration-150 ${
@@ -345,12 +324,9 @@ export default function NewsSection({ showTitle = true }: NewsSectionProps) {
               )}
             </div>
 
-            {/* Pagination Controls (Figma Node 125:462) */}
+            {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div
-                className="flex items-center justify-center sm:justify-between w-full pt-4"
-                data-node-id="125:462"
-              >
+              <div className="flex items-center justify-center sm:justify-between w-full pt-4">
                 {/* Previous Page Button */}
                 <div className="p-[10px]" data-node-id="125:461">
                   <button

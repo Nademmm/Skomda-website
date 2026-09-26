@@ -304,7 +304,7 @@ export default function DocumentUploadField({
       {/* Input Manual URL / Path Dokumen */}
       {showManualInput && (
         <div className="pt-2 animate-in fade-in-0 duration-150">
-          <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
             Tautan / Path Dokumen Manual
           </label>
           <div className="flex gap-2">
@@ -313,7 +313,7 @@ export default function DocumentUploadField({
               placeholder="/documents/nama-berkas.pdf atau https://drive.google.com/..."
               value={fileUrl}
               onChange={(e) => onChange({ fileUrl: e.target.value })}
-              className="flex-1 rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#bc0c11]"
+              className="flex-1 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-800 placeholder:text-slate-400 shadow-2xs transition-all duration-150 focus:border-[#bc0c11] focus:ring-2 focus:ring-red-100 focus:outline-none"
             />
           </div>
         </div>

@@ -54,7 +54,7 @@ const NAV_GROUPS: NavGroup[] = [
     group: "Kesiswaan & Sarana",
     items: [
       { title: "Ekstrakurikuler", href: "/admin/ekskul", icon: Activity },
-      { title: "Fasilitas Kampus", href: "/admin/fasilitas", icon: Building2 },
+      { title: "Fasilitas", href: "/admin/fasilitas", icon: Building2 },
       { title: "Dokumen & Regulasi", href: "/admin/dokumen", icon: FileText },
     ],
   },

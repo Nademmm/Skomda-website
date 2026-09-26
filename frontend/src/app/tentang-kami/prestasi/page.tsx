@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Rekam jejak juara dan penghargaan siswa SMK Telkom Sidoarjo.",
     images: [
       {
-        url: "/images/tentang-kami/prestasi/hero-student-prestasi.png",
+        url: "/images/tentang-kami/prestasi/hero-prestasi-lks.png",
         width: 1200,
         height: 630,
         alt: "Siswa Berprestasi SMK Telkom Sidoarjo",

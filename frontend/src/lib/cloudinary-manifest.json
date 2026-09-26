@@ -53,12 +53,6 @@
     "format": "png",
     "bytes": 250327
   },
-  "informasi/pengumuman-kelulusan/hero-student-megaphone.png": {
-    "public_id": "skomda/informasi/pengumuman-kelulusan/hero-student-megaphone",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959777/skomda/informasi/pengumuman-kelulusan/hero-student-megaphone.png",
-    "format": "png",
-    "bytes": 2110521
-  },
   "partners/bnsp.png": {
     "public_id": "skomda/partners/bnsp",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788959778/skomda/partners/bnsp.png",
@@ -233,18 +227,6 @@
     "format": "png",
     "bytes": 23126
   },
-  "program/digital-talent/hero-student-talent.png": {
-    "public_id": "skomda/program/digital-talent/hero-student-talent",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960126/skomda/program/digital-talent/hero-student-talent.png",
-    "format": "png",
-    "bytes": 8412530
-  },
-  "program/profil-jurusan/charen.png": {
-    "public_id": "skomda/program/profil-jurusan/charen",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960250/skomda/program/profil-jurusan/charen.png",
-    "format": "png",
-    "bytes": 1074829
-  },
   "program/profil-jurusan/hero-student-jurusan.png": {
     "public_id": "skomda/program/profil-jurusan/hero-student-jurusan",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788960263/skomda/program/profil-jurusan/hero-student-jurusan.png",
@@ -293,12 +275,6 @@
     "format": "png",
     "bytes": 993436
   },
-  "students/student-megaphone.png": {
-    "public_id": "skomda/students/student-megaphone",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961529/skomda/students/student-megaphone.png",
-    "format": "png",
-    "bytes": 2110521
-  },
   "students/student-red-arms-crossed.png": {
     "public_id": "skomda/students/student-red-arms-crossed",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961535/skomda/students/student-red-arms-crossed.png",
@@ -335,23 +311,11 @@
     "format": "jpg",
     "bytes": 802744
   },
-  "tentang-kami/fasilitas/hero-student-fasilitas.png": {
-    "public_id": "skomda/tentang-kami/fasilitas/hero-student-fasilitas",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961606/skomda/tentang-kami/fasilitas/hero-student-fasilitas.png",
-    "format": "png",
-    "bytes": 10423434
-  },
   "tentang-kami/hub-industri/hub-industri-hero.jpg": {
     "public_id": "skomda/tentang-kami/hub-industri/hub-industri-hero",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961612/skomda/tentang-kami/hub-industri/hub-industri-hero.jpg",
     "format": "jpg",
     "bytes": 937297
-  },
-  "tentang-kami/prestasi/hero-student-prestasi.png": {
-    "public_id": "skomda/tentang-kami/prestasi/hero-student-prestasi",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788961618/skomda/tentang-kami/prestasi/hero-student-prestasi.png",
-    "format": "png",
-    "bytes": 993436
   },
   "tentang-kami/profil-guru/abid.png": {
     "public_id": "skomda/tentang-kami/profil-guru/abid",
@@ -526,18 +490,6 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962531/skomda/tentang-kami/profil-guru/ilham.png",
     "format": "png",
     "bytes": 4238535
-  },
-  "tentang-kami/profil-guru/indra hadi.png": {
-    "public_id": "skomda/tentang-kami/profil-guru/indra hadi",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962535/skomda/tentang-kami/profil-guru/indra%20hadi.png",
-    "format": "png",
-    "bytes": 4572349
-  },
-  "tentang-kami/profil-guru/indra kurniawan.png": {
-    "public_id": "skomda/tentang-kami/profil-guru/indra kurniawan",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1788962544/skomda/tentang-kami/profil-guru/indra%20kurniawan.png",
-    "format": "png",
-    "bytes": 6372915
   },
   "tentang-kami/profil-guru/kazu.png": {
     "public_id": "skomda/tentang-kami/profil-guru/kazu",
@@ -767,30 +719,6 @@
     "format": "png",
     "bytes": 1146437
   },
-  "tefa/figma-building-vector.png": {
-    "public_id": "skomda/tefa/figma-building-vector",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129984/skomda/tefa/figma-building-vector.png",
-    "format": "png",
-    "bytes": 1303167
-  },
-  "tefa/figma-hero-student.png": {
-    "public_id": "skomda/tefa/figma-hero-student",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129985/skomda/tefa/figma-hero-student.png",
-    "format": "png",
-    "bytes": 1969082
-  },
-  "tefa/figma-student-exact.png": {
-    "public_id": "skomda/tefa/figma-student-exact",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129986/skomda/tefa/figma-student-exact.png",
-    "format": "png",
-    "bytes": 1969082
-  },
-  "tefa/figma-vector1-direct.png": {
-    "public_id": "skomda/tefa/figma-vector1-direct",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129988/skomda/tefa/figma-vector1-direct.png",
-    "format": "png",
-    "bytes": 1906684
-  },
   "tefa/icon-all-services.png": {
     "public_id": "skomda/tefa/icon-all-services",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789129989/skomda/tefa/icon-all-services.png",
@@ -850,12 +778,6 @@
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789130000/skomda/tefa/tefa-building-photo.png",
     "format": "png",
     "bytes": 1906684
-  },
-  "tefa/tefa-hero-student.png": {
-    "public_id": "skomda/tefa/tefa-hero-student",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789130002/skomda/tefa/tefa-hero-student.png",
-    "format": "png",
-    "bytes": 1969082
   },
   "trial-class/hero-student.png": {
     "public_id": "skomda/trial-class/hero-student",
@@ -983,47 +905,17 @@
     "format": "jpg",
     "bytes": 938909
   },
-  "berita/berita-billal-spiderman-darjo.png": {
-    "public_id": "skomda/berita/berita-billal-spiderman-darjo",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063596/skomda/berita/berita-billal-spiderman-darjo.png",
-    "format": "png",
-    "bytes": 639919
-  },
-  "berita/berita-bp3mi-korea-selatan.png": {
-    "public_id": "skomda/berita/berita-bp3mi-korea-selatan",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063598/skomda/berita/berita-bp3mi-korea-selatan.png",
-    "format": "png",
-    "bytes": 799830
-  },
   "berita/berita-dtp-9-keahlian.png": {
     "public_id": "skomda/berita/berita-dtp-9-keahlian",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063599/skomda/berita/berita-dtp-9-keahlian.png",
     "format": "png",
     "bytes": 653874
   },
-  "berita/berita-guru-ai-education.png": {
-    "public_id": "skomda/berita/berita-guru-ai-education",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063600/skomda/berita/berita-guru-ai-education.png",
-    "format": "png",
-    "bytes": 549759
-  },
   "berita/berita-hut-ri-81.png": {
     "public_id": "skomda/berita/berita-hut-ri-81",
     "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063601/skomda/berita/berita-hut-ri-81.png",
     "format": "png",
     "bytes": 972582
-  },
-  "berita/berita-hut-telkom-61.png": {
-    "public_id": "skomda/berita/berita-hut-telkom-61",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063602/skomda/berita/berita-hut-telkom-61.png",
-    "format": "png",
-    "bytes": 986071
-  },
-  "berita/berita-kunjungan-industri-guru.png": {
-    "public_id": "skomda/berita/berita-kunjungan-industri-guru",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790063603/skomda/berita/berita-kunjungan-industri-guru.png",
-    "format": "png",
-    "bytes": 655357
   },
   "berita/berita-lks-emas-revano.png": {
     "public_id": "skomda/berita/berita-lks-emas-revano",
@@ -1403,46 +1295,94 @@
     "format": "png",
     "bytes": 876441
   },
-  "tentang-kami/prestasi/hero-prestasi-figma.png": {
-    "public_id": "skomda/tentang-kami/prestasi/hero-prestasi-figma",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140177/skomda/tentang-kami/prestasi/hero-prestasi-figma.png",
+  "informasi/pengumuman-kelulusan/hero-student-kelulusan.png": {
+    "public_id": "skomda/informasi/pengumuman-kelulusan/hero-student-kelulusan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395163/skomda/informasi/pengumuman-kelulusan/hero-student-kelulusan.png",
+    "format": "png",
+    "bytes": 1807846
+  },
+  "program/bkk/hero-student-bkk.png": {
+    "public_id": "skomda/program/bkk/hero-student-bkk",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395165/skomda/program/bkk/hero-student-bkk.png",
+    "format": "png",
+    "bytes": 1478443
+  },
+  "program/digital-talent/hero-student-digital-talent.png": {
+    "public_id": "skomda/program/digital-talent/hero-student-digital-talent",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395167/skomda/program/digital-talent/hero-student-digital-talent.png",
+    "format": "png",
+    "bytes": 1743965
+  },
+  "program/ekstrakurikuler/hero-student-ekskul.png": {
+    "public_id": "skomda/program/ekstrakurikuler/hero-student-ekskul",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395168/skomda/program/ekstrakurikuler/hero-student-ekskul.png",
+    "format": "png",
+    "bytes": 1427238
+  },
+  "program/profil-jurusan/hero-jurusan-student.png": {
+    "public_id": "skomda/program/profil-jurusan/hero-jurusan-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395169/skomda/program/profil-jurusan/hero-jurusan-student.png",
+    "format": "png",
+    "bytes": 1396609
+  },
+  "tefa/tefa-hero-banner.png": {
+    "public_id": "skomda/tefa/tefa-hero-banner",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395172/skomda/tefa/tefa-hero-banner.png",
+    "format": "png",
+    "bytes": 1738286
+  },
+  "tefa/tefa-hero-student.png": {
+    "public_id": "skomda/tefa/tefa-hero-student",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1789130002/skomda/tefa/tefa-hero-student.png",
+    "format": "png",
+    "bytes": 1969082
+  },
+  "tentang-kami/akomodasi/hero-student-akomodasi.png": {
+    "public_id": "skomda/tentang-kami/akomodasi/hero-student-akomodasi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395175/skomda/tentang-kami/akomodasi/hero-student-akomodasi.png",
+    "format": "png",
+    "bytes": 1855264
+  },
+  "tentang-kami/hub-industri/hero-student-hub-industri.png": {
+    "public_id": "skomda/tentang-kami/hub-industri/hero-student-hub-industri",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395176/skomda/tentang-kami/hub-industri/hero-student-hub-industri.png",
+    "format": "png",
+    "bytes": 1417272
+  },
+  "tentang-kami/profil-guru/hero-student-guru.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/hero-student-guru",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395177/skomda/tentang-kami/profil-guru/hero-student-guru.png",
+    "format": "png",
+    "bytes": 1988901
+  },
+  "tentang-kami/profil-guru/indra-hadi.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/indra-hadi",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395179/skomda/tentang-kami/profil-guru/indra-hadi.png",
+    "format": "png",
+    "bytes": 4572349
+  },
+  "tentang-kami/profil-guru/indra-kurniawan.png": {
+    "public_id": "skomda/tentang-kami/profil-guru/indra-kurniawan",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790395183/skomda/tentang-kami/profil-guru/indra-kurniawan.png",
+    "format": "png",
+    "bytes": 6372915
+  },
+  "tentang-kami/prestasi/hero-prestasi-lks.png": {
+    "public_id": "skomda/tentang-kami/prestasi/hero-prestasi-lks",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790402881/skomda/tentang-kami/prestasi/hero-prestasi-lks.png",
     "format": "png",
     "bytes": 2196633
   },
-  "tentang-kami/prestasi/prestasi-ai-video-storytelling-ficpact.png": {
-    "public_id": "skomda/tentang-kami/prestasi/prestasi-ai-video-storytelling-ficpact",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140178/skomda/tentang-kami/prestasi/prestasi-ai-video-storytelling-ficpact.png",
+  "tentang-kami/fasilitas/hero-fasilitas-terpadu.png": {
+    "public_id": "skomda/tentang-kami/fasilitas/hero-fasilitas-terpadu",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790402883/skomda/tentang-kami/fasilitas/hero-fasilitas-terpadu.png",
     "format": "png",
-    "bytes": 741422
+    "bytes": 1855864
   },
-  "tentang-kami/prestasi/prestasi-film-pendek-fls2n.png": {
-    "public_id": "skomda/tentang-kami/prestasi/prestasi-film-pendek-fls2n",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140180/skomda/tentang-kami/prestasi/prestasi-film-pendek-fls2n.png",
+  "program/profil-jurusan/student-sija.png": {
+    "public_id": "skomda/program/profil-jurusan/student-sija",
+    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790403492/skomda/program/profil-jurusan/student-sija.png",
     "format": "png",
-    "bytes": 930401
-  },
-  "tentang-kami/prestasi/prestasi-iitc-generative-ai.png": {
-    "public_id": "skomda/tentang-kami/prestasi/prestasi-iitc-generative-ai",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140180/skomda/tentang-kami/prestasi/prestasi-iitc-generative-ai.png",
-    "format": "png",
-    "bytes": 349421
-  },
-  "tentang-kami/prestasi/prestasi-lafest-telkom-afgan.png": {
-    "public_id": "skomda/tentang-kami/prestasi/prestasi-lafest-telkom-afgan",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140182/skomda/tentang-kami/prestasi/prestasi-lafest-telkom-afgan.png",
-    "format": "png",
-    "bytes": 517975
-  },
-  "tentang-kami/prestasi/prestasi-lks-ai-nasional.png": {
-    "public_id": "skomda/tentang-kami/prestasi/prestasi-lks-ai-nasional",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140183/skomda/tentang-kami/prestasi/prestasi-lks-ai-nasional.png",
-    "format": "png",
-    "bytes": 685616
-  },
-  "tentang-kami/prestasi/prestasi-sdlc-binus-revano.png": {
-    "public_id": "skomda/tentang-kami/prestasi/prestasi-sdlc-binus-revano",
-    "secure_url": "https://res.cloudinary.com/pyrugvo3/image/upload/v1790140184/skomda/tentang-kami/prestasi/prestasi-sdlc-binus-revano.png",
-    "format": "png",
-    "bytes": 583898
+    "bytes": 1696522
   }
 }

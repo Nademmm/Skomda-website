@@ -34,13 +34,6 @@ const API_BASE_URL =
 
 export function normalizeNewsImage(img?: string): string {
   if (!img) return "/images/berita/news-thumb-1.png";
-  if (img.startsWith("/figma/")) {
-    const filename = img.replace("/figma/", "");
-    if (filename === "news-thumb-1.png") return "/images/berita/news-thumb-1.png";
-    if (filename === "charen.png") return "/images/program/profil-jurusan/charen.png";
-    if (filename.startsWith("image")) return `/images/home/hero/${filename}`;
-    return `/images/berita/${filename}`;
-  }
   return img;
 }
 
